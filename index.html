@@ -532,6 +532,15 @@
         </div>
       </div>
 
+      <details class="details-panel" id="analysisProvenancePanel">
+        <summary>Analysis provenance</summary>
+        <div id="analysisProvenanceRows" class="player-card-list" aria-live="polite"></div>
+        <p class="spot-note" style="margin-top:10px!important">
+          Shows the active calculation lineage: analysis unit, probability generator,
+          source-input count, EV evidence status and ROI gate.
+        </p>
+      </details>
+
       <div class="browse-search">
         <label for="browseSearch">Search team or player</label>
         <input
@@ -719,7 +728,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v1.0</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v1.1</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -727,6 +736,7 @@
 
   <script src="src/runtimeContracts.js"></script>
   <script src="src/teamReadiness.js"></script>
+  <script src="src/analysisProvenance.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
@@ -751,6 +761,7 @@
     const dataMarketSourceQuality = document.getElementById("dataMarketSourceQuality");
     const dataTeamReadiness = document.getElementById("dataTeamReadiness");
     const dataRoiGate = document.getElementById("dataRoiGate");
+    const analysisProvenanceRows = document.getElementById("analysisProvenanceRows");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
@@ -810,6 +821,7 @@
     let productionData = null;
     let marketRegistryData = null;
     let teamReadinessData = null;
+    let analysisProvenanceData = null;
     let activeContractReport = null;
     let productCatalog = null;
     let productCatalogContractReport = null;
@@ -930,6 +942,81 @@
 
     function selectedTeamReadiness() {
       return teamReadinessData?.[team.value] || null;
+    }
+
+    function buildCurrentAnalysisProvenance() {
+      if (!productMetadataData || !selectedFormatConfig()) return null;
+
+      return BreakMetricProvenance.build({
+        metadata: productMetadataData,
+        playerProbabilities: playerProbabilityData,
+        playerDerivationManifest: playerDerivationManifestData,
+        marketRegistry: marketRegistryData,
+        teamEv: teamEvData
+      }, {
+        productId: currentProduct?.id || null,
+        formatId: selectedFormat,
+        format: selectedFormatConfig(),
+        team: team.value || null,
+        player: selectedPlayer || null
+      });
+    }
+
+    function updateAnalysisProvenance() {
+      const provenance = buildCurrentAnalysisProvenance();
+      analysisProvenanceData = provenance;
+      analysisProvenanceRows.innerHTML = "";
+
+      if (!provenance) return;
+
+      const validation = BreakMetricProvenance.validate(provenance);
+      if (!validation.valid) {
+        const row = document.createElement("div");
+        row.className = "player-data-row";
+        const left = document.createElement("div");
+        left.textContent = "Provenance validation";
+        const detail = document.createElement("small");
+        detail.textContent = validation.errors.join("; ");
+        left.appendChild(detail);
+        const right = document.createElement("strong");
+        right.textContent = "Failed";
+        row.appendChild(left);
+        row.appendChild(right);
+        analysisProvenanceRows.appendChild(row);
+        return;
+      }
+
+      for (const item of BreakMetricProvenance.summaryLines(provenance)) {
+        const row = document.createElement("div");
+        row.className = "player-data-row";
+
+        const left = document.createElement("div");
+        left.textContent = item.label;
+
+        const right = document.createElement("strong");
+        right.textContent = item.value;
+
+        row.appendChild(left);
+        row.appendChild(right);
+        analysisProvenanceRows.appendChild(row);
+      }
+
+      if (selectedPlayer && provenance.probability.player_probability_available) {
+        const row = document.createElement("div");
+        row.className = "player-data-row";
+
+        const left = document.createElement("div");
+        left.textContent = "Selected player probability coverage";
+
+        const right = document.createElement("strong");
+        right.textContent =
+          Number(provenance.probability.player_probability_coverage_percent || 0)
+            .toFixed(0) + "%";
+
+        row.appendChild(left);
+        row.appendChild(right);
+        analysisProvenanceRows.appendChild(row);
+      }
     }
 
     function updateDataStatusUi() {
@@ -1109,6 +1196,7 @@
       productionData = null;
       marketRegistryData = null;
       teamReadinessData = null;
+      analysisProvenanceData = null;
       activeContractReport = null;
       currentTeamEntry = null;
       currentEvUsd = null;
@@ -1131,6 +1219,7 @@
       dataTeamReadiness.className = "";
       dataRoiGate.textContent = "Withheld";
       dataRoiGate.className = "";
+      analysisProvenanceRows.innerHTML = "";
       setAnalysisLoadState("idle");
     }
 
@@ -1306,6 +1395,27 @@
           return;
         }
 
+        const baseProvenance = BreakMetricProvenance.build(runtimeBundle, {
+          productId: productIdAtStart,
+          formatId: formatIdAtStart,
+          format,
+          team: null,
+          player: null
+        });
+        const provenanceValidation =
+          BreakMetricProvenance.validate(baseProvenance);
+
+        if (!provenanceValidation.valid) {
+          formatStatus.innerHTML =
+            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
+            "</strong> · <span class=\"integrity-fail\">Analysis provenance validation failed.</span>";
+          setAnalysisLoadState(
+            "error",
+            "Analysis blocked: calculation provenance is incomplete."
+          );
+          return;
+        }
+
         productStatus.innerHTML =
           "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
           "</strong> · <span class=\"integrity-pass\">Catalog + product integrity validated.</span>";
@@ -1330,6 +1440,7 @@
         productionData = nextProduction;
         marketRegistryData = nextMarketRegistry;
         teamReadinessData = nextTeamReadiness;
+        analysisProvenanceData = baseProvenance;
         teamEvData = nextTeamEv;
 
         const previousTeam =
@@ -1397,6 +1508,7 @@
         updatePlayerDetail();
         updateResults();
         updateAnalysisContext();
+        updateAnalysisProvenance();
       } catch (error) {
         if (
           error?.name === "StaleProductLoad" ||
@@ -2202,6 +2314,7 @@
       playerChecklistDetail.innerHTML = "";
       playerSerialDetail.innerHTML = "";
       playerCardList.innerHTML = "";
+      updateAnalysisProvenance();
     }
 
     function updatePlayerDetail() {
@@ -2438,6 +2551,7 @@
       }
 
       playerPanel.classList.add("visible");
+      updateAnalysisProvenance();
     }
 
     async function loadInitialFxRate() {
@@ -2701,6 +2815,7 @@
       updateLiveSupply();
       updateResults();
       updateAnalysisContext();
+      updateAnalysisProvenance();
     });
 
     productSearch.addEventListener("input", () => {
