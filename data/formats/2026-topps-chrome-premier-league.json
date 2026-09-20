@@ -1,0 +1,51 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "formats": [
+    {
+      "id": "hobby",
+      "name": "Hobby",
+      "status": "ready",
+      "analysis_format": "Hobby Case",
+      "note": "Current BreakMetric probability and EV model."
+    },
+    {
+      "id": "value-box",
+      "name": "Value Box",
+      "status": "pending",
+      "exclusive_content": [
+        "Monday Night Lights",
+        "Black Edge Chrome"
+      ],
+      "note": "Checklist format identified; format-specific odds model not yet built."
+    },
+    {
+      "id": "tin",
+      "name": "Tin",
+      "status": "pending",
+      "exclusive_content": [
+        "Clinical Chrome",
+        "Black Edge Chrome"
+      ],
+      "note": "Checklist format identified; format-specific odds model not yet built."
+    },
+    {
+      "id": "hanger-box",
+      "name": "Hanger Box",
+      "status": "pending",
+      "exclusive_content": [
+        "Lightning Chrome",
+        "Black Edge Chrome"
+      ],
+      "note": "Checklist format identified; format-specific odds model not yet built."
+    },
+    {
+      "id": "breakers-delight",
+      "name": "Breaker’s Delight",
+      "status": "pending",
+      "exclusive_content": [
+        "Retro Rookies Autographs"
+      ],
+      "note": "Checklist format identified; format-specific odds model not yet built."
+    }
+  ]
+}
