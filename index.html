@@ -281,6 +281,30 @@
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
+
+    function preferredCurrencyFromLocale() {
+      const locale = (navigator.language || "en-US").toUpperCase();
+
+      if (locale.includes("-SE")) return "SEK";
+      if (locale.includes("-GB")) return "GBP";
+
+      const euroRegions = [
+        "AT","BE","HR","CY","EE","FI","FR","DE","GR","IE","IT",
+        "LV","LT","LU","MT","NL","PT","SK","SI","ES"
+      ];
+
+      const regionMatch = locale.match(/-([A-Z]{2})$/);
+      const region = regionMatch ? regionMatch[1] : null;
+
+      if (region && euroRegions.includes(region)) return "EUR";
+      return "USD";
+    }
+
+    const preferredCurrency = preferredCurrencyFromLocale();
+    if ([...currency.options].some(option => option.value === preferredCurrency)) {
+      currency.value = preferredCurrency;
+    }
+
     let lastCurrency = currency.value;
 
     const resultTeam = document.getElementById("resultTeam");
