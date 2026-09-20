@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 15.1,
-      "valued_card_count": 1,
+      "partial_ev_usd": 15.19,
+      "valued_card_count": 2,
       "coverage_complete": false,
       "contributions": [
         {
@@ -16,6 +16,13 @@
           "set": "Chrome Autograph Cards",
           "parallel": "Gold Refractor",
           "ev_contribution_usd": 15.1
+        },
+        {
+          "card_id": "63-gold-refractor",
+          "player": "Cole Palmer",
+          "set": "Base Cards",
+          "parallel": "Gold Refractor",
+          "ev_contribution_usd": 0.0856
         }
       ]
     }
