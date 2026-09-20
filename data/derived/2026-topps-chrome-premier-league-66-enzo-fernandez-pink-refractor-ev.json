@@ -1,0 +1,20 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "66",
+  "player": "Enzo Fernández",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Pink Refractor",
+  "market_value_usd": 5,
+  "hobby": {
+    "parallel_odds_per_pack": "1:52",
+    "eligible_base_cards": 200,
+    "packs_per_case": 240
+  },
+  "assumption": "All 200 standard base subjects are treated as equally likely within the Pink Refractor parallel.",
+  "calculation": {
+    "expected_copies_per_case": 0.023076923076923078,
+    "probability_at_least_one_in_case": 0.02281377159911302,
+    "ev_contribution_usd": 0.11538461538461539
+  }
+}
