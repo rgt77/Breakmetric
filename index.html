@@ -54,7 +54,7 @@
     }
     .tool h2{margin:0 0 8px;font-size:1.5rem}
     .tool p{margin:0 0 22px;color:var(--muted)}
-    .form-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:14px}
+    .form-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
     label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:7px}
     select,input{
       width:100%;
@@ -200,11 +200,7 @@
           <input id="price" type="number" min="0" step="0.01" placeholder="350" />
         </div>
 
-        <div>
-          <label>BreakMetric EV</label>
-          <input id="evDisplay" type="text" value="Loading…" readonly />
-          <div id="evCoverage" style="margin-top:7px;font-size:.78rem;color:var(--muted)">Loading coverage…</div>
-        </div>
+
       </div>
 
       <p id="fxStatus" style="margin-top:12px;font-size:.82rem;color:var(--muted)">
@@ -229,6 +225,7 @@
           <strong id="resultRoi">—</strong>
         </div>
       </div>
+      <div id="evCoverage" style="margin-top:10px;font-size:.82rem;color:var(--muted)">Loading EV coverage…</div>
 
       <details class="details-panel">
         <summary>Show details</summary>
@@ -272,8 +269,7 @@
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
-    const evDisplay = document.getElementById("evDisplay");
-    const evCoverage = document.getElementById("evCoverage");
+
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let autographProbabilityData = null;
@@ -291,6 +287,7 @@
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
     const resultEvSummary = document.getElementById("resultEvSummary");
+    const evCoverage = document.getElementById("evCoverage");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
     const resultExpectedInserts = document.getElementById("resultExpectedInserts");
@@ -350,8 +347,7 @@
         }
 
         if (currentEvUsd !== null) {
-          evDisplay.value = money(currentEvUsd * usdToSelectedRate);
-          resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
+              resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
         }
 
         fxStatus.textContent =
@@ -541,7 +537,6 @@
         updateTeamEv();
         updateResults();
       } catch (error) {
-        evDisplay.value = "EV unavailable";
         resultEvSummary.textContent = "Unavailable";
         evCoverage.textContent = "Coverage unavailable";
         currentTeamEntry = null;
@@ -555,7 +550,6 @@
       if (!entry) {
         currentTeamEntry = null;
         currentEvUsd = null;
-        evDisplay.value = "Not calculated yet";
         resultEvSummary.textContent = "Not ready";
         evCoverage.textContent = "No valued cards yet";
         return;
@@ -563,7 +557,6 @@
 
       currentTeamEntry = entry;
       currentEvUsd = Number(entry.partial_ev_usd);
-      evDisplay.value = money(currentEvUsd * usdToSelectedRate);
       resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
 
       if (entry.coverage_complete) {
