@@ -42,6 +42,80 @@
     return (metadata.teams||[]).map(x=>x?.name).filter(Boolean);
   };
 
+  api.validateProductCatalog=function(catalog={}){
+    const errors=[],warnings=[];
+    const products=catalog.products;
+
+    if(!Array.isArray(products) || !products.length){
+      errors.push("product catalog has no products");
+      return result(errors,warnings);
+    }
+
+    const allowedStatuses=new Set(["ready","pending"]);
+    const ids=[];
+    let readyCount=0;
+    let pendingCount=0;
+
+    for(const product of products){
+      if(typeof product?.id!=="string" || !product.id){
+        errors.push("product id missing");
+        continue;
+      }
+
+      ids.push(product.id);
+
+      if(!allowedStatuses.has(product.status)){
+        errors.push("invalid product status: "+product.id);
+      }
+
+      if(typeof product.display_name!=="string" || !product.display_name){
+        errors.push("product display_name missing: "+product.id);
+      }
+      if(typeof product.brand!=="string" || !product.brand){
+        errors.push("product brand missing: "+product.id);
+      }
+      if(typeof product.competition!=="string" || !product.competition){
+        errors.push("product competition missing: "+product.id);
+      }
+
+      const year=Number(product.year);
+      if(!Number.isInteger(year) || year<1900 || year>2200){
+        errors.push("invalid product year: "+product.id);
+      }
+
+      if(product.status==="ready"){
+        readyCount++;
+        if(product.active!==true){
+          warnings.push("ready product is not active: "+product.id);
+        }
+        for(const key of ["product_data","format_data","integrity_data"]){
+          if(typeof product[key]!=="string" || !product[key]){
+            errors.push("ready product "+product.id+" lacks "+key);
+          }
+        }
+      }
+
+      if(product.status==="pending"){
+        pendingCount++;
+        if(product.active===true){
+          warnings.push("pending product is marked active: "+product.id);
+        }
+        if(product.integrity_data){
+          warnings.push("pending product has integrity_data: "+product.id);
+        }
+      }
+    }
+
+    if(!uniqueStrings(ids)) errors.push("product ids are not unique");
+    if(!readyCount) warnings.push("product catalog has no ready products");
+
+    return result(errors,warnings,{
+      product_count:products.length,
+      ready_product_count:readyCount,
+      pending_product_count:pendingCount
+    });
+  };
+
   api.validateProductMetadata=function(metadata={}, productId){
     const errors=[],warnings=[];
     if(metadata.id!==productId) errors.push("product metadata id mismatch");
@@ -55,6 +129,22 @@
     return result(errors,warnings,{canonical_team_count:teams.length});
   };
 
+  api.validateProductMetadataAgainstCatalog=function(metadata={}, catalogEntry={}){
+    const errors=[],warnings=[];
+
+    if(metadata.id!==catalogEntry.id){
+      errors.push("product metadata id differs from catalog entry");
+    }
+
+    for(const key of ["display_name","brand","competition","year"]){
+      if(String(metadata?.[key] ?? "")!==String(catalogEntry?.[key] ?? "")){
+        errors.push("product metadata "+key+" differs from catalog entry");
+      }
+    }
+
+    return result(errors,warnings);
+  };
+
   api.validateFormatCatalog=function(catalog={}, productId){
     const errors=[],warnings=[];
     if(catalog.product_id!==productId) errors.push("format catalog product_id mismatch");
@@ -62,17 +152,112 @@
       errors.push("format catalog has no formats");
       return result(errors,warnings);
     }
-    const ids=catalog.formats.map(x=>x?.id).filter(Boolean);
-    if(ids.length!==catalog.formats.length) errors.push("format id missing");
-    if(!uniqueStrings(ids)) errors.push("format ids are not unique");
-    const ready=catalog.formats.filter(x=>x?.status==="ready");
-    if(!ready.length) warnings.push("no ready formats");
-    for(const format of ready){
-      if(!format.analysis_data) errors.push("ready format "+format.id+" lacks analysis_data");
-      if(!format.integrity_data) errors.push("ready format "+format.id+" lacks integrity_data");
-      if(!format.analysis_unit) errors.push("ready format "+format.id+" lacks analysis_unit");
+
+    const requiredAnalysisKeys=[
+      "ev_data",
+      "base_checklist_data",
+      "autograph_checklist_data",
+      "player_index_data",
+      "player_probability_data",
+      "team_autograph_probability_data",
+      "team_insert_probability_data",
+      "team_base_parallel_probability_data",
+      "live_supply_data",
+      "sealed_supply_data",
+      "production_estimate_data",
+      "market_evidence_registry_data"
+    ];
+
+    const allowedStatuses=new Set(["ready","pending"]);
+    const ids=[];
+    let readyCount=0;
+    let pendingCount=0;
+
+    for(const format of catalog.formats){
+      if(typeof format?.id!=="string" || !format.id){
+        errors.push("format id missing");
+        continue;
+      }
+      ids.push(format.id);
+
+      if(!allowedStatuses.has(format.status)){
+        errors.push("invalid format status: "+format.id);
+      }
+
+      if(typeof format.name!=="string" || !format.name){
+        errors.push("format name missing: "+format.id);
+      }
+
+      if(format.status==="ready"){
+        readyCount++;
+
+        if(!format.analysis_data || typeof format.analysis_data!=="object"){
+          errors.push("ready format "+format.id+" lacks analysis_data");
+        }else{
+          for(const key of requiredAnalysisKeys){
+            if(typeof format.analysis_data[key]!=="string" || !format.analysis_data[key]){
+              errors.push("ready format "+format.id+" lacks analysis route "+key);
+            }
+          }
+        }
+
+        if(typeof format.integrity_data!=="string" || !format.integrity_data){
+          errors.push("ready format "+format.id+" lacks integrity_data");
+        }
+
+        const config=format.configuration||{};
+        for(const key of ["boxes_per_case","packs_per_box","cards_per_pack"]){
+          if(!finite(config[key]) || Number(config[key])<=0){
+            errors.push("ready format "+format.id+" has invalid configuration "+key);
+          }
+        }
+
+        const unit=format.analysis_unit||{};
+        if(unit.type!=="case"){
+          errors.push("ready format "+format.id+" analysis unit must be case");
+        }
+        if(typeof unit.display_name!=="string" || !unit.display_name){
+          errors.push("ready format "+format.id+" analysis unit display_name missing");
+        }
+
+        const expectedBoxes=Number(config.boxes_per_case);
+        const expectedPacks=expectedBoxes*Number(config.packs_per_box);
+        const expectedCards=expectedPacks*Number(config.cards_per_pack);
+
+        if(Number(unit.cases)!==1){
+          errors.push("ready format "+format.id+" analysis unit cases must equal 1");
+        }
+        if(Number(unit.boxes)!==expectedBoxes){
+          errors.push("ready format "+format.id+" analysis unit boxes mismatch");
+        }
+        if(Number(unit.packs)!==expectedPacks){
+          errors.push("ready format "+format.id+" analysis unit packs mismatch");
+        }
+        if(Number(unit.cards)!==expectedCards){
+          errors.push("ready format "+format.id+" analysis unit cards mismatch");
+        }
+      }
+
+      if(format.status==="pending"){
+        pendingCount++;
+        if(format.analysis_data!==null){
+          errors.push("pending format "+format.id+" must have null analysis_data");
+        }
+        if(format.integrity_data!==null){
+          errors.push("pending format "+format.id+" must have null integrity_data");
+        }
+      }
     }
-    return result(errors,warnings,{format_count:catalog.formats.length,ready_format_count:ready.length});
+
+    if(!uniqueStrings(ids)) errors.push("format ids are not unique");
+    if(!readyCount) warnings.push("no ready formats");
+
+    return result(errors,warnings,{
+      format_count:catalog.formats.length,
+      ready_format_count:readyCount,
+      pending_format_count:pendingCount,
+      required_analysis_route_count:requiredAnalysisKeys.length
+    });
   };
 
   api.validateProductId=function(data={}, productId, label="dataset"){
