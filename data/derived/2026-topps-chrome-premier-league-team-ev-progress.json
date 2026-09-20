@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 42.46,
-      "valued_card_count": 23,
+      "partial_ev_usd": 42.72,
+      "valued_card_count": 27,
       "coverage_complete": false,
       "contributions": [
         {
@@ -170,6 +170,34 @@
           "set": "Base Cards",
           "parallel": "Aqua Refractor",
           "ev_contribution_usd": 0.1472
+        },
+        {
+          "card_id": "67-pink-refractor",
+          "player": "Moisés Caicedo",
+          "set": "Base Cards",
+          "parallel": "Pink Refractor",
+          "ev_contribution_usd": 0.0981
+        },
+        {
+          "card_id": "65-aqua-refractor",
+          "player": "Jorrel Hato",
+          "set": "Base Cards",
+          "parallel": "Aqua Refractor",
+          "ev_contribution_usd": 0.0208
+        },
+        {
+          "card_id": "61-blue-refractor",
+          "player": "João Pedro",
+          "set": "Base Cards",
+          "parallel": "Blue Refractor",
+          "ev_contribution_usd": 0.0911
+        },
+        {
+          "card_id": "64-pink-refractor",
+          "player": "Shumaira Mheuka",
+          "set": "Base Cards",
+          "parallel": "Pink Refractor",
+          "ev_contribution_usd": 0.0462
         }
       ]
     }
