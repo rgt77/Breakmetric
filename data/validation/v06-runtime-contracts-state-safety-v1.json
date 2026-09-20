@@ -1,0 +1,96 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 236-285",
+  "release": "BreakMetric v0.6",
+  "javascript_syntax": {
+    "inline_app": {
+      "pass": true,
+      "error": null
+    },
+    "runtime_contracts": {
+      "pass": true,
+      "error": null
+    }
+  },
+  "live_contract_validation": {
+    "format_catalog": {
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "format_count": 5,
+        "ready_format_count": 1
+      }
+    },
+    "analysis_bundle": {
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "canonical_team_count": 20,
+        "base_card_count": 201,
+        "autograph_card_count": 128,
+        "indexed_player_team_pairs": 364,
+        "player_probability_rows": 364,
+        "autograph_probability_team_rows": 19,
+        "insert_probability_team_rows": 20,
+        "base_parallel_probability_team_rows": 20,
+        "ev_contribution_count": 27,
+        "market_audit_entry_count": 27
+      }
+    }
+  },
+  "checks": {
+    "step_236": true,
+    "step_237": true,
+    "step_238": true,
+    "step_239": true,
+    "step_240": true,
+    "step_241": true,
+    "step_242": true,
+    "step_243": true,
+    "step_244": true,
+    "step_245": true,
+    "step_246": true,
+    "step_247": true,
+    "step_248": true,
+    "step_249": true,
+    "step_250": true,
+    "step_251": true,
+    "step_252": true,
+    "step_253": true,
+    "step_254": true,
+    "step_255": true,
+    "step_256": true,
+    "step_257": true,
+    "step_258": true,
+    "step_259": true,
+    "step_260": true,
+    "step_261": true,
+    "step_262": true,
+    "step_263": true,
+    "step_264": true,
+    "step_265": true,
+    "step_266": true,
+    "step_267": true,
+    "step_268": true,
+    "step_269": true,
+    "step_270": true,
+    "step_271": true,
+    "step_272": true,
+    "step_273": true,
+    "step_274": true,
+    "step_275": true,
+    "step_276": true,
+    "step_277": true,
+    "step_278": true,
+    "step_279": true,
+    "step_280": true,
+    "step_281": true,
+    "step_282": true,
+    "step_283": true,
+    "step_284": true,
+    "step_285": true
+  },
+  "result": "pass"
+}
