@@ -112,6 +112,42 @@
       font-size:.82rem;
       line-height:1.45;
     }
+    .format-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+      margin:10px 0 12px;
+    }
+    .format-card{
+      margin:0;
+      min-height:88px;
+      text-align:left;
+      border:1px solid var(--line);
+      background:#0e1528;
+      color:var(--text);
+      border-radius:13px;
+      padding:14px;
+      cursor:pointer;
+      font:inherit;
+    }
+    .format-card.active{
+      border-color:var(--accent);
+      background:rgba(101,230,180,.08);
+    }
+    .format-card strong{display:block;font-size:.95rem}
+    .format-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
+    .format-card .format-state{color:var(--accent)}
+    .format-status{
+      margin:8px 0 18px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#0e1528;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    .format-status strong{color:var(--text)}
+    #analysisContent[hidden]{display:none}
     .browse-search{margin:20px 0 6px}
     .browse-search input{padding:14px 16px}
     .browse-search-hint{margin:7px 0 0!important;font-size:.75rem;color:var(--muted)}
@@ -343,6 +379,13 @@
       </div>
 
       
+      <div class="section-title">1 · Choose box type</div>
+      <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
+      <div id="formatStatus" class="format-status" aria-live="polite">
+        Loading box formats…
+      </div>
+
+      <div id="analysisContent">
       <div class="browse-search">
         <label for="browseSearch">Search team or player</label>
         <input
@@ -356,7 +399,7 @@
         </p>
       </div>
 
-      <div class="section-title">1 · Choose team</div>
+      <div class="section-title">2 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true">
             <option>AFC Bournemouth</option>
@@ -381,7 +424,7 @@
             <option>Wolverhampton Wanderers</option>
           </select>
       <div class="player-browser">
-        <div class="section-title">2 · Choose player</div>
+        <div class="section-title">3 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players"></div>
       </div>
 
@@ -550,6 +593,7 @@
         </div>
       </details>
 
+      </div>
       <p class="status"><b>BreakMetric v0.2</b> — interactive prototype.</p>
     </section>
   </main>
@@ -562,6 +606,9 @@
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
+    const formatGrid = document.getElementById("formatGrid");
+    const formatStatus = document.getElementById("formatStatus");
+    const analysisContent = document.getElementById("analysisContent");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
@@ -599,6 +646,8 @@
       price.value = savedSpotPrice;
     }
 
+    let formatCatalogData = null;
+    let selectedFormat = localStorage.getItem("breakmetric_format") || "hobby";
     let teamEvData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
@@ -618,6 +667,89 @@
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
+
+    async function loadFormats() {
+      try {
+        const response = await fetch(
+          "data/formats/2026-topps-chrome-premier-league.json"
+        );
+        if (!response.ok) throw new Error("Format catalog unavailable");
+        formatCatalogData = await response.json();
+
+        if (!(formatCatalogData.formats || []).some(item => item.id === selectedFormat)) {
+          selectedFormat = "hobby";
+        }
+
+        renderFormats();
+        applyFormatSelection();
+      } catch (error) {
+        formatStatus.textContent = "Box format data unavailable.";
+        analysisContent.hidden = true;
+      }
+    }
+
+    function renderFormats() {
+      formatGrid.innerHTML = "";
+      const formats = formatCatalogData?.formats || [];
+
+      for (const item of formats) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "format-card" + (selectedFormat === item.id ? " active" : "");
+
+        const title = document.createElement("strong");
+        title.textContent = item.name;
+
+        const state = document.createElement("span");
+        state.className = "format-state";
+        state.textContent = item.status === "ready" ? "Analysis ready" : "Model pending";
+
+        const note = document.createElement("span");
+        note.textContent = item.note || "";
+
+        button.appendChild(title);
+        button.appendChild(state);
+        button.appendChild(note);
+
+        button.addEventListener("click", () => {
+          selectedFormat = item.id;
+          localStorage.setItem("breakmetric_format", selectedFormat);
+          renderFormats();
+          applyFormatSelection();
+        });
+
+        formatGrid.appendChild(button);
+      }
+    }
+
+    function applyFormatSelection() {
+      const selected = (formatCatalogData?.formats || [])
+        .find(item => item.id === selectedFormat);
+
+      if (!selected) {
+        analysisContent.hidden = true;
+        formatStatus.textContent = "Select a box format.";
+        return;
+      }
+
+      if (selected.status === "ready") {
+        analysisContent.hidden = false;
+        formatStatus.innerHTML =
+          "<strong>" + selected.name + "</strong> · Full current BreakMetric analysis available.";
+        renderTeams();
+        renderPlayers();
+        updatePlayerDetail();
+        updateResults();
+        return;
+      }
+
+      analysisContent.hidden = true;
+      const exclusive = (selected.exclusive_content || []).join(", ");
+      formatStatus.innerHTML =
+        "<strong>" + selected.name + "</strong> · Format recognized, but its own odds/EV model is not built yet." +
+        (exclusive ? " Exclusive checklist content: " + exclusive + "." : "");
+    }
 
     function preferredCurrencyFromLocale() {
       const locale = (navigator.language || "en-US").toUpperCase();
@@ -1581,6 +1713,7 @@
       renderPlayers();
     });
 
+    loadFormats();
     renderTeams();
 
     const savedPlayer = localStorage.getItem("breakmetric_player");
