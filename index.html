@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BreakMetric — Sports Card Break Analysis</title>
-  <meta name="description" content="BreakMetric helps compare sports card break spots using odds, expected value and risk." />
+  <meta name="description" content="BreakMetric helps compare sports card break spots using published odds, checklist-derived probabilities and evidence-gated expected value." />
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1020'/%3E%3Cpath d='M15 14h20c10 0 16 5 16 13 0 5-3 9-8 11 6 2 9 6 9 12H41c0-5-3-7-9-7h-6v7H15V14zm11 10v10h8c4 0 6-2 6-5s-2-5-6-5h-8z' fill='%2365e6b4'/%3E%3C/svg%3E" />
   <style>
     :root{
       --bg:#0b1020;
@@ -1197,6 +1199,22 @@
       return value;
     }
 
+    function setStatusLine(element, title, message, tone = "") {
+      element.replaceChildren();
+
+      if (title) {
+        const strong = document.createElement("strong");
+        strong.textContent = title;
+        element.appendChild(strong);
+        element.appendChild(document.createTextNode(" · "));
+      }
+
+      const span = document.createElement("span");
+      if (tone) span.className = tone;
+      span.textContent = message;
+      element.appendChild(span);
+    }
+
     function setAnalysisLoadState(state, message = "") {
       analysisLoadState = state;
       analysisContent.dataset.loadState = state;
@@ -1388,9 +1406,12 @@
 
         if (!runtimeContract.valid) {
           activeContractReport = runtimeContract;
-          formatStatus.innerHTML =
-            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Runtime data contract failed.</span>";
+          setStatusLine(
+            formatStatus,
+            selectedFormatConfig()?.name || "Box format",
+            "Runtime data contract failed.",
+            "integrity-fail"
+          );
           setAnalysisLoadState(
             "error",
             "Analysis blocked: runtime data contract validation failed."
@@ -1402,9 +1423,12 @@
           productIntegrity?.result !== "pass" ||
           productIntegrity?.product_id !== productIdAtStart
         ) {
-          productStatus.innerHTML =
-            "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
-            "</strong> · <span class=\"integrity-fail\">Dataset integrity check failed.</span>";
+          setStatusLine(
+            productStatus,
+            currentProduct?.display_name || currentProduct?.name || "Product",
+            "Dataset integrity check failed.",
+            "integrity-fail"
+          );
           setAnalysisLoadState(
             "error",
             "Analysis blocked: product integrity validation failed."
@@ -1417,9 +1441,12 @@
           formatIntegrity?.product_id !== productIdAtStart ||
           formatIntegrity?.format_id !== formatIdAtStart
         ) {
-          formatStatus.innerHTML =
-            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Format integrity check failed.</span>";
+          setStatusLine(
+            formatStatus,
+            selectedFormatConfig()?.name || "Box format",
+            "Format integrity check failed.",
+            "integrity-fail"
+          );
           setAnalysisLoadState(
             "error",
             "Analysis blocked: box-format integrity validation failed."
@@ -1437,9 +1464,12 @@
           );
 
         if (!readinessValidation.valid) {
-          formatStatus.innerHTML =
-            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Team readiness validation failed.</span>";
+          setStatusLine(
+            formatStatus,
+            selectedFormatConfig()?.name || "Box format",
+            "Team readiness validation failed.",
+            "integrity-fail"
+          );
           setAnalysisLoadState(
             "error",
             "Analysis blocked: team readiness does not match the loaded datasets."
@@ -1458,9 +1488,12 @@
           BreakMetricProvenance.validate(baseProvenance);
 
         if (!provenanceValidation.valid) {
-          formatStatus.innerHTML =
-            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Analysis provenance validation failed.</span>";
+          setStatusLine(
+            formatStatus,
+            selectedFormatConfig()?.name || "Box format",
+            "Analysis provenance validation failed.",
+            "integrity-fail"
+          );
           setAnalysisLoadState(
             "error",
             "Analysis blocked: calculation provenance is incomplete."
@@ -1468,13 +1501,19 @@
           return;
         }
 
-        productStatus.innerHTML =
-          "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
-          "</strong> · <span class=\"integrity-pass\">Catalog + product integrity validated.</span>";
+        setStatusLine(
+          productStatus,
+          currentProduct?.display_name || currentProduct?.name || "Product",
+          "Catalog + product integrity validated.",
+          "integrity-pass"
+        );
 
-        formatStatus.innerHTML =
-          "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-          "</strong> · <span class=\"integrity-pass\">Manifest + derivation + format integrity + runtime contract validated.</span>";
+        setStatusLine(
+          formatStatus,
+          selectedFormatConfig()?.name || "Box format",
+          "Manifest + derivation + format integrity + runtime contract validated.",
+          "integrity-pass"
+        );
         setAnalysisLoadState("ready");
 
         activeContractReport = runtimeContract;
@@ -1764,17 +1803,22 @@
 
       if (selected.status === "ready") {
         setAnalysisLoadState("idle");
-        formatStatus.innerHTML =
-          "<strong>" + selected.name +
-          "</strong> · Analysis available · integrity check pending.";
+        setStatusLine(
+          formatStatus,
+          selected.name,
+          "Analysis available · integrity check pending."
+        );
         return;
       }
 
       analysisContent.hidden = true;
       const exclusive = (selected.exclusive_content || []).join(", ");
-      formatStatus.innerHTML =
-        "<strong>" + selected.name + "</strong> · Format recognized, but its own odds/EV model is not built yet." +
-        (exclusive ? " Exclusive checklist content: " + exclusive + "." : "");
+      setStatusLine(
+        formatStatus,
+        selected.name,
+        "Format recognized, but its own odds/EV model is not built yet." +
+          (exclusive ? " Exclusive checklist content: " + exclusive + "." : "")
+      );
     }
 
     function renderProducts() {
@@ -1888,16 +1932,20 @@
       }
 
       if (selected.status === "ready") {
-        productStatus.innerHTML =
-          "<strong>" + (selected.display_name || selected.name) +
-          "</strong> · Dataset available · integrity check pending.";
+        setStatusLine(
+          productStatus,
+          selected.display_name || selected.name,
+          "Dataset available · integrity check pending."
+        );
         formatStage.hidden = false;
         return;
       }
 
-      productStatus.innerHTML =
-        "<strong>" + (selected.display_name || selected.name) +
-        "</strong> · Product slot exists, but odds/checklist/EV data has not been added yet.";
+      setStatusLine(
+        productStatus,
+        selected.display_name || selected.name,
+        "Product slot exists, but odds/checklist/EV data has not been added yet."
+      );
       formatCatalogData = null;
       formatGrid.innerHTML = "";
       formatStatus.textContent = "No analysis-ready box format for this release.";
