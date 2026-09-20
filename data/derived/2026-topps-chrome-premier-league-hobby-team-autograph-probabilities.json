@@ -1,0 +1,135 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "model": "conditional autograph-pool model",
+  "assumptions": [
+    "Topps Hobby autograph odds are treated as relative frequencies within the autograph pool.",
+    "A Hobby case contains 12 boxes and the product states one autograph per box.",
+    "Within each autograph checklist/variant, listed cards are treated as equally likely unless more granular manufacturer data becomes available.",
+    "Cards assigned to exactly one team contribute to that team's current probability.",
+    "Cards with no explicit team or multiple teams are excluded from team-specific probability until allocation rules are defined."
+  ],
+  "validation": {
+    "summed_autograph_rate_per_pack": 0.0499625,
+    "implied_autographs_per_20_pack_box": 0.99925,
+    "target_autographs_per_box": 1,
+    "unresolved_share_percent": 0.005,
+    "ambiguous_multi_team_share_percent": 0.007
+  },
+  "teams": [
+    {
+      "team": "Manchester United",
+      "share_of_autograph_pool_percent": 15.068,
+      "expected_autographs_per_12_box_case": 1.808,
+      "chance_at_least_one_autograph_in_case_percent": 85.91
+    },
+    {
+      "team": "Arsenal",
+      "share_of_autograph_pool_percent": 12.14,
+      "expected_autographs_per_12_box_case": 1.457,
+      "chance_at_least_one_autograph_in_case_percent": 78.84
+    },
+    {
+      "team": "Liverpool FC",
+      "share_of_autograph_pool_percent": 10.95,
+      "expected_autographs_per_12_box_case": 1.314,
+      "chance_at_least_one_autograph_in_case_percent": 75.13
+    },
+    {
+      "team": "Chelsea",
+      "share_of_autograph_pool_percent": 10.875,
+      "expected_autographs_per_12_box_case": 1.305,
+      "chance_at_least_one_autograph_in_case_percent": 74.88
+    },
+    {
+      "team": "Tottenham Hotspur",
+      "share_of_autograph_pool_percent": 8.645,
+      "expected_autographs_per_12_box_case": 1.037,
+      "chance_at_least_one_autograph_in_case_percent": 66.21
+    },
+    {
+      "team": "Newcastle United",
+      "share_of_autograph_pool_percent": 6.893,
+      "expected_autographs_per_12_box_case": 0.827,
+      "chance_at_least_one_autograph_in_case_percent": 57.56
+    },
+    {
+      "team": "Manchester City",
+      "share_of_autograph_pool_percent": 6.401,
+      "expected_autographs_per_12_box_case": 0.768,
+      "chance_at_least_one_autograph_in_case_percent": 54.79
+    },
+    {
+      "team": "West Ham United",
+      "share_of_autograph_pool_percent": 4.649,
+      "expected_autographs_per_12_box_case": 0.558,
+      "chance_at_least_one_autograph_in_case_percent": 43.52
+    },
+    {
+      "team": "Aston Villa",
+      "share_of_autograph_pool_percent": 4.575,
+      "expected_autographs_per_12_box_case": 0.549,
+      "chance_at_least_one_autograph_in_case_percent": 42.99
+    },
+    {
+      "team": "Everton",
+      "share_of_autograph_pool_percent": 4.004,
+      "expected_autographs_per_12_box_case": 0.481,
+      "chance_at_least_one_autograph_in_case_percent": 38.76
+    },
+    {
+      "team": "Nottingham Forest",
+      "share_of_autograph_pool_percent": 3.002,
+      "expected_autographs_per_12_box_case": 0.36,
+      "chance_at_least_one_autograph_in_case_percent": 30.63
+    },
+    {
+      "team": "Brighton & Hove Albion",
+      "share_of_autograph_pool_percent": 2.95,
+      "expected_autographs_per_12_box_case": 0.354,
+      "chance_at_least_one_autograph_in_case_percent": 30.18
+    },
+    {
+      "team": "Crystal Palace",
+      "share_of_autograph_pool_percent": 2.305,
+      "expected_autographs_per_12_box_case": 0.277,
+      "chance_at_least_one_autograph_in_case_percent": 24.41
+    },
+    {
+      "team": "Leeds United",
+      "share_of_autograph_pool_percent": 2.212,
+      "expected_autographs_per_12_box_case": 0.265,
+      "chance_at_least_one_autograph_in_case_percent": 23.55
+    },
+    {
+      "team": "Fulham",
+      "share_of_autograph_pool_percent": 1.567,
+      "expected_autographs_per_12_box_case": 0.188,
+      "chance_at_least_one_autograph_in_case_percent": 17.27
+    },
+    {
+      "team": "Sunderland",
+      "share_of_autograph_pool_percent": 1.507,
+      "expected_autographs_per_12_box_case": 0.181,
+      "chance_at_least_one_autograph_in_case_percent": 16.65
+    },
+    {
+      "team": "Wolverhampton Wanderers",
+      "share_of_autograph_pool_percent": 0.769,
+      "expected_autographs_per_12_box_case": 0.092,
+      "chance_at_least_one_autograph_in_case_percent": 8.85
+    },
+    {
+      "team": "Brentford",
+      "share_of_autograph_pool_percent": 0.737,
+      "expected_autographs_per_12_box_case": 0.088,
+      "chance_at_least_one_autograph_in_case_percent": 8.5
+    },
+    {
+      "team": "Burnley FC",
+      "share_of_autograph_pool_percent": 0.737,
+      "expected_autographs_per_12_box_case": 0.088,
+      "chance_at_least_one_autograph_in_case_percent": 8.5
+    }
+  ]
+}
