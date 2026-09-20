@@ -1,0 +1,14 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby Case",
+  "currency": "USD",
+  "methodology_status": "partial",
+  "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
+  "teams": {
+    "Chelsea": {
+      "partial_ev_usd": 15.1,
+      "valued_card_count": 1,
+      "coverage_complete": false
+    }
+  }
+}
