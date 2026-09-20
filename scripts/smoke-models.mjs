@@ -111,6 +111,26 @@ const contract=sandbox.BreakMetricContracts.validateFormatCatalog(
 );
 assert(contract.valid,"format contract failed: "+contract.errors.join("; "));
 
+const metadata=JSON.parse(
+  fs.readFileSync(path.join(root,"data/products/2026-topps-chrome-premier-league.json"),"utf8")
+);
+const evData=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"),"utf8")
+);
+const evScope=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-ev-scope-v1.json"),"utf8")
+);
+const evScopeContract=sandbox.BreakMetricContracts.validateEvScope(
+  evScope,
+  "2026-topps-chrome-premier-league",
+  "hobby",
+  metadata.teams.map(row=>row.name),
+  evData
+);
+assert(evScopeContract.valid,"EV scope contract failed: "+evScopeContract.errors.join("; "));
+assert(evScopeContract.metrics.ev_scope_partial_team_count===1,"EV scope partial-team smoke failed");
+assert(evScopeContract.metrics.ev_scope_complete_team_count===0,"EV scope complete-team smoke failed");
+
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(
   sandbox.BreakMetricErrors.userMessage({name:"DataContractError"}).includes("integrity contract"),
