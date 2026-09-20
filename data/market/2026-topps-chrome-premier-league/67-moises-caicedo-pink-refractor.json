@@ -1,0 +1,47 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "67",
+  "player": "Moisés Caicedo",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Pink Refractor",
+  "serial_numbering": 250,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-05-26",
+      "sale_price": 5.54,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/moises-caicedo-pink-refractor-67",
+      "verified_as_realized_sale": true
+    },
+    {
+      "sale_date": "2026-05-25",
+      "sale_price": 3.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/moises-caicedo-pink-refractor-67",
+      "verified_as_realized_sale": true
+    },
+    {
+      "sale_date": "2026-02-15",
+      "sale_price": 4.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/moises-caicedo-pink-refractor-67",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 4.25,
+    "mean_usd": 4.59,
+    "min_usd": 3.99,
+    "max_usd": 5.54,
+    "sale_count": 3,
+    "confidence": "low"
+  },
+  "note": "Only listings whose sale title matched this exact Hobby parallel were included."
+}
