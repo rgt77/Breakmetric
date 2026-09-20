@@ -1,0 +1,25 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "validated_at": "2026-09-20",
+  "version": 1,
+  "scope": "ready-product manifest, dataset ownership and canonical team integrity",
+  "canonical_team_count": 20,
+  "checks": {
+    "step_175_all_manifest_files_resolve": true,
+    "step_176_all_dataset_ids_match_product": true,
+    "step_177_base_team_set_matches_product": true,
+    "step_177_player_index_team_set_matches_product": true,
+    "step_177_player_probability_team_set_matches_product": true,
+    "step_177_insert_probability_team_set_matches_product": true,
+    "step_177_base_probability_team_set_matches_product": true,
+    "step_177_autograph_probability_teams_are_valid_subset": true,
+    "step_177_missing_autograph_probability_teams_have_zero_checklist_count": true,
+    "step_177_ev_teams_are_valid_subset": true,
+    "step_177_live_supply_teams_are_valid_subset": true
+  },
+  "notes": [
+    "AFC Bournemouth is absent from the team autograph probability rows because its stored Chrome Autographs checklist count is zero.",
+    "EV and Live Supply team collections are allowed to be subsets because those datasets are intentionally partial."
+  ],
+  "result": "pass"
+}
