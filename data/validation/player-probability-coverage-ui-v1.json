@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 146-155",
+  "checks": {
+    "adaptive_player_metrics": true,
+    "base_hit_chance_visible": true,
+    "insert_hit_chance_visible": true,
+    "auto_hit_chance_preserved": true,
+    "overall_hit_chance_preserved": true,
+    "coverage_metric_visible": true,
+    "coverage_uses_modeled_and_total_entries": true,
+    "unmapped_sections_supported": true,
+    "coverage_caveat_visible": true,
+    "player_ev_and_serials_preserved": true
+  },
+  "result": "pass"
+}
