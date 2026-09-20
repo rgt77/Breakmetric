@@ -696,7 +696,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.6</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.7</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -782,7 +782,7 @@
     let liveSupplyData = null;
     let sealedSupplyData = null;
     let productionData = null;
-    let marketAuditData = null;
+    let marketRegistryData = null;
     let activeContractReport = null;
     let productCatalog = null;
     let currentProduct = null;
@@ -894,25 +894,9 @@
       return parts.length ? parts.join(" · ") : "Configuration pending";
     }
 
-    function marketAuditMatchesEvSnapshot(audit, evData) {
-      const auditedTeam = audit?.team;
-      const teamEntry = auditedTeam ? evData?.teams?.[auditedTeam] : null;
 
-      if (!auditedTeam || !teamEntry) return false;
-
-      const auditKeys = (audit.entries || [])
-        .map(item => item.card_id + "|" + item.source_file)
-        .sort();
-
-      const evKeys = (teamEntry.contributions || [])
-        .map(item => item.card_id + "|" + item.market_source_file)
-        .sort();
-
-      return (
-        auditKeys.length === evKeys.length &&
-        auditKeys.every((key,index) => key === evKeys[index]) &&
-        Number(audit.audited_card_contributions || 0) === evKeys.length
-      );
+    function selectedTeamMarketEvidence() {
+      return marketRegistryData?.teams?.[team.value] || null;
     }
 
     function updateDataStatusUi() {
@@ -944,19 +928,17 @@
         dataMarketCoverage.className = "status-warn";
       }
 
-      const teamEvidence = currentTeamEntry?.market_evidence || null;
-      const auditAppliesToTeam = marketAuditData?.team === team.value;
-      const audited = auditAppliesToTeam
-        ? Number(teamEvidence?.audited_contribution_count || 0)
-        : 0;
-      const originalVerified = auditAppliesToTeam
-        ? Number(teamEvidence?.original_marketplace_verified_contribution_count || 0)
-        : 0;
+      const teamEvidence = selectedTeamMarketEvidence();
+      const audited = Number(teamEvidence?.audited_contribution_count || 0);
+      const originalVerified = Number(
+        teamEvidence?.original_marketplace_verified_contribution_count || 0
+      );
 
-      if (!auditAppliesToTeam || !teamEvidence) {
-        dataMarketSourceQuality.textContent = "No audited market data for " + team.value;
+      if (!teamEvidence || teamEvidence.status === "not-audited") {
+        dataMarketSourceQuality.textContent =
+          "No audited market data for " + team.value;
         dataMarketSourceQuality.className = "status-warn";
-      } else if (teamEvidence.status === "secondary-source-only") {
+      } else if (teamEvidence.market_evidence_status === "secondary-source-only") {
         dataMarketSourceQuality.textContent =
           "Secondary only · " + originalVerified + "/" + audited + " original verified";
         dataMarketSourceQuality.className = "status-warn";
@@ -969,14 +951,15 @@
           "Mixed · " + originalVerified + "/" + audited + " original verified";
         dataMarketSourceQuality.className = "status-warn";
       } else {
-        dataMarketSourceQuality.textContent = "No audited market data for " + team.value;
+        dataMarketSourceQuality.textContent =
+          "No audited market data for " + team.value;
         dataMarketSourceQuality.className = "status-warn";
       }
 
       if (!currentTeamEntry?.coverage_complete) {
         dataRoiGate.textContent = "Withheld · EV incomplete";
         dataRoiGate.className = "status-warn";
-      } else if (currentTeamEntry?.market_evidence?.roi_eligible !== true) {
+      } else if (selectedTeamMarketEvidence()?.roi_eligible !== true) {
         dataRoiGate.textContent = "Withheld · source verification";
         dataRoiGate.className = "status-warn";
       } else if (!(Number(price.value) > 0)) {
@@ -1074,7 +1057,7 @@
       liveSupplyData = null;
       sealedSupplyData = null;
       productionData = null;
-      marketAuditData = null;
+      marketRegistryData = null;
       activeContractReport = null;
       currentTeamEntry = null;
       currentEvUsd = null;
@@ -1134,7 +1117,7 @@
           liveSupply: formatPath("live_supply_data"),
           sealedSupply: formatPath("sealed_supply_data"),
           production: formatPath("production_estimate_data"),
-          marketAudit: formatPath("market_evidence_audit_data"),
+          marketRegistry: formatPath("market_evidence_registry_data"),
           teamEv: formatPath("ev_data")
         };
 
@@ -1152,7 +1135,7 @@
           nextLiveSupply,
           nextSealedSupply,
           nextProduction,
-          nextMarketAudit,
+          nextMarketRegistry,
           nextTeamEv
         ] = await Promise.all([
           fetchJsonForProduct(paths.productIntegrity, token),
@@ -1168,7 +1151,7 @@
           fetchJsonForProduct(paths.liveSupply, token),
           fetchJsonForProduct(paths.sealedSupply, token),
           fetchJsonForProduct(paths.production, token),
-          fetchJsonForProduct(paths.marketAudit, token),
+          fetchJsonForProduct(paths.marketRegistry, token),
           fetchJsonForProduct(paths.teamEv, token)
         ]);
 
@@ -1192,7 +1175,7 @@
           liveSupply: nextLiveSupply,
           sealedSupply: nextSealedSupply,
           production: nextProduction,
-          marketAudit: nextMarketAudit,
+          marketRegistry: nextMarketRegistry,
           teamEv: nextTeamEv
         };
 
@@ -1243,20 +1226,6 @@
           return;
         }
 
-        if (
-          nextMarketAudit?.result !== "pass" ||
-          nextMarketAudit?.product_id !== productIdAtStart ||
-          !marketAuditMatchesEvSnapshot(nextMarketAudit, nextTeamEv)
-        ) {
-          formatStatus.innerHTML =
-            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Market audit / EV mismatch.</span>";
-          setAnalysisLoadState(
-            "error",
-            "Analysis blocked: market evidence does not match the current EV snapshot."
-          );
-          return;
-        }
 
         productStatus.innerHTML =
           "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
@@ -1279,7 +1248,7 @@
         liveSupplyData = nextLiveSupply;
         sealedSupplyData = nextSealedSupply;
         productionData = nextProduction;
-        marketAuditData = nextMarketAudit;
+        marketRegistryData = nextMarketRegistry;
         teamEvData = nextTeamEv;
 
         const previousTeam =
@@ -1371,7 +1340,7 @@
         liveSupplyData = null;
         sealedSupplyData = null;
         productionData = null;
-        marketAuditData = null;
+        marketRegistryData = null;
         activeContractReport = null;
         currentTeamEntry = null;
         currentEvUsd = null;
@@ -2603,7 +2572,7 @@
         return;
       }
 
-      if (currentTeamEntry?.market_evidence?.roi_eligible !== true) {
+      if (selectedTeamMarketEvidence()?.roi_eligible !== true) {
         updateDataStatusUi();
         resultNet.textContent = "Waiting for verified market sources";
         resultRatio.textContent = "—";
