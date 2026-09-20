@@ -411,28 +411,7 @@
 
       <div class="section-title">3 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
-      <select id="team" hidden aria-hidden="true">
-            <option>AFC Bournemouth</option>
-            <option>Arsenal</option>
-            <option>Aston Villa</option>
-            <option>Brentford</option>
-            <option>Brighton & Hove Albion</option>
-            <option>Burnley FC</option>
-            <option selected>Chelsea</option>
-            <option>Crystal Palace</option>
-            <option>Everton</option>
-            <option>Fulham</option>
-            <option>Leeds United</option>
-            <option>Liverpool FC</option>
-            <option>Manchester City</option>
-            <option>Manchester United</option>
-            <option>Newcastle United</option>
-            <option>Nottingham Forest</option>
-            <option>Sunderland</option>
-            <option>Tottenham Hotspur</option>
-            <option>West Ham United</option>
-            <option>Wolverhampton Wanderers</option>
-          </select>
+      <select id="team" hidden aria-hidden="true"></select>
       <div class="player-browser">
         <div class="section-title">4 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players"></div>
@@ -651,15 +630,12 @@
     const savedCurrency = localStorage.getItem("breakmetric_currency");
     const savedSpotPrice = localStorage.getItem("breakmetric_spot_price");
 
-    if (savedTeam && [...team.options].some(option => option.value === savedTeam)) {
-      team.value = savedTeam;
-    }
-
     if (savedSpotPrice !== null) {
       price.value = savedSpotPrice;
     }
 
     let formatCatalogData = null;
+    let productMetadataData = null;
     let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
     let selectedFormat = localStorage.getItem("breakmetric_format") || "hobby";
     let teamEvData = null;
@@ -681,6 +657,99 @@
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
+
+    function productPath(key) {
+      const value = currentProduct?.[key];
+      if (typeof value !== "string" || !value) {
+        throw new Error("Missing product data path: " + key);
+      }
+      return value;
+    }
+
+    function resetProductData() {
+      productMetadataData = null;
+      teamEvData = null;
+      baseChecklistData = null;
+      playerIndexData = null;
+      playerProbabilityData = null;
+      autographProbabilityData = null;
+      autographChecklistData = null;
+      insertProbabilityData = null;
+      baseParallelProbabilityData = null;
+      liveSupplyData = null;
+      sealedSupplyData = null;
+      productionData = null;
+      currentTeamEntry = null;
+      currentEvUsd = null;
+      clearPlayerSelection();
+      team.innerHTML = "";
+      teamGrid.innerHTML = "";
+      playerGrid.innerHTML = "";
+      resultEvSummary.textContent = "Loading…";
+      evCoverage.textContent = "Loading EV coverage…";
+    }
+
+    async function loadProductMetadata() {
+      const previousTeam = localStorage.getItem("breakmetric_team") || team.value;
+
+      try {
+        const response = await fetch(productPath("product_data"));
+        if (!response.ok) throw new Error("Product metadata unavailable");
+        productMetadataData = await response.json();
+
+        const teams = (productMetadataData.teams || [])
+          .map(item => item.name)
+          .filter(Boolean);
+
+        team.innerHTML = "";
+        for (const name of teams) {
+          const option = document.createElement("option");
+          option.value = name;
+          option.textContent = name;
+          team.appendChild(option);
+        }
+
+        if (teams.includes(previousTeam)) {
+          team.value = previousTeam;
+        } else if (teams.length) {
+          team.value = teams[0];
+          localStorage.setItem("breakmetric_team", team.value);
+        }
+
+        renderTeams();
+      } catch (error) {
+        productMetadataData = null;
+        team.innerHTML = "";
+        teamGrid.innerHTML =
+          '<div class="filter-empty">Team data unavailable for this product.</div>';
+        throw error;
+      }
+    }
+
+    async function loadCurrentProductDatasets() {
+      if (!currentProduct || currentProduct.status !== "ready") return;
+
+      await loadProductMetadata();
+
+      await Promise.all([
+        loadPlayerIndex(),
+        loadPlayerProbabilities(),
+        loadBaseChecklist(),
+        loadAutographProbabilities(),
+        loadAutographChecklist(),
+        loadInsertProbabilities(),
+        loadBaseParallelProbabilities(),
+        loadLiveSupply(),
+        loadSealedSupply(),
+        loadProductionEstimate(),
+        loadTeamEv()
+      ]);
+
+      renderTeams();
+      renderPlayers();
+      updatePlayerDetail();
+      updateResults();
+    }
 
     async function loadFormats() {
       if (!currentProduct?.format_data) {
@@ -808,13 +877,15 @@
           selectedFormat = "hobby";
           localStorage.setItem("breakmetric_format", selectedFormat);
           currentProduct = item;
-          clearPlayerSelection();
+          resetProductData();
           renderProducts();
           applyProductSelection();
-          await loadFormats();
 
           if (item.status === "ready") {
-            await loadTeamEv();
+            await loadFormats();
+            await loadCurrentProductDatasets();
+          } else {
+            await loadFormats();
           }
         });
 
@@ -1095,7 +1166,7 @@
     async function loadPlayerProbabilities() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json"
+          productPath("player_probability_data")
         );
         if (!response.ok) throw new Error("Player probabilities unavailable");
         playerProbabilityData = await response.json();
@@ -1108,7 +1179,7 @@
     async function loadPlayerIndex() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json"
+          productPath("player_index_data")
         );
         if (!response.ok) throw new Error("Player index unavailable");
         playerIndexData = await response.json();
@@ -1123,7 +1194,7 @@
     async function loadBaseChecklist() {
       try {
         const response = await fetch(
-          "data/checklists/2026-topps-chrome-premier-league-base.json"
+          productPath("base_checklist_data")
         );
         if (!response.ok) throw new Error("Base checklist unavailable");
         baseChecklistData = await response.json();
@@ -1505,7 +1576,7 @@
     async function loadProductionEstimate() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json"
+          productPath("production_estimate_data")
         );
         if (!response.ok) throw new Error("Production estimate unavailable");
         productionData = await response.json();
@@ -1524,7 +1595,7 @@
     async function loadSealedSupply() {
       try {
         const response = await fetch(
-          "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json"
+          productPath("sealed_supply_data")
         );
         if (!response.ok) throw new Error("Sealed supply unavailable");
         sealedSupplyData = await response.json();
@@ -1540,7 +1611,7 @@
       if (status === "qualitative-evidence-only") {
         resultSealedSupplyStatus.textContent = "Signals only";
       } else if (status === "production-denominator-estimated") {
-        resultSealedSupplyStatus.textContent = "Production known · sealed unknown";
+        resultSealedSupplyStatus.textContent = "Production estimated · sealed unknown";
       } else if (status === "estimated-range") {
         resultSealedSupplyStatus.textContent = "Estimated range";
       } else {
@@ -1551,7 +1622,7 @@
     async function loadLiveSupply() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json"
+          productPath("live_supply_data")
         );
         if (!response.ok) throw new Error("Live Supply unavailable");
         liveSupplyData = await response.json();
@@ -1589,7 +1660,7 @@
     async function loadBaseParallelProbabilities() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json"
+          productPath("team_base_parallel_probability_data")
         );
         if (!response.ok) throw new Error("Base parallel probabilities unavailable");
         baseParallelProbabilityData = await response.json();
@@ -1619,7 +1690,7 @@
     async function loadInsertProbabilities() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-hobby-team-insert-probabilities.json"
+          productPath("team_insert_probability_data")
         );
         if (!response.ok) throw new Error("Insert probabilities unavailable");
         insertProbabilityData = await response.json();
@@ -1650,7 +1721,7 @@
     async function loadAutographChecklist() {
       try {
         const response = await fetch(
-          "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json"
+          productPath("autograph_checklist_data")
         );
         if (!response.ok) throw new Error("Autograph checklist unavailable");
         autographChecklistData = await response.json();
@@ -1672,7 +1743,7 @@
     async function loadAutographProbabilities() {
       try {
         const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-hobby-team-autograph-probabilities.json"
+          productPath("team_autograph_probability_data")
         );
         if (!response.ok) throw new Error("Autograph probabilities unavailable");
         autographProbabilityData = await response.json();
@@ -1731,8 +1802,9 @@
           .find(item => item.id === selectedProductId) || null;
 
         if (currentProduct?.status === "ready") {
+          resetProductData();
           await loadFormats();
-          await loadTeamEv();
+          await loadCurrentProductDatasets();
         }
       } catch (error) {
         productStatus.textContent = "Product catalog unavailable.";
@@ -1812,17 +1884,7 @@
     const savedPlayer = localStorage.getItem("breakmetric_player");
     if (savedPlayer) selectedPlayer = savedPlayer;
 
-    loadPlayerIndex();
-    loadPlayerProbabilities();
-    loadBaseChecklist();
     loadInitialFxRate();
-    loadAutographProbabilities();
-    loadAutographChecklist();
-    loadInsertProbabilities();
-    loadBaseParallelProbabilities();
-    loadLiveSupply();
-    loadSealedSupply();
-    loadProductionEstimate();
     loadProducts();
 
     function updateResults() {
