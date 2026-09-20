@@ -181,6 +181,15 @@
     }
     .analysis-context .context-item{color:var(--text);font-weight:700}
     .analysis-context .context-sep{color:var(--muted)}
+    .analysis-actions{
+      display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px
+    }
+    .ghost-button{
+      margin:0;padding:8px 11px;border:1px solid var(--line);
+      background:#0b1223;color:var(--text);font-size:.76rem;font-weight:700
+    }
+    .ghost-button:hover{border-color:#405273}
+    .share-status{color:var(--muted);font-size:.72rem}
     .analysis-scope{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
@@ -522,6 +531,11 @@
 
       <div id="analysisContent" hidden>
       <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
+      <div class="analysis-actions" aria-label="Analysis actions">
+        <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
+        <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
+        <span id="shareStatus" class="share-status" aria-live="polite"></span>
+      </div>
       <div class="analysis-scope">
         <div>
           <span>Analysis unit</span>
@@ -789,6 +803,7 @@
   <script src="src/teamReadiness.js"></script>
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
+  <script src="src/urlState.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
@@ -805,6 +820,9 @@
     const analysisContent = document.getElementById("analysisContent");
     const analysisLoadStatus = document.getElementById("analysisLoadStatus");
     const analysisContext = document.getElementById("analysisContext");
+    const copyAnalysisLink = document.getElementById("copyAnalysisLink");
+    const clearAnalysisFilters = document.getElementById("clearAnalysisFilters");
+    const shareStatus = document.getElementById("shareStatus");
     const analysisUnitText = document.getElementById("analysisUnitText");
     const analysisPhysicalText = document.getElementById("analysisPhysicalText");
     const dataProductIntegrity = document.getElementById("dataProductIntegrity");
@@ -846,6 +864,7 @@
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
 
+    const initialUrlState = BreakMetricUrlState.read(location.search);
     const savedCurrency = localStorage.getItem("breakmetric_currency");
     const legacySavedSpotPrice = localStorage.getItem("breakmetric_spot_price");
     let savedSpotState = null;
@@ -896,8 +915,11 @@
     let formatLoadToken = 0;
     let formatCatalogData = null;
     let productMetadataData = null;
-    let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
-    let selectedFormat = "hobby";
+    let selectedProductId =
+      initialUrlState.product ||
+      localStorage.getItem("breakmetric_product") ||
+      "2026-topps-chrome-premier-league";
+    let selectedFormat = initialUrlState.format || "hobby";
     let teamEvData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
@@ -986,8 +1008,29 @@
 
     function restoreProductSelection(productId = selectedProductId) {
       migrateLegacyProductSelection(productId);
-      selectedFormat = readProductSelection("format", "hobby", productId);
-      selectedPlayer = readProductSelection("player", null, productId);
+      const urlTargetsProduct =
+        !initialUrlState.product || initialUrlState.product === productId;
+      selectedFormat =
+        urlTargetsProduct && initialUrlState.format
+          ? initialUrlState.format
+          : readProductSelection("format", "hobby", productId);
+      selectedPlayer =
+        urlTargetsProduct && initialUrlState.player
+          ? initialUrlState.player
+          : readProductSelection("player", null, productId);
+    }
+
+    function currentShareState() {
+      return {
+        product: selectedProductId || null,
+        format: selectedFormat || null,
+        team: team.value || null,
+        player: selectedPlayer || null
+      };
+    }
+
+    function syncUrlState() {
+      BreakMetricUrlState.apply(currentShareState());
     }
 
     function productPath(key) {
@@ -1631,7 +1674,9 @@
         teamEvData = nextTeamEv;
 
         const previousTeam =
-          readProductSelection("team", team.value, productIdAtStart) || team.value;
+          (initialUrlState.product === productIdAtStart && initialUrlState.team) ||
+          readProductSelection("team", team.value, productIdAtStart) ||
+          team.value;
 
         const teams = BreakMetricContracts.teamNamesFromMetadata(
           productMetadataData
@@ -1658,6 +1703,7 @@
         }
 
         const storedPlayer =
+          selectedPlayer ||
           readProductSelection("player", null, productIdAtStart);
         selectedPlayer = BreakMetricContracts.reconcilePlayer(
           playerIndexData,
@@ -1696,6 +1742,7 @@
         updateResults();
         updateAnalysisContext();
         updateAnalysisProvenance();
+        syncUrlState();
       } catch (error) {
         if (
           error?.name === "StaleProductLoad" ||
@@ -1871,6 +1918,7 @@
 
           selectedFormat = item.id;
           writeProductSelection("format", selectedFormat);
+          syncUrlState();
           resetProductData();
           renderFormats();
           applyFormatSelection();
@@ -1992,6 +2040,7 @@
           localStorage.setItem("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
+          syncUrlState();
           searchQuery = "";
           browseSearch.value = "";
           resetProductData();
@@ -2492,6 +2541,7 @@
         button.addEventListener("click", () => {
           selectedPlayer = item.name;
           writeProductSelection("player", item.name);
+          syncUrlState();
           renderPlayers();
           updatePlayerDetail();
           updateAnalysisContext();
@@ -3019,6 +3069,7 @@
 
     team.addEventListener("change", () => {
       writeProductSelection("team", team.value);
+      syncUrlState();
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
@@ -3042,6 +3093,30 @@
       searchQuery = browseSearch.value;
       renderTeams();
       renderPlayers();
+    });
+
+    copyAnalysisLink.addEventListener("click", async () => {
+      syncUrlState();
+      const url = location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        shareStatus.textContent = "Analysis link copied.";
+      } catch (_) {
+        shareStatus.textContent = "Copy unavailable — use the address bar.";
+      }
+    });
+
+    clearAnalysisFilters.addEventListener("click", () => {
+      searchQuery = "";
+      browseSearch.value = "";
+      price.value = "";
+      persistSpotState();
+      clearPlayerSelection();
+      renderTeams();
+      renderPlayers();
+      updateResults();
+      syncUrlState();
+      shareStatus.textContent = "Player and spot price cleared.";
     });
 
 
