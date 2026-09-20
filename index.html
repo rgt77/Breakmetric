@@ -765,6 +765,27 @@
       return value;
     }
 
+    function selectedFormatConfig() {
+      return (formatCatalogData?.formats || [])
+        .find(item => item.id === selectedFormat) || null;
+    }
+
+    function formatPath(key) {
+      const value = selectedFormatConfig()?.analysis_data?.[key];
+      if (typeof value !== "string" || !value) {
+        throw new Error("Missing format data path: " + key);
+      }
+      return value;
+    }
+
+    function formatIntegrityPath() {
+      const value = selectedFormatConfig()?.integrity_data;
+      if (typeof value !== "string" || !value) {
+        throw new Error("Missing format integrity path");
+      }
+      return value;
+    }
+
     function resetProductData() {
       productLoadToken += 1;
       productMetadataData = null;
@@ -834,26 +855,29 @@
 
       const token = ++productLoadToken;
       const productIdAtStart = currentProduct.id;
+      const formatIdAtStart = selectedFormat;
 
       try {
         const paths = {
-          integrity: productPath("integrity_data"),
+          productIntegrity: productPath("integrity_data"),
+          formatIntegrity: formatIntegrityPath(),
           metadata: productPath("product_data"),
-          playerIndex: productPath("player_index_data"),
-          playerProbabilities: productPath("player_probability_data"),
-          baseChecklist: productPath("base_checklist_data"),
-          autographProbabilities: productPath("team_autograph_probability_data"),
-          autographChecklist: productPath("autograph_checklist_data"),
-          insertProbabilities: productPath("team_insert_probability_data"),
-          baseParallelProbabilities: productPath("team_base_parallel_probability_data"),
-          liveSupply: productPath("live_supply_data"),
-          sealedSupply: productPath("sealed_supply_data"),
-          production: productPath("production_estimate_data"),
-          teamEv: currentProduct.ev_data
+          playerIndex: formatPath("player_index_data"),
+          playerProbabilities: formatPath("player_probability_data"),
+          baseChecklist: formatPath("base_checklist_data"),
+          autographProbabilities: formatPath("team_autograph_probability_data"),
+          autographChecklist: formatPath("autograph_checklist_data"),
+          insertProbabilities: formatPath("team_insert_probability_data"),
+          baseParallelProbabilities: formatPath("team_base_parallel_probability_data"),
+          liveSupply: formatPath("live_supply_data"),
+          sealedSupply: formatPath("sealed_supply_data"),
+          production: formatPath("production_estimate_data"),
+          teamEv: formatPath("ev_data")
         };
 
         const [
-          integrity,
+          productIntegrity,
+          formatIntegrity,
           metadata,
           nextPlayerIndex,
           nextPlayerProbabilities,
@@ -867,7 +891,8 @@
           nextProduction,
           nextTeamEv
         ] = await Promise.all([
-          fetchJsonForProduct(paths.integrity, token),
+          fetchJsonForProduct(paths.productIntegrity, token),
+          fetchJsonForProduct(paths.formatIntegrity, token),
           fetchJsonForProduct(paths.metadata, token),
           fetchJsonForProduct(paths.playerIndex, token),
           fetchJsonForProduct(paths.playerProbabilities, token),
@@ -884,14 +909,15 @@
 
         if (
           token !== productLoadToken ||
-          currentProduct?.id !== productIdAtStart
+          currentProduct?.id !== productIdAtStart ||
+          selectedFormat !== formatIdAtStart
         ) {
           return;
         }
 
         if (
-          integrity?.result !== "pass" ||
-          integrity?.product_id !== productIdAtStart
+          productIntegrity?.result !== "pass" ||
+          productIntegrity?.product_id !== productIdAtStart
         ) {
           productStatus.innerHTML =
             "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
@@ -900,9 +926,26 @@
           return;
         }
 
+        if (
+          formatIntegrity?.result !== "pass" ||
+          formatIntegrity?.product_id !== productIdAtStart ||
+          formatIntegrity?.format_id !== formatIdAtStart
+        ) {
+          formatStatus.innerHTML =
+            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
+            "</strong> · <span class=\"integrity-fail\">Format integrity check failed.</span>";
+          analysisContent.hidden = true;
+          return;
+        }
+
         productStatus.innerHTML =
           "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
           "</strong> · <span class=\"integrity-pass\">Dataset integrity validated.</span>";
+
+        formatStatus.innerHTML =
+          "<strong>" + (selectedFormatConfig()?.name || "Box format") +
+          "</strong> · <span class=\"integrity-pass\">Format integrity validated.</span>";
+        analysisContent.hidden = false;
 
         productMetadataData = metadata;
         playerIndexData = nextPlayerIndex;
@@ -971,7 +1014,8 @@
       } catch (error) {
         if (
           error?.name === "StaleProductLoad" ||
-          token !== productLoadToken
+          token !== productLoadToken ||
+          selectedFormat !== formatIdAtStart
         ) {
           return;
         }
@@ -1036,11 +1080,19 @@
         button.appendChild(state);
         button.appendChild(note);
 
-        button.addEventListener("click", () => {
+        button.addEventListener("click", async () => {
+          if (selectedFormat === item.id) return;
+
           selectedFormat = item.id;
           writeProductSelection("format", selectedFormat);
+          resetProductData();
           renderFormats();
           applyFormatSelection();
+          updateAnalysisContext();
+
+          if (item.status === "ready") {
+            await loadCurrentProductDatasets();
+          }
         });
 
         formatGrid.appendChild(button);
@@ -1060,13 +1112,10 @@
       }
 
       if (selected.status === "ready") {
-        analysisContent.hidden = false;
+        analysisContent.hidden = true;
         formatStatus.innerHTML =
-          "<strong>" + selected.name + "</strong> · Full current BreakMetric analysis available.";
-        renderTeams();
-        renderPlayers();
-        updatePlayerDetail();
-        updateResults();
+          "<strong>" + selected.name +
+          "</strong> · Analysis available · integrity check pending.";
         return;
       }
 
@@ -1459,7 +1508,7 @@
     async function loadPlayerProbabilities() {
       try {
         const response = await fetch(
-          productPath("player_probability_data")
+          formatPath("player_probability_data")
         );
         if (!response.ok) throw new Error("Player probabilities unavailable");
         playerProbabilityData = await response.json();
@@ -1472,7 +1521,7 @@
     async function loadPlayerIndex() {
       try {
         const response = await fetch(
-          productPath("player_index_data")
+          formatPath("player_index_data")
         );
         if (!response.ok) throw new Error("Player index unavailable");
         playerIndexData = await response.json();
@@ -1487,7 +1536,7 @@
     async function loadBaseChecklist() {
       try {
         const response = await fetch(
-          productPath("base_checklist_data")
+          formatPath("base_checklist_data")
         );
         if (!response.ok) throw new Error("Base checklist unavailable");
         baseChecklistData = await response.json();
@@ -1873,7 +1922,7 @@
     async function loadProductionEstimate() {
       try {
         const response = await fetch(
-          productPath("production_estimate_data")
+          formatPath("production_estimate_data")
         );
         if (!response.ok) throw new Error("Production estimate unavailable");
         productionData = await response.json();
@@ -1892,7 +1941,7 @@
     async function loadSealedSupply() {
       try {
         const response = await fetch(
-          productPath("sealed_supply_data")
+          formatPath("sealed_supply_data")
         );
         if (!response.ok) throw new Error("Sealed supply unavailable");
         sealedSupplyData = await response.json();
@@ -1919,7 +1968,7 @@
     async function loadLiveSupply() {
       try {
         const response = await fetch(
-          productPath("live_supply_data")
+          formatPath("live_supply_data")
         );
         if (!response.ok) throw new Error("Live Supply unavailable");
         liveSupplyData = await response.json();
@@ -1960,7 +2009,7 @@
     async function loadBaseParallelProbabilities() {
       try {
         const response = await fetch(
-          productPath("team_base_parallel_probability_data")
+          formatPath("team_base_parallel_probability_data")
         );
         if (!response.ok) throw new Error("Base parallel probabilities unavailable");
         baseParallelProbabilityData = await response.json();
@@ -1990,7 +2039,7 @@
     async function loadInsertProbabilities() {
       try {
         const response = await fetch(
-          productPath("team_insert_probability_data")
+          formatPath("team_insert_probability_data")
         );
         if (!response.ok) throw new Error("Insert probabilities unavailable");
         insertProbabilityData = await response.json();
@@ -2021,7 +2070,7 @@
     async function loadAutographChecklist() {
       try {
         const response = await fetch(
-          productPath("autograph_checklist_data")
+          formatPath("autograph_checklist_data")
         );
         if (!response.ok) throw new Error("Autograph checklist unavailable");
         autographChecklistData = await response.json();
@@ -2043,7 +2092,7 @@
     async function loadAutographProbabilities() {
       try {
         const response = await fetch(
-          productPath("team_autograph_probability_data")
+          formatPath("team_autograph_probability_data")
         );
         if (!response.ok) throw new Error("Autograph probabilities unavailable");
         autographProbabilityData = await response.json();
@@ -2123,7 +2172,7 @@
       try {
         if (!currentProduct) throw new Error("No product selected");
 
-        const response = await fetch(currentProduct.ev_data);
+        const response = await fetch(formatPath("ev_data"));
         if (!response.ok) throw new Error("EV data unavailable");
         teamEvData = await response.json();
         updateTeamEv();
