@@ -189,6 +189,7 @@
         <div>
           <label>BreakMetric EV</label>
           <input id="evDisplay" type="text" value="Loading…" readonly />
+          <div id="evCoverage" style="margin-top:7px;font-size:.78rem;color:var(--muted)">Loading coverage…</div>
         </div>
       </div>
 
@@ -228,10 +229,12 @@
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
     const evDisplay = document.getElementById("evDisplay");
+    const evCoverage = document.getElementById("evCoverage");
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let productCatalog = null;
     let currentProduct = null;
+    let currentTeamEntry = null;
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
@@ -357,6 +360,8 @@
         updateResults();
       } catch (error) {
         evDisplay.value = "EV unavailable";
+        evCoverage.textContent = "Coverage unavailable";
+        currentTeamEntry = null;
         currentEvUsd = null;
       }
     }
@@ -365,13 +370,23 @@
       const entry = teamEvData?.teams?.[team.value];
 
       if (!entry) {
+        currentTeamEntry = null;
         currentEvUsd = null;
         evDisplay.value = "Not calculated yet";
+        evCoverage.textContent = "No valued cards yet";
         return;
       }
 
+      currentTeamEntry = entry;
       currentEvUsd = Number(entry.partial_ev_usd);
       evDisplay.value = money(currentEvUsd * usdToSelectedRate);
+
+      if (entry.coverage_complete) {
+        evCoverage.textContent = "Complete EV coverage";
+      } else {
+        const count = Number(entry.valued_card_count || 0);
+        evCoverage.textContent = "Partial EV · " + count + " valued card" + (count === 1 ? "" : "s");
+      }
     }
 
     team.addEventListener("change", () => {
@@ -401,6 +416,15 @@
 
       if (currentEvUsd === null) {
         resultNet.textContent = "EV not ready";
+        resultRatio.textContent = "—";
+        resultRoi.textContent = "—";
+        resultNet.className = "";
+        resultRoi.className = "";
+        return;
+      }
+
+      if (!currentTeamEntry?.coverage_complete) {
+        resultNet.textContent = "Waiting for full EV";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
         resultNet.className = "";
