@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 15.19,
-      "valued_card_count": 2,
+      "partial_ev_usd": 19.31,
+      "valued_card_count": 3,
       "coverage_complete": false,
       "contributions": [
         {
@@ -23,6 +23,13 @@
           "set": "Base Cards",
           "parallel": "Gold Refractor",
           "ev_contribution_usd": 0.0856
+        },
+        {
+          "card_id": "68-gold-refractor",
+          "player": "Estêvão Willian",
+          "set": "Base Cards",
+          "parallel": "Gold Refractor",
+          "ev_contribution_usd": 4.124
         }
       ]
     }
