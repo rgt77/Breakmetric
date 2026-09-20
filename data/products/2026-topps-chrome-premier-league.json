@@ -3,19 +3,13 @@
   "name": "2026 Topps Chrome Premier League",
   "manufacturer": "Topps",
   "sport": "Football",
-  "format": "Hobby Case",
   "release_date": "2026-02-05",
-  "configuration": {
-    "boxes_per_case": 12,
-    "packs_per_box": 20,
-    "cards_per_pack": 4,
-    "autographs_per_box": 1,
-    "hobby_prism_parallels_per_box": 4
-  },
   "base_set": {
     "standard_cards": 200,
-    "hobby_exclusive_cards": 1,
-    "total_base_checklist_cards": 201
+    "total_release_checklist_cards": 201,
+    "hobby_exclusive_card_numbers": [
+      201
+    ]
   },
   "teams": [
     {
@@ -101,9 +95,9 @@
     }
   ],
   "sources": {
-    "product_page": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box-sealed-case",
     "checklist": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
-    "odds": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630"
+    "odds": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+    "hobby_case_product_page": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box-sealed-case"
   },
   "display_name": "Topps Chrome Soccer · Premier League · 2026",
   "brand": "Topps Chrome Soccer",
