@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "checks": {
+    "searchable_input": true,
+    "clickable_team_grid": true,
+    "hidden_team_state_select": true,
+    "live_input_listener": true,
+    "accent_insensitive_search": true,
+    "player_names_filter_teams": true,
+    "same_search_filters_players": true,
+    "team_click_dispatches_change": true,
+    "active_team_card": true,
+    "zero_results_state": true
+  },
+  "result": "pass"
+}
