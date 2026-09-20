@@ -80,7 +80,7 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(5,1fr);
       gap:12px;
       margin-top:22px;
     }
@@ -203,6 +203,10 @@
           <strong id="resultTeam">Chelsea</strong>
         </div>
         <div class="result">
+          <span>Auto hit chance</span>
+          <strong id="resultAutoChance">Loading…</strong>
+        </div>
+        <div class="result">
           <span>Expected net</span>
           <strong id="resultNet">—</strong>
         </div>
@@ -232,6 +236,7 @@
     const evCoverage = document.getElementById("evCoverage");
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
+    let autographProbabilityData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -241,6 +246,7 @@
     let lastCurrency = currency.value;
 
     const resultTeam = document.getElementById("resultTeam");
+    const resultAutoChance = document.getElementById("resultAutoChance");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -321,6 +327,39 @@
     });
 
 
+    async function loadAutographProbabilities() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-hobby-team-autograph-probabilities.json"
+        );
+        if (!response.ok) throw new Error("Autograph probabilities unavailable");
+        autographProbabilityData = await response.json();
+        updateAutographChance();
+      } catch (error) {
+        resultAutoChance.textContent = "Unavailable";
+      }
+    }
+
+    function updateAutographChance() {
+      const rows = autographProbabilityData?.teams || [];
+      const row = rows.find(item => item.team === team.value);
+
+      if (!row) {
+        resultAutoChance.textContent = "—";
+        return;
+      }
+
+      const chance =
+        row.chance_at_least_one_auto_in_12_box_case_percent ??
+        row.chance_at_least_one_autograph_in_case_percent ??
+        row.chance_at_least_one_auto_percent;
+
+      resultAutoChance.textContent =
+        Number.isFinite(Number(chance))
+          ? Number(chance).toFixed(1) + "%"
+          : "—";
+    }
+
     async function loadProducts() {
       try {
         const response = await fetch("data/products/catalog.json");
@@ -391,6 +430,7 @@
 
     team.addEventListener("change", () => {
       updateTeamEv();
+      updateAutographChance();
       updateResults();
     });
 
@@ -399,6 +439,7 @@
       await loadTeamEv();
     });
 
+    loadAutographProbabilities();
     loadProducts();
 
     function updateResults() {
