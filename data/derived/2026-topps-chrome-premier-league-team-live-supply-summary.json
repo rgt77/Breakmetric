@@ -1,0 +1,26 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "teams": {
+    "Chelsea": {
+      "tracked_numbered_cards": 1,
+      "confirmed_unique_serials": 2,
+      "tracked_print_run_total": 50,
+      "observed_share_percent": 4,
+      "live_odds_status": "scenario-only",
+      "tracked_cards": [
+        {
+          "card_number": "CA-EV",
+          "player": "Estêvão Willian",
+          "set": "Chrome Autograph Cards",
+          "parallel": "Gold Refractor",
+          "print_run": 50,
+          "confirmed_observed": 2,
+          "serials": [
+            14,
+            34
+          ]
+        }
+      ]
+    }
+  }
+}
