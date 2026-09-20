@@ -270,7 +270,6 @@
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
 
-    const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let autographProbabilityData = null;
     let autographChecklistData = null;
@@ -523,7 +522,8 @@
           await loadTeamEv();
         }
       } catch (error) {
-        evDisplay.value = "Product unavailable";
+        resultEvSummary.textContent = "Product unavailable";
+        evCoverage.textContent = "Product data unavailable";
       }
     }
 
