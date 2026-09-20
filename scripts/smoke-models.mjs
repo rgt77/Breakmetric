@@ -34,7 +34,9 @@ const assert=(condition,message)=>{
 for(const file of [
   "src/analysisQuality.js",
   "src/evCoverage.js",
+  "src/evWorkQueue.js",
   "src/marketCoverage.js",
+  "src/marketEvidenceQuality.js",
   "src/dataFreshness.js",
   "src/urlState.js",
   "src/dataLoader.js",
@@ -131,6 +133,31 @@ assert(evScopeContract.valid,"EV scope contract failed: "+evScopeContract.errors
 assert(evScopeContract.metrics.ev_scope_partial_team_count===1,"EV scope partial-team smoke failed");
 assert(evScopeContract.metrics.ev_scope_complete_team_count===0,"EV scope complete-team smoke failed");
 
+const evWorkQueue=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-work-queue-v1.json"),"utf8")
+);
+assert(
+  sandbox.BreakMetricEvWorkQueue.validate(evWorkQueue,metadata.teams.map(row=>row.name)).valid,
+  "EV work queue helper validation failed"
+);
+assert(sandbox.BreakMetricEvWorkQueue.nextTask(evWorkQueue,"Chelsea")?.priority===1,"Chelsea EV next task priority failed");
+
+const verificationQueue=JSON.parse(
+  fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/market-verification-queue-v1.json"),"utf8")
+);
+const qualityValidation=sandbox.BreakMetricMarketEvidenceQuality.validate({
+  market:{
+    audited_contribution_count:27,
+    original_marketplace_verified_contribution_count:0,
+    secondary_source_contribution_count:27
+  },
+  queue:verificationQueue
+});
+assert(qualityValidation.valid,"market evidence quality validation failed");
+const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
+assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
+assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(
   sandbox.BreakMetricErrors.userMessage({name:"DataContractError"}).includes("integrity contract"),
@@ -142,7 +169,9 @@ console.log(JSON.stringify({
   checks:[
     "analysis quality",
     "EV coverage",
+    "EV work queue",
     "market evidence coverage",
+    "market evidence source quality",
     "dataset freshness",
     "shareable URL state",
     "break-allocation runtime contract",
