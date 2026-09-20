@@ -1,0 +1,134 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 356-365",
+  "release": "BreakMetric v1.1",
+  "javascript_syntax": {
+    "inline_app": {
+      "pass": true,
+      "error": null
+    },
+    "analysis_provenance": {
+      "pass": true,
+      "error": null
+    },
+    "runtime_contracts": {
+      "pass": true,
+      "error": null
+    },
+    "team_readiness": {
+      "pass": true,
+      "error": null
+    }
+  },
+  "examples": {
+    "chelsea_estevao": {
+      "valid": true,
+      "provenance": {
+        "product": {
+          "product_id": "2026-topps-chrome-premier-league",
+          "display_name": "Topps Chrome Soccer · Premier League · 2026"
+        },
+        "format": {
+          "format_id": "hobby",
+          "name": "Hobby",
+          "analysis_unit": "12-box case",
+          "boxes": 12,
+          "packs": 240,
+          "cards": 960
+        },
+        "probability": {
+          "source_type": "manufacturer-published odds + normalized checklist mapping",
+          "player_generator": "src/playerDerivation.js",
+          "player_generator_version": 1,
+          "input_count": 7,
+          "input_paths": [
+            "data/checklists/2026-topps-chrome-premier-league-base.json",
+            "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+            "data/checklists/2026-topps-chrome-premier-league-hobby-inserts.json",
+            "data/checklists/2026-topps-chrome-premier-league-hobby-special-autographs.json",
+            "data/odds/2026-topps-chrome-premier-league-hobby-full.json",
+            "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
+            "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json"
+          ],
+          "player_probability_available": true,
+          "player_probability_coverage_percent": 100
+        },
+        "ev": {
+          "team": "Chelsea",
+          "status": "indicative-provisional",
+          "coverage_complete": false,
+          "valued_card_count": 27,
+          "market_status": "secondary-source-only",
+          "market_audited": true,
+          "original_verified_count": 0,
+          "roi_eligible": false
+        },
+        "selected": {
+          "team": "Chelsea",
+          "player": "Estêvão Willian"
+        }
+      }
+    },
+    "arsenal_team": {
+      "valid": true,
+      "provenance": {
+        "product": {
+          "product_id": "2026-topps-chrome-premier-league",
+          "display_name": "Topps Chrome Soccer · Premier League · 2026"
+        },
+        "format": {
+          "format_id": "hobby",
+          "name": "Hobby",
+          "analysis_unit": "12-box case",
+          "boxes": 12,
+          "packs": 240,
+          "cards": 960
+        },
+        "probability": {
+          "source_type": "manufacturer-published odds + normalized checklist mapping",
+          "player_generator": "src/playerDerivation.js",
+          "player_generator_version": 1,
+          "input_count": 7,
+          "input_paths": [
+            "data/checklists/2026-topps-chrome-premier-league-base.json",
+            "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+            "data/checklists/2026-topps-chrome-premier-league-hobby-inserts.json",
+            "data/checklists/2026-topps-chrome-premier-league-hobby-special-autographs.json",
+            "data/odds/2026-topps-chrome-premier-league-hobby-full.json",
+            "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
+            "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json"
+          ],
+          "player_probability_available": false,
+          "player_probability_coverage_percent": null
+        },
+        "ev": {
+          "team": "Arsenal",
+          "status": "not-valued",
+          "coverage_complete": false,
+          "valued_card_count": 0,
+          "market_status": "none",
+          "market_audited": false,
+          "original_verified_count": 0,
+          "roi_eligible": false
+        },
+        "selected": {
+          "team": "Arsenal",
+          "player": null
+        }
+      }
+    }
+  },
+  "checks": {
+    "step_356_provenance_model_exists": true,
+    "step_357_provenance_includes_analysis_unit": true,
+    "step_358_provenance_uses_derivation_generator": true,
+    "step_359_provenance_counts_real_inputs": true,
+    "step_360_provenance_exposes_ev_evidence": true,
+    "step_361_provenance_script_loaded": true,
+    "step_362_provenance_panel_present": true,
+    "step_363_runtime_provenance_validation_gate": true,
+    "step_364_provenance_tracks_selected_team_and_player": true,
+    "step_365_live_release_validation_passes": true
+  },
+  "result": "pass"
+}
