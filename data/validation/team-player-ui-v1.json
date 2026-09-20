@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "checks": {
+    "player_grid": true,
+    "player_panel": true,
+    "player_ev": true,
+    "player_serials": true,
+    "base_checklist_loader": true,
+    "player_filtering": true,
+    "player_card_level_ev": true,
+    "player_serial_detail": true,
+    "team_serial_is_aggregate": true,
+    "initial_fx_rate_fix": true
+  },
+  "result": "pass"
+}
