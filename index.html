@@ -80,9 +80,23 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(9,1fr);
       gap:12px;
       margin-top:22px;
+    }
+    .primary-results{grid-template-columns:repeat(4,1fr)}
+    .detail-results{grid-template-columns:repeat(3,1fr)}
+    .details-panel{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 16px;
+      background:#0e1528;
+    }
+    .details-panel summary{
+      cursor:pointer;
+      font-weight:700;
+      color:var(--muted);
+      user-select:none;
     }
     .result{
       border:1px solid var(--line);
@@ -98,7 +112,7 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:760px){
-      .summary,.results,.form-grid{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid{grid-template-columns:1fr}
       .hero{padding-top:55px}
       nav{display:none}
     }
@@ -197,7 +211,7 @@
         Exchange rates load automatically when you change currency.
       </p>
 
-      <div class="results">
+      <div class="results primary-results">
         <div class="result">
           <span>Team</span>
           <strong id="resultTeam">Chelsea</strong>
@@ -207,34 +221,44 @@
           <strong id="resultAutoChance">Loading…</strong>
         </div>
         <div class="result">
-          <span>Expected autos</span>
-          <strong id="resultExpectedAutos">Loading…</strong>
-        </div>
-        <div class="result">
-          <span>Auto checklist cards</span>
-          <strong id="resultAutoChecklistCount">Loading…</strong>
-        </div>
-        <div class="result">
-          <span>Expected inserts</span>
-          <strong id="resultExpectedInserts">Loading…</strong>
-        </div>
-        <div class="result">
-          <span>Expected base parallels</span>
-          <strong id="resultExpectedBaseParallels">Loading…</strong>
-        </div>
-        <div class="result">
-          <span>Expected net</span>
-          <strong id="resultNet">—</strong>
-        </div>
-        <div class="result">
-          <span>Value ratio</span>
-          <strong id="resultRatio">—</strong>
+          <span>BreakMetric EV</span>
+          <strong id="resultEvSummary">Loading…</strong>
         </div>
         <div class="result">
           <span>Expected ROI</span>
           <strong id="resultRoi">—</strong>
         </div>
       </div>
+
+      <details class="details-panel">
+        <summary>Show details</summary>
+        <div class="results detail-results">
+          <div class="result">
+            <span>Expected autos</span>
+            <strong id="resultExpectedAutos">Loading…</strong>
+          </div>
+          <div class="result">
+            <span>Auto checklist cards</span>
+            <strong id="resultAutoChecklistCount">Loading…</strong>
+          </div>
+          <div class="result">
+            <span>Expected inserts</span>
+            <strong id="resultExpectedInserts">Loading…</strong>
+          </div>
+          <div class="result">
+            <span>Expected base parallels</span>
+            <strong id="resultExpectedBaseParallels">Loading…</strong>
+          </div>
+          <div class="result">
+            <span>Expected net</span>
+            <strong id="resultNet">—</strong>
+          </div>
+          <div class="result">
+            <span>Value ratio</span>
+            <strong id="resultRatio">—</strong>
+          </div>
+        </div>
+      </details>
 
       <p class="status"><b>BreakMetric v0.2</b> — interactive prototype.</p>
     </section>
@@ -266,6 +290,7 @@
 
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
+    const resultEvSummary = document.getElementById("resultEvSummary");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
     const resultExpectedInserts = document.getElementById("resultExpectedInserts");
@@ -326,6 +351,7 @@
 
         if (currentEvUsd !== null) {
           evDisplay.value = money(currentEvUsd * usdToSelectedRate);
+          resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
         }
 
         fxStatus.textContent =
@@ -516,6 +542,7 @@
         updateResults();
       } catch (error) {
         evDisplay.value = "EV unavailable";
+        resultEvSummary.textContent = "Unavailable";
         evCoverage.textContent = "Coverage unavailable";
         currentTeamEntry = null;
         currentEvUsd = null;
@@ -529,6 +556,7 @@
         currentTeamEntry = null;
         currentEvUsd = null;
         evDisplay.value = "Not calculated yet";
+        resultEvSummary.textContent = "Not ready";
         evCoverage.textContent = "No valued cards yet";
         return;
       }
@@ -536,6 +564,7 @@
       currentTeamEntry = entry;
       currentEvUsd = Number(entry.partial_ev_usd);
       evDisplay.value = money(currentEvUsd * usdToSelectedRate);
+      resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
 
       if (entry.coverage_complete) {
         evCoverage.textContent = "Complete EV coverage";
