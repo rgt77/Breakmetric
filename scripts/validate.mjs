@@ -113,7 +113,7 @@ for (const product of catalog.products || []) {
 }
 
 const html = read("index.html");
-const inline = [...html.matchAll(/<script>([\\s\\S]*?)<\\/script>/g)].map(m => m[1]).join("\n");
+const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join("\n");
 try {
   new vm.Script(inline, { filename: "index.inline.js" });
   pass("inline application JavaScript compiles", true);
