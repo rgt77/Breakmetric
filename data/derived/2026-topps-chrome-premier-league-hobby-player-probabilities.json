@@ -7,6 +7,7 @@
   "assumptions": [
     "Official Topps Hobby odds are used without inventing missing odds.",
     "Within each mapped checklist pool, eligible physical checklist cards are treated as equally likely unless card-level weighting is published.",
+    "The checklist label 'Chrome Autographs' is explicitly normalized to the Topps odds-map label 'Chrome Autograph Cards'.",
     "For pooled common inserts, the five 20-card themes are treated as the published shared 100-card odds pool.",
     "A multi-subject checklist card counts as one physical card for each named player's personal hit probability.",
     "Unresolved team assignments are not inferred.",
@@ -282,14 +283,14 @@
           "chance_at_least_one_percent": 1.09
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Martin Ødegaard": {
@@ -305,9 +306,9 @@
           "chance_at_least_one_percent": 2.321
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.01584,
-          "chance_at_least_one_percent": 1.572
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.104269,
+          "chance_at_least_one_percent": 9.902
         },
         "modeling": {
           "base_confidence": "medium",
@@ -328,9 +329,9 @@
           "chance_at_least_one_percent": 72.759
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.033149,
-          "chance_at_least_one_percent": 3.261
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.121579,
+          "chance_at_least_one_percent": 11.448
         },
         "modeling": {
           "base_confidence": "medium",
@@ -351,9 +352,9 @@
           "chance_at_least_one_percent": 71.459
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.033149,
-          "chance_at_least_one_percent": 3.261
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.121579,
+          "chance_at_least_one_percent": 11.448
         },
         "modeling": {
           "base_confidence": "medium",
@@ -374,9 +375,9 @@
           "chance_at_least_one_percent": 4.398
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "medium",
@@ -443,14 +444,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Ethan Nwaneri": {
@@ -512,14 +513,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Abou Diaby": {
@@ -581,14 +582,14 @@
           "chance_at_least_one_percent": 1.234
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Danny Welbeck": {
@@ -627,9 +628,9 @@
           "chance_at_least_one_percent": 71.147
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -650,9 +651,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -719,14 +720,14 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Mikel Arteta": {
@@ -742,14 +743,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Noni Madueke": {
@@ -811,9 +812,9 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -857,9 +858,9 @@
           "chance_at_least_one_percent": 71.072
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -903,9 +904,9 @@
           "chance_at_least_one_percent": 71.503
         },
         "autographs": {
-          "mapped_checklist_cards": 4,
-          "expected_hits_per_case": 0.032191,
-          "chance_at_least_one_percent": 3.168
+          "mapped_checklist_cards": 5,
+          "expected_hits_per_case": 0.12062,
+          "chance_at_least_one_percent": 11.363
         },
         "modeling": {
           "base_confidence": "none",
@@ -951,14 +952,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Morgan Rogers": {
@@ -974,14 +975,14 @@
           "chance_at_least_one_percent": 2.445
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Ollie Watkins": {
@@ -997,9 +998,9 @@
           "chance_at_least_one_percent": 71.324
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "medium",
@@ -1043,14 +1044,14 @@
           "chance_at_least_one_percent": 2.362
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "John McGinn": {
@@ -1227,14 +1228,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Gabriel Agbonlahor": {
@@ -1250,9 +1251,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -1413,14 +1414,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Dango Ouattara": {
@@ -1645,14 +1646,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Tom Watson": {
@@ -1668,14 +1669,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Kaoru Mitoma": {
@@ -1737,14 +1738,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Georginio Rutter": {
@@ -1760,14 +1761,14 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Harry Howell": {
@@ -1900,14 +1901,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Loum Tchaouna": {
@@ -2132,14 +2133,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Liam Delap": {
@@ -2178,9 +2179,9 @@
           "chance_at_least_one_percent": 72.203
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.015995,
-          "chance_at_least_one_percent": 1.587
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.104425,
+          "chance_at_least_one_percent": 9.916
         },
         "modeling": {
           "base_confidence": "medium",
@@ -2201,9 +2202,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "medium",
@@ -2293,14 +2294,14 @@
           "chance_at_least_one_percent": 72.379
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Harrison Murray-Campbell": {
@@ -2316,9 +2317,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "medium",
@@ -2408,9 +2409,9 @@
           "chance_at_least_one_percent": 0.367
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -2431,9 +2432,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -2500,9 +2501,9 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -2523,9 +2524,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -2569,14 +2570,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Jimmy-Floyd Hasselbaink": {
@@ -2615,9 +2616,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -2638,14 +2639,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Josh Acheampong": {
@@ -2684,14 +2685,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Michael Essien": {
@@ -2753,14 +2754,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Ramires": {
@@ -2870,14 +2871,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Yeremy Pino": {
@@ -2962,14 +2963,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Adam Wharton": {
@@ -2985,14 +2986,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Maxence Lacroix": {
@@ -3194,14 +3195,14 @@
           "chance_at_least_one_percent": 71.072
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Dwight McNeil": {
@@ -3309,9 +3310,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.026921,
-          "chance_at_least_one_percent": 2.656
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.115351,
+          "chance_at_least_one_percent": 10.895
         },
         "modeling": {
           "base_confidence": "medium",
@@ -3332,9 +3333,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "medium",
@@ -3401,9 +3402,9 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -3493,14 +3494,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Wayne Rooney": {
@@ -3587,14 +3588,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Raúl Jiménez": {
@@ -3840,9 +3841,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -3957,14 +3958,14 @@
           "chance_at_least_one_percent": 71.547
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Dominic Calvert-Lewin": {
@@ -4072,14 +4073,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Joël Piroe": {
@@ -4164,14 +4165,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Tony Yeboah": {
@@ -4212,14 +4213,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Rio Ngumoha": {
@@ -4235,14 +4236,14 @@
           "chance_at_least_one_percent": 4.417
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Trent Koné-Doherty": {
@@ -4258,14 +4259,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Jeremie Frimpong": {
@@ -4327,9 +4328,9 @@
           "chance_at_least_one_percent": 71.676
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.01584,
-          "chance_at_least_one_percent": 1.572
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.104269,
+          "chance_at_least_one_percent": 9.902
         },
         "modeling": {
           "base_confidence": "medium",
@@ -4350,14 +4351,14 @@
           "chance_at_least_one_percent": 5.588
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Mohamed Salah": {
@@ -4373,9 +4374,9 @@
           "chance_at_least_one_percent": 71.99
         },
         "autographs": {
-          "mapped_checklist_cards": 4,
-          "expected_hits_per_case": 0.026023,
-          "chance_at_least_one_percent": 2.569
+          "mapped_checklist_cards": 5,
+          "expected_hits_per_case": 0.114453,
+          "chance_at_least_one_percent": 10.815
         },
         "modeling": {
           "base_confidence": "medium",
@@ -4396,14 +4397,14 @@
           "chance_at_least_one_percent": 2.462
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Hugo Ekitike": {
@@ -4419,14 +4420,14 @@
           "chance_at_least_one_percent": 1.234
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Alisson": {
@@ -4465,9 +4466,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -4534,9 +4535,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -4580,14 +4581,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "John Arne Riise": {
@@ -4649,9 +4650,9 @@
           "chance_at_least_one_percent": 71.725
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -4695,14 +4696,14 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Sadio Mané": {
@@ -4764,9 +4765,9 @@
           "chance_at_least_one_percent": 71.899
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.028391,
-          "chance_at_least_one_percent": 2.799
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.11682,
+          "chance_at_least_one_percent": 11.026
         },
         "modeling": {
           "base_confidence": "none",
@@ -4881,9 +4882,9 @@
           "chance_at_least_one_percent": 2.311
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.01584,
-          "chance_at_least_one_percent": 1.572
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.104269,
+          "chance_at_least_one_percent": 9.902
         },
         "modeling": {
           "base_confidence": "medium",
@@ -4904,9 +4905,9 @@
           "chance_at_least_one_percent": 72.374
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.027077,
-          "chance_at_least_one_percent": 2.671
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.115506,
+          "chance_at_least_one_percent": 10.909
         },
         "modeling": {
           "base_confidence": "medium",
@@ -4973,14 +4974,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Reigan Heskey": {
@@ -5042,9 +5043,9 @@
           "chance_at_least_one_percent": 0.624
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -5157,14 +5158,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Manchester City": {
@@ -5226,14 +5227,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Rayan Aït-Nouri": {
@@ -5272,9 +5273,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -5318,9 +5319,9 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -5343,9 +5344,9 @@
           "chance_at_least_one_percent": 1.234
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "medium",
@@ -5412,9 +5413,9 @@
           "chance_at_least_one_percent": 3.053
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.025868,
-          "chance_at_least_one_percent": 2.554
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.114297,
+          "chance_at_least_one_percent": 10.801
         },
         "modeling": {
           "base_confidence": "medium",
@@ -5435,9 +5436,9 @@
           "chance_at_least_one_percent": 72.208
         },
         "autographs": {
-          "mapped_checklist_cards": 4,
-          "expected_hits_per_case": 0.026023,
-          "chance_at_least_one_percent": 2.569
+          "mapped_checklist_cards": 5,
+          "expected_hits_per_case": 0.114453,
+          "chance_at_least_one_percent": 10.815
         },
         "modeling": {
           "base_confidence": "medium",
@@ -5504,14 +5505,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Bendito Mantato": {
@@ -5573,9 +5574,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -5665,14 +5666,14 @@
           "chance_at_least_one_percent": 0.624
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Dwight Yorke": {
@@ -5688,9 +5689,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -5711,9 +5712,9 @@
           "chance_at_least_one_percent": 71.547
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -5757,14 +5758,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "José Mourinho": {
@@ -5849,14 +5850,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Matthijs De Ligt": {
@@ -5964,9 +5965,9 @@
           "chance_at_least_one_percent": 71.324
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -5987,14 +5988,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Rio Ferdinand": {
@@ -6010,14 +6011,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Robin van Persie": {
@@ -6033,9 +6034,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -6056,9 +6057,9 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -6079,9 +6080,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.006228,
-          "chance_at_least_one_percent": 0.621
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.094657,
+          "chance_at_least_one_percent": 9.032
         },
         "modeling": {
           "base_confidence": "none",
@@ -6102,9 +6103,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -6148,9 +6149,9 @@
           "chance_at_least_one_percent": 71.503
         },
         "autographs": {
-          "mapped_checklist_cards": 3,
-          "expected_hits_per_case": 0.021109,
-          "chance_at_least_one_percent": 2.089
+          "mapped_checklist_cards": 4,
+          "expected_hits_per_case": 0.109539,
+          "chance_at_least_one_percent": 10.375
         },
         "modeling": {
           "base_confidence": "none",
@@ -6171,14 +6172,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       }
     },
@@ -6242,9 +6243,9 @@
           "chance_at_least_one_percent": 2.462
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.0038,
-          "chance_at_least_one_percent": 0.379
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.092229,
+          "chance_at_least_one_percent": 8.811
         },
         "modeling": {
           "base_confidence": "medium",
@@ -6265,9 +6266,9 @@
           "chance_at_least_one_percent": 3.212
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.026921,
-          "chance_at_least_one_percent": 2.656
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.115351,
+          "chance_at_least_one_percent": 10.895
         },
         "modeling": {
           "base_confidence": "medium",
@@ -6380,9 +6381,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "medium",
@@ -6403,14 +6404,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Alan Shearer": {
@@ -6426,14 +6427,14 @@
           "chance_at_least_one_percent": 1.234
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Faustino Asprilla": {
@@ -6449,14 +6450,14 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Harvey Barnes": {
@@ -6495,14 +6496,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Lewis Hall": {
@@ -6518,14 +6519,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Newcastle United": {
@@ -6610,14 +6611,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Philippe Albert": {
@@ -6681,14 +6682,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Dan Ndoye": {
@@ -6796,14 +6797,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Chris Wood": {
@@ -6819,14 +6820,14 @@
           "chance_at_least_one_percent": 71.208
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Jair": {
@@ -6888,14 +6889,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Nottingham Forest": {
@@ -7074,14 +7075,14 @@
           "chance_at_least_one_percent": 71.899
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Habib Diarra": {
@@ -7212,14 +7213,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Chemsdine Talbi": {
@@ -7329,9 +7330,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.01584,
-          "chance_at_least_one_percent": 1.572
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.104269,
+          "chance_at_least_one_percent": 9.902
         },
         "modeling": {
           "base_confidence": "medium",
@@ -7352,14 +7353,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Richarlison": {
@@ -7421,14 +7422,14 @@
           "chance_at_least_one_percent": 2.002
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Mohammed Kudus": {
@@ -7444,9 +7445,9 @@
           "chance_at_least_one_percent": 3.212
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.01584,
-          "chance_at_least_one_percent": 1.572
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.104269,
+          "chance_at_least_one_percent": 9.902
         },
         "modeling": {
           "base_confidence": "medium",
@@ -7605,14 +7606,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Gareth Bale": {
@@ -7628,9 +7629,9 @@
           "chance_at_least_one_percent": 91.84
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.010028,
-          "chance_at_least_one_percent": 0.998
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.098457,
+          "chance_at_least_one_percent": 9.377
         },
         "modeling": {
           "base_confidence": "none",
@@ -7651,9 +7652,9 @@
           "chance_at_least_one_percent": 71.324
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -7674,9 +7675,9 @@
           "chance_at_least_one_percent": 0.624
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.017309,
-          "chance_at_least_one_percent": 1.716
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.105739,
+          "chance_at_least_one_percent": 10.034
         },
         "modeling": {
           "base_confidence": "none",
@@ -7697,9 +7698,9 @@
           "chance_at_least_one_percent": 0.367
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -7743,14 +7744,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Luka Modrić": {
@@ -7766,14 +7767,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Niko Kranjčar": {
@@ -7860,14 +7861,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Jarrod Bowen": {
@@ -7883,9 +7884,9 @@
           "chance_at_least_one_percent": 1.09
         },
         "autographs": {
-          "mapped_checklist_cards": 2,
-          "expected_hits_per_case": 0.026921,
-          "chance_at_least_one_percent": 2.656
+          "mapped_checklist_cards": 3,
+          "expected_hits_per_case": 0.115351,
+          "chance_at_least_one_percent": 10.895
         },
         "modeling": {
           "base_confidence": "medium",
@@ -7998,14 +7999,14 @@
           "chance_at_least_one_percent": 0.624
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "medium",
           "insert_confidence": "medium",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Tomáš Souček": {
@@ -8090,14 +8091,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Joe Cole": {
@@ -8113,14 +8114,14 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 0,
-          "expected_hits_per_case": 0,
-          "chance_at_least_one_percent": 0
+          "mapped_checklist_cards": 1,
+          "expected_hits_per_case": 0.088429,
+          "chance_at_least_one_percent": 8.463
         },
         "modeling": {
           "base_confidence": "none",
           "insert_confidence": "none",
-          "autograph_confidence": "none"
+          "autograph_confidence": "medium"
         }
       },
       "Mark Noble": {
@@ -8136,9 +8137,9 @@
           "chance_at_least_one_percent": 0
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.011081,
-          "chance_at_least_one_percent": 1.102
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.099511,
+          "chance_at_least_one_percent": 9.472
         },
         "modeling": {
           "base_confidence": "none",
@@ -8230,9 +8231,9 @@
           "chance_at_least_one_percent": 70.966
         },
         "autographs": {
-          "mapped_checklist_cards": 1,
-          "expected_hits_per_case": 0.0038,
-          "chance_at_least_one_percent": 0.379
+          "mapped_checklist_cards": 2,
+          "expected_hits_per_case": 0.092229,
+          "chance_at_least_one_percent": 8.811
         },
         "modeling": {
           "base_confidence": "medium",
