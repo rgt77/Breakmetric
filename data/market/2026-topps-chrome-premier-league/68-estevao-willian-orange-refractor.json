@@ -1,0 +1,30 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "68",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Orange Refractor",
+  "serial_numbering": 25,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-05-29",
+      "sale_price": 383,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-orange-refractor-68",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 383,
+    "mean_usd": 383,
+    "min_usd": 383,
+    "max_usd": 383,
+    "sale_count": 1,
+    "confidence": "low"
+  }
+}
