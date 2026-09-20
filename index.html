@@ -1060,45 +1060,6 @@
       analysisContent.hidden = true;
     }
 
-    async function loadProductMetadata() {
-      const previousTeam =
-        readProductSelection("team", team.value) || team.value;
-
-      try {
-        const response = await fetch(productPath("product_data"));
-        if (!response.ok) throw new Error("Product metadata unavailable");
-        productMetadataData = await response.json();
-
-        const teams = (productMetadataData.teams || [])
-          .map(item => item.name)
-          .filter(Boolean);
-
-        team.innerHTML = "";
-        for (const name of teams) {
-          const option = document.createElement("option");
-          option.value = name;
-          option.textContent = name;
-          team.appendChild(option);
-        }
-
-        if (teams.includes(previousTeam)) {
-          team.value = previousTeam;
-        } else if (teams.length) {
-          team.value = teams[0];
-          writeProductSelection("team", team.value);
-        }
-
-        renderTeams();
-        updateAnalysisContext();
-      } catch (error) {
-        productMetadataData = null;
-        team.innerHTML = "";
-        teamGrid.innerHTML =
-          '<div class="filter-empty">Team data unavailable for this product.</div>';
-        throw error;
-      }
-    }
-
     async function loadCurrentProductDatasets() {
       const format = selectedFormatConfig();
 
@@ -1940,49 +1901,6 @@
       }
     }
 
-    async function loadPlayerProbabilities() {
-      try {
-        const response = await fetch(
-          formatPath("player_probability_data")
-        );
-        if (!response.ok) throw new Error("Player probabilities unavailable");
-        playerProbabilityData = await response.json();
-        updatePlayerDetail();
-      } catch (error) {
-        playerProbabilityData = null;
-      }
-    }
-
-    async function loadPlayerIndex() {
-      try {
-        const response = await fetch(
-          formatPath("player_index_data")
-        );
-        if (!response.ok) throw new Error("Player index unavailable");
-        playerIndexData = await response.json();
-        renderTeams();
-        renderPlayers();
-        updatePlayerDetail();
-      } catch (error) {
-        playerIndexData = null;
-      }
-    }
-
-    async function loadBaseChecklist() {
-      try {
-        const response = await fetch(
-          formatPath("base_checklist_data")
-        );
-        if (!response.ok) throw new Error("Base checklist unavailable");
-        baseChecklistData = await response.json();
-        renderTeams();
-        renderPlayers();
-      } catch (error) {
-        playerGrid.innerHTML =
-          '<div class="empty-player-data">Player checklist unavailable.</div>';
-      }
-    }
-
     function playersForCurrentTeam() {
       const indexed = playerIndexData?.teams?.[team.value] || [];
 
@@ -2364,38 +2282,6 @@
       }
     }
 
-    async function loadProductionEstimate() {
-      try {
-        const response = await fetch(
-          formatPath("production_estimate_data")
-        );
-        if (!response.ok) throw new Error("Production estimate unavailable");
-        productionData = await response.json();
-        const low = Number(productionData?.aggregate?.implied_hobby_cases_low);
-        const high = Number(productionData?.aggregate?.implied_hobby_cases_high);
-
-        resultImpliedHobbyCases.textContent =
-          Number.isFinite(low) && Number.isFinite(high)
-            ? Math.round(low).toLocaleString() + "–" + Math.round(high).toLocaleString()
-            : "Unavailable";
-      } catch (error) {
-        resultImpliedHobbyCases.textContent = "Unavailable";
-      }
-    }
-
-    async function loadSealedSupply() {
-      try {
-        const response = await fetch(
-          formatPath("sealed_supply_data")
-        );
-        if (!response.ok) throw new Error("Sealed supply unavailable");
-        sealedSupplyData = await response.json();
-        updateSealedSupplyStatus();
-      } catch (error) {
-        resultSealedSupplyStatus.textContent = "Unavailable";
-      }
-    }
-
     function updateSealedSupplyStatus() {
       const status = sealedSupplyData?.current_estimate?.status;
 
@@ -2407,23 +2293,6 @@
         resultSealedSupplyStatus.textContent = "Estimated range";
       } else {
         resultSealedSupplyStatus.textContent = "No estimate";
-      }
-    }
-
-    async function loadLiveSupply() {
-      try {
-        const response = await fetch(
-          formatPath("live_supply_data")
-        );
-        if (!response.ok) throw new Error("Live Supply unavailable");
-        liveSupplyData = await response.json();
-        updateLiveSupply();
-        renderTeams();
-        renderPlayers();
-        updatePlayerDetail();
-      } catch (error) {
-        resultTrackedSerials.textContent = "Unavailable";
-        resultLiveOddsStatus.textContent = "Unavailable";
       }
     }
 
@@ -2451,19 +2320,6 @@
           : "Active";
     }
 
-    async function loadBaseParallelProbabilities() {
-      try {
-        const response = await fetch(
-          formatPath("team_base_parallel_probability_data")
-        );
-        if (!response.ok) throw new Error("Base parallel probabilities unavailable");
-        baseParallelProbabilityData = await response.json();
-        updateExpectedBaseParallels();
-      } catch (error) {
-        resultExpectedBaseParallels.textContent = "Unavailable";
-      }
-    }
-
     function updateExpectedBaseParallels() {
       const rows = baseParallelProbabilityData?.teams || [];
       const row = rows.find(item => item.team === team.value);
@@ -2479,19 +2335,6 @@
         Number.isFinite(Number(expected))
           ? Number(expected).toFixed(2)
           : "—";
-    }
-
-    async function loadInsertProbabilities() {
-      try {
-        const response = await fetch(
-          formatPath("team_insert_probability_data")
-        );
-        if (!response.ok) throw new Error("Insert probabilities unavailable");
-        insertProbabilityData = await response.json();
-        updateExpectedInserts();
-      } catch (error) {
-        resultExpectedInserts.textContent = "Unavailable";
-      }
     }
 
     function updateExpectedInserts() {
@@ -2512,19 +2355,6 @@
           : "—";
     }
 
-    async function loadAutographChecklist() {
-      try {
-        const response = await fetch(
-          formatPath("autograph_checklist_data")
-        );
-        if (!response.ok) throw new Error("Autograph checklist unavailable");
-        autographChecklistData = await response.json();
-        updateAutographChecklistCount();
-      } catch (error) {
-        resultAutoChecklistCount.textContent = "Unavailable";
-      }
-    }
-
     function updateAutographChecklistCount() {
       const count = autographChecklistData?.team_counts?.[team.value];
 
@@ -2532,20 +2362,6 @@
         Number.isFinite(Number(count))
           ? String(Number(count))
           : "0";
-    }
-
-    async function loadAutographProbabilities() {
-      try {
-        const response = await fetch(
-          formatPath("team_autograph_probability_data")
-        );
-        if (!response.ok) throw new Error("Autograph probabilities unavailable");
-        autographProbabilityData = await response.json();
-        updateAutographChance();
-      } catch (error) {
-        resultAutoChance.textContent = "Unavailable";
-        resultExpectedAutos.textContent = "Unavailable";
-      }
     }
 
     function updateAutographChance() {
@@ -2621,26 +2437,6 @@
         analysisContent.hidden = true;
         resultEvSummary.textContent = "Product unavailable";
         evCoverage.textContent = "Product data unavailable";
-      }
-    }
-
-    async function loadTeamEv() {
-      try {
-        if (!currentProduct) throw new Error("No product selected");
-
-        const response = await fetch(formatPath("ev_data"));
-        if (!response.ok) throw new Error("EV data unavailable");
-        teamEvData = await response.json();
-        updateTeamEv();
-        renderTeams();
-        renderPlayers();
-        updatePlayerDetail();
-        updateResults();
-      } catch (error) {
-        resultEvSummary.textContent = "Unavailable";
-        evCoverage.textContent = "Coverage unavailable";
-        currentTeamEntry = null;
-        currentEvUsd = null;
       }
     }
 
