@@ -11,20 +11,26 @@
   ],
   "evidence_status": {
     "qualitative_signal_count": 7,
-    "quantitative_source_types": 0,
+    "quantitative_source_types": 1,
     "serial_evidence_available": true,
-    "sealed_fraction_range_available": false
+    "sealed_fraction_range_available": false,
+    "production_denominator_available": true,
+    "production_denominator_type": "ODDS_DERIVED_PRODUCTION_RANGE",
+    "implied_hobby_packs_low": 1544400,
+    "implied_hobby_packs_high": 1608750,
+    "implied_hobby_cases_low": 6435,
+    "implied_hobby_cases_high": 6703.125
   },
   "current_estimate": {
-    "status": "qualitative-evidence-only",
+    "status": "production-denominator-estimated",
     "sealed_fraction_low": null,
     "sealed_fraction_mid": null,
     "sealed_fraction_high": null,
     "confidence": "none",
-    "live_odds_adjustment_allowed": false
+    "live_odds_adjustment_allowed": false,
+    "note": "Original Hobby production is now estimated as a range, but no defensible current sealed fraction exists yet."
   },
   "next_quantitative_targets": [
-    "verified production total or print-run-derived production denominator",
     "dated verified distributor/retailer inventory counts",
     "repeatable marketplace sealed-listing census with deduplication",
     "opening-volume dataset with known observation coverage"
