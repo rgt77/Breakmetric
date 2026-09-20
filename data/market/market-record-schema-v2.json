@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "breakmetric-market-record-v2",
+  "title": "BreakMetric market record v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "product_id",
+    "player",
+    "team",
+    "set",
+    "parallel",
+    "grading_state",
+    "currency",
+    "sales",
+    "evidence_summary",
+    "calculated_market_value"
+  ],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "product_id": { "type": "string" },
+    "card_number": { "type": ["string", "null"] },
+    "player": { "type": "string" },
+    "team": { "type": "string" },
+    "set": { "type": "string" },
+    "parallel": { "type": "string" },
+    "serial_numbering": { "type": ["integer", "null"] },
+    "grading_state": { "type": "string" },
+    "currency": { "type": "string" },
+    "sales": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sale_date",
+          "sale_price",
+          "marketplace",
+          "discovery_source",
+          "evidence_status",
+          "original_marketplace_verified"
+        ],
+        "properties": {
+          "sale_date": { "type": "string" },
+          "sale_price": { "type": "number" },
+          "marketplace": { "type": "string" },
+          "discovery_source": { "type": "string" },
+          "source_reference": { "type": ["string", "null"] },
+          "source_url": { "type": ["string", "null"] },
+          "source_sale_id": { "type": ["string", "null"] },
+          "serial_copy": { "type": ["string", "null"] },
+          "direct_marketplace_url_recovered": { "type": "boolean" },
+          "evidence_status": {
+            "enum": [
+              "original-marketplace-verified",
+              "secondary-source-realized-sale",
+              "discovery-only"
+            ]
+          },
+          "original_marketplace_verified": { "type": "boolean" }
+        }
+      }
+    },
+    "evidence_summary": {
+      "type": "object",
+      "required": [
+        "status",
+        "original_marketplace_verified_sale_count",
+        "secondary_source_realized_sale_count"
+      ]
+    },
+    "calculated_market_value": {
+      "type": "object",
+      "required": [
+        "primary_metric",
+        "median_usd",
+        "sale_count",
+        "confidence",
+        "status"
+      ]
+    }
+  }
+}
