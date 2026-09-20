@@ -1,19 +1,19 @@
 {
   "methodology": {
-    "primary_metric": "median_realized_sale_price",
-    "rules": [
-      "Use completed/realized sales, not current asking prices.",
-      "Keep each comparable card separated by product, player, set, parallel, autograph status and serial numbering.",
-      "Store currency with every sale.",
-      "BreakMetric will calculate median, mean, range and confidence from the entered sales.",
-      "No market value is treated as certain when comparable sales are sparse."
+    "primary_metric": "median_verified_realized_sale_price",
+    "discovery_source": "130 Point",
+    "verification_sources": [
+      "eBay",
+      "Fanatics Collect",
+      "other original marketplace"
     ],
-    "confidence": {
-      "high": "10 or more comparable realized sales",
-      "medium": "4 to 9 comparable realized sales",
-      "low": "1 to 3 comparable realized sales",
-      "none": "No comparable realized sales"
-    }
+    "rules": [
+      "Use realized sales only.",
+      "Do not mix raw and graded cards.",
+      "Require exact matching on product, player, set, parallel, autograph status and serial numbering where relevant.",
+      "Deduplicate the same transaction when it appears in multiple sources.",
+      "Do not invent a direct market value when no exact comparable exists."
+    ]
   },
   "example_card": {
     "product_id": "2026-topps-chrome-premier-league",
@@ -22,13 +22,16 @@
     "set": "Chrome Autograph Cards",
     "parallel": "Gold Refractor",
     "serial_numbering": null,
+    "grading_state": "raw",
     "sales": [
       {
+        "marketplace": "eBay",
+        "source_sale_id": null,
+        "source_url": null,
         "sale_date": "2026-09-01",
         "sale_price": 100,
-        "currency": "EUR",
-        "source": "manual-entry",
-        "source_reference": null
+        "currency": "USD",
+        "verified": true
       }
     ]
   }
