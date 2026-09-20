@@ -1,0 +1,793 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source": {
+    "name": "FINAL_PL_Chrome_Checklist",
+    "url": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
+    "type": "official_topps_checklist"
+  },
+  "allocation_note": "For multi-subject cards, all listed teams are stored. Break allocation rules are not inferred.",
+  "sections": [
+    {
+      "name": "Chrome Dual Autograph Cards",
+      "cards": [
+        {
+          "card_number": "CDA-BP",
+          "subjects": [
+            "Stiliyan Petrov",
+            "Gareth Barry"
+          ],
+          "teams": [
+            "Aston Villa"
+          ]
+        },
+        {
+          "card_number": "CDA-CY",
+          "subjects": [
+            "Andy Cole",
+            "Dwight Yorke"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "CDA-DK",
+          "subjects": [
+            "Jermain Defoe",
+            "Robbie Keane"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "CDA-DM",
+          "subjects": [
+            "Clint Dempsey",
+            "Brian McBride"
+          ],
+          "teams": [
+            "Fulham"
+          ]
+        },
+        {
+          "card_number": "CDA-GA",
+          "subjects": [
+            "Steven Gerrard",
+            "Xabi Alonso"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "CDA-GD",
+          "subjects": [
+            "Jack Grealish",
+            "Tyler Dibling"
+          ],
+          "teams": [
+            "Everton"
+          ]
+        },
+        {
+          "card_number": "CDA-GE",
+          "subjects": [
+            "Anthony Gordon",
+            "Anthony Elanga"
+          ],
+          "teams": [
+            "Newcastle United"
+          ]
+        },
+        {
+          "card_number": "CDA-GS",
+          "subjects": [
+            "Gabriel Magalhães",
+            "William Saliba"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CDA-GT",
+          "subjects": [
+            "Fernando Torres",
+            "Steven Gerrard"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "CDA-HA",
+          "subjects": [
+            "Sergio Agüero",
+            "Erling Haaland"
+          ],
+          "teams": [
+            "Manchester City"
+          ]
+        },
+        {
+          "card_number": "CDA-HB",
+          "subjects": [
+            "Dennis Bergkamp",
+            "Thierry Henry"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CDA-KG",
+          "subjects": [
+            "Cody Gakpo",
+            "Dirk Kuyt"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "CDA-KS",
+          "subjects": [
+            "Harry Kane",
+            "Heung-Min Son"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "CDA-MC",
+          "subjects": [
+            "Harrison Murray-Campbell",
+            "Shumaira Mheuka"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "CDA-ME",
+          "subjects": [
+            "Claude Makélélé",
+            "Michael Essien"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "CDA-MF",
+          "subjects": [
+            "Sir Alex Ferguson",
+            "José Mourinho"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "CDA-NB",
+          "subjects": [
+            "Mark Noble",
+            "Jarrod Bowen"
+          ],
+          "teams": [
+            "West Ham United"
+          ]
+        },
+        {
+          "card_number": "CDA-RF",
+          "subjects": [
+            "Wayne Rooney",
+            "Duncan Ferguson"
+          ],
+          "teams": [
+            "Everton"
+          ]
+        },
+        {
+          "card_number": "CDA-RP",
+          "subjects": [
+            "Wayne Rooney",
+            "Robin van Persie"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "CDA-SH",
+          "subjects": [
+            "Bukayo Saka",
+            "Thierry Henry"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CDA-SN",
+          "subjects": [
+            "Ethan Nwaneri",
+            "Myles Lewis-Skelly"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CDA-SS",
+          "subjects": [
+            "David Silva",
+            "Bernardo Silva"
+          ],
+          "teams": [
+            "Manchester City"
+          ]
+        },
+        {
+          "card_number": "CDA-TL",
+          "subjects": [
+            "Frank Lampard",
+            "John Terry"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "CDA-VR",
+          "subjects": [
+            "Patrick Vieira",
+            "Declan Rice"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CDA-ZB",
+          "subjects": [
+            "Yannick Bolasie",
+            "Wilfried Zaha"
+          ],
+          "teams": [
+            "Crystal Palace"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chrome Triple Autograph Cards",
+      "cards": [
+        {
+          "card_number": "CT-BKS",
+          "subjects": [
+            "Heung-Min Son",
+            "Gareth Bale",
+            "Harry Kane"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "CT-DLT",
+          "subjects": [
+            "John Terry",
+            "Didier Drogba",
+            "Frank Lampard"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "CT-GHZ",
+          "subjects": [
+            "Eiður Guðjohnsen",
+            "Gianfranco Zola",
+            "Jimmy-Floyd Hasselbaink"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "CT-HBW",
+          "subjects": [
+            "Ian Wright",
+            "Thierry Henry",
+            "Dennis Bergkamp"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CT-KCG",
+          "subjects": [
+            "Roy Keane",
+            "Eric Cantona",
+            "Ryan Giggs"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "CT-MFC",
+          "subjects": [
+            "Matheus Cunha",
+            "Bruno Fernandes",
+            "Bryan Mbeumo"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "CT-SGS",
+          "subjects": [
+            "Luis Suárez",
+            "Steven Gerrard",
+            "Mohamed Salah"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "CT-SPK",
+          "subjects": [
+            "Stuart Pearce",
+            "Teddy Sheringham",
+            "Roy Keane"
+          ],
+          "teams": [
+            "Nottingham Forest"
+          ]
+        },
+        {
+          "card_number": "CT-SRG",
+          "subjects": [
+            "Viktor Gyökeres",
+            "Declan Rice",
+            "Bukayo Saka"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CT-VFL",
+          "subjects": [
+            "Patrick Vieira",
+            "Robert Pirès",
+            "Freddie Ljungberg"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "CT-YAD",
+          "subjects": [
+            "David Silva",
+            "Yaya Touré",
+            "Sergio Agüero"
+          ],
+          "teams": [
+            "Manchester City"
+          ]
+        },
+        {
+          "card_number": "CT-YAW",
+          "subjects": [
+            "Gabriel Agbonlahor",
+            "Dwight Yorke",
+            "Ollie Watkins"
+          ],
+          "teams": [
+            "Aston Villa"
+          ]
+        },
+        {
+          "card_number": "CT-BRS",
+          "subjects": [
+            "David Beckham",
+            "Wayne Rooney",
+            "Paul Scholes"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Winners Enclosure Autograph Edition",
+      "cards": [
+        {
+          "card_number": "WIN-DR",
+          "subjects": [
+            "David Raya"
+          ],
+          "teams": [],
+          "award": "Joint Golden Glove Winner"
+        },
+        {
+          "card_number": "WIN-MS",
+          "subjects": [
+            "Matz Sels"
+          ],
+          "teams": [],
+          "award": "Joint Golden Glove Winner"
+        },
+        {
+          "card_number": "WIN-MSB",
+          "subjects": [
+            "Mohamed Salah"
+          ],
+          "teams": [],
+          "award": "Golden Boot Winner"
+        },
+        {
+          "card_number": "WIN-MSP",
+          "subjects": [
+            "Mohamed Salah"
+          ],
+          "teams": [],
+          "award": "Playmaker Winner"
+        }
+      ],
+      "note": "Team is not stated in this checklist section; no team inferred."
+    },
+    {
+      "name": "Winners Enclosure Quad Autograph",
+      "cards": [
+        {
+          "card_number": "WIN-QUAD",
+          "subjects": [
+            "Mohamed Salah",
+            "David Raya",
+            "Matz Sels",
+            "Mohamed Salah"
+          ],
+          "teams": [],
+          "note": "Teams are not stated in this checklist section; no team inferred."
+        }
+      ]
+    },
+    {
+      "name": "Kings of the Premier League Quad Autograph",
+      "cards": [
+        {
+          "card_number": "KING-QUAD",
+          "subjects": [
+            "Cole Palmer",
+            "Erling Haaland",
+            "Bruno Fernandes",
+            "Mohamed Salah"
+          ],
+          "teams": [
+            "Chelsea",
+            "Manchester City",
+            "Manchester United",
+            "Liverpool FC"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Superstar Sensations Autographs",
+      "cards": [
+        {
+          "card_number": "SUP-BF",
+          "subjects": [
+            "Bruno Fernandes"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "SUP-BS",
+          "subjects": [
+            "Bukayo Saka"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "SUP-CP",
+          "subjects": [
+            "Cole Palmer"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "SUP-DR",
+          "subjects": [
+            "Declan Rice"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "SUP-EH",
+          "subjects": [
+            "Erling Haaland"
+          ],
+          "teams": [
+            "Manchester City"
+          ]
+        },
+        {
+          "card_number": "SUP-GO",
+          "subjects": [
+            "Anthony Gordon"
+          ],
+          "teams": [
+            "Newcastle United"
+          ]
+        },
+        {
+          "card_number": "SUP-JB",
+          "subjects": [
+            "Jarrod Bowen"
+          ],
+          "teams": [
+            "West Ham United"
+          ]
+        },
+        {
+          "card_number": "SUP-JG",
+          "subjects": [
+            "Jack Grealish"
+          ],
+          "teams": [
+            "Everton"
+          ]
+        },
+        {
+          "card_number": "SUP-KO",
+          "subjects": [
+            "Benjamin Šeško"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "SUP-KS",
+          "subjects": [
+            "Cristian Romero"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "SUP-LM",
+          "subjects": [
+            "Matheus Cunha"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "SUP-MD",
+          "subjects": [
+            "Matthijs De Ligt"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "SUP-MK",
+          "subjects": [
+            "Mohammed Kudus"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "SUP-MO",
+          "subjects": [
+            "Martin Ødegaard"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "SUP-MS",
+          "subjects": [
+            "Mohamed Salah"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "SUP-PF",
+          "subjects": [
+            "Phil Foden"
+          ],
+          "teams": [
+            "Manchester City"
+          ]
+        },
+        {
+          "card_number": "SUP-VV",
+          "subjects": [
+            "Virgil van Dijk"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zero Hours - On-Card Autographs",
+      "hobby_exclusive": true,
+      "cards": [
+        {
+          "card_number": "ZH-AY",
+          "subjects": [
+            "Tosin Adarabioyo"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "ZH-BF",
+          "subjects": [
+            "Bruno Fernandes"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "ZH-BG",
+          "subjects": [
+            "Bruno Guimarães"
+          ],
+          "teams": [
+            "Newcastle United"
+          ]
+        },
+        {
+          "card_number": "ZH-DF",
+          "subjects": [
+            "Jermain Defoe"
+          ],
+          "teams": [
+            "Sunderland"
+          ]
+        },
+        {
+          "card_number": "ZH-GB",
+          "subjects": [
+            "Gareth Bale"
+          ],
+          "teams": [
+            "Tottenham Hotspur"
+          ]
+        },
+        {
+          "card_number": "ZH-LS",
+          "subjects": [
+            "Myles Lewis-Skelly"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "ZH-MC",
+          "subjects": [
+            "Matheus Cunha"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        },
+        {
+          "card_number": "ZH-MS",
+          "subjects": [
+            "Mohamed Salah"
+          ],
+          "teams": [
+            "Liverpool FC"
+          ]
+        },
+        {
+          "card_number": "ZH-SL",
+          "subjects": [
+            "Jørgen Strand Larsen"
+          ],
+          "teams": [
+            "Wolverhampton Wanderers"
+          ]
+        },
+        {
+          "card_number": "ZH-TH",
+          "subjects": [
+            "Thierry Henry"
+          ],
+          "teams": [
+            "Arsenal"
+          ]
+        },
+        {
+          "card_number": "ZH-WR",
+          "subjects": [
+            "Wayne Rooney"
+          ],
+          "teams": [
+            "Manchester United"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cold Battle - Frozenfractor On-Card Autographs",
+      "hobby_exclusive": true,
+      "cards": [
+        {
+          "card_number": "FF-CP",
+          "subjects": [
+            "Cole Palmer"
+          ],
+          "teams": [
+            "Chelsea"
+          ]
+        },
+        {
+          "card_number": "FF-MR",
+          "subjects": [
+            "Morgan Rogers"
+          ],
+          "teams": [
+            "Aston Villa"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cold Battle - Frozenfractor On-Card Dual Autograph",
+      "hobby_exclusive": true,
+      "cards": [
+        {
+          "card_number": "FF-PR",
+          "subjects": [
+            "Morgan Rogers",
+            "Cole Palmer"
+          ],
+          "teams": [
+            "Aston Villa",
+            "Chelsea"
+          ]
+        }
+      ]
+    }
+  ]
+}
