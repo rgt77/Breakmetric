@@ -1,0 +1,87 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "release_date": "2026-02-05",
+  "as_of_date": "2026-09-20",
+  "days_since_release": 227,
+  "interpretation": "These observations strengthen context but do not yet provide a defensible sealed-fraction percentage.",
+  "signals": [
+    {
+      "id": "topps-us-hobby-box-sold-out",
+      "type": "MANUFACTURER_STOCK_STATUS",
+      "observed_at": "2026-09-20",
+      "status": "sold_out",
+      "market": "US",
+      "source": "Topps",
+      "source_url": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "topps-us-hobby-case-sold-out",
+      "type": "MANUFACTURER_STOCK_STATUS",
+      "observed_at": "2026-09-20",
+      "status": "sold_out",
+      "market": "US",
+      "source": "Topps",
+      "source_url": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box-sealed-case",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "topps-uk-hobby-box-sold-out",
+      "type": "MANUFACTURER_STOCK_STATUS",
+      "observed_at": "2026-09-20",
+      "status": "sold_out",
+      "market": "UK",
+      "source": "Topps",
+      "source_url": "https://uk.topps.com/products/2026-topps-chrome-premier-league-hobby-box",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "ebay-sealed-sale-2026-08-21",
+      "type": "SEALED_SECONDARY_SALE",
+      "observed_at": "2026-08-21",
+      "sealed_units": 1,
+      "sale_price_usd": 299.99,
+      "source": "eBay",
+      "source_url": "https://www.ebay.com/itm/327256699104",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "ebay-sealed-sale-2026-08-26",
+      "type": "SEALED_SECONDARY_SALE",
+      "observed_at": "2026-08-26",
+      "sealed_units": 1,
+      "sale_price_usd": 281,
+      "source": "eBay",
+      "source_url": "https://www.ebay.com/itm/188790989940",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "northof7-break-1",
+      "type": "BREAK_EVENT",
+      "observed_at": "2026-02-18",
+      "opened_units": 1,
+      "unit": "case",
+      "source": "YouTube / Northof7cards",
+      "source_reference": "2026 Topps Chrome Premier League Hobby 1X Case BREAK #1- Feb 18th",
+      "quantitative_for_sealed_fraction": false
+    },
+    {
+      "id": "northof7-break-10",
+      "type": "BREAK_EVENT",
+      "observed_at": "2026-03-05",
+      "opened_units": 1,
+      "unit": "case",
+      "source": "YouTube / Northof7cards",
+      "source_reference": "2026 Topps Chrome Premier League Hobby 1X Case BREAK #10- Mar 5th",
+      "quantitative_for_sealed_fraction": false
+    }
+  ],
+  "summary": {
+    "manufacturer_stock_signals": 3,
+    "observed_secondary_sealed_sales": 2,
+    "observed_break_events": 2,
+    "observed_opened_cases_lower_bound_in_this_dataset": 2,
+    "quantitative_sealed_fraction_available": false
+  }
+}
