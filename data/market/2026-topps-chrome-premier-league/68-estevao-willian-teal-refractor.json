@@ -14,21 +14,27 @@
       "sale_price": 45,
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-04-13",
       "sale_price": 34,
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-03-18",
       "sale_price": 21.27,
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     }
   ],
   "calculated_market_value": {
@@ -38,6 +44,16 @@
     "min_usd": 21.27,
     "max_usd": 45,
     "sale_count": 3,
-    "confidence": "low"
-  }
+    "confidence": "provisional",
+    "sample_size_confidence": "low",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 3,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Original marketplace sale pages have not been recovered in the stored record; use as provisional secondary-source market evidence."
 }
