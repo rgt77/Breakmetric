@@ -54,7 +54,44 @@
     }
     .tool h2{margin:0 0 8px;font-size:1.5rem}
     .tool p{margin:0 0 22px;color:var(--muted)}
-    .form-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .browse-search{margin:20px 0 6px}
+    .browse-search input{padding:14px 16px}
+    .browse-search-hint{margin:7px 0 0!important;font-size:.75rem;color:var(--muted)}
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .team-card{
+      margin:0;
+      min-height:78px;
+      text-align:left;
+      border:1px solid var(--line);
+      background:#0e1528;
+      color:var(--text);
+      border-radius:13px;
+      padding:14px;
+      cursor:pointer;
+      font:inherit;
+      transition:border-color .15s ease,transform .15s ease,background .15s ease;
+    }
+    .team-card:hover{border-color:#405273;transform:translateY(-1px)}
+    .team-card.active{
+      border-color:var(--accent);
+      background:rgba(101,230,180,.08);
+    }
+    .team-card strong{display:block;font-size:.94rem;line-height:1.25}
+    .team-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
+    .filter-empty{
+      grid-column:1/-1;
+      color:var(--muted);
+      border:1px dashed var(--line);
+      border-radius:12px;
+      padding:14px;
+      font-size:.84rem;
+    }
     label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:7px}
     select,input{
       width:100%;
@@ -239,17 +276,30 @@
 
     <section class="tool">
       <h2>Spot value calculator</h2>
-      <p>First working prototype. Enter a spot price and an estimated value to compare them.</p>
+      <p>Choose a team, drill down to a player and compare the break data with the spot price.</p>
 
       <div id="productField" style="display:none;margin-bottom:14px">
         <label for="product">Product / break</label>
         <select id="product"></select>
       </div>
 
-      <div class="form-grid">
-        <div>
-          <label for="team">Team</label>
-          <select id="team">
+      
+      <div class="browse-search">
+        <label for="browseSearch">Search team or player</label>
+        <input
+          id="browseSearch"
+          type="search"
+          autocomplete="off"
+          placeholder="Try Chelsea, Palmer, Estêvão…"
+        />
+        <p id="searchStatus" class="browse-search-hint" aria-live="polite">
+          Type to filter teams and players instantly.
+        </p>
+      </div>
+
+      <div class="section-title">1 · Choose team</div>
+      <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
+      <select id="team" hidden aria-hidden="true">
             <option>AFC Bournemouth</option>
             <option>Arsenal</option>
             <option>Aston Villa</option>
@@ -271,8 +321,8 @@
             <option>West Ham United</option>
             <option>Wolverhampton Wanderers</option>
           </select>
-        </div>
 
+      <div class="form-grid">
         <div>
           <label for="currency">Currency</label>
           <select id="currency">
@@ -287,8 +337,6 @@
           <label for="price">Spot price</label>
           <input id="price" type="number" min="0" step="0.01" placeholder="350" />
         </div>
-
-
       </div>
 
       <p id="fxStatus" style="margin-top:12px;font-size:.82rem;color:var(--muted)">
@@ -407,6 +455,9 @@
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
+    const browseSearch = document.getElementById("browseSearch");
+    const searchStatus = document.getElementById("searchStatus");
+    const teamGrid = document.getElementById("teamGrid");
     const playerGrid = document.getElementById("playerGrid");
     const playerPanel = document.getElementById("playerPanel");
     const playerName = document.getElementById("playerName");
@@ -433,6 +484,7 @@
     let teamEvData = null;
     let baseChecklistData = null;
     let selectedPlayer = null;
+    let searchQuery = "";
     let autographProbabilityData = null;
     let autographChecklistData = null;
     let insertProbabilityData = null;
@@ -571,6 +623,125 @@
     });
 
 
+    function normalizeSearch(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function allTeamNames() {
+      return [...team.options].map(option => option.value);
+    }
+
+    function playersForTeamName(teamName) {
+      const basePlayers = (baseChecklistData?.cards || [])
+        .filter(card => card.team === teamName)
+        .map(card => card.player);
+
+      const evPlayers = (teamEvData?.teams?.[teamName]?.contributions || [])
+        .map(item => item.player);
+
+      const trackedPlayers = (liveSupplyData?.teams?.[teamName]?.tracked_cards || [])
+        .map(item => item.player);
+
+      return [...new Set([...basePlayers, ...evPlayers, ...trackedPlayers].filter(Boolean))];
+    }
+
+    function matchingTeams() {
+      const q = normalizeSearch(searchQuery);
+      const teams = allTeamNames();
+
+      if (!q) {
+        return teams.map(name => ({ name, matchedPlayers: [] }));
+      }
+
+      return teams
+        .map(name => {
+          const players = playersForTeamName(name);
+          const matchedPlayers = players.filter(player =>
+            normalizeSearch(player).includes(q)
+          );
+          const teamMatches = normalizeSearch(name).includes(q);
+
+          return teamMatches || matchedPlayers.length
+            ? { name, matchedPlayers }
+            : null;
+        })
+        .filter(Boolean);
+    }
+
+    function renderTeams() {
+      const matches = matchingTeams();
+      teamGrid.innerHTML = "";
+
+      if (!matches.length) {
+        teamGrid.innerHTML =
+          '<div class="filter-empty">No matching team or player.</div>';
+        searchStatus.textContent = "0 matches";
+        return;
+      }
+
+      for (const item of matches) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "team-card" + (team.value === item.name ? " active" : "");
+
+        const title = document.createElement("strong");
+        title.textContent = item.name;
+        button.appendChild(title);
+
+        const meta = document.createElement("span");
+        const playerCount = playersForTeamName(item.name).length;
+
+        if (item.matchedPlayers.length) {
+          const preview = item.matchedPlayers.slice(0, 2).join(", ");
+          const more = item.matchedPlayers.length > 2
+            ? " +" + (item.matchedPlayers.length - 2)
+            : "";
+          meta.textContent = preview + more;
+        } else {
+          meta.textContent =
+            playerCount + " player" + (playerCount === 1 ? "" : "s");
+        }
+
+        button.appendChild(meta);
+
+        button.addEventListener("click", () => {
+          if (team.value === item.name) {
+            renderTeams();
+            renderPlayers();
+            return;
+          }
+
+          team.value = item.name;
+          team.dispatchEvent(new Event("change"));
+        });
+
+        teamGrid.appendChild(button);
+      }
+
+      const playerMatchCount = matches.reduce(
+        (sum,item) => sum + item.matchedPlayers.length,
+        0
+      );
+
+      if (normalizeSearch(searchQuery)) {
+        searchStatus.textContent =
+          matches.length + " matching team" +
+          (matches.length === 1 ? "" : "s") +
+          (playerMatchCount
+            ? " · " + playerMatchCount + " matching player" +
+              (playerMatchCount === 1 ? "" : "s")
+            : "");
+      } else {
+        searchStatus.textContent =
+          matches.length + " teams · type to filter teams and players";
+      }
+    }
+
     async function loadBaseChecklist() {
       try {
         const response = await fetch(
@@ -578,6 +749,7 @@
         );
         if (!response.ok) throw new Error("Base checklist unavailable");
         baseChecklistData = await response.json();
+        renderTeams();
         renderPlayers();
       } catch (error) {
         playerGrid.innerHTML =
@@ -622,13 +794,26 @@
     }
 
     function renderPlayers() {
-      const players = playersForCurrentTeam();
+      const allPlayers = playersForCurrentTeam();
+      const q = normalizeSearch(searchQuery);
+      const teamNameMatches = q && normalizeSearch(team.value).includes(q);
+      const players = !q || teamNameMatches
+        ? allPlayers
+        : allPlayers.filter(item => normalizeSearch(item.name).includes(q));
+
       playerGrid.innerHTML = "";
+
+      if (!allPlayers.length) {
+        playerGrid.innerHTML =
+          '<div class="filter-empty">No player checklist loaded for this team.</div>';
+        clearPlayerSelection();
+        return;
+      }
 
       if (!players.length) {
         playerGrid.innerHTML =
-          '<div class="empty-player-data">No player checklist loaded for this team.</div>';
-        clearPlayerSelection();
+          '<div class="filter-empty">No players in ' + team.value + ' match this search.</div>';
+        playerPanel.classList.remove("visible");
         return;
       }
 
@@ -659,10 +844,12 @@
         playerGrid.appendChild(button);
       }
 
-      if (selectedPlayer && !players.some(p => p.name === selectedPlayer)) {
+      if (selectedPlayer && !allPlayers.some(p => p.name === selectedPlayer)) {
         clearPlayerSelection();
-      } else if (selectedPlayer) {
+      } else if (selectedPlayer && players.some(p => p.name === selectedPlayer)) {
         updatePlayerDetail();
+      } else if (selectedPlayer) {
+        playerPanel.classList.remove("visible");
       }
     }
 
@@ -854,6 +1041,7 @@
         if (!response.ok) throw new Error("Live Supply unavailable");
         liveSupplyData = await response.json();
         updateLiveSupply();
+        renderTeams();
         renderPlayers();
         updatePlayerDetail();
       } catch (error) {
@@ -1047,6 +1235,7 @@
         if (!response.ok) throw new Error("EV data unavailable");
         teamEvData = await response.json();
         updateTeamEv();
+        renderTeams();
         renderPlayers();
         updatePlayerDetail();
         updateResults();
@@ -1085,6 +1274,7 @@
       localStorage.setItem("breakmetric_team", team.value);
       clearPlayerSelection();
       updateTeamEv();
+      renderTeams();
       renderPlayers();
       updateAutographChance();
       updateAutographChecklistCount();
@@ -1094,12 +1284,20 @@
       updateResults();
     });
 
+    browseSearch.addEventListener("input", () => {
+      searchQuery = browseSearch.value;
+      renderTeams();
+      renderPlayers();
+    });
+
     product.addEventListener("change", async () => {
       currentProduct = productCatalog.products.find(p => p.id === product.value) || null;
       clearPlayerSelection();
       await loadTeamEv();
       renderPlayers();
     });
+
+    renderTeams();
 
     const savedPlayer = localStorage.getItem("breakmetric_player");
     if (savedPlayer) selectedPlayer = savedPlayer;
