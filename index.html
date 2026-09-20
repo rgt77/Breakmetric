@@ -719,7 +719,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.8</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.9</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -811,6 +811,8 @@
     let teamReadinessData = null;
     let activeContractReport = null;
     let productCatalog = null;
+    let productCatalogContractReport = null;
+    let formatCatalogContractReport = null;
     let currentProduct = null;
     let currentTeamEntry = null;
     let currentEvUsd = null;
@@ -1231,7 +1233,8 @@
         const runtimeContract =
           BreakMetricContracts.validateAnalysisBundle(runtimeBundle, {
             productId: productIdAtStart,
-            formatId: formatIdAtStart
+            formatId: formatIdAtStart,
+            catalogEntry: currentProduct
           });
 
         if (!runtimeContract.valid) {
@@ -1297,11 +1300,11 @@
 
         productStatus.innerHTML =
           "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
-          "</strong> · <span class=\"integrity-pass\">Dataset integrity validated.</span>";
+          "</strong> · <span class=\"integrity-pass\">Catalog + product integrity validated.</span>";
 
         formatStatus.innerHTML =
           "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-          "</strong> · <span class=\"integrity-pass\">Format integrity + runtime contract validated.</span>";
+          "</strong> · <span class=\"integrity-pass\">Manifest + format integrity + runtime contract validated.</span>";
         setAnalysisLoadState("ready");
 
         activeContractReport = runtimeContract;
@@ -1429,6 +1432,7 @@
 
       if (!currentProduct || !formatPathAtStart) {
         formatCatalogData = null;
+        formatCatalogContractReport = null;
         formatGrid.innerHTML = "";
         formatStage.hidden = true;
         analysisContent.hidden = true;
@@ -1468,6 +1472,7 @@
         }
 
         formatCatalogData = nextFormatCatalog;
+        formatCatalogContractReport = contract;
 
         const reconciledFormat = BreakMetricContracts.reconcileFormat(
           formatCatalogData,
@@ -1490,6 +1495,7 @@
         }
 
         formatCatalogData = null;
+        formatCatalogContractReport = null;
         formatGrid.innerHTML = "";
         formatStatus.textContent =
           error?.name === "DataContractError"
@@ -1520,11 +1526,11 @@
         state.className = "format-state";
         state.textContent =
           item.status === "ready"
-            ? "Analysis ready" +
+            ? "Manifest valid · Analysis ready" +
               (item.analysis_unit?.display_name
                 ? " · " + item.analysis_unit.display_name
                 : "")
-            : "Model pending";
+            : "Manifest valid · Model pending";
 
         const note = document.createElement("span");
         note.textContent = item.note || "";
@@ -1532,6 +1538,14 @@
         button.appendChild(title);
         button.appendChild(state);
         button.appendChild(note);
+        button.setAttribute(
+          "aria-label",
+          item.name + ". " +
+          (item.status === "ready"
+            ? "Manifest valid. Analysis ready. " +
+              (item.analysis_unit?.display_name || "")
+            : "Manifest valid. Model pending.")
+        );
 
         if (item.status === "ready" && item.analysis_unit) {
           const scope = document.createElement("span");
@@ -1635,7 +1649,10 @@
 
         const state = document.createElement("span");
         state.className = "product-state";
-        state.textContent = item.status === "ready" ? "Dataset ready" : "Dataset pending";
+        state.textContent =
+          item.status === "ready"
+            ? "Manifest valid · Dataset ready"
+            : "Manifest valid · Dataset pending";
 
         const note = document.createElement("span");
         note.textContent = item.note || "";
@@ -1643,12 +1660,20 @@
         button.appendChild(title);
         button.appendChild(state);
         button.appendChild(note);
+        button.setAttribute(
+          "aria-label",
+          (item.display_name || item.name) + ". " +
+          (item.status === "ready"
+            ? "Manifest valid. Dataset ready."
+            : "Manifest valid. Dataset pending.")
+        );
 
         button.addEventListener("click", async () => {
           selectedProductId = item.id;
           productLoadToken += 1;
           formatLoadToken += 1;
           formatCatalogData = null;
+          formatCatalogContractReport = null;
           formatGrid.innerHTML = "";
           localStorage.setItem("breakmetric_product", selectedProductId);
           currentProduct = item;
@@ -2548,7 +2573,21 @@
         const response = await fetch("data/products/catalog.json");
         if (!response.ok) throw new Error("Product catalog unavailable");
 
-        productCatalog = await response.json();
+        const nextProductCatalog = await response.json();
+        const productCatalogContract =
+          BreakMetricContracts.validateProductCatalog(nextProductCatalog);
+
+        if (!productCatalogContract.valid) {
+          const error = new Error(
+            "Product catalog contract failed: " +
+            productCatalogContract.errors.join("; ")
+          );
+          error.name = "DataContractError";
+          throw error;
+        }
+
+        productCatalog = nextProductCatalog;
+        productCatalogContractReport = productCatalogContract;
 
         selectedProductId = BreakMetricContracts.reconcileProduct(
           productCatalog,
@@ -2572,6 +2611,7 @@
         if (currentProduct?.status === "ready") {
           formatLoadToken += 1;
           formatCatalogData = null;
+          formatCatalogContractReport = null;
           formatGrid.innerHTML = "";
           resetProductData();
           await loadFormats();
@@ -2581,11 +2621,19 @@
           }
         }
       } catch (error) {
-        productStatus.textContent = "Product catalog unavailable.";
+        productCatalog = null;
+        productCatalogContractReport = null;
+        productGrid.innerHTML = "";
+        productStatus.textContent =
+          error?.name === "DataContractError"
+            ? "Product catalog failed integrity validation."
+            : "Product catalog unavailable.";
         formatStage.hidden = true;
         setAnalysisLoadState(
           "error",
-          "Product catalog could not be loaded. Retry by reloading the page."
+          error?.name === "DataContractError"
+            ? "Product catalog structure is invalid. Analysis has been blocked."
+            : "Product catalog could not be loaded. Retry by reloading the page."
         );
         resultEvSummary.textContent = "Product unavailable";
         evCoverage.textContent = "Product data unavailable";
