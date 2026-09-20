@@ -666,6 +666,10 @@
             <span>Cache / requests</span>
             <strong id="dataLoaderMetrics">—</strong>
           </div>
+          <div>
+            <span>Browser storage</span>
+            <strong id="dataStorageStatus">Pending</strong>
+          </div>
         </div>
       </details>
 
@@ -1046,6 +1050,7 @@
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
+  <script src="src/storage.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
@@ -1084,6 +1089,7 @@
     const dataRoiGate = document.getElementById("dataRoiGate");
     const dataLoaderStatus = document.getElementById("dataLoaderStatus");
     const dataLoaderMetrics = document.getElementById("dataLoaderMetrics");
+    const dataStorageStatus = document.getElementById("dataStorageStatus");
     const qualityProbability = document.getElementById("qualityProbability");
     const qualityEv = document.getElementById("qualityEv");
     const qualityMarket = document.getElementById("qualityMarket");
@@ -1136,12 +1142,12 @@
     const playerCardList = document.getElementById("playerCardList");
 
     const initialUrlState = BreakMetricUrlState.read(location.search);
-    const savedCurrency = localStorage.getItem("breakmetric_currency");
-    const legacySavedSpotPrice = localStorage.getItem("breakmetric_spot_price");
+    const savedCurrency = BreakMetricStorage.get("breakmetric_currency");
+    const legacySavedSpotPrice = BreakMetricStorage.get("breakmetric_spot_price");
     let savedSpotState = null;
 
     try {
-      const parsed = JSON.parse(localStorage.getItem("breakmetric_spot_state") || "null");
+      const parsed = JSON.parse(BreakMetricStorage.get("breakmetric_spot_state") || "null");
       if (
         parsed &&
         Number.isFinite(Number(parsed.amount)) &&
@@ -1161,7 +1167,7 @@
         amount: Number(legacySavedSpotPrice),
         currency: savedCurrency || "USD"
       };
-      localStorage.removeItem("breakmetric_spot_price");
+      BreakMetricStorage.remove("breakmetric_spot_price");
     }
 
     if (savedSpotState && Number.isFinite(savedSpotState.amount)) {
@@ -1171,10 +1177,10 @@
     function persistSpotState() {
       const amount = Number(price.value);
       if (!(amount >= 0) || !Number.isFinite(amount)) {
-        localStorage.removeItem("breakmetric_spot_state");
+        BreakMetricStorage.remove("breakmetric_spot_state");
         return;
       }
-      localStorage.setItem(
+      BreakMetricStorage.set(
         "breakmetric_spot_state",
         JSON.stringify({ amount, currency: currency.value })
       );
@@ -1190,7 +1196,7 @@
     let formatIntegrityData = null;
     let selectedProductId =
       initialUrlState.product ||
-      localStorage.getItem("breakmetric_product") ||
+      BreakMetricStorage.get("breakmetric_product") ||
       "2026-topps-chrome-premier-league";
     let selectedFormat = initialUrlState.format || "hobby";
     let teamEvData = null;
@@ -1245,7 +1251,7 @@
 
     function readProductSelection(field, fallback = null, productId = selectedProductId) {
       if (!productId) return fallback;
-      const value = localStorage.getItem(selectionStorageKey(field, productId));
+      const value = BreakMetricStorage.get(selectionStorageKey(field, productId));
       return value !== null ? value : fallback;
     }
 
@@ -1254,9 +1260,9 @@
       const key = selectionStorageKey(field, productId);
 
       if (value === null || value === undefined || value === "") {
-        localStorage.removeItem(key);
+        BreakMetricStorage.remove(key);
       } else {
-        localStorage.setItem(key, String(value));
+        BreakMetricStorage.set(key, String(value));
       }
     }
 
@@ -1264,23 +1270,23 @@
       if (!productId) return;
 
       const legacy = {
-        format: localStorage.getItem("breakmetric_format"),
-        team: localStorage.getItem("breakmetric_team"),
-        player: localStorage.getItem("breakmetric_player")
+        format: BreakMetricStorage.get("breakmetric_format"),
+        team: BreakMetricStorage.get("breakmetric_team"),
+        player: BreakMetricStorage.get("breakmetric_player")
       };
 
       for (const [field,value] of Object.entries(legacy)) {
         if (
           value !== null &&
-          localStorage.getItem(selectionStorageKey(field, productId)) === null
+          BreakMetricStorage.get(selectionStorageKey(field, productId)) === null
         ) {
           writeProductSelection(field, value, productId);
         }
       }
 
-      localStorage.removeItem("breakmetric_format");
-      localStorage.removeItem("breakmetric_team");
-      localStorage.removeItem("breakmetric_player");
+      BreakMetricStorage.remove("breakmetric_format");
+      BreakMetricStorage.remove("breakmetric_team");
+      BreakMetricStorage.remove("breakmetric_player");
     }
 
     function restoreProductSelection(productId = selectedProductId) {
@@ -1683,6 +1689,16 @@
         summary.roi.eligible ? "quality-ready" : "quality-locked";
     }
 
+    function updateStorageStatusUi() {
+      const diagnostics = BreakMetricStorage.diagnostics();
+      dataStorageStatus.textContent =
+        diagnostics.mode === "persistent"
+          ? "Persistent local storage"
+          : "Session fallback · changes may reset on reload";
+      dataStorageStatus.className =
+        diagnostics.mode === "persistent" ? "status-good" : "status-warn";
+    }
+
     function updateLoaderStatsUi() {
       const stats = BreakMetricDataLoader.stats();
       dataLoaderStatus.textContent =
@@ -1702,6 +1718,7 @@
 
     function updateDataStatusUi() {
       updateLoaderStatsUi();
+      updateStorageStatusUi();
       const integrityPassed =
         !analysisContent.hidden &&
         currentProduct?.status === "ready" &&
@@ -1948,6 +1965,7 @@
       dataLoaderStatus.className = "";
       dataLoaderMetrics.textContent = "—";
       dataLoaderMetrics.className = "";
+      updateStorageStatusUi();
       qualityProbability.textContent = "Pending";
       qualityProbability.className = "";
       qualityEv.textContent = "Pending";
@@ -2597,7 +2615,7 @@
           formatCatalogData = null;
           formatCatalogContractReport = null;
           formatGrid.innerHTML = "";
-          localStorage.setItem("breakmetric_product", selectedProductId);
+          BreakMetricStorage.set("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
           syncUrlState();
@@ -2894,7 +2912,7 @@
 
       if (converted && currency.value === nextCurrency) {
         lastCurrency = nextCurrency;
-        localStorage.setItem("breakmetric_currency", nextCurrency);
+        BreakMetricStorage.set("breakmetric_currency", nextCurrency);
         persistSpotState();
       }
     });
@@ -3663,7 +3681,7 @@
         );
 
         if (selectedProductId) {
-          localStorage.setItem("breakmetric_product", selectedProductId);
+          BreakMetricStorage.set("breakmetric_product", selectedProductId);
         }
 
         renderProducts();
