@@ -512,5 +512,14 @@
     "pull_request_validation": "required",
     "main_branch_validation": "required"
   },
-  "result": "pending-ci"
+  "result": "pass",
+  "verification": {
+    "branch_ci": "pass",
+    "pull_request_ci": "pass",
+    "gates": [
+      "static release validator",
+      "model smoke tests",
+      "source syntax checks"
+    ]
+  }
 }
