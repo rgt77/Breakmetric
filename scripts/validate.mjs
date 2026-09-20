@@ -41,6 +41,9 @@ pass("EV coverage policy forbids unsupported percentage", evPolicy.current_state
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
 const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
+const playerDisclosurePolicy = json("data/methodology/player-disclosure-v1.json");
+pass("player disclosure policy schema", playerDisclosurePolicy.schema_version === 1);
+pass("player disclosure has four collapsed detail groups", playerDisclosurePolicy.collapsed_by_default?.length === 4);
 pass("team comparison policy schema", teamComparisonPolicy.schema_version === 1);
 pass("team comparison remains descriptive", teamComparisonPolicy.default_order === "canonical-checklist-order");
 pass("market record quality policy schema", marketRecordQualityPolicy.schema_version === 1);
@@ -233,6 +236,12 @@ pass("retry analysis control present", html.includes('id="retryAnalysisButton"')
 pass("analysis progress UI present", html.includes('class="flow-progress"'));
 pass("team comparison panel present", html.includes('id="teamComparisonPanel"'));
 pass("team comparison has descriptive caption", html.includes("No value ranking is applied"));
+pass("player panel is labelled region", html.includes('role="region" aria-labelledby="playerName"'));
+pass("player clear control present", html.includes('id="clearPlayerButton"'));
+pass("player details use progressive disclosure", (html.match(/class="player-detail-section"/g) || []).length === 4);
+pass("player controls expose aria-expanded", html.includes('"aria-expanded"'));
+pass("player grid can receive programmatic focus", html.includes('id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"'));
+pass("player detail resets avoid innerHTML", !html.includes('playerCoverageDetail.innerHTML = ""'));
 pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
 pass("version is v1.2.0", html.includes("BreakMetric v1.2.0"));
