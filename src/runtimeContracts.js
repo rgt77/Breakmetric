@@ -155,6 +155,7 @@
 
     const requiredAnalysisKeys=[
       "ev_data",
+      "ev_scope_data",
       "base_checklist_data",
       "autograph_checklist_data",
       "player_index_data",
@@ -483,6 +484,93 @@
     return result(errors,warnings);
   };
 
+  api.validateEvScope=function(data={}, productId, formatId, canonicalTeams=[], evData={}){
+    const errors=[],warnings=[];
+    const requiredCategories=["base_parallels","inserts","autographs"];
+    const allowedStatuses=new Set(["not-started","partial","complete"]);
+
+    if(data.schema_version!==1) errors.push("EV scope schema_version mismatch");
+    if(data.product_id!==productId) errors.push("EV scope product_id mismatch");
+    if(formatId && data.format_id!==formatId) errors.push("EV scope format_id mismatch");
+    if(data.model!=="team-ev-scope-v1") errors.push("EV scope model mismatch");
+    if(typeof data.scope_definition!=="string" || !data.scope_definition) {
+      errors.push("EV scope definition missing");
+    }
+
+    if(!Array.isArray(data.required_categories) ||
+       data.required_categories.length!==requiredCategories.length ||
+       requiredCategories.some(category=>!data.required_categories.includes(category))){
+      errors.push("EV scope required categories mismatch");
+    }
+
+    if(!data.teams || Array.isArray(data.teams)){
+      errors.push("EV scope teams object missing");
+      return result(errors,warnings);
+    }
+
+    const canonical=[...canonicalTeams].sort();
+    const actual=Object.keys(data.teams).sort();
+    if(canonical.length!==actual.length ||
+       canonical.some((team,index)=>team!==actual[index])){
+      errors.push("EV scope canonical team set mismatch");
+    }
+
+    let completeTeams=0;
+    let partialTeams=0;
+
+    for(const team of canonical){
+      const row=data.teams?.[team];
+      if(!row) continue;
+
+      let valuedCount=0;
+      let allComplete=true;
+      let anyProgress=false;
+
+      for(const category of requiredCategories){
+        const item=row.categories?.[category];
+        if(!item){
+          errors.push("EV scope category missing: "+team+" / "+category);
+          allComplete=false;
+          continue;
+        }
+        if(!allowedStatuses.has(item.status)){
+          errors.push("EV scope category status invalid: "+team+" / "+category);
+        }
+        if(!nonNegative(item.valued_contribution_count)){
+          errors.push("EV scope contribution count invalid: "+team+" / "+category);
+        }
+        const count=Number(item.valued_contribution_count||0);
+        valuedCount+=count;
+        if(item.status!=="complete") allComplete=false;
+        if(item.status!=="not-started" || count>0) anyProgress=true;
+        if(item.status==="not-started" && count!==0){
+          errors.push("EV scope not-started category has valued contributions: "+team+" / "+category);
+        }
+      }
+
+      if(Boolean(row.coverage_complete)!==allComplete){
+        errors.push("EV scope team completion mismatch: "+team);
+      }
+      if(row.coverage_complete) completeTeams++;
+      else if(anyProgress) partialTeams++;
+
+      const evRow=evData?.teams?.[team] || null;
+      const evValued=Number(evRow?.valued_card_count||0);
+      if(valuedCount!==evValued){
+        errors.push("EV scope valued contribution count mismatch: "+team);
+      }
+      if(Boolean(row.coverage_complete)!==Boolean(evRow?.coverage_complete)){
+        errors.push("EV scope / team EV completion mismatch: "+team);
+      }
+    }
+
+    return result(errors,warnings,{
+      ev_scope_team_count:actual.length,
+      ev_scope_partial_team_count:partialTeams,
+      ev_scope_complete_team_count:completeTeams
+    });
+  };
+
   api.validateTeamEv=function(data={}, productId, canonicalTeams=[]){
     const errors=[],warnings=[];
     if(data.product_id!==productId) errors.push("team EV product_id mismatch");
@@ -649,6 +737,13 @@
       api.validateProductId(bundle.sealedSupply,productId,"sealed supply"),
       api.validateProductId(bundle.production,productId,"production estimate"),
       api.validateTeamEv(bundle.teamEv,productId,canonical),
+      api.validateEvScope(
+        bundle.evScope,
+        productId,
+        context.formatId || null,
+        canonical,
+        bundle.teamEv
+      ),
       api.validateMarketRegistry(
         bundle.marketRegistry,
         productId,
