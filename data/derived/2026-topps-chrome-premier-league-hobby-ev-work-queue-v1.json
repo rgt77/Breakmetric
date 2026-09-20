@@ -1,0 +1,556 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "generated_at": "2026-09-20",
+  "model": "ev-work-queue-v1",
+  "summary": {
+    "task_count": 60,
+    "complete_task_count": 0,
+    "partial_task_count": 2,
+    "not_started_task_count": 58,
+    "teams_with_ev_progress": 1
+  },
+  "tasks": [
+    {
+      "id": "chelsea-base-parallels",
+      "team": "Chelsea",
+      "category": "base_parallels",
+      "status": "partial",
+      "valued_contribution_count": 26,
+      "priority": 1,
+      "next_action": "enumerate remaining EV-eligible cards and continue valuation"
+    },
+    {
+      "id": "chelsea-autographs",
+      "team": "Chelsea",
+      "category": "autographs",
+      "status": "partial",
+      "valued_contribution_count": 1,
+      "priority": 1,
+      "next_action": "enumerate remaining EV-eligible cards and continue valuation"
+    },
+    {
+      "id": "chelsea-inserts",
+      "team": "Chelsea",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 2,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "afc-bournemouth-autographs",
+      "team": "AFC Bournemouth",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "afc-bournemouth-base-parallels",
+      "team": "AFC Bournemouth",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "afc-bournemouth-inserts",
+      "team": "AFC Bournemouth",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "arsenal-autographs",
+      "team": "Arsenal",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "arsenal-base-parallels",
+      "team": "Arsenal",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "arsenal-inserts",
+      "team": "Arsenal",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "aston-villa-autographs",
+      "team": "Aston Villa",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "aston-villa-base-parallels",
+      "team": "Aston Villa",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "aston-villa-inserts",
+      "team": "Aston Villa",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brentford-autographs",
+      "team": "Brentford",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brentford-base-parallels",
+      "team": "Brentford",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brentford-inserts",
+      "team": "Brentford",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brighton-hove-albion-autographs",
+      "team": "Brighton & Hove Albion",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brighton-hove-albion-base-parallels",
+      "team": "Brighton & Hove Albion",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "brighton-hove-albion-inserts",
+      "team": "Brighton & Hove Albion",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "burnley-fc-autographs",
+      "team": "Burnley FC",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "burnley-fc-base-parallels",
+      "team": "Burnley FC",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "burnley-fc-inserts",
+      "team": "Burnley FC",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "crystal-palace-autographs",
+      "team": "Crystal Palace",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "crystal-palace-base-parallels",
+      "team": "Crystal Palace",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "crystal-palace-inserts",
+      "team": "Crystal Palace",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "everton-autographs",
+      "team": "Everton",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "everton-base-parallels",
+      "team": "Everton",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "everton-inserts",
+      "team": "Everton",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "fulham-autographs",
+      "team": "Fulham",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "fulham-base-parallels",
+      "team": "Fulham",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "fulham-inserts",
+      "team": "Fulham",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "leeds-united-autographs",
+      "team": "Leeds United",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "leeds-united-base-parallels",
+      "team": "Leeds United",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "leeds-united-inserts",
+      "team": "Leeds United",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "liverpool-fc-autographs",
+      "team": "Liverpool FC",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "liverpool-fc-base-parallels",
+      "team": "Liverpool FC",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "liverpool-fc-inserts",
+      "team": "Liverpool FC",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-city-autographs",
+      "team": "Manchester City",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-city-base-parallels",
+      "team": "Manchester City",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-city-inserts",
+      "team": "Manchester City",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-united-autographs",
+      "team": "Manchester United",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-united-base-parallels",
+      "team": "Manchester United",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "manchester-united-inserts",
+      "team": "Manchester United",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "newcastle-united-autographs",
+      "team": "Newcastle United",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "newcastle-united-base-parallels",
+      "team": "Newcastle United",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "newcastle-united-inserts",
+      "team": "Newcastle United",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "nottingham-forest-autographs",
+      "team": "Nottingham Forest",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "nottingham-forest-base-parallels",
+      "team": "Nottingham Forest",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "nottingham-forest-inserts",
+      "team": "Nottingham Forest",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "sunderland-autographs",
+      "team": "Sunderland",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "sunderland-base-parallels",
+      "team": "Sunderland",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "sunderland-inserts",
+      "team": "Sunderland",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "tottenham-hotspur-autographs",
+      "team": "Tottenham Hotspur",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "tottenham-hotspur-base-parallels",
+      "team": "Tottenham Hotspur",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "tottenham-hotspur-inserts",
+      "team": "Tottenham Hotspur",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "west-ham-united-autographs",
+      "team": "West Ham United",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "west-ham-united-base-parallels",
+      "team": "West Ham United",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "west-ham-united-inserts",
+      "team": "West Ham United",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "wolverhampton-wanderers-autographs",
+      "team": "Wolverhampton Wanderers",
+      "category": "autographs",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "wolverhampton-wanderers-base-parallels",
+      "team": "Wolverhampton Wanderers",
+      "category": "base_parallels",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    },
+    {
+      "id": "wolverhampton-wanderers-inserts",
+      "team": "Wolverhampton Wanderers",
+      "category": "inserts",
+      "status": "not-started",
+      "valued_contribution_count": 0,
+      "priority": 3,
+      "next_action": "enumerate EV-eligible cards and begin market valuation"
+    }
+  ]
+}
