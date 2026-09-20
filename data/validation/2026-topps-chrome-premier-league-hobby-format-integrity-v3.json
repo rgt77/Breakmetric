@@ -18,5 +18,5 @@
     "production_route_present": true
   },
   "result": "pass",
-  "note": "Integrity pass means routing and audit linkage are valid. It does not mean market evidence is original-marketplace verified; that status is read from the market audit."
+  "note": "Integrity pass means routing and audit linkage are valid. Market evidence source quality is read from market-evidence-audit-v2.json."
 }
