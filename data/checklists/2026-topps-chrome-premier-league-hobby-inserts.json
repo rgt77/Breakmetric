@@ -1,0 +1,1615 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source": {
+    "name": "FINAL_PL_Chrome_Checklist",
+    "url": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
+    "type": "official_topps_checklist"
+  },
+  "normalization_notes": [
+    "Team names normalized consistently (e.g. source typo 'Liverpoool FC' normalized to 'Liverpool FC').",
+    "No team inferred where the official checklist section does not state one."
+  ],
+  "sections": [
+    {
+      "name": "The Streets Won't Forget",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "SWF-1",
+          "subject": "Harry Kewell",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "SWF-2",
+          "subject": "Eiður Guðjohnsen",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "SWF-3",
+          "subject": "Elano",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "SWF-4",
+          "subject": "Aaron Lennon",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "SWF-5",
+          "subject": "Yakubu",
+          "team": "Everton"
+        },
+        {
+          "card_number": "SWF-6",
+          "subject": "Andy Johnson",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "SWF-7",
+          "subject": "Papiss Cissé",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "SWF-8",
+          "subject": "Yannick Bolasie",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "SWF-9",
+          "subject": "Bobby Zamora",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "SWF-10",
+          "subject": "Niko Kranjčar",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "SWF-11",
+          "subject": "Stephen Ireland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "SWF-12",
+          "subject": "John Arne Riise",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "SWF-13",
+          "subject": "Nolberto Solano",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "SWF-14",
+          "subject": "Zoltán Gera",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "SWF-15",
+          "subject": "Abou Diaby",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "SWF-16",
+          "subject": "Georgi Kinkladze",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "SWF-17",
+          "subject": "Tony Yeboah",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "SWF-18",
+          "subject": "Faustino Asprilla",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "SWF-19",
+          "subject": "Gabriel Agbonlahor",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "SWF-20",
+          "subject": "Kevin Phillips",
+          "team": "Sunderland"
+        }
+      ]
+    },
+    {
+      "name": "Alive and Kicking",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "AK-1",
+          "subject": "Harvey Elliott",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "AK-2",
+          "subject": "Amad",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "AK-3",
+          "subject": "Dominik Szoboszlai",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "AK-4",
+          "subject": "Rodri",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "AK-5",
+          "subject": "Noni Madueke",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "AK-6",
+          "subject": "Tyler Dibling",
+          "team": "Everton"
+        },
+        {
+          "card_number": "AK-7",
+          "subject": "Reece James",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "AK-8",
+          "subject": "André",
+          "team": "Wolverhampton Wanderers"
+        },
+        {
+          "card_number": "AK-9",
+          "subject": "Georginio Rutter",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "AK-10",
+          "subject": "Harry Gray",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "AK-11",
+          "subject": "Antonee Robinson",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "AK-12",
+          "subject": "Mohamed Salah",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "AK-13",
+          "subject": "Chris Rigg",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "AK-14",
+          "subject": "Estêvão Willian",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "AK-15",
+          "subject": "Iliman Ndiaye",
+          "team": "Everton"
+        },
+        {
+          "card_number": "AK-16",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "AK-17",
+          "subject": "Joelinton",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "AK-18",
+          "subject": "Ola Aina",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "AK-19",
+          "subject": "Archie Gray",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "AK-20",
+          "subject": "Omar Marmoush",
+          "team": "Manchester City"
+        }
+      ]
+    },
+    {
+      "name": "That's His Job",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "THJ-1",
+          "subject": "Tyler Adams",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "card_number": "THJ-2",
+          "subject": "Lewis Dunk",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "THJ-3",
+          "subject": "William Saliba",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "THJ-4",
+          "subject": "Ollie Watkins",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "THJ-5",
+          "subject": "Nathan Collins",
+          "team": "Brentford"
+        },
+        {
+          "card_number": "THJ-6",
+          "subject": "Maxime Estève",
+          "team": "Burnley FC"
+        },
+        {
+          "card_number": "THJ-7",
+          "subject": "Moisés Caicedo",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "THJ-8",
+          "subject": "Jean-Philippe Mateta",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "THJ-9",
+          "subject": "James Tarkowski",
+          "team": "Everton"
+        },
+        {
+          "card_number": "THJ-10",
+          "subject": "Raúl Jiménez",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "THJ-11",
+          "subject": "Habib Diarra",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "THJ-12",
+          "subject": "Virgil van Dijk",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "THJ-13",
+          "subject": "Erling Haaland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "THJ-14",
+          "subject": "Bruno Fernandes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "THJ-15",
+          "subject": "Dan Burn",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "THJ-16",
+          "subject": "Chris Wood",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "THJ-17",
+          "subject": "Anton Stach",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "THJ-18",
+          "subject": "João Palhinha",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "THJ-19",
+          "subject": "João Gomes",
+          "team": "Wolverhampton Wanderers"
+        },
+        {
+          "card_number": "THJ-20",
+          "subject": "Jørgen Strand Larsen",
+          "team": "Wolverhampton Wanderers"
+        }
+      ]
+    },
+    {
+      "name": "Stoppage Time Heartbreaker",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "STH-1",
+          "subject": "Stan Collymore",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "STH-2",
+          "subject": "Sergio Agüero",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "STH-3",
+          "subject": "Gareth Bale",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "STH-4",
+          "subject": "Cole Palmer",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "STH-5",
+          "subject": "Reiss Nelson",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "STH-6",
+          "subject": "Alisson",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "STH-7",
+          "subject": "Rodrigo Muniz",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "STH-8",
+          "subject": "Steve Bruce",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "STH-9",
+          "subject": "Oscar Bobb",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "STH-10",
+          "subject": "Robin van Persie",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "STH-11",
+          "subject": "Michael Owen",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "STH-12",
+          "subject": "Sadio Mané",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "STH-13",
+          "subject": "Paul Scholes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "STH-14",
+          "subject": "Steven Gerrard",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "STH-15",
+          "subject": "Dirk Kuyt",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "STH-16",
+          "subject": "Alex Iwobi",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "STH-17",
+          "subject": "Federico Macheda",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "STH-18",
+          "subject": "Danny Welbeck",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "STH-19",
+          "subject": "Declan Rice",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "STH-20",
+          "subject": "Dejan Kulusevski",
+          "team": "Tottenham Hotspur"
+        }
+      ]
+    },
+    {
+      "name": "Golazo",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "GZ-1",
+          "subject": "Justin Kluivert",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "card_number": "GZ-2",
+          "subject": "Kaoru Mitoma",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "GZ-3",
+          "subject": "James Tarkowski",
+          "team": "Everton"
+        },
+        {
+          "card_number": "GZ-4",
+          "subject": "Luis Suárez",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "GZ-5",
+          "subject": "Kobbie Mainoo",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GZ-6",
+          "subject": "Dennis Bergkamp",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GZ-7",
+          "subject": "Eric Cantona",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GZ-8",
+          "subject": "Gus Poyet",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "GZ-9",
+          "subject": "Philippe Albert",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "GZ-10",
+          "subject": "Kanu",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GZ-11",
+          "subject": "Wayne Rooney",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GZ-12",
+          "subject": "Gareth Bale",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "GZ-13",
+          "subject": "Tony Yeboah",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "GZ-14",
+          "subject": "Thierry Henry",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GZ-15",
+          "subject": "Olivier Giroud",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GZ-16",
+          "subject": "Harry Kane",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "GZ-17",
+          "subject": "Robert Pirès",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GZ-18",
+          "subject": "Georgi Kinkladze",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "GZ-19",
+          "subject": "Andy Cole",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GZ-20",
+          "subject": "Robbie Fowler",
+          "team": "Liverpool FC"
+        }
+      ]
+    },
+    {
+      "name": "Locked In",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 50,
+      "cards": [
+        {
+          "card_number": "LI-1",
+          "subject": "Richarlison",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "LI-2",
+          "subject": "Gianluigi Donnarumma",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-3",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "LI-4",
+          "subject": "Patrick Vieira",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "LI-5",
+          "subject": "Viktor Gyökeres",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "LI-6",
+          "subject": "Tolu Arokodare",
+          "team": "Wolverhampton Wanderers"
+        },
+        {
+          "card_number": "LI-7",
+          "subject": "Youri Tielemans",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "LI-8",
+          "subject": "Gustavo Nunes",
+          "team": "Brentford"
+        },
+        {
+          "card_number": "LI-9",
+          "subject": "Antoine Semenyo",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "card_number": "LI-10",
+          "subject": "Charalampos Kostoulas",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "LI-11",
+          "subject": "Stefanos Tzimas",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "LI-12",
+          "subject": "Zian Flemming",
+          "team": "Burnley FC"
+        },
+        {
+          "card_number": "LI-13",
+          "subject": "Josh Acheampong",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "LI-14",
+          "subject": "Eden Hazard",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "LI-15",
+          "subject": "Estêvão Willian",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "LI-16",
+          "subject": "Frank Lampard",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "LI-17",
+          "subject": "Jean-Philippe Mateta",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "LI-18",
+          "subject": "Romain Esse",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "LI-19",
+          "subject": "Thierno Barry",
+          "team": "Everton"
+        },
+        {
+          "card_number": "LI-20",
+          "subject": "Duncan Ferguson",
+          "team": "Everton"
+        },
+        {
+          "card_number": "LI-21",
+          "subject": "Emile Smith Rowe",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "LI-22",
+          "subject": "Josh King",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "LI-23",
+          "subject": "Harry Gray",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "LI-24",
+          "subject": "Anthony Gordon",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "LI-25",
+          "subject": "Florian Wirtz",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "LI-26",
+          "subject": "Rio Ngumoha",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "LI-27",
+          "subject": "Luis Suárez",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "LI-28",
+          "subject": "Steven Gerrard",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "LI-29",
+          "subject": "Rayan Aït-Nouri",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-30",
+          "subject": "Rodri",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-31",
+          "subject": "Reigan Heskey",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-32",
+          "subject": "Divine Mukasa",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-33",
+          "subject": "Yaya Touré",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "LI-34",
+          "subject": "Bruno Fernandes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "LI-35",
+          "subject": "Eric Cantona",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "LI-36",
+          "subject": "Shea Lacey",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "LI-37",
+          "subject": "Roy Keane",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "LI-38",
+          "subject": "David Beckham",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "LI-39",
+          "subject": "Bruno Guimarães",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "LI-40",
+          "subject": "Alexander Isak",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "LI-41",
+          "subject": "Murillo",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "LI-42",
+          "subject": "Igor Jesus",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "LI-43",
+          "subject": "Chris Rigg",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "LI-44",
+          "subject": "Eliezer Mayenda",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "LI-45",
+          "subject": "Xavi Simons",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "LI-46",
+          "subject": "Mohammed Kudus",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "LI-47",
+          "subject": "Gareth Bale",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "LI-48",
+          "subject": "Luis Guilherme",
+          "team": "West Ham United"
+        },
+        {
+          "card_number": "LI-49",
+          "subject": "Hwang Hee-Chan",
+          "team": "Wolverhampton Wanderers"
+        },
+        {
+          "card_number": "LI-50",
+          "subject": "João Pedro",
+          "team": "Chelsea"
+        }
+      ]
+    },
+    {
+      "name": "A Cold and Rainy Night in Chrome",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 25,
+      "cards": [
+        {
+          "card_number": "CRN-1",
+          "subject": "Phil Foden",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "CRN-2",
+          "subject": "Mohammed Kudus",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "CRN-3",
+          "subject": "Harry Kane",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "CRN-4",
+          "subject": "Michael Essien",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "CRN-5",
+          "subject": "David Beckham",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "CRN-6",
+          "subject": "Hugo Ekitike",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CRN-7",
+          "subject": "Mohamed Salah",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CRN-8",
+          "subject": "Cesc Fàbregas",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CRN-9",
+          "subject": "Anthony Gordon",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "CRN-10",
+          "subject": "Tijjani Reijnders",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "CRN-11",
+          "subject": "N'Golo Kanté",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "CRN-12",
+          "subject": "Estêvão Willian",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "CRN-13",
+          "subject": "Erling Haaland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "CRN-14",
+          "subject": "Chris Rigg",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "CRN-15",
+          "subject": "Steven Gerrard",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CRN-16",
+          "subject": "Kaoru Mitoma",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "CRN-17",
+          "subject": "Ollie Watkins",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "CRN-18",
+          "subject": "Bryan Mbeumo",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "CRN-19",
+          "subject": "Declan Rice",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CRN-20",
+          "subject": "Rio Ngumoha",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CRN-21",
+          "subject": "Morgan Gibbs-White",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "CRN-22",
+          "subject": "Thierry Henry",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CRN-23",
+          "subject": "Paul Scholes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "CRN-24",
+          "subject": "Alan Shearer",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "CRN-25",
+          "subject": "Wayne Rooney",
+          "team": "Manchester United"
+        }
+      ]
+    },
+    {
+      "name": "Give Him His Flowers",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 25,
+      "cards": [
+        {
+          "card_number": "HF-1",
+          "subject": "Dirk Kuyt",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HF-2",
+          "subject": "Nani",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "HF-3",
+          "subject": "Antoine Semenyo",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "card_number": "HF-4",
+          "subject": "Antonio Valencia",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "HF-5",
+          "subject": "Yoane Wissa",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "HF-6",
+          "subject": "Carlos Baleba",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "HF-7",
+          "subject": "Alexis Mac Allister",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HF-8",
+          "subject": "Gabriel Magalhães",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "HF-9",
+          "subject": "Iliman Ndiaye",
+          "team": "Everton"
+        },
+        {
+          "card_number": "HF-10",
+          "subject": "Daniel Muñoz",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "HF-11",
+          "subject": "Jermain Defoe",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "HF-12",
+          "subject": "Wilfried Zaha",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "HF-13",
+          "subject": "Ramires",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "HF-14",
+          "subject": "Chris Wood",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "HF-15",
+          "subject": "Harvey Barnes",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "HF-16",
+          "subject": "Gilberto Silva",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "HF-17",
+          "subject": "Aaron Wan-Bissaka",
+          "team": "West Ham United"
+        },
+        {
+          "card_number": "HF-18",
+          "subject": "Youri Tielemans",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "HF-19",
+          "subject": "Leighton Baines",
+          "team": "Everton"
+        },
+        {
+          "card_number": "HF-20",
+          "subject": "Michael Carrick",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "HF-21",
+          "subject": "Claude Makélélé",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "HF-22",
+          "subject": "Sadio Mané",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HF-23",
+          "subject": "Robert Pirès",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "HF-24",
+          "subject": "Jérémy Doku",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "HF-25",
+          "subject": "Carlos Tevez",
+          "team": "Manchester United"
+        }
+      ]
+    },
+    {
+      "name": "Club Crests",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 20,
+      "cards": [
+        {
+          "card_number": "CS-1",
+          "subject": "Arsenal",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CS-2",
+          "subject": "Aston Villa",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "CS-3",
+          "subject": "AFC Bournemouth",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "card_number": "CS-4",
+          "subject": "Brentford",
+          "team": "Brentford"
+        },
+        {
+          "card_number": "CS-5",
+          "subject": "Brighton & Hove Albion",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "CS-6",
+          "subject": "Chelsea",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "CS-7",
+          "subject": "Crystal Palace",
+          "team": "Crystal Palace"
+        },
+        {
+          "card_number": "CS-8",
+          "subject": "Everton",
+          "team": "Everton"
+        },
+        {
+          "card_number": "CS-9",
+          "subject": "Fulham",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "CS-10",
+          "subject": "Burnley FC",
+          "team": "Burnley FC"
+        },
+        {
+          "card_number": "CS-11",
+          "subject": "Leeds United",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "CS-12",
+          "subject": "Liverpool FC",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CS-13",
+          "subject": "Manchester City",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "CS-14",
+          "subject": "Manchester United",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "CS-15",
+          "subject": "Newcastle United",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "CS-16",
+          "subject": "Nottingham Forest",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "CS-17",
+          "subject": "Sunderland",
+          "team": "Sunderland"
+        },
+        {
+          "card_number": "CS-18",
+          "subject": "Tottenham Hotspur",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "CS-19",
+          "subject": "West Ham United",
+          "team": "West Ham United"
+        },
+        {
+          "card_number": "CS-20",
+          "subject": "Wolverhampton Wanderers",
+          "team": "Wolverhampton Wanderers"
+        }
+      ]
+    },
+    {
+      "name": "Premier League Trophy",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 1,
+      "cards": [
+        {
+          "card_number": "PLT-1",
+          "subject": "Premier League Trophy",
+          "team": null
+        }
+      ]
+    },
+    {
+      "name": "Winners Enclosure",
+      "hobby_exclusive": false,
+      "note": "Official checklist identifies award winner but not team in this section; team allocation requires separate verification.",
+      "count": 4,
+      "cards": [
+        {
+          "card_number": "WE-1",
+          "subject": "Mohamed Salah",
+          "team": null
+        },
+        {
+          "card_number": "WE-2",
+          "subject": "David Raya",
+          "team": null
+        },
+        {
+          "card_number": "WE-3",
+          "subject": "Matz Sels",
+          "team": null
+        },
+        {
+          "card_number": "WE-4",
+          "subject": "Mohamed Salah",
+          "team": null
+        }
+      ]
+    },
+    {
+      "name": "Chrome Anime",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 10,
+      "cards": [
+        {
+          "card_number": "CA-AI",
+          "subject": "Alexander Isak",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "CA-BA",
+          "subject": "Brenden Aaronson",
+          "team": "Leeds United"
+        },
+        {
+          "card_number": "CA-BS",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CA-EH",
+          "subject": "Erling Haaland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "CA-KM",
+          "subject": "Kaoru Mitoma",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "CA-MC",
+          "subject": "Matheus Cunha",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "CA-MR",
+          "subject": "Morgan Rogers",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "CA-PR",
+          "subject": "Cole Palmer",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "CA-VG",
+          "subject": "Viktor Gyökeres",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "CA-VVD",
+          "subject": "Virgil van Dijk",
+          "team": "Liverpool FC"
+        }
+      ]
+    },
+    {
+      "name": "Helix",
+      "hobby_exclusive": false,
+      "note": null,
+      "count": 10,
+      "cards": [
+        {
+          "card_number": "HX-1",
+          "subject": "Mohamed Salah",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HX-2",
+          "subject": "Erling Haaland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "HX-3",
+          "subject": "Martin Ødegaard",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "HX-4",
+          "subject": "Alexander Isak",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HX-5",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "HX-6",
+          "subject": "Cole Palmer",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "HX-7",
+          "subject": "Bruno Fernandes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "HX-8",
+          "subject": "Rio Ngumoha",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "HX-9",
+          "subject": "Estêvão Willian",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "HX-10",
+          "subject": "Rodri",
+          "team": "Manchester City"
+        }
+      ]
+    },
+    {
+      "name": "Genius Chrome",
+      "hobby_exclusive": true,
+      "note": null,
+      "count": 25,
+      "cards": [
+        {
+          "card_number": "GC-1",
+          "subject": "David Silva",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "GC-2",
+          "subject": "Santi Cazorla",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-3",
+          "subject": "Wayne Rooney",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GC-4",
+          "subject": "Eden Hazard",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "GC-5",
+          "subject": "Thierry Henry",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-6",
+          "subject": "Alexis Mac Allister",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "GC-7",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-8",
+          "subject": "Luis Suárez",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "GC-9",
+          "subject": "Dimitar Berbatov",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GC-10",
+          "subject": "Cesc Fàbregas",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "GC-11",
+          "subject": "Alex Iwobi",
+          "team": "Fulham"
+        },
+        {
+          "card_number": "GC-12",
+          "subject": "Dennis Bergkamp",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-13",
+          "subject": "Phil Foden",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "GC-14",
+          "subject": "Rayan Cherki",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "GC-15",
+          "subject": "Martin Ødegaard",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-16",
+          "subject": "Mohamed Salah",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "GC-17",
+          "subject": "Philippe Coutinho",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "GC-18",
+          "subject": "Bruno Fernandes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GC-19",
+          "subject": "Lucas Paquetá",
+          "team": "West Ham United"
+        },
+        {
+          "card_number": "GC-20",
+          "subject": "Cole Palmer",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "GC-21",
+          "subject": "Mikkel Damsgaard",
+          "team": "Brentford"
+        },
+        {
+          "card_number": "GC-22",
+          "subject": "Heung-Min Son",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "card_number": "GC-23",
+          "subject": "Matheus Cunha",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "GC-24",
+          "subject": "Eberechi Eze",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "GC-25",
+          "subject": "Jarrod Bowen",
+          "team": "West Ham United"
+        }
+      ]
+    },
+    {
+      "name": "Triple Platinum",
+      "hobby_exclusive": true,
+      "note": null,
+      "count": 25,
+      "cards": [
+        {
+          "card_number": "TP-1",
+          "subject": "Cole Palmer",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "TP-2",
+          "subject": "Virgil van Dijk",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "TP-3",
+          "subject": "Bruno Fernandes",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "TP-4",
+          "subject": "Bukayo Saka",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "TP-5",
+          "subject": "Martin Ødegaard",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "TP-6",
+          "subject": "Mohamed Salah",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "TP-7",
+          "subject": "Erling Haaland",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "TP-8",
+          "subject": "Phil Foden",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "TP-9",
+          "subject": "Alexander Isak",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "TP-10",
+          "subject": "Rodri",
+          "team": "Manchester City"
+        },
+        {
+          "card_number": "TP-11",
+          "subject": "Kaoru Mitoma",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "card_number": "TP-12",
+          "subject": "Estêvão Willian",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "TP-13",
+          "subject": "Benjamin Šeško",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "TP-14",
+          "subject": "Alexis Mac Allister",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "TP-15",
+          "subject": "Chris Wood",
+          "team": "Nottingham Forest"
+        },
+        {
+          "card_number": "TP-16",
+          "subject": "Viktor Gyökeres",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "TP-17",
+          "subject": "Eberechi Eze",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "TP-18",
+          "subject": "Declan Rice",
+          "team": "Arsenal"
+        },
+        {
+          "card_number": "TP-19",
+          "subject": "Moisés Caicedo",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "TP-20",
+          "subject": "Bruno Guimarães",
+          "team": "Newcastle United"
+        },
+        {
+          "card_number": "TP-21",
+          "subject": "Florian Wirtz",
+          "team": "Liverpool FC"
+        },
+        {
+          "card_number": "TP-22",
+          "subject": "Morgan Rogers",
+          "team": "Aston Villa"
+        },
+        {
+          "card_number": "TP-23",
+          "subject": "Matheus Cunha",
+          "team": "Manchester United"
+        },
+        {
+          "card_number": "TP-24",
+          "subject": "Enzo Fernández",
+          "team": "Chelsea"
+        },
+        {
+          "card_number": "TP-25",
+          "subject": "Jarrod Bowen",
+          "team": "West Ham United"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "sections": 15,
+    "cards": 295,
+    "unresolved_team_cards": 5
+  }
+}
