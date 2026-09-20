@@ -222,6 +222,13 @@ assert(recordAudit.valid,"market record issue audit failed: "+recordAudit.errors
 assert(recordAudit.metrics.sale_count===30,"market record issue sale count failed");
 
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
+assert(typeof sandbox.BreakMetricDataLoader.loadMany==="function","data loader batch API missing");
+assert(sandbox.BreakMetricDataLoader.isValidPath("data/products/catalog.json")===true,"safe data path rejected");
+assert(sandbox.BreakMetricDataLoader.isValidPath("https://example.com/data.json")===false,"external data URL accepted");
+assert(sandbox.BreakMetricDataLoader.isValidPath("../data/file.json")===false,"parent traversal accepted");
+assert(sandbox.BreakMetricDataLoader.isValidPath("/data/file.json")===false,"absolute data path accepted");
+const loaderStats=sandbox.BreakMetricDataLoader.stats();
+assert(Number(loaderStats.requests)===0 && Number(loaderStats.cached)===0,"loader stats initial state invalid");
 assert(
   sandbox.BreakMetricErrors.userMessage({name:"DataContractError"}).includes("integrity contract"),
   "error model contract message failed"
