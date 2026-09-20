@@ -491,6 +491,10 @@
     for(const [team,row] of Object.entries(data.teams||{})){
       if(!canonical.has(team)) errors.push("team EV unknown team: "+team);
       if(!nonNegative(row?.partial_ev_usd)) errors.push("invalid partial EV for "+team);
+      if(row?.coverage_complete===true &&
+         (typeof row?.coverage_definition!=="string" || !row.coverage_definition)){
+        errors.push("complete EV missing coverage_definition for "+team);
+      }
       if(!Array.isArray(row?.contributions)) errors.push("EV contributions missing for "+team);
       const list=row?.contributions||[];
       contributions+=list.length;
