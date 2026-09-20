@@ -2,7 +2,7 @@ name: BreakMetric validation
 
 on:
   push:
-    branches: ["main", "v1.2-n100"]
+    branches: ["main", "v1.*", "step-*"]
   pull_request:
 
 permissions:

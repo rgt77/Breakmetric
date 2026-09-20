@@ -780,6 +780,10 @@
             <strong id="evSourceCoverage">Pending</strong>
           </div>
           <div class="player-data-row">
+            <div>EV category scope<small>Tracks valuation progress separately for base parallels, inserts and autographs.</small></div>
+            <strong id="evCategoryScope">Pending</strong>
+          </div>
+          <div class="player-data-row">
             <div>Current blockers</div>
             <strong id="evCoverageBlockers">Pending</strong>
           </div>
@@ -1053,6 +1057,7 @@
       "2026-topps-chrome-premier-league";
     let selectedFormat = initialUrlState.format || "hobby";
     let teamEvData = null;
+    let evScopeData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
     let playerProbabilityData = null;
@@ -1607,6 +1612,7 @@
       productIntegrityData = null;
       formatIntegrityData = null;
       teamEvData = null;
+      evScopeData = null;
       baseChecklistData = null;
       playerIndexData = null;
       playerProbabilityData = null;
@@ -1633,6 +1639,7 @@
       evCoverage.textContent = "Loading EV coverage…";
       evCoverageBasis.textContent = "Pending";
       evSourceCoverage.textContent = "Pending";
+      evCategoryScope.textContent = "Pending";
       evCoverageBlockers.textContent = "Pending";
       dataProductIntegrity.textContent = "Pending";
       dataProductIntegrity.className = "";
@@ -1704,7 +1711,8 @@
           sealedSupply: formatPath("sealed_supply_data"),
           production: formatPath("production_estimate_data"),
           marketRegistry: formatPath("market_evidence_registry_data"),
-          teamEv: formatPath("ev_data")
+          teamEv: formatPath("ev_data"),
+          evScope: formatPath("ev_scope_data")
         };
 
         const [
@@ -1723,7 +1731,8 @@
           nextSealedSupply,
           nextProduction,
           nextMarketRegistry,
-          nextTeamEv
+          nextTeamEv,
+          nextEvScope
         ] = await Promise.all([
           fetchJsonForProduct(paths.productIntegrity, token),
           fetchJsonForProduct(paths.formatIntegrity, token),
@@ -1740,7 +1749,8 @@
           fetchJsonForProduct(paths.sealedSupply, token),
           fetchJsonForProduct(paths.production, token),
           fetchJsonForProduct(paths.marketRegistry, token),
-          fetchJsonForProduct(paths.teamEv, token)
+          fetchJsonForProduct(paths.teamEv, token),
+          fetchJsonForProduct(paths.evScope, token)
         ]);
 
         if (
@@ -1765,7 +1775,8 @@
           sealedSupply: nextSealedSupply,
           production: nextProduction,
           marketRegistry: nextMarketRegistry,
-          teamEv: nextTeamEv
+          teamEv: nextTeamEv,
+          evScope: nextEvScope
         };
 
         const runtimeContract =
@@ -1908,6 +1919,7 @@
         teamReadinessData = nextTeamReadiness;
         analysisProvenanceData = baseProvenance;
         teamEvData = nextTeamEv;
+        evScopeData = nextEvScope;
 
         const previousTeam =
           (initialUrlState.product === productIdAtStart && initialUrlState.team) ||
@@ -2471,6 +2483,7 @@
     const evCoverage = document.getElementById("evCoverage");
     const evCoverageBasis = document.getElementById("evCoverageBasis");
     const evSourceCoverage = document.getElementById("evSourceCoverage");
+    const evCategoryScope = document.getElementById("evCategoryScope");
     const evCoverageBlockers = document.getElementById("evCoverageBlockers");
     const resultExpectedAutosLabel = document.getElementById("resultExpectedAutosLabel");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
@@ -3335,8 +3348,29 @@
       if (!validation.valid) {
         evCoverageBasis.textContent = "Coverage model unavailable";
         evSourceCoverage.textContent = "Unavailable";
+        evCategoryScope.textContent = "Unavailable";
         evCoverageBlockers.textContent = validation.errors.join(" · ");
         return;
+      }
+
+      const scopeRow = evScopeData?.teams?.[team.value] || null;
+      if (scopeRow) {
+        const categoryLabel = (label, key) => {
+          const item = scopeRow.categories?.[key] || {};
+          const status =
+            item.status === "not-started"
+              ? "not started"
+              : item.status || "unknown";
+          const count = Number(item.valued_contribution_count || 0);
+          return label + ": " + status + (count ? " (" + count + ")" : "");
+        };
+        evCategoryScope.textContent = [
+          categoryLabel("Base", "base_parallels"),
+          categoryLabel("Inserts", "inserts"),
+          categoryLabel("Autos", "autographs")
+        ].join(" · ");
+      } else {
+        evCategoryScope.textContent = "Scope unavailable";
       }
 
       evCoverageBasis.textContent =
