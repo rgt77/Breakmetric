@@ -675,6 +675,14 @@
             <div>Verification share<small>This is source-verification share, not EV coverage.</small></div>
             <strong id="marketVerificationShare">—</strong>
           </div>
+          <div class="player-data-row">
+            <div>Source tier</div>
+            <strong id="marketSourceTier">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Pending verification EV impact<small>Sum of current EV contributions still lacking original-marketplace verification.</small></div>
+            <strong id="marketVerificationEvGap">Pending</strong>
+          </div>
         </div>
       </details>
 
@@ -941,6 +949,7 @@
   <script src="src/evCoverage.js"></script>
   <script src="src/evWorkQueue.js"></script>
   <script src="src/marketCoverage.js"></script>
+  <script src="src/marketEvidenceQuality.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
@@ -990,6 +999,8 @@
     const marketOriginalCount = document.getElementById("marketOriginalCount");
     const marketSecondaryCount = document.getElementById("marketSecondaryCount");
     const marketVerificationShare = document.getElementById("marketVerificationShare");
+    const marketSourceTier = document.getElementById("marketSourceTier");
+    const marketVerificationEvGap = document.getElementById("marketVerificationEvGap");
     const freshProduct = document.getElementById("freshProduct");
     const freshFormat = document.getElementById("freshFormat");
     const freshMarket = document.getElementById("freshMarket");
@@ -1288,6 +1299,36 @@
       marketSecondaryCount.textContent = String(row.secondary);
       marketVerificationShare.textContent =
         BreakMetricMarketCoverage.shareLabel(row);
+
+      const teamQueue = {
+        items: (marketVerificationQueueData?.items || [])
+          .filter(item => item.team === team.value)
+      };
+      const quality = {
+        market: selectedTeamMarketEvidence(),
+        queue: teamQueue
+      };
+      const qualityValidation =
+        BreakMetricMarketEvidenceQuality.validate(quality);
+      if (qualityValidation.valid) {
+        const tier = BreakMetricMarketEvidenceQuality.sourceTier(
+          quality.market || {}
+        );
+        const impact =
+          BreakMetricMarketEvidenceQuality.verificationImpact(teamQueue);
+        marketSourceTier.textContent =
+          tier.tier ? "Tier " + tier.tier + " · " + tier.label : tier.label;
+        marketVerificationEvGap.textContent =
+          impact.pending_verification_ev_usd > 0
+            ? "$" + impact.pending_verification_ev_usd.toFixed(2) +
+              " of $" + impact.total_ev_usd.toFixed(2)
+            : impact.total_ev_usd > 0
+              ? "Fully original-verified"
+              : "No EV contributions";
+      } else {
+        marketSourceTier.textContent = "Unavailable";
+        marketVerificationEvGap.textContent = "Unavailable";
+      }
     }
 
     function updateFreshnessUi() {
@@ -1698,6 +1739,8 @@
       marketOriginalCount.textContent = "0";
       marketSecondaryCount.textContent = "0";
       marketVerificationShare.textContent = "—";
+      marketSourceTier.textContent = "Pending";
+      marketVerificationEvGap.textContent = "Pending";
       freshProduct.textContent = "Pending";
       freshFormat.textContent = "Pending";
       freshMarket.textContent = "Pending";
