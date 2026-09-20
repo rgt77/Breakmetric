@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "release": "BreakMetric v1.2",
+  "principles": [
+    "Published manufacturer odds are the primary probability source.",
+    "Checklist-derived allocation is explicit and reproducible.",
+    "Missing odds are not invented.",
+    "Team EV remains partial until every included value-bearing card class is covered.",
+    "Secondary-source market evidence is provisional and cannot unlock ROI by itself.",
+    "Multi-team cards are excluded from team EV until an explicit break-allocation rule is defined.",
+    "Probability coverage and market-value coverage are tracked separately."
+  ],
+  "confidence_levels": {
+    "none": "No audited market evidence.",
+    "provisional": "Audited evidence exists but relies on secondary sources.",
+    "low": "Some original-marketplace verification exists.",
+    "medium": "Several original-marketplace sales support the modeled values.",
+    "high": "Broad original-marketplace verification supports most audited contributions."
+  },
+  "roi_gate": [
+    "EV coverage must be complete.",
+    "The selected team's market-evidence registry must explicitly mark ROI as eligible.",
+    "A positive spot price must be entered."
+  ]
+}
