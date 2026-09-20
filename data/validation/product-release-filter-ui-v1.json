@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "checks": {
+    "product_release_step_present": true,
+    "box_type_is_step_2": true,
+    "team_is_step_3": true,
+    "player_is_step_4": true,
+    "product_cards_present": true,
+    "product_persistence": true,
+    "product_specific_format_data": true,
+    "pending_product_blocks_analysis": true,
+    "product_catalog_is_data_driven": true,
+    "ready_product_loads_team_ev": true
+  },
+  "result": "pass"
+}
