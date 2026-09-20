@@ -719,7 +719,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.9</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v1.0</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -798,6 +798,7 @@
     let baseChecklistData = null;
     let playerIndexData = null;
     let playerProbabilityData = null;
+    let playerDerivationManifestData = null;
     let selectedPlayer = null;
     let searchQuery = "";
     let autographProbabilityData = null;
@@ -1098,6 +1099,7 @@
       baseChecklistData = null;
       playerIndexData = null;
       playerProbabilityData = null;
+      playerDerivationManifestData = null;
       autographProbabilityData = null;
       autographChecklistData = null;
       insertProbabilityData = null;
@@ -1160,6 +1162,7 @@
           metadata: productPath("product_data"),
           playerIndex: formatPath("player_index_data"),
           playerProbabilities: formatPath("player_probability_data"),
+          playerDerivationManifest: formatPath("player_derivation_manifest_data"),
           baseChecklist: formatPath("base_checklist_data"),
           autographProbabilities: formatPath("team_autograph_probability_data"),
           autographChecklist: formatPath("autograph_checklist_data"),
@@ -1178,6 +1181,7 @@
           metadata,
           nextPlayerIndex,
           nextPlayerProbabilities,
+          nextPlayerDerivationManifest,
           nextBaseChecklist,
           nextAutographProbabilities,
           nextAutographChecklist,
@@ -1194,6 +1198,7 @@
           fetchJsonForProduct(paths.metadata, token),
           fetchJsonForProduct(paths.playerIndex, token),
           fetchJsonForProduct(paths.playerProbabilities, token),
+          fetchJsonForProduct(paths.playerDerivationManifest, token),
           fetchJsonForProduct(paths.baseChecklist, token),
           fetchJsonForProduct(paths.autographProbabilities, token),
           fetchJsonForProduct(paths.autographChecklist, token),
@@ -1218,6 +1223,7 @@
           metadata,
           playerIndex: nextPlayerIndex,
           playerProbabilities: nextPlayerProbabilities,
+          playerDerivationManifest: nextPlayerDerivationManifest,
           baseChecklist: nextBaseChecklist,
           autographProbabilities: nextAutographProbabilities,
           autographChecklist: nextAutographChecklist,
@@ -1234,7 +1240,9 @@
           BreakMetricContracts.validateAnalysisBundle(runtimeBundle, {
             productId: productIdAtStart,
             formatId: formatIdAtStart,
-            catalogEntry: currentProduct
+            catalogEntry: currentProduct,
+            analysisData: format.analysis_data,
+            analysisUnit: format.analysis_unit
           });
 
         if (!runtimeContract.valid) {
@@ -1304,13 +1312,14 @@
 
         formatStatus.innerHTML =
           "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-          "</strong> · <span class=\"integrity-pass\">Manifest + format integrity + runtime contract validated.</span>";
+          "</strong> · <span class=\"integrity-pass\">Manifest + derivation + format integrity + runtime contract validated.</span>";
         setAnalysisLoadState("ready");
 
         activeContractReport = runtimeContract;
         productMetadataData = metadata;
         playerIndexData = nextPlayerIndex;
         playerProbabilityData = nextPlayerProbabilities;
+        playerDerivationManifestData = nextPlayerDerivationManifest;
         baseChecklistData = nextBaseChecklist;
         autographProbabilityData = nextAutographProbabilities;
         autographChecklistData = nextAutographChecklist;
@@ -1405,6 +1414,7 @@
         baseChecklistData = null;
         playerIndexData = null;
         playerProbabilityData = null;
+        playerDerivationManifestData = null;
         autographProbabilityData = null;
         autographChecklistData = null;
         insertProbabilityData = null;
