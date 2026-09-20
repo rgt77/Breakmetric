@@ -39,6 +39,9 @@ pass("v1.2 methodology principles present", Array.isArray(methodology.principles
 const evPolicy = json("data/methodology/ev-coverage-v1.json");
 pass("EV coverage policy forbids unsupported percentage", evPolicy.current_state?.percentage_allowed === false);
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
+const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
+pass("market record quality policy schema", marketRecordQualityPolicy.schema_version === 1);
+pass("market record spread review threshold", Number(marketRecordQualityPolicy.spread_alert?.ratio_threshold) === 4);
 pass("market source policy schema", marketSourcePolicy.schema_version === 1);
 pass("market source policy has three tiers", Array.isArray(marketSourcePolicy.source_tiers) && marketSourcePolicy.source_tiers.length === 3);
 pass("secondary market evidence remains provisional", marketSourcePolicy.source_tiers?.find(x => x.id === "secondary-source-realized-sale")?.roi_capability === "provisional-only");
@@ -180,6 +183,7 @@ for (const module of [
   "evWorkQueue.js",
   "marketCoverage.js",
   "marketEvidenceQuality.js",
+  "marketRecordQuality.js",
   "dataFreshness.js",
   "dataLoader.js",
   "errorModel.js",
@@ -202,6 +206,10 @@ pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
 pass("EV work queue present", html.includes('id="evWorkPanel"'));
 pass("market source tier visible", html.includes('id="marketSourceTier"'));
 pass("market verification EV gap visible", html.includes('id="marketVerificationEvGap"'));
+pass("market record sample visible", html.includes('id="marketRecordSample"'));
+pass("market record freshness visible", html.includes('id="marketRecordFreshness"'));
+pass("market spread alert visible", html.includes('id="marketSpreadAlert"'));
+pass("market record quality is lazy-loaded", html.includes('marketEvidencePanel.addEventListener("toggle"'));
 pass("market evidence detail present", html.includes('id="marketEvidencePanel"'));
 pass("freshness panel present", html.includes('id="dataFreshnessPanel"'));
 pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'));
