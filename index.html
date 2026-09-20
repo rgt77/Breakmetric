@@ -683,6 +683,22 @@
             <div>Pending verification EV impact<small>Sum of current EV contributions still lacking original-marketplace verification.</small></div>
             <strong id="marketVerificationEvGap">Pending</strong>
           </div>
+          <div class="player-data-row">
+            <div>Stored sale sample<small>Loaded lazily when this panel is opened.</small></div>
+            <strong id="marketRecordSample">Open panel to load</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Latest stored sale</div>
+            <strong id="marketLatestSale">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Record freshness</div>
+            <strong id="marketRecordFreshness">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Price-spread alert<small>Flags wide raw comp ranges; it does not recalculate market value.</small></div>
+            <strong id="marketSpreadAlert">—</strong>
+          </div>
         </div>
       </details>
 
@@ -950,6 +966,7 @@
   <script src="src/evWorkQueue.js"></script>
   <script src="src/marketCoverage.js"></script>
   <script src="src/marketEvidenceQuality.js"></script>
+  <script src="src/marketRecordQuality.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
@@ -1001,6 +1018,11 @@
     const marketVerificationShare = document.getElementById("marketVerificationShare");
     const marketSourceTier = document.getElementById("marketSourceTier");
     const marketVerificationEvGap = document.getElementById("marketVerificationEvGap");
+    const marketRecordSample = document.getElementById("marketRecordSample");
+    const marketLatestSale = document.getElementById("marketLatestSale");
+    const marketRecordFreshness = document.getElementById("marketRecordFreshness");
+    const marketSpreadAlert = document.getElementById("marketSpreadAlert");
+    const marketEvidencePanel = document.getElementById("marketEvidencePanel");
     const freshProduct = document.getElementById("freshProduct");
     const freshFormat = document.getElementById("freshFormat");
     const freshMarket = document.getElementById("freshMarket");
@@ -1277,6 +1299,79 @@
         formatIntegrity: formatIntegrityData,
         marketRegistry: marketRegistryData
       });
+    }
+
+    async function loadSelectedTeamMarketRecordQuality() {
+      const teamAtStart = team.value;
+      const sources = [...new Set(
+        (marketVerificationQueueData?.items || [])
+          .filter(item => item.team === teamAtStart)
+          .map(item => item.market_source_file)
+          .filter(Boolean)
+      )];
+
+      if (!sources.length) {
+        marketRecordSample.textContent = "No market records";
+        marketLatestSale.textContent = "—";
+        marketRecordFreshness.textContent = "No records";
+        marketSpreadAlert.textContent = "—";
+        return;
+      }
+
+      marketRecordSample.textContent = "Loading " + sources.length + " records…";
+      marketLatestSale.textContent = "Loading…";
+      marketRecordFreshness.textContent = "Loading…";
+      marketSpreadAlert.textContent = "Loading…";
+
+      try {
+        const records = await Promise.all(
+          sources.map(path => BreakMetricDataLoader.loadJson(path, {
+            timeoutMs: 12000,
+            retries: 1
+          }))
+        );
+        if (team.value !== teamAtStart) return;
+
+        const qualityRows = records.map(record =>
+          BreakMetricMarketRecordQuality.evaluate(record, new Date())
+        );
+        const invalid = qualityRows
+          .map(row => BreakMetricMarketRecordQuality.validate(row))
+          .find(result => !result.valid);
+        if (invalid) throw new Error(invalid.errors.join(" · "));
+
+        const aggregate = BreakMetricMarketRecordQuality.aggregate(qualityRows);
+        marketRecordSample.textContent =
+          aggregate.record_count + " records · " +
+          aggregate.sale_count + " stored sales";
+        marketLatestSale.textContent = aggregate.latest_sale_date || "Unavailable";
+        marketRecordFreshness.textContent =
+          aggregate.fresh_record_count + " fresh · " +
+          aggregate.current_record_count + " current · " +
+          aggregate.aging_record_count + " aging · " +
+          aggregate.stale_record_count + " stale";
+
+        const wide = qualityRows.filter(row =>
+          Number.isFinite(Number(row.price_spread_ratio)) &&
+          Number(row.price_spread_ratio) >= 4
+        );
+        marketSpreadAlert.textContent = wide.length
+          ? wide.length + " record" + (wide.length === 1 ? "" : "s") +
+            " with ≥4× min/max spread"
+          : "No ≥4× spread in stored records";
+      } catch (error) {
+        marketRecordSample.textContent = "Record-quality load failed";
+        marketLatestSale.textContent = "Unavailable";
+        marketRecordFreshness.textContent = "Unavailable";
+        marketSpreadAlert.textContent = "Unavailable";
+      }
+    }
+
+    function resetMarketRecordQualityUi() {
+      marketRecordSample.textContent = "Open panel to load";
+      marketLatestSale.textContent = "—";
+      marketRecordFreshness.textContent = "—";
+      marketSpreadAlert.textContent = "—";
     }
 
     function updateMarketCoverageUi() {
@@ -1741,6 +1836,7 @@
       marketVerificationShare.textContent = "—";
       marketSourceTier.textContent = "Pending";
       marketVerificationEvGap.textContent = "Pending";
+      resetMarketRecordQualityUi();
       freshProduct.textContent = "Pending";
       freshFormat.textContent = "Pending";
       freshMarket.textContent = "Pending";
@@ -3573,6 +3669,7 @@
 
     team.addEventListener("change", () => {
       writeProductSelection("team", team.value);
+      resetMarketRecordQualityUi();
       syncUrlState();
       clearPlayerSelection();
       updateTeamEv();
@@ -3591,6 +3688,12 @@
     productSearch.addEventListener("input", () => {
       productSearchQuery = productSearch.value;
       renderProducts();
+    });
+
+    marketEvidencePanel.addEventListener("toggle", () => {
+      if (marketEvidencePanel.open) {
+        loadSelectedTeamMarketRecordQuality();
+      }
     });
 
     browseSearch.addEventListener("input", () => {
