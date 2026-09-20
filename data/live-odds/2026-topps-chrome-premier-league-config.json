@@ -1,0 +1,35 @@
+{
+  "methodology_version": "1.0",
+  "status": "scenario-only",
+  "principle": "Serial observations alone do not justify lowering odds. A separate estimate of sealed product remaining is required.",
+  "default_scenario_sealed_fraction": 0.5,
+  "scenario_presets": [
+    {
+      "label": "75% sealed",
+      "sealed_fraction": 0.75
+    },
+    {
+      "label": "50% sealed",
+      "sealed_fraction": 0.5
+    },
+    {
+      "label": "25% sealed",
+      "sealed_fraction": 0.25
+    },
+    {
+      "label": "10% sealed",
+      "sealed_fraction": 0.1
+    }
+  ],
+  "production_estimate": {
+    "value": null,
+    "source": null,
+    "verified": false
+  },
+  "ui_rules": [
+    "Always show manufacturer odds separately from BreakMetric Live Odds.",
+    "Label unsourced sealed-fraction values as scenarios, never as factual estimates.",
+    "Never interpret unobserved serials as confirmed sealed copies.",
+    "Never allow the conservative live probability to exceed manufacturer odds."
+  ]
+}
