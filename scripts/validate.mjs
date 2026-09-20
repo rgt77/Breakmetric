@@ -13,7 +13,7 @@ const read = p => fs.readFileSync(path.join(root, p), "utf8");
 const json = p => JSON.parse(read(p));
 const exists = p => typeof p === "string" && fs.existsSync(path.join(root, p));
 const strictDate = value => {
-  if (typeof value !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return false;
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   return !Number.isNaN(new Date(value + "T00:00:00Z").getTime());
 };
 
