@@ -543,7 +543,14 @@
         </div>
       </div>
 
-      <div id="analysisLoadStatus" class="format-status" hidden aria-live="polite"></div>
+      <div id="analysisLoadStatus" class="format-status" hidden aria-live="assertive"></div>
+      <div class="analysis-actions">
+        <button id="retryAnalysisButton" class="ghost-button" type="button" hidden>Retry analysis</button>
+      </div>
+      <details id="analysisErrorDetail" class="details-panel" hidden>
+        <summary>Load error detail</summary>
+        <div id="analysisErrorDetailText" class="spot-note"></div>
+      </details>
 
       <div id="analysisContent" hidden>
       <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
@@ -886,6 +893,7 @@
   <script src="src/marketCoverage.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
+  <script src="src/errorModel.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
@@ -902,6 +910,9 @@
     const formatStatus = document.getElementById("formatStatus");
     const analysisContent = document.getElementById("analysisContent");
     const analysisLoadStatus = document.getElementById("analysisLoadStatus");
+    const retryAnalysisButton = document.getElementById("retryAnalysisButton");
+    const analysisErrorDetail = document.getElementById("analysisErrorDetail");
+    const analysisErrorDetailText = document.getElementById("analysisErrorDetailText");
     const analysisContext = document.getElementById("analysisContext");
     const copyAnalysisLink = document.getElementById("copyAnalysisLink");
     const clearAnalysisFilters = document.getElementById("clearAnalysisFilters");
@@ -1527,6 +1538,9 @@
       if (state === "ready") {
         analysisLoadStatus.hidden = true;
         analysisLoadStatus.textContent = "";
+        retryAnalysisButton.hidden = true;
+        analysisErrorDetail.hidden = true;
+        analysisErrorDetailText.textContent = "";
         analysisContent.hidden = false;
         return;
       }
@@ -1538,6 +1552,8 @@
         analysisLoadStatus.className = "format-status";
         analysisLoadStatus.textContent =
           message || "Loading and validating analysis data…";
+        retryAnalysisButton.hidden = true;
+        analysisErrorDetail.hidden = true;
         return;
       }
 
@@ -1546,12 +1562,15 @@
         analysisLoadStatus.className = "format-status integrity-fail";
         analysisLoadStatus.textContent =
           message || "Analysis is unavailable because validation failed.";
+        retryAnalysisButton.hidden = false;
         return;
       }
 
       analysisLoadStatus.hidden = true;
       analysisLoadStatus.textContent = "";
       analysisLoadStatus.className = "format-status";
+      retryAnalysisButton.hidden = true;
+      analysisErrorDetail.hidden = true;
     }
 
     function resetProductData() {
@@ -1942,10 +1961,17 @@
           return;
         }
 
+        const errorEntry = BreakMetricErrors.record(error, {
+          productId: productIdAtStart,
+          formatId: formatIdAtStart
+        });
         setAnalysisLoadState(
           "error",
-          "Analysis data could not be loaded or validated. Reselect the product or box type to retry."
+          BreakMetricErrors.userMessage(error) + " You can retry without reloading the page."
         );
+        analysisErrorDetail.hidden = false;
+        analysisErrorDetailText.textContent =
+          "Type: " + errorEntry.type + " · " + errorEntry.message;
         teamEvData = null;
         baseChecklistData = null;
         playerIndexData = null;
@@ -3365,6 +3391,22 @@
         event.preventDefault();
         clearActiveSearch(document.activeElement);
       }
+    });
+
+    retryAnalysisButton.addEventListener("click", async () => {
+      if (
+        !currentProduct ||
+        currentProduct.status !== "ready" ||
+        selectedFormatConfig()?.status !== "ready"
+      ) {
+        setAnalysisLoadState("error", "Select an analysis-ready product and box type first.");
+        return;
+      }
+
+      resetProductData();
+      renderFormats();
+      applyFormatSelection();
+      await loadCurrentProductDatasets();
     });
 
     copyAnalysisLink.addEventListener("click", async () => {
