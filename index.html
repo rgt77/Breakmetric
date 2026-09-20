@@ -63,6 +63,20 @@
     }
     .tool h2{margin:0 0 8px;font-size:1.5rem}
     .tool p{margin:0 0 22px;color:var(--muted)}
+    .flow-progress{
+      list-style:none;margin:18px 0 24px;padding:0;
+      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px
+    }
+    .flow-progress li{
+      border:1px solid var(--line);border-radius:12px;padding:10px 11px;
+      background:#0b1223;color:var(--muted);min-width:0
+    }
+    .flow-progress li strong{display:block;font-size:.78rem;color:var(--text)}
+    .flow-progress li small{display:block;margin-top:4px;font-size:.66rem}
+    .flow-progress li[data-state="done"]{border-color:rgba(101,230,180,.45)}
+    .flow-progress li[data-state="done"] small{color:var(--accent)}
+    .flow-progress li[data-state="active"]{border-color:var(--accent);background:rgba(101,230,180,.07)}
+    .flow-progress li[data-state="optional"] small{color:var(--muted)}
     .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .spot-toolbar{
       display:flex;
@@ -464,13 +478,14 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:980px){
+      .flow-progress{grid-template-columns:repeat(3,minmax(0,1fr))}
       .quality-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .data-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .primary-results{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:760px){
       header,main,footer{width:min(100% - 24px,1100px)}
-      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid,.flow-progress{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
       .hero{padding-top:55px}
@@ -514,6 +529,14 @@
     <section class="tool" id="analysisTool">
       <h2>Spot value calculator</h2>
       <p>Choose a release, box type, team and player to inspect modeled hit probability. EV and ROI remain beta until market coverage and source verification are complete.</p>
+
+      <ol class="flow-progress" aria-label="Analysis progress">
+        <li id="flowProduct" data-state="active"><strong>Release</strong><small>Select product</small></li>
+        <li id="flowFormat"><strong>Box type</strong><small>Waiting</small></li>
+        <li id="flowTeam"><strong>Team</strong><small>Waiting</small></li>
+        <li id="flowPlayer" data-state="optional"><strong>Player</strong><small>Optional drill-down</small></li>
+        <li id="flowPrice"><strong>Spot price</strong><small>Waiting</small></li>
+      </ol>
 
       
       <div class="section-title">1 · Choose product / release</div>
@@ -896,6 +919,11 @@
   <script src="src/errorModel.js"></script>
   <script src="src/urlState.js"></script>
   <script>
+    const flowProduct = document.getElementById("flowProduct");
+    const flowFormat = document.getElementById("flowFormat");
+    const flowTeam = document.getElementById("flowTeam");
+    const flowPlayer = document.getElementById("flowPlayer");
+    const flowPrice = document.getElementById("flowPrice");
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
     const productGrid = document.getElementById("productGrid");
@@ -2315,6 +2343,53 @@
       setAnalysisLoadState("idle");
     }
 
+    function setFlowState(element, state, text) {
+      element.dataset.state = state;
+      const small = element.querySelector("small");
+      if (small) small.textContent = text;
+      if (state === "active") element.setAttribute("aria-current", "step");
+      else element.removeAttribute("aria-current");
+    }
+
+    function updateFlowProgress() {
+      const hasProduct = Boolean(currentProduct);
+      const format = selectedFormatConfig();
+      const hasFormat = Boolean(format && format.status === "ready");
+      const hasTeam = Boolean(team.value);
+      const hasPlayer = Boolean(selectedPlayer);
+      const hasPrice = Number(price.value) > 0;
+
+      setFlowState(
+        flowProduct,
+        hasProduct ? "done" : "active",
+        hasProduct ? "Selected" : "Select product"
+      );
+
+      setFlowState(
+        flowFormat,
+        hasFormat ? "done" : hasProduct ? "active" : "waiting",
+        hasFormat ? format.name : hasProduct ? "Select box type" : "Waiting"
+      );
+
+      setFlowState(
+        flowTeam,
+        hasTeam ? "done" : hasFormat ? "active" : "waiting",
+        hasTeam ? team.value : hasFormat ? "Select team" : "Waiting"
+      );
+
+      setFlowState(
+        flowPlayer,
+        hasPlayer ? "done" : "optional",
+        hasPlayer ? selectedPlayer : "Optional drill-down"
+      );
+
+      setFlowState(
+        flowPrice,
+        hasPrice ? "done" : hasTeam ? "active" : "waiting",
+        hasPrice ? "Entered" : hasTeam ? "Enter for ROI when eligible" : "Waiting"
+      );
+    }
+
     function updateAnalysisContext() {
       if (!analysisContext) return;
       updateAnalysisUnitUi();
@@ -2338,6 +2413,7 @@
 
       if (selectedPlayer) parts.push(selectedPlayer);
 
+      updateFlowProgress();
       analysisContext.innerHTML = "";
       parts.forEach((part,index) => {
         if (index > 0) {
@@ -3441,6 +3517,7 @@
     loadProducts();
 
     function updateResults() {
+      updateFlowProgress();
       const spotPrice = Number(price.value);
       resultTeam.textContent = team.value;
 
