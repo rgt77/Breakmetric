@@ -191,6 +191,34 @@
       margin-bottom:5px;
     }
     .analysis-scope strong{font-size:.9rem}
+    .data-status-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin:10px 0 4px;
+    }
+    .data-status-grid>div{
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#0b1223;
+    }
+    .data-status-grid span{
+      display:block;
+      color:var(--muted);
+      font-size:.7rem;
+      margin-bottom:5px;
+    }
+    .data-status-grid strong{font-size:.82rem}
+    .status-good{color:var(--accent)}
+    .status-warn{color:#ffd18a}
+    .product-card:focus-visible,
+    .format-card:focus-visible,
+    .team-card:focus-visible,
+    .player-card:focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:3px;
+    }
     .browse-search{margin:20px 0 6px}
     .browse-search input{padding:14px 16px}
     .browse-search-hint{margin:7px 0 0!important;font-size:.75rem;color:var(--muted)}
@@ -373,7 +401,7 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:760px){
-      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.data-status-grid{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
       .hero{padding-top:55px}
@@ -443,7 +471,7 @@
         </div>
       </div>
 
-      <div id="analysisContent">
+      <div id="analysisContent" hidden>
       <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
       <div class="analysis-scope" aria-live="polite">
         <div>
@@ -455,6 +483,26 @@
           <strong id="analysisPhysicalText">—</strong>
         </div>
       </div>
+
+      <div class="data-status-grid" aria-label="Data status" aria-live="polite">
+        <div>
+          <span>Product integrity</span>
+          <strong id="dataProductIntegrity">Pending</strong>
+        </div>
+        <div>
+          <span>Format integrity</span>
+          <strong id="dataFormatIntegrity">Pending</strong>
+        </div>
+        <div>
+          <span>Market EV coverage</span>
+          <strong id="dataMarketCoverage">Pending</strong>
+        </div>
+        <div>
+          <span>ROI status</span>
+          <strong id="dataRoiGate">Withheld</strong>
+        </div>
+      </div>
+
       <div class="browse-search">
         <label for="browseSearch">Search team or player</label>
         <input
@@ -642,7 +690,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.3</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.4</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -665,6 +713,10 @@
     const analysisContext = document.getElementById("analysisContext");
     const analysisUnitText = document.getElementById("analysisUnitText");
     const analysisPhysicalText = document.getElementById("analysisPhysicalText");
+    const dataProductIntegrity = document.getElementById("dataProductIntegrity");
+    const dataFormatIntegrity = document.getElementById("dataFormatIntegrity");
+    const dataMarketCoverage = document.getElementById("dataMarketCoverage");
+    const dataRoiGate = document.getElementById("dataRoiGate");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
@@ -827,6 +879,47 @@
       }
 
       return parts.length ? parts.join(" · ") : "Configuration pending";
+    }
+
+    function updateDataStatusUi() {
+      const integrityPassed =
+        !analysisContent.hidden &&
+        currentProduct?.status === "ready" &&
+        selectedFormatConfig()?.status === "ready";
+
+      dataProductIntegrity.textContent =
+        integrityPassed ? "Validated" : "Pending";
+      dataProductIntegrity.className =
+        integrityPassed ? "status-good" : "";
+
+      dataFormatIntegrity.textContent =
+        integrityPassed ? "Validated" : "Pending";
+      dataFormatIntegrity.className =
+        integrityPassed ? "status-good" : "";
+
+      if (!currentTeamEntry) {
+        dataMarketCoverage.textContent = "No valued cards yet";
+        dataMarketCoverage.className = "status-warn";
+      } else if (currentTeamEntry.coverage_complete) {
+        dataMarketCoverage.textContent = "Complete";
+        dataMarketCoverage.className = "status-good";
+      } else {
+        const count = Number(currentTeamEntry.valued_card_count || 0);
+        dataMarketCoverage.textContent =
+          "Partial · " + count + " valued card" + (count === 1 ? "" : "s");
+        dataMarketCoverage.className = "status-warn";
+      }
+
+      if (!currentTeamEntry?.coverage_complete) {
+        dataRoiGate.textContent = "Withheld · EV incomplete";
+        dataRoiGate.className = "status-warn";
+      } else if (!(Number(price.value) > 0)) {
+        dataRoiGate.textContent = "Ready · enter spot price";
+        dataRoiGate.className = "";
+      } else {
+        dataRoiGate.textContent = "Active";
+        dataRoiGate.className = "status-good";
+      }
     }
 
     function updateAnalysisUnitUi() {
@@ -1158,6 +1251,10 @@
         button.type = "button";
         button.className =
           "format-card" + (selectedFormat === item.id ? " active" : "");
+        button.setAttribute(
+          "aria-pressed",
+          selectedFormat === item.id ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.name;
@@ -1271,6 +1368,10 @@
           "product-card" +
           (selectedProductId === item.id ? " active" : "") +
           (item.status === "pending" ? " pending" : "");
+        button.setAttribute(
+          "aria-pressed",
+          selectedProductId === item.id ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.display_name || item.name;
@@ -1343,6 +1444,7 @@
     function updateAnalysisContext() {
       if (!analysisContext) return;
       updateAnalysisUnitUi();
+      updateDataStatusUi();
 
       const productLabel =
         currentProduct?.display_name ||
@@ -1570,6 +1672,10 @@
         button.type = "button";
         button.className =
           "team-card" + (team.value === item.name ? " active" : "");
+        button.setAttribute(
+          "aria-pressed",
+          team.value === item.name ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.name;
@@ -1726,6 +1832,10 @@
         button.type = "button";
         button.className =
           "player-card" + (selectedPlayer === item.name ? " active" : "");
+        button.setAttribute(
+          "aria-pressed",
+          selectedPlayer === item.name ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.name;
@@ -2319,6 +2429,7 @@
         resultEvLabel.textContent = "Team EV";
         resultEvSummary.textContent = "Not ready";
         evCoverage.textContent = "No valued cards yet";
+        updateDataStatusUi();
         return;
       }
 
@@ -2336,6 +2447,8 @@
           "Partial " + team.value + " EV · " +
           count + " valued card" + (count === 1 ? "" : "s");
       }
+
+      updateDataStatusUi();
     }
 
     team.addEventListener("change", () => {
@@ -2376,6 +2489,7 @@
       resultTeam.textContent = team.value;
 
       if (!(spotPrice > 0)) {
+        updateDataStatusUi();
         resultNet.textContent = "Enter spot price";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
@@ -2385,6 +2499,7 @@
       }
 
       if (currentEvUsd === null) {
+        updateDataStatusUi();
         resultNet.textContent = "EV not ready";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
@@ -2394,6 +2509,7 @@
       }
 
       if (!currentTeamEntry?.coverage_complete) {
+        updateDataStatusUi();
         resultNet.textContent = "Waiting for full EV";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
@@ -2413,6 +2529,7 @@
 
       resultNet.className = net >= 0 ? "positive" : "negative";
       resultRoi.className = roi >= 0 ? "positive" : "negative";
+      updateDataStatusUi();
     }
 
     price.addEventListener("input", () => {
