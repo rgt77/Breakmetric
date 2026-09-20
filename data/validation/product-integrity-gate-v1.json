@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 175-179",
+  "source_integrity_result": "pass",
+  "ui_checks": {
+    "step_178_catalog_has_integrity_pointer": true,
+    "step_178_ready_context_requires_integrity": true,
+    "step_179_integrity_loaded_with_product": true,
+    "step_179_integrity_part_of_atomic_fetch": true,
+    "step_179_failed_integrity_blocks_analysis": true,
+    "step_179_product_id_checked": true,
+    "step_179_pass_status_visible": true,
+    "step_179_prevalidation_status_is_cautious": true
+  },
+  "result": "pass"
+}
