@@ -1,0 +1,41 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "CA-EV",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Chrome Autograph Cards",
+  "parallel": "Gold Refractor",
+  "serial_numbering": 50,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-02-07",
+      "sale_price": 2000,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev",
+      "serial_copy": "14/50",
+      "direct_marketplace_url_recovered": false
+    },
+    {
+      "sale_date": "2026-02-15",
+      "sale_price": 2800,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev",
+      "serial_copy": "34/50",
+      "direct_marketplace_url_recovered": false
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 2400,
+    "mean_usd": 2400,
+    "min_usd": 2000,
+    "max_usd": 2800,
+    "sale_count": 2,
+    "confidence": "low"
+  },
+  "note": "Exact card/parallel comps found. Original eBay pages were not recovered in the free workflow, so these are secondary-source confirmed realized sales."
+}
