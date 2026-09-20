@@ -1,0 +1,53 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 115-124",
+  "subject": "Implied Hobby production from Hobby-exclusive #201",
+  "checks": [
+    {
+      "name": "uses_hobby_exclusive_subject",
+      "passed": true
+    },
+    {
+      "name": "gold_signal_packs",
+      "passed": true,
+      "value": 1608750
+    },
+    {
+      "name": "orange_signal_matches_gold",
+      "passed": true,
+      "value": 1608750
+    },
+    {
+      "name": "black_signal_packs",
+      "passed": true,
+      "value": 1544400
+    },
+    {
+      "name": "red_signal_matches_black",
+      "passed": true,
+      "value": 1544400
+    },
+    {
+      "name": "super_signal_matches_black",
+      "passed": true,
+      "value": 1544400
+    },
+    {
+      "name": "range_not_false_point_estimate",
+      "passed": true
+    },
+    {
+      "name": "box_conversion_uses_20_packs",
+      "passed": true
+    },
+    {
+      "name": "case_conversion_uses_240_packs",
+      "passed": true
+    },
+    {
+      "name": "not_used_as_current_sealed_fraction",
+      "passed": true
+    }
+  ],
+  "result": "pass"
+}
