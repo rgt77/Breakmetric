@@ -80,7 +80,7 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(7,1fr);
+      grid-template-columns:repeat(8,1fr);
       gap:12px;
       margin-top:22px;
     }
@@ -215,6 +215,10 @@
           <strong id="resultExpectedInserts">Loading…</strong>
         </div>
         <div class="result">
+          <span>Expected base parallels</span>
+          <strong id="resultExpectedBaseParallels">Loading…</strong>
+        </div>
+        <div class="result">
           <span>Expected net</span>
           <strong id="resultNet">—</strong>
         </div>
@@ -246,6 +250,7 @@
     let teamEvData = null;
     let autographProbabilityData = null;
     let insertProbabilityData = null;
+    let baseParallelProbabilityData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -258,6 +263,7 @@
     const resultAutoChance = document.getElementById("resultAutoChance");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultExpectedInserts = document.getElementById("resultExpectedInserts");
+    const resultExpectedBaseParallels = document.getElementById("resultExpectedBaseParallels");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -337,6 +343,36 @@
       }
     });
 
+
+    async function loadBaseParallelProbabilities() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json"
+        );
+        if (!response.ok) throw new Error("Base parallel probabilities unavailable");
+        baseParallelProbabilityData = await response.json();
+        updateExpectedBaseParallels();
+      } catch (error) {
+        resultExpectedBaseParallels.textContent = "Unavailable";
+      }
+    }
+
+    function updateExpectedBaseParallels() {
+      const rows = baseParallelProbabilityData?.teams || [];
+      const row = rows.find(item => item.team === team.value);
+
+      if (!row) {
+        resultExpectedBaseParallels.textContent = "—";
+        return;
+      }
+
+      const expected = row.expected_base_parallel_hits_per_12_box_case;
+
+      resultExpectedBaseParallels.textContent =
+        Number.isFinite(Number(expected))
+          ? Number(expected).toFixed(2)
+          : "—";
+    }
 
     async function loadInsertProbabilities() {
       try {
@@ -485,6 +521,7 @@
       updateTeamEv();
       updateAutographChance();
       updateExpectedInserts();
+      updateExpectedBaseParallels();
       updateResults();
     });
 
@@ -495,6 +532,7 @@
 
     loadAutographProbabilities();
     loadInsertProbabilities();
+    loadBaseParallelProbabilities();
     loadProducts();
 
     function updateResults() {
