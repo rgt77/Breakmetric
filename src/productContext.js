@@ -3,6 +3,7 @@
 
 export const requiredReadyProductDataKeys = [
   "product_data",
+  "integrity_data",
   "format_data",
   "ev_data",
   "base_checklist_data",
