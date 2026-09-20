@@ -1,0 +1,120 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "model": "team insert exposure",
+  "assumptions": [
+    "Within each insert checklist pool, listed cards are treated as equally likely unless Topps publishes more granular card-level odds.",
+    "The five common insert themes are treated as one shared 100-card pool because Topps publishes their Hobby odds together.",
+    "Per-box insert quantities are treated as checklist draws.",
+    "Pack-odds rows use the official Topps Hobby denominators.",
+    "Cards with unresolved team allocation are excluded from team-specific probabilities."
+  ],
+  "configuration": {
+    "packs_per_box": 20,
+    "boxes_per_case": 12,
+    "packs_per_case": 240
+  },
+  "unresolved_expected_insert_hits_per_case": 0.0008,
+  "teams": [
+    {
+      "team": "Liverpool FC",
+      "expected_insert_hits_per_12_box_case": 15.056,
+      "chance_at_least_one_insert_in_case_percent": 100
+    },
+    {
+      "team": "Arsenal",
+      "expected_insert_hits_per_12_box_case": 15.003,
+      "chance_at_least_one_insert_in_case_percent": 100
+    },
+    {
+      "team": "Manchester United",
+      "expected_insert_hits_per_12_box_case": 13.775,
+      "chance_at_least_one_insert_in_case_percent": 100
+    },
+    {
+      "team": "Manchester City",
+      "expected_insert_hits_per_12_box_case": 11.316,
+      "chance_at_least_one_insert_in_case_percent": 100
+    },
+    {
+      "team": "Tottenham Hotspur",
+      "expected_insert_hits_per_12_box_case": 9.961,
+      "chance_at_least_one_insert_in_case_percent": 100
+    },
+    {
+      "team": "Chelsea",
+      "expected_insert_hits_per_12_box_case": 7.612,
+      "chance_at_least_one_insert_in_case_percent": 99.96
+    },
+    {
+      "team": "Newcastle United",
+      "expected_insert_hits_per_12_box_case": 7.461,
+      "chance_at_least_one_insert_in_case_percent": 99.95
+    },
+    {
+      "team": "Fulham",
+      "expected_insert_hits_per_12_box_case": 7.431,
+      "chance_at_least_one_insert_in_case_percent": 99.95
+    },
+    {
+      "team": "Everton",
+      "expected_insert_hits_per_12_box_case": 6.201,
+      "chance_at_least_one_insert_in_case_percent": 99.83
+    },
+    {
+      "team": "Leeds United",
+      "expected_insert_hits_per_12_box_case": 4.963,
+      "chance_at_least_one_insert_in_case_percent": 99.37
+    },
+    {
+      "team": "Brighton & Hove Albion",
+      "expected_insert_hits_per_12_box_case": 3.773,
+      "chance_at_least_one_insert_in_case_percent": 97.83
+    },
+    {
+      "team": "Aston Villa",
+      "expected_insert_hits_per_12_box_case": 3.753,
+      "chance_at_least_one_insert_in_case_percent": 97.78
+    },
+    {
+      "team": "Sunderland",
+      "expected_insert_hits_per_12_box_case": 3.745,
+      "chance_at_least_one_insert_in_case_percent": 97.76
+    },
+    {
+      "team": "Crystal Palace",
+      "expected_insert_hits_per_12_box_case": 3.74,
+      "chance_at_least_one_insert_in_case_percent": 97.75
+    },
+    {
+      "team": "Wolverhampton Wanderers",
+      "expected_insert_hits_per_12_box_case": 3.733,
+      "chance_at_least_one_insert_in_case_percent": 97.74
+    },
+    {
+      "team": "Nottingham Forest",
+      "expected_insert_hits_per_12_box_case": 2.523,
+      "chance_at_least_one_insert_in_case_percent": 92.17
+    },
+    {
+      "team": "AFC Bournemouth",
+      "expected_insert_hits_per_12_box_case": 2.485,
+      "chance_at_least_one_insert_in_case_percent": 91.87
+    },
+    {
+      "team": "Brentford",
+      "expected_insert_hits_per_12_box_case": 1.257,
+      "chance_at_least_one_insert_in_case_percent": 71.73
+    },
+    {
+      "team": "Burnley FC",
+      "expected_insert_hits_per_12_box_case": 1.251,
+      "chance_at_least_one_insert_in_case_percent": 71.55
+    },
+    {
+      "team": "West Ham United",
+      "expected_insert_hits_per_12_box_case": 0.041,
+      "chance_at_least_one_insert_in_case_percent": 4.04
+    }
+  ]
+}
