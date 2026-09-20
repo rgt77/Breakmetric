@@ -1,0 +1,39 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "63",
+  "player": "Cole Palmer",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Blue Refractor",
+  "serial_numbering": 150,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-04-19",
+      "sale_price": 19.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/cole-palmer-blue-refractor-63",
+      "verified_as_realized_sale": true
+    },
+    {
+      "sale_date": "2026-03-30",
+      "sale_price": 14.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/cole-palmer-blue-refractor-63",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 17.49,
+    "mean_usd": 17.49,
+    "min_usd": 14.99,
+    "max_usd": 19.99,
+    "sale_count": 2,
+    "confidence": "low"
+  },
+  "note": "Only listings whose sale title matched this exact Hobby parallel were included."
+}
