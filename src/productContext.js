@@ -1,21 +1,10 @@
 // BreakMetric product-context helpers.
-// A ready product must point to its own datasets so releases cannot silently share data.
+// Product context is release-scoped. Format-specific analysis paths live only in the format catalog.
 
 export const requiredReadyProductDataKeys = [
   "product_data",
   "integrity_data",
-  "format_data",
-  "ev_data",
-  "base_checklist_data",
-  "autograph_checklist_data",
-  "player_index_data",
-  "player_probability_data",
-  "team_autograph_probability_data",
-  "team_insert_probability_data",
-  "team_base_parallel_probability_data",
-  "live_supply_data",
-  "sealed_supply_data",
-  "production_estimate_data"
+  "format_data"
 ];
 
 export function missingReadyProductData(product = {}) {
@@ -23,9 +12,13 @@ export function missingReadyProductData(product = {}) {
   return requiredReadyProductDataKeys.filter(key => !product[key]);
 }
 
-export function productIsAnalysisReady(product = {}) {
-  return product.status === "ready" && missingReadyProductData(product).length === 0;
+export function productIsReady(product = {}) {
+  return product.status === "ready" &&
+    missingReadyProductData(product).length === 0;
 }
+
+// Backward-compatible alias while older code/tests are phased out.
+export const productIsAnalysisReady = productIsReady;
 
 export function productDataPath(product = {}, key) {
   const value = product?.[key];
