@@ -8,7 +8,17 @@
     "Chelsea": {
       "partial_ev_usd": 15.1,
       "valued_card_count": 1,
-      "coverage_complete": false
+      "coverage_complete": false,
+      "contributions": [
+        {
+          "card_id": "CA-EV-gold-refractor-auto",
+          "player": "Estêvão Willian",
+          "set": "Chrome Autograph Cards",
+          "parallel": "Gold Refractor",
+          "ev_contribution_usd": 15.1
+        }
+      ]
     }
-  }
+  },
+  "generated_from_card_level_ev": true
 }
