@@ -255,6 +255,10 @@
             <strong id="resultLiveOddsStatus">Loading…</strong>
           </div>
           <div class="result">
+            <span>Sealed supply</span>
+            <strong id="resultSealedSupplyStatus">Loading…</strong>
+          </div>
+          <div class="result">
             <span>Expected net</span>
             <strong id="resultNet">—</strong>
           </div>
@@ -296,6 +300,7 @@
     let insertProbabilityData = null;
     let baseParallelProbabilityData = null;
     let liveSupplyData = null;
+    let sealedSupplyData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -343,6 +348,7 @@
     const resultExpectedBaseParallels = document.getElementById("resultExpectedBaseParallels");
     const resultTrackedSerials = document.getElementById("resultTrackedSerials");
     const resultLiveOddsStatus = document.getElementById("resultLiveOddsStatus");
+    const resultSealedSupplyStatus = document.getElementById("resultSealedSupplyStatus");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -423,6 +429,31 @@
       }
     });
 
+
+    async function loadSealedSupply() {
+      try {
+        const response = await fetch(
+          "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json"
+        );
+        if (!response.ok) throw new Error("Sealed supply unavailable");
+        sealedSupplyData = await response.json();
+        updateSealedSupplyStatus();
+      } catch (error) {
+        resultSealedSupplyStatus.textContent = "Unavailable";
+      }
+    }
+
+    function updateSealedSupplyStatus() {
+      const status = sealedSupplyData?.current_estimate?.status;
+
+      if (status === "qualitative-evidence-only") {
+        resultSealedSupplyStatus.textContent = "Signals only";
+      } else if (status === "estimated-range") {
+        resultSealedSupplyStatus.textContent = "Estimated range";
+      } else {
+        resultSealedSupplyStatus.textContent = "No estimate";
+      }
+    }
 
     async function loadLiveSupply() {
       try {
@@ -673,6 +704,7 @@
     loadInsertProbabilities();
     loadBaseParallelProbabilities();
     loadLiveSupply();
+    loadSealedSupply();
     loadProducts();
 
     function updateResults() {
