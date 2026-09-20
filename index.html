@@ -840,6 +840,7 @@
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
   <script src="src/dataFreshness.js"></script>
+  <script src="src/dataLoader.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
@@ -990,10 +991,10 @@
     const fxStatus = document.getElementById("fxStatus");
 
     async function fetchJsonForProduct(path, token) {
-      const response = await fetch(path);
-      if (!response.ok) throw new Error("Product dataset unavailable: " + path);
-
-      const data = await response.json();
+      const data = await BreakMetricDataLoader.loadJson(path, {
+        timeoutMs: 12000,
+        retries: 1
+      });
 
       if (token !== productLoadToken) {
         const staleError = new Error("Stale product load");
@@ -1899,9 +1900,10 @@
       formatStatus.textContent = "Loading box formats…";
 
       try {
-        const response = await fetch(formatPathAtStart);
-        if (!response.ok) throw new Error("Format catalog unavailable");
-        const nextFormatCatalog = await response.json();
+        const nextFormatCatalog = await BreakMetricDataLoader.loadJson(
+          formatPathAtStart,
+          { timeoutMs: 12000, retries: 1 }
+        );
 
         if (
           token !== formatLoadToken ||
@@ -3059,10 +3061,10 @@
 
     async function loadProducts() {
       try {
-        const response = await fetch("data/products/catalog.json");
-        if (!response.ok) throw new Error("Product catalog unavailable");
-
-        const nextProductCatalog = await response.json();
+        const nextProductCatalog = await BreakMetricDataLoader.loadJson(
+          "data/products/catalog.json",
+          { timeoutMs: 12000, retries: 1 }
+        );
         const productCatalogContract =
           BreakMetricContracts.validateProductCatalog(nextProductCatalog);
 
