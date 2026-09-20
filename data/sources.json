@@ -1,0 +1,16 @@
+{
+  "product": "2026 Topps Chrome Premier League - Hobby Box",
+  "manufacturer": "Topps",
+  "sport": "Football",
+  "release_date": "2026-02-05",
+  "official_product_page": "https://uk.topps.com/products/2026-topps-chrome-premier-league-hobby-box",
+  "checklist_pdf": "https://cdn.shopify.com/s/files/1/0739/2015/1805/files/FINAL_PL_Chrome_Checklist.pdf?v=1787935402",
+  "odds_pdf": "https://cdn.shopify.com/s/files/1/0739/2015/1805/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787935402",
+  "box_configuration": {
+    "cards_per_pack": 4,
+    "packs_per_box": 20,
+    "autographs_per_box": 1,
+    "hobby_exclusive_prism_parallels_per_box": 4
+  },
+  "notes": "Official Topps sources. These are the primary inputs for BreakMetric's first product model."
+}
