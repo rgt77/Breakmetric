@@ -1,0 +1,35 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 360-362",
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "generator": "src/playerDerivation.js",
+  "generator_version": 1,
+  "source_manifest": "data/derived/2026-topps-chrome-premier-league-hobby-player-derivation-manifest-v1.json",
+  "player_index": {
+    "semantic_match": true,
+    "mapped_player_team_pairs": 364,
+    "mapped_teams": 20,
+    "total_mapped_checklist_entries": 744,
+    "players_without_base_card": 163,
+    "errors": []
+  },
+  "player_probabilities": {
+    "semantic_match": true,
+    "tolerance": 0.000001,
+    "player_team_rows": 364,
+    "mismatches": 0,
+    "errors": []
+  },
+  "source_inputs": {
+    "checklist_files": 4,
+    "official_odds_files": 1,
+    "explicit_odds_mapping_files": 2
+  },
+  "checks": {
+    "step_360_player_index_reproduces": true,
+    "step_361_player_probabilities_reproduce": true,
+    "step_362_source_manifest_is_complete": true
+  },
+  "result": "pass"
+}
