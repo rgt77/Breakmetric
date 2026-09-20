@@ -1,0 +1,92 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby Case",
+  "currency": "USD",
+  "source": {
+    "breaker_name": null,
+    "break_url": null,
+    "captured_at": null
+  },
+  "spot_prices": [
+    {
+      "team": "AFC Bournemouth",
+      "price": null
+    },
+    {
+      "team": "Arsenal",
+      "price": null
+    },
+    {
+      "team": "Aston Villa",
+      "price": null
+    },
+    {
+      "team": "Brentford",
+      "price": null
+    },
+    {
+      "team": "Brighton & Hove Albion",
+      "price": null
+    },
+    {
+      "team": "Burnley FC",
+      "price": null
+    },
+    {
+      "team": "Chelsea",
+      "price": null
+    },
+    {
+      "team": "Crystal Palace",
+      "price": null
+    },
+    {
+      "team": "Everton",
+      "price": null
+    },
+    {
+      "team": "Fulham",
+      "price": null
+    },
+    {
+      "team": "Leeds United",
+      "price": null
+    },
+    {
+      "team": "Liverpool FC",
+      "price": null
+    },
+    {
+      "team": "Manchester City",
+      "price": null
+    },
+    {
+      "team": "Manchester United",
+      "price": null
+    },
+    {
+      "team": "Newcastle United",
+      "price": null
+    },
+    {
+      "team": "Nottingham Forest",
+      "price": null
+    },
+    {
+      "team": "Sunderland",
+      "price": null
+    },
+    {
+      "team": "Tottenham Hotspur",
+      "price": null
+    },
+    {
+      "team": "West Ham United",
+      "price": null
+    },
+    {
+      "team": "Wolverhampton Wanderers",
+      "price": null
+    }
+  ]
+}
