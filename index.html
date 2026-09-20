@@ -783,7 +783,7 @@
 
       <div class="player-browser">
         <div class="section-title">4 · Choose player</div>
-        <div id="playerGrid" class="player-grid" aria-label="Players"></div>
+        <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
       </div>
 
       <div class="section-title">5 · Team value overview <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
@@ -3171,6 +3171,10 @@
           selectedPlayer === item.name ? "true" : "false"
         );
         button.setAttribute("aria-controls", "playerPanel");
+        button.setAttribute(
+          "aria-expanded",
+          selectedPlayer === item.name ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.name;
