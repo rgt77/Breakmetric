@@ -110,7 +110,15 @@ for (const product of catalog.products || []) {
     const evData = json(format.analysis_data.ev_data);
     const evScope = json(format.analysis_data.ev_scope_data);
     const evWorkQueue = json(format.analysis_data.ev_work_queue_data);
+    const evContributionProvenance = json(format.analysis_data.ev_contribution_provenance_data);
     const marketVerificationQueue = json(format.analysis_data.market_verification_queue_data);
+    pass(
+      `EV contribution provenance linked: ${product.id}/${format.id}`,
+      evContributionProvenance.model === "ev-contribution-provenance-v1" &&
+      evContributionProvenance.summary?.missing_derivation_count === 0 &&
+      evContributionProvenance.entries?.length ===
+        Object.values(evData.teams || {}).reduce((sum,row)=>sum+(row.contributions || []).length,0)
+    );
     pass(
       `EV work queue task count: ${product.id}/${format.id}`,
       evWorkQueue.model === "ev-work-queue-v1" &&
@@ -181,6 +189,7 @@ for (const module of [
   "analysisQuality.js",
   "evCoverage.js",
   "evWorkQueue.js",
+  "evContributionProvenance.js",
   "marketCoverage.js",
   "marketEvidenceQuality.js",
   "marketRecordQuality.js",
@@ -205,6 +214,7 @@ pass("skip link present", html.includes('class="skip-link"'));
 pass("analysis quality UI present", html.includes('class="quality-grid"'));
 pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
 pass("EV work queue present", html.includes('id="evWorkPanel"'));
+pass("EV derivation lineage visible", html.includes('id="evDerivationLineage"'));
 pass("market source tier visible", html.includes('id="marketSourceTier"'));
 pass("market verification EV gap visible", html.includes('id="marketVerificationEvGap"'));
 pass("market record sample visible", html.includes('id="marketRecordSample"'));
