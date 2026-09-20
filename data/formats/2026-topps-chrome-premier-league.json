@@ -23,6 +23,13 @@
         "market_evidence_registry_data": "data/market/2026-topps-chrome-premier-league/market-evidence-registry-v1.json",
         "player_derivation_manifest_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-derivation-manifest-v1.json"
       },
+      "break_allocation_policy": {
+        "status": "protected",
+        "single_team_rule": "listed-team",
+        "multi_team_rule": "exclude-until-explicit-break-rule",
+        "ev_treatment": "exclude-unallocated-multi-team-cards",
+        "note": "Multi-team cards may contribute to card/player hit probability, but they must not contribute to team EV until an explicit break-allocation rule is defined for the analysis."
+      },
       "configuration": {
         "boxes_per_case": 12,
         "packs_per_box": 20,
