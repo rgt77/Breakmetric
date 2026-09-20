@@ -1,0 +1,121 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 306-325",
+  "release": "BreakMetric v0.8",
+  "javascript_syntax": {
+    "inline_app": {
+      "pass": true,
+      "error": null
+    },
+    "team_readiness": {
+      "pass": true,
+      "error": null
+    },
+    "runtime_contracts": {
+      "pass": true,
+      "error": null
+    }
+  },
+  "live_readiness": {
+    "valid": true,
+    "errors": [],
+    "summary": {
+      "team_count": 20,
+      "probability_ready_count": 20,
+      "ev_partial_count": 1,
+      "ev_complete_count": 0,
+      "market_audited_count": 1,
+      "roi_ready_count": 0,
+      "overall": {
+        "decision_ready": 0,
+        "roi_locked": 0,
+        "ev_partial": 1,
+        "probability_ready": 19,
+        "incomplete": 0
+      }
+    },
+    "examples": {
+      "Chelsea": {
+        "team": "Chelsea",
+        "probability": {
+          "status": "ready",
+          "ready": true,
+          "player_probability_ready": true,
+          "base_parallel_ready": true,
+          "insert_ready": true,
+          "autograph_ready": true,
+          "autograph_checklist_count": 14
+        },
+        "ev": {
+          "status": "partial",
+          "valued_card_count": 27,
+          "coverage_complete": false,
+          "indicative": true
+        },
+        "market": {
+          "status": "secondary-source",
+          "audited": true,
+          "original_verified_count": 0,
+          "audited_contribution_count": 27
+        },
+        "roi": {
+          "eligible": false,
+          "status": "locked"
+        },
+        "overall_status": "ev-partial"
+      },
+      "AFC Bournemouth": {
+        "team": "AFC Bournemouth",
+        "probability": {
+          "status": "ready",
+          "ready": true,
+          "player_probability_ready": true,
+          "base_parallel_ready": true,
+          "insert_ready": true,
+          "autograph_ready": true,
+          "autograph_checklist_count": 0
+        },
+        "ev": {
+          "status": "not-valued",
+          "valued_card_count": 0,
+          "coverage_complete": false,
+          "indicative": false
+        },
+        "market": {
+          "status": "not-audited",
+          "audited": false,
+          "original_verified_count": 0,
+          "audited_contribution_count": 0
+        },
+        "roi": {
+          "eligible": false,
+          "status": "locked"
+        },
+        "overall_status": "probability-ready"
+      }
+    }
+  },
+  "checks": {
+    "step_306_team_readiness_model_exists": true,
+    "step_307_probability_readiness_uses_player_probability": true,
+    "step_308_probability_readiness_uses_team_parallel_and_insert_models": true,
+    "step_309_zero_auto_checklist_is_handled_as_ready": true,
+    "step_310_overall_readiness_status_is_derived": true,
+    "step_311_readiness_script_loaded": true,
+    "step_312_readiness_state_is_runtime_state": true,
+    "step_313_readiness_builds_from_runtime_bundle": true,
+    "step_314_readiness_validates_canonical_team_set": true,
+    "step_315_invalid_readiness_blocks_analysis": true,
+    "step_316_team_cards_have_readiness_container": true,
+    "step_317_probability_label_is_rendered": true,
+    "step_318_ev_label_is_rendered": true,
+    "step_319_market_label_is_rendered": true,
+    "step_320_roi_label_is_rendered": true,
+    "step_321_readiness_badges_have_status_classes": true,
+    "step_322_team_card_readiness_is_in_aria_label": true,
+    "step_323_selected_team_readiness_is_visible": true,
+    "step_324_release_is_v08": true,
+    "step_325_live_readiness_validation_passes": true
+  },
+  "result": "pass"
+}
