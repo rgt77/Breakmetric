@@ -139,6 +139,11 @@
       <h2>Spot value calculator</h2>
       <p>First working prototype. Enter a spot price and an estimated value to compare them.</p>
 
+      <div id="productField" style="display:none;margin-bottom:14px">
+        <label for="product">Product / break</label>
+        <select id="product"></select>
+      </div>
+
       <div class="form-grid">
         <div>
           <label for="team">Team</label>
@@ -217,12 +222,16 @@
   <footer>© 2026 BreakMetric</footer>
 
   <script>
+    const productField = document.getElementById("productField");
+    const product = document.getElementById("product");
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
     const evDisplay = document.getElementById("evDisplay");
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
+    let productCatalog = null;
+    let currentProduct = null;
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
@@ -309,11 +318,39 @@
     });
 
 
+    async function loadProducts() {
+      try {
+        const response = await fetch("data/products/catalog.json");
+        if (!response.ok) throw new Error("Product catalog unavailable");
+
+        productCatalog = await response.json();
+        const activeProducts = (productCatalog.products || []).filter(p => p.active);
+
+        product.innerHTML = "";
+        for (const item of activeProducts) {
+          const option = document.createElement("option");
+          option.value = item.id;
+          option.textContent = item.name + " — " + item.format;
+          product.appendChild(option);
+        }
+
+        productField.style.display = activeProducts.length > 1 ? "block" : "none";
+        currentProduct = activeProducts[0] || null;
+
+        if (currentProduct) {
+          product.value = currentProduct.id;
+          await loadTeamEv();
+        }
+      } catch (error) {
+        evDisplay.value = "Product unavailable";
+      }
+    }
+
     async function loadTeamEv() {
       try {
-        const response = await fetch(
-          "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"
-        );
+        if (!currentProduct) throw new Error("No product selected");
+
+        const response = await fetch(currentProduct.ev_data);
         if (!response.ok) throw new Error("EV data unavailable");
         teamEvData = await response.json();
         updateTeamEv();
@@ -342,7 +379,12 @@
       updateResults();
     });
 
-    loadTeamEv();
+    product.addEventListener("change", async () => {
+      currentProduct = productCatalog.products.find(p => p.id === product.value) || null;
+      await loadTeamEv();
+    });
+
+    loadProducts();
 
     function updateResults() {
       const spotPrice = Number(price.value);
