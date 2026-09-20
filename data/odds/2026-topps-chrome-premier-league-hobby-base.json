@@ -1,0 +1,165 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source": "Official Topps odds PDF",
+  "source_url": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+  "base_cards": [
+    {
+      "name": "Refractor",
+      "odds_type": "per_box",
+      "quantity": 6
+    },
+    {
+      "name": "Prism Refractor",
+      "odds_type": "per_box",
+      "quantity": 4
+    },
+    {
+      "name": "Teal Refractor",
+      "odds_type": "per_pack",
+      "denominator": 51
+    },
+    {
+      "name": "Yellow Refractor",
+      "odds_type": "per_pack",
+      "denominator": 51
+    },
+    {
+      "name": "Pink Refractor",
+      "odds_type": "per_pack",
+      "denominator": 52
+    },
+    {
+      "name": "Aqua Refractor",
+      "odds_type": "per_pack",
+      "denominator": 57
+    },
+    {
+      "name": "Aqua Wave",
+      "odds_type": "per_pack",
+      "denominator": 57
+    },
+    {
+      "name": "Blue Refractor",
+      "odds_type": "per_pack",
+      "denominator": 79
+    },
+    {
+      "name": "Blue Wave",
+      "odds_type": "per_pack",
+      "denominator": 79
+    },
+    {
+      "name": "Green Refractor",
+      "odds_type": "per_pack",
+      "denominator": 103
+    },
+    {
+      "name": "Green Wave",
+      "odds_type": "per_pack",
+      "denominator": 103
+    },
+    {
+      "name": "Purple Refractor",
+      "odds_type": "per_pack",
+      "denominator": 128
+    },
+    {
+      "name": "Purple Wave",
+      "odds_type": "per_pack",
+      "denominator": 128
+    },
+    {
+      "name": "Gold Refractor",
+      "odds_type": "per_pack",
+      "denominator": 221
+    },
+    {
+      "name": "Gold Wave",
+      "odds_type": "per_pack",
+      "denominator": 221
+    },
+    {
+      "name": "White Refractor",
+      "odds_type": "per_pack",
+      "denominator": 322
+    },
+    {
+      "name": "Orange Refractor",
+      "odds_type": "per_pack",
+      "denominator": 375
+    },
+    {
+      "name": "Orange Wave",
+      "odds_type": "per_pack",
+      "denominator": 375
+    },
+    {
+      "name": "Black Refractor",
+      "odds_type": "per_pack",
+      "denominator": 1036
+    },
+    {
+      "name": "Black Wave",
+      "odds_type": "per_pack",
+      "denominator": 1036
+    },
+    {
+      "name": "Red Refractor",
+      "odds_type": "per_pack",
+      "denominator": 2046
+    },
+    {
+      "name": "Red Wave",
+      "odds_type": "per_pack",
+      "denominator": 2046
+    },
+    {
+      "name": "Superfractor",
+      "odds_type": "per_pack",
+      "denominator": 9653
+    },
+    {
+      "name": "Premier League Retrofractor",
+      "odds_type": "per_pack",
+      "denominator": 88
+    },
+    {
+      "name": "Frozenfractors",
+      "odds_type": "per_pack",
+      "denominator": 1618
+    }
+  ],
+  "hobby_exclusive_card_201": [
+    {
+      "name": "Base",
+      "odds_type": "per_pack",
+      "denominator": 16257
+    },
+    {
+      "name": "Gold Refractor",
+      "odds_type": "per_pack",
+      "denominator": 32175
+    },
+    {
+      "name": "Orange Refractor",
+      "odds_type": "per_pack",
+      "denominator": 64350
+    },
+    {
+      "name": "Black Refractor",
+      "odds_type": "per_pack",
+      "denominator": 154440
+    },
+    {
+      "name": "Red Refractor",
+      "odds_type": "per_pack",
+      "denominator": 308880
+    },
+    {
+      "name": "Superfractor",
+      "odds_type": "per_pack",
+      "denominator": 1544400
+    }
+  ]
+}
