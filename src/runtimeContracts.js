@@ -165,7 +165,8 @@
       "live_supply_data",
       "sealed_supply_data",
       "production_estimate_data",
-      "market_evidence_registry_data"
+      "market_evidence_registry_data",
+      "player_derivation_manifest_data"
     ];
 
     const allowedStatuses=new Set(["ready","pending"]);
@@ -257,6 +258,77 @@
       ready_format_count:readyCount,
       pending_format_count:pendingCount,
       required_analysis_route_count:requiredAnalysisKeys.length
+    });
+  };
+
+  api.validatePlayerDerivationManifest=function(
+    manifest={},
+    productId,
+    formatId,
+    analysisData={},
+    analysisUnit={}
+  ){
+    const errors=[],warnings=[];
+
+    if(manifest.schema_version!==1){
+      errors.push("player derivation manifest schema_version mismatch");
+    }
+    if(manifest.product_id!==productId){
+      errors.push("player derivation manifest product_id mismatch");
+    }
+    if(manifest.format_id!==formatId){
+      errors.push("player derivation manifest format_id mismatch");
+    }
+    if(manifest.generator!=="src/playerDerivation.js"){
+      errors.push("player derivation generator path mismatch");
+    }
+    if(!Number.isInteger(Number(manifest.generator_version)) ||
+       Number(manifest.generator_version)<1){
+      errors.push("player derivation generator_version invalid");
+    }
+
+    const requiredInputs=[
+      "base_checklist",
+      "main_autograph_checklist",
+      "hobby_insert_checklist",
+      "hobby_special_autograph_checklist",
+      "official_hobby_odds",
+      "insert_odds_mapping",
+      "autograph_odds_mapping"
+    ];
+
+    for(const key of requiredInputs){
+      if(typeof manifest.inputs?.[key]!=="string" || !manifest.inputs[key]){
+        errors.push("player derivation manifest input missing: "+key);
+      }
+    }
+
+    if(manifest.outputs?.player_index!==analysisData.player_index_data){
+      errors.push("player derivation player_index output route mismatch");
+    }
+    if(manifest.outputs?.player_probabilities!==analysisData.player_probability_data){
+      errors.push("player derivation player_probability output route mismatch");
+    }
+
+    if(Number(manifest.constants?.boxes_per_case)!==Number(analysisUnit.boxes)){
+      errors.push("player derivation boxes_per_case mismatch");
+    }
+    if(Number(manifest.constants?.packs_per_case)!==Number(analysisUnit.packs)){
+      errors.push("player derivation packs_per_case mismatch");
+    }
+
+    const calculatedPacks=
+      Number(manifest.constants?.boxes_per_case) *
+      Number(manifest.constants?.packs_per_box);
+
+    if(calculatedPacks!==Number(manifest.constants?.packs_per_case)){
+      errors.push("player derivation pack math mismatch");
+    }
+
+    return result(errors,warnings,{
+      player_derivation_input_count:requiredInputs.length,
+      player_derivation_generator_version:
+        Number(manifest.generator_version||0)
     });
   };
 
@@ -545,6 +617,13 @@
       api.validateAutographChecklist(bundle.autographChecklist,productId,canonical),
       api.validatePlayerIndex(bundle.playerIndex,productId,canonical),
       api.validatePlayerProbabilities(bundle.playerProbabilities,productId,canonical),
+      api.validatePlayerDerivationManifest(
+        bundle.playerDerivationManifest,
+        productId,
+        context.formatId || null,
+        context.analysisData || {},
+        context.analysisUnit || {}
+      ),
       api.validateTeamProbabilityDataset(bundle.autographProbabilities,productId,canonical,"autograph probability"),
       api.validateTeamProbabilityDataset(bundle.insertProbabilities,productId,canonical,"insert probability"),
       api.validateTeamProbabilityDataset(bundle.baseParallelProbabilities,productId,canonical,"base parallel probability"),
