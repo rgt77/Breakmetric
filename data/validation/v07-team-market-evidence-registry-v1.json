@@ -1,0 +1,64 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 286-305",
+  "release": "BreakMetric v0.7",
+  "registry_summary": {
+    "canonical_team_count": 20,
+    "audited_team_count": 1,
+    "original_verified_team_count": 0,
+    "provisional_team_count": 1,
+    "unaudited_team_count": 19
+  },
+  "javascript_syntax": {
+    "inline_app": {
+      "pass": true,
+      "error": null
+    },
+    "runtime_contracts": {
+      "pass": true,
+      "error": null
+    }
+  },
+  "live_contract_validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "canonical_team_count": 20,
+      "base_card_count": 201,
+      "autograph_card_count": 128,
+      "indexed_player_team_pairs": 364,
+      "player_probability_rows": 364,
+      "autograph_probability_team_rows": 19,
+      "insert_probability_team_rows": 20,
+      "base_parallel_probability_team_rows": 20,
+      "ev_contribution_count": 27,
+      "market_registry_team_count": 20,
+      "market_registry_audited_team_count": 1,
+      "market_registry_roi_eligible_team_count": 0
+    }
+  },
+  "checks": {
+    "step_286_registry_helper_exists": true,
+    "step_287_registry_has_all_20_teams": true,
+    "step_288_every_canonical_team_has_registry_entry": true,
+    "step_289_chelsea_audit_link_preserved": true,
+    "step_290_unaudited_teams_are_explicit": true,
+    "step_291_format_has_registry_route": true,
+    "step_292_runtime_contract_validates_registry": true,
+    "step_293_format_integrity_is_v4": true,
+    "step_294_hobby_points_to_integrity_v4": true,
+    "step_295_registry_team_set_contract_passes": true,
+    "step_296_registry_ev_snapshot_matches": true,
+    "step_297_ui_loads_registry": true,
+    "step_298_ui_state_is_registry_based": true,
+    "step_299_source_quality_is_team_registry_based": true,
+    "step_300_roi_gate_is_team_registry_based": true,
+    "step_301_registry_audit_path_matches_real_audit": true,
+    "step_302_unaudited_team_counts_cannot_reuse_chelsea": true,
+    "step_303_single_audit_route_removed": true,
+    "step_304_release_is_v07": true,
+    "step_305_full_release_validation": true
+  },
+  "result": "pass"
+}
