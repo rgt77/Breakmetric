@@ -1047,6 +1047,17 @@
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
       evCoverage.textContent = "Loading EV coverage…";
+      dataProductIntegrity.textContent = "Pending";
+      dataProductIntegrity.className = "";
+      dataFormatIntegrity.textContent = "Pending";
+      dataFormatIntegrity.className = "";
+      dataMarketCoverage.textContent = "Pending";
+      dataMarketCoverage.className = "";
+      dataMarketSourceQuality.textContent = "Pending";
+      dataMarketSourceQuality.className = "";
+      dataRoiGate.textContent = "Withheld";
+      dataRoiGate.className = "";
+      analysisContent.hidden = true;
     }
 
     async function loadProductMetadata() {
@@ -1261,9 +1272,9 @@
         const previousTeam =
           readProductSelection("team", team.value, productIdAtStart) || team.value;
 
-        const teams = (productMetadataData.teams || [])
-          .map(item => item.name)
-          .filter(Boolean);
+        const teams = BreakMetricContracts.teamNamesFromMetadata(
+          productMetadataData
+        );
 
         team.innerHTML = "";
         for (const name of teams) {
@@ -1273,15 +1284,29 @@
           team.appendChild(option);
         }
 
-        if (teams.includes(previousTeam)) {
-          team.value = previousTeam;
-        } else if (teams.length) {
-          team.value = teams[0];
-          writeProductSelection("team", team.value);
+        const reconciledTeam = BreakMetricContracts.reconcileTeam(
+          productMetadataData,
+          previousTeam
+        );
+
+        if (reconciledTeam) {
+          team.value = reconciledTeam;
+          if (reconciledTeam !== previousTeam) {
+            writeProductSelection("team", reconciledTeam, productIdAtStart);
+          }
         }
 
-        selectedPlayer =
+        const storedPlayer =
           readProductSelection("player", null, productIdAtStart);
+        selectedPlayer = BreakMetricContracts.reconcilePlayer(
+          playerIndexData,
+          team.value,
+          storedPlayer
+        );
+
+        if (storedPlayer && selectedPlayer !== storedPlayer) {
+          writeProductSelection("player", null, productIdAtStart);
+        }
 
         updateTeamEv();
         updateAutographChance();
@@ -1319,6 +1344,19 @@
         }
 
         analysisContent.hidden = true;
+        teamEvData = null;
+        baseChecklistData = null;
+        playerIndexData = null;
+        playerProbabilityData = null;
+        autographProbabilityData = null;
+        autographChecklistData = null;
+        insertProbabilityData = null;
+        baseParallelProbabilityData = null;
+        liveSupplyData = null;
+        sealedSupplyData = null;
+        productionData = null;
+        marketAuditData = null;
+        activeContractReport = null;
         currentTeamEntry = null;
         currentEvUsd = null;
         resultEvSummary.textContent = "Unavailable";
@@ -1560,6 +1598,8 @@
           localStorage.setItem("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
+          searchQuery = "";
+          browseSearch.value = "";
           resetProductData();
           renderProducts();
           applyProductSelection();
@@ -1604,6 +1644,9 @@
       productStatus.innerHTML =
         "<strong>" + (selected.display_name || selected.name) +
         "</strong> · Product slot exists, but odds/checklist/EV data has not been added yet.";
+      formatCatalogData = null;
+      formatGrid.innerHTML = "";
+      formatStatus.textContent = "No analysis-ready box format for this release.";
       formatStage.hidden = true;
       analysisContent.hidden = true;
     }
@@ -2542,8 +2585,13 @@
 
         productCatalog = await response.json();
 
-        if (!(productCatalog.products || []).some(item => item.id === selectedProductId)) {
-          selectedProductId = (productCatalog.products || []).find(item => item.status === "ready")?.id || null;
+        selectedProductId = BreakMetricContracts.reconcileProduct(
+          productCatalog,
+          selectedProductId
+        );
+
+        if (selectedProductId) {
+          localStorage.setItem("breakmetric_product", selectedProductId);
         }
 
         renderProducts();
