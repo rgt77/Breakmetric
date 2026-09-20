@@ -1,0 +1,108 @@
+{
+  "id": "2026-topps-chrome-premier-league",
+  "name": "2026 Topps Chrome Premier League",
+  "manufacturer": "Topps",
+  "sport": "Football",
+  "format": "Hobby Case",
+  "release_date": "2026-02-05",
+  "configuration": {
+    "boxes_per_case": 12,
+    "packs_per_box": 20,
+    "cards_per_pack": 4,
+    "autographs_per_box": 1,
+    "hobby_prism_parallels_per_box": 4
+  },
+  "base_set": {
+    "standard_cards": 200,
+    "hobby_exclusive_cards": 1,
+    "total_base_checklist_cards": 201
+  },
+  "teams": [
+    {
+      "name": "AFC Bournemouth",
+      "base_cards": 10
+    },
+    {
+      "name": "Arsenal",
+      "base_cards": 11,
+      "note": "Includes hobby-exclusive #201 Max Dowman"
+    },
+    {
+      "name": "Aston Villa",
+      "base_cards": 10
+    },
+    {
+      "name": "Brentford",
+      "base_cards": 10
+    },
+    {
+      "name": "Brighton & Hove Albion",
+      "base_cards": 10
+    },
+    {
+      "name": "Burnley FC",
+      "base_cards": 10
+    },
+    {
+      "name": "Chelsea",
+      "base_cards": 10
+    },
+    {
+      "name": "Crystal Palace",
+      "base_cards": 10
+    },
+    {
+      "name": "Everton",
+      "base_cards": 10
+    },
+    {
+      "name": "Fulham",
+      "base_cards": 10
+    },
+    {
+      "name": "Leeds United",
+      "base_cards": 10
+    },
+    {
+      "name": "Liverpool FC",
+      "base_cards": 10
+    },
+    {
+      "name": "Manchester City",
+      "base_cards": 10
+    },
+    {
+      "name": "Manchester United",
+      "base_cards": 10
+    },
+    {
+      "name": "Newcastle United",
+      "base_cards": 10
+    },
+    {
+      "name": "Nottingham Forest",
+      "base_cards": 10
+    },
+    {
+      "name": "Sunderland",
+      "base_cards": 10
+    },
+    {
+      "name": "Tottenham Hotspur",
+      "base_cards": 10
+    },
+    {
+      "name": "West Ham United",
+      "base_cards": 10
+    },
+    {
+      "name": "Wolverhampton Wanderers",
+      "base_cards": 10
+    }
+  ],
+  "sources": {
+    "product_page": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box-sealed-case",
+    "checklist": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
+    "odds": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630"
+  }
+}
