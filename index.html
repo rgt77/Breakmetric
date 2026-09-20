@@ -471,6 +471,8 @@
         </div>
       </div>
 
+      <div id="analysisLoadStatus" class="format-status" hidden aria-live="polite"></div>
+
       <div id="analysisContent" hidden>
       <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
       <div class="analysis-scope" aria-live="polite">
@@ -694,7 +696,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.5</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.6</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -715,6 +717,7 @@
     const formatGrid = document.getElementById("formatGrid");
     const formatStatus = document.getElementById("formatStatus");
     const analysisContent = document.getElementById("analysisContent");
+    const analysisLoadStatus = document.getElementById("analysisLoadStatus");
     const analysisContext = document.getElementById("analysisContext");
     const analysisUnitText = document.getElementById("analysisUnitText");
     const analysisPhysicalText = document.getElementById("analysisPhysicalText");
@@ -759,6 +762,7 @@
     }
 
     let productSearchQuery = "";
+    let analysisLoadState = "idle";
     let productLoadToken = 0;
     let formatLoadToken = 0;
     let formatCatalogData = null;
@@ -1022,6 +1026,40 @@
       return value;
     }
 
+    function setAnalysisLoadState(state, message = "") {
+      analysisLoadState = state;
+      analysisContent.dataset.loadState = state;
+
+      if (state === "ready") {
+        analysisLoadStatus.hidden = true;
+        analysisLoadStatus.textContent = "";
+        analysisContent.hidden = false;
+        return;
+      }
+
+      analysisContent.hidden = true;
+
+      if (state === "loading") {
+        analysisLoadStatus.hidden = false;
+        analysisLoadStatus.className = "format-status";
+        analysisLoadStatus.textContent =
+          message || "Loading and validating analysis data…";
+        return;
+      }
+
+      if (state === "error") {
+        analysisLoadStatus.hidden = false;
+        analysisLoadStatus.className = "format-status integrity-fail";
+        analysisLoadStatus.textContent =
+          message || "Analysis is unavailable because validation failed.";
+        return;
+      }
+
+      analysisLoadStatus.hidden = true;
+      analysisLoadStatus.textContent = "";
+      analysisLoadStatus.className = "format-status";
+    }
+
     function resetProductData() {
       productLoadToken += 1;
       productMetadataData = null;
@@ -1057,7 +1095,7 @@
       dataMarketSourceQuality.className = "";
       dataRoiGate.textContent = "Withheld";
       dataRoiGate.className = "";
-      analysisContent.hidden = true;
+      setAnalysisLoadState("idle");
     }
 
     async function loadCurrentProductDatasets() {
@@ -1071,9 +1109,14 @@
         !format.analysis_data ||
         !format.integrity_data
       ) {
-        analysisContent.hidden = true;
+        setAnalysisLoadState("idle");
         return;
       }
+
+      setAnalysisLoadState(
+        "loading",
+        "Loading and validating product, format and market datasets…"
+      );
 
       const token = ++productLoadToken;
       const productIdAtStart = currentProduct.id;
@@ -1167,7 +1210,10 @@
           formatStatus.innerHTML =
             "<strong>" + (selectedFormatConfig()?.name || "Box format") +
             "</strong> · <span class=\"integrity-fail\">Runtime data contract failed.</span>";
-          analysisContent.hidden = true;
+          setAnalysisLoadState(
+            "error",
+            "Analysis blocked: runtime data contract validation failed."
+          );
           return;
         }
 
@@ -1178,7 +1224,10 @@
           productStatus.innerHTML =
             "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
             "</strong> · <span class=\"integrity-fail\">Dataset integrity check failed.</span>";
-          analysisContent.hidden = true;
+          setAnalysisLoadState(
+            "error",
+            "Analysis blocked: product integrity validation failed."
+          );
           return;
         }
 
@@ -1190,7 +1239,10 @@
           formatStatus.innerHTML =
             "<strong>" + (selectedFormatConfig()?.name || "Box format") +
             "</strong> · <span class=\"integrity-fail\">Format integrity check failed.</span>";
-          analysisContent.hidden = true;
+          setAnalysisLoadState(
+            "error",
+            "Analysis blocked: box-format integrity validation failed."
+          );
           return;
         }
 
@@ -1202,7 +1254,10 @@
           formatStatus.innerHTML =
             "<strong>" + (selectedFormatConfig()?.name || "Box format") +
             "</strong> · <span class=\"integrity-fail\">Market audit / EV mismatch.</span>";
-          analysisContent.hidden = true;
+          setAnalysisLoadState(
+            "error",
+            "Analysis blocked: market evidence does not match the current EV snapshot."
+          );
           return;
         }
 
@@ -1213,7 +1268,7 @@
         formatStatus.innerHTML =
           "<strong>" + (selectedFormatConfig()?.name || "Box format") +
           "</strong> · <span class=\"integrity-pass\">Format integrity + runtime contract validated.</span>";
-        analysisContent.hidden = false;
+        setAnalysisLoadState("ready");
 
         activeContractReport = runtimeContract;
         productMetadataData = metadata;
@@ -1304,7 +1359,10 @@
           return;
         }
 
-        analysisContent.hidden = true;
+        setAnalysisLoadState(
+          "error",
+          "Analysis data could not be loaded or validated. Reselect the product or box type to retry."
+        );
         teamEvData = null;
         baseChecklistData = null;
         playerIndexData = null;
@@ -1475,13 +1533,13 @@
       updateAnalysisContext();
 
       if (!selected) {
-        analysisContent.hidden = true;
+        setAnalysisLoadState("idle");
         formatStatus.textContent = "Select a box format.";
         return;
       }
 
       if (selected.status === "ready") {
-        analysisContent.hidden = true;
+        setAnalysisLoadState("idle");
         formatStatus.innerHTML =
           "<strong>" + selected.name +
           "</strong> · Analysis available · integrity check pending.";
@@ -1609,7 +1667,7 @@
       formatGrid.innerHTML = "";
       formatStatus.textContent = "No analysis-ready box format for this release.";
       formatStage.hidden = true;
-      analysisContent.hidden = true;
+      setAnalysisLoadState("idle");
     }
 
     function updateAnalysisContext() {
@@ -2434,7 +2492,10 @@
       } catch (error) {
         productStatus.textContent = "Product catalog unavailable.";
         formatStage.hidden = true;
-        analysisContent.hidden = true;
+        setAnalysisLoadState(
+          "error",
+          "Product catalog could not be loaded. Retry by reloading the page."
+        );
         resultEvSummary.textContent = "Product unavailable";
         evCoverage.textContent = "Product data unavailable";
       }
