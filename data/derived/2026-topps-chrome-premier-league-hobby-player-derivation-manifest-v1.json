@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_unit": "12-box case",
+  "generator": "src/playerDerivation.js",
+  "generator_version": 1,
+  "inputs": {
+    "base_checklist": "data/checklists/2026-topps-chrome-premier-league-base.json",
+    "main_autograph_checklist": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+    "hobby_insert_checklist": "data/checklists/2026-topps-chrome-premier-league-hobby-inserts.json",
+    "hobby_special_autograph_checklist": "data/checklists/2026-topps-chrome-premier-league-hobby-special-autographs.json",
+    "official_hobby_odds": "data/odds/2026-topps-chrome-premier-league-hobby-full.json",
+    "insert_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
+    "autograph_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json"
+  },
+  "outputs": {
+    "player_index": "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json",
+    "player_probabilities": "data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json"
+  },
+  "constants": {
+    "boxes_per_case": 12,
+    "packs_per_box": 20,
+    "packs_per_case": 240,
+    "standard_base_checklist_size": 200,
+    "hobby_exclusive_base_card_number": 201
+  },
+  "reproducibility_policy": [
+    "Derived player files must be reproducible from the listed normalized inputs and explicit mapping files.",
+    "No unresolved team assignment may be inferred during generation.",
+    "Stored derived files must pass semantic comparison against a fresh generator run."
+  ]
+}
