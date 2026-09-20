@@ -1,0 +1,673 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "set": "Chrome Autographs",
+  "checklist_size": 128,
+  "source_notes": "Structured transcription of the 2026 Topps Chrome Premier League checklist. Topps official product page links the checklist; entries were cross-checked against a parsed checklist reference.",
+  "sources": {
+    "official_product_page": "https://www.topps.com/pages/topps-chrome-premier-league",
+    "parsed_checklist_reference": "https://www.checklistcenter.com/2026-topps-chrome-premier-league-checklist/"
+  },
+  "team_counts": {
+    "Nottingham Forest": 4,
+    "Manchester United": 19,
+    "Newcastle United": 9,
+    "Liverpool FC": 14,
+    "Aston Villa": 6,
+    "Leeds United": 3,
+    "West Ham United": 6,
+    "Arsenal": 15,
+    "Chelsea": 14,
+    "Fulham": 2,
+    "Sunderland": 2,
+    "Everton": 5,
+    "Manchester City": 8,
+    "Tottenham Hotspur": 11,
+    "Wolverhampton Wanderers": 1,
+    "Brentford": 1,
+    "Burnley FC": 1,
+    "Crystal Palace": 3,
+    "Brighton & Hove Albion": 4
+  },
+  "cards": [
+    {
+      "card_number": "CA-AB",
+      "player": "Zach Abbott",
+      "team": "Nottingham Forest"
+    },
+    {
+      "card_number": "CA-AC",
+      "player": "Andy Cole",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-AE",
+      "player": "Anthony Elanga",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-AI",
+      "player": "Alexander Isak",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-AS",
+      "player": "Alan Shearer",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-AY",
+      "player": "Anthony Gordon",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-BB",
+      "player": "Ben Broggio",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-BF",
+      "player": "Bruno Fernandes",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-BG",
+      "player": "Bruno Guimarães",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-BL",
+      "player": "Jayden Bogle",
+      "team": "Leeds United"
+    },
+    {
+      "card_number": "CA-BM",
+      "player": "Bryan Mbeumo",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-BO",
+      "player": "Jarrod Bowen",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-BS",
+      "player": "Bukayo Saka",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-BV",
+      "player": "Dimitar Berbatov",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-CB",
+      "player": "Harrison Murray-Campbell",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-CD",
+      "player": "Clint Dempsey",
+      "team": "Fulham"
+    },
+    {
+      "card_number": "CA-CF",
+      "player": "Cesc Fàbregas",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-CG",
+      "player": "Cody Gakpo",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-CHO",
+      "player": "Callum Hudson-Odoi",
+      "team": "Nottingham Forest"
+    },
+    {
+      "card_number": "CA-CL",
+      "player": "Joe Cole",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-CM",
+      "player": "Claude Makélélé",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-CP",
+      "player": "Cole Palmer",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-CR",
+      "player": "Chris Rigg",
+      "team": "Sunderland"
+    },
+    {
+      "card_number": "CA-CT",
+      "player": "Carlos Tevez",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-CW",
+      "player": "Chris Wood",
+      "team": "Nottingham Forest"
+    },
+    {
+      "card_number": "CA-DD",
+      "player": "Didier Drogba",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-DE",
+      "player": "Dennis Bergkamp",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-DF",
+      "player": "Duncan Ferguson",
+      "team": "Everton"
+    },
+    {
+      "card_number": "CA-DM",
+      "player": "Divine Mukasa",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-DR",
+      "player": "Declan Rice",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-DS",
+      "player": "David Silva",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-DY",
+      "player": "Dwight Yorke",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-EC",
+      "player": "Eric Cantona",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-EH",
+      "player": "Erling Haaland",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-EM",
+      "player": "Emiliano Martínez",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-ER",
+      "player": "Cristian Romero",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-ES",
+      "player": "Emile Smith Rowe",
+      "team": "Fulham"
+    },
+    {
+      "card_number": "CA-EV",
+      "player": "Estêvão Willian",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-EZE",
+      "player": "Eberechi Eze",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-FA",
+      "player": "Faustino Asprilla",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-FL",
+      "player": "Frank Lampard",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-FR",
+      "player": "Robbie Fowler",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-FT",
+      "player": "Fernando Torres",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-FW",
+      "player": "Florian Wirtz",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-GA",
+      "player": "Gabriel Agbonlahor",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-GB",
+      "player": "Gareth Bale",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-GK",
+      "player": "Petr Čech",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-GP",
+      "player": "Gustavo Poyet",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-GR",
+      "player": "Jack Grealish",
+      "team": "Everton"
+    },
+    {
+      "card_number": "CA-GS",
+      "player": "Ryan Giggs",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-GX",
+      "player": "Granit Xhaka",
+      "team": "Sunderland"
+    },
+    {
+      "card_number": "CA-GZ",
+      "player": "Gianfranco Zola",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-HE",
+      "player": "Hugo Ekitike",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-HG",
+      "player": "Harry Gray",
+      "team": "Leeds United"
+    },
+    {
+      "card_number": "CA-HK",
+      "player": "Harry Kane",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-HS",
+      "player": "Heung-Min Son",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-IN",
+      "player": "Iliman Ndiaye",
+      "team": "Everton"
+    },
+    {
+      "card_number": "CA-JC",
+      "player": "Jamie Carragher",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-JD",
+      "player": "Jermain Defoe",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-JO",
+      "player": "João Pedro",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-JR",
+      "player": "Jacob Ramsey",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-JS",
+      "player": "Jørgen Strand Larsen",
+      "team": "Wolverhampton Wanderers"
+    },
+    {
+      "card_number": "CA-JT",
+      "player": "John Terry",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-KA",
+      "player": "Kanu",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-KDB",
+      "player": "Kevin De Bruyne",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-KS",
+      "player": "Kevin Schade",
+      "team": "Brentford"
+    },
+    {
+      "card_number": "CA-KZ",
+      "player": "Milos Kerkez",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-LF",
+      "player": "Les Ferdinand",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-LH",
+      "player": "Lewis Hall",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-LJ",
+      "player": "Freddie Ljungberg",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-LM",
+      "player": "Luka Modrić",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-LP",
+      "player": "Lucas Paquetá",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-LS",
+      "player": "Luis Suárez",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-MA",
+      "player": "Mikel Arteta",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-MC",
+      "player": "Matheus Cunha",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-MD",
+      "player": "Max Dowman",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-ME",
+      "player": "Marcus Edwards",
+      "team": "Burnley FC"
+    },
+    {
+      "card_number": "CA-MG",
+      "player": "Marc Guiu",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-MI",
+      "player": "Randal Kolo Muani",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-MK",
+      "player": "Mohammed Kudus",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-MN",
+      "player": "Mark Noble",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-MØ",
+      "player": "Martin Ødegaard",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-MOU",
+      "player": "José Mourinho",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-MS",
+      "player": "Mohamed Salah",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-MU",
+      "player": "Manuel Ugarte",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-MZ",
+      "player": "Martín Zubimendi",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-NE",
+      "player": "Neville Southall",
+      "team": "Everton"
+    },
+    {
+      "card_number": "CA-NM",
+      "player": "Nikola Milenković",
+      "team": "Nottingham Forest"
+    },
+    {
+      "card_number": "CA-NV",
+      "player": "Gary Neville",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-OW",
+      "player": "Ollie Watkins",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-PF",
+      "player": "Phil Foden",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-PG",
+      "player": "Pep Guardiola",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-PK",
+      "player": "Patrick Kluivert",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-PS",
+      "player": "Paul Scholes",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-PV",
+      "player": "Patrick Vieira",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-RE",
+      "player": "Romain Esse",
+      "team": "Crystal Palace"
+    },
+    {
+      "card_number": "CA-RF",
+      "player": "Rio Ferdinand",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-RH",
+      "player": "Raphinha",
+      "team": "Leeds United"
+    },
+    {
+      "card_number": "CA-RI",
+      "player": "Chris Richards",
+      "team": "Crystal Palace"
+    },
+    {
+      "card_number": "CA-RK",
+      "player": "Roy Keane",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-RN",
+      "player": "Rio Ngumoha",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-RO",
+      "player": "Morgan Rogers",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-RP",
+      "player": "Robert Pirès",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-RT",
+      "player": "Georginio Rutter",
+      "team": "Brighton & Hove Albion"
+    },
+    {
+      "card_number": "CA-RVP",
+      "player": "Robin van Persie",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-SA",
+      "player": "Sergio Agüero",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-SAF",
+      "player": "Sir Alex Ferguson",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-SG",
+      "player": "Steven Gerrard",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-SH",
+      "player": "Peter Schmeichel",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-SL",
+      "player": "Shea Lacey",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-SM",
+      "player": "Shumaira Mheuka",
+      "team": "Chelsea"
+    },
+    {
+      "card_number": "CA-SO",
+      "player": "Dominic Solanke",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-TD",
+      "player": "Tyler Dibling",
+      "team": "Everton"
+    },
+    {
+      "card_number": "CA-TH",
+      "player": "Thierry Henry",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-TK",
+      "player": "Trent Koné-Doherty",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-TL",
+      "player": "Tino Livramento",
+      "team": "Newcastle United"
+    },
+    {
+      "card_number": "CA-TW",
+      "player": "Tom Watson",
+      "team": "Brighton & Hove Albion"
+    },
+    {
+      "card_number": "CA-UF",
+      "player": "El Hadji Malick Diouf",
+      "team": "West Ham United"
+    },
+    {
+      "card_number": "CA-VG",
+      "player": "Viktor Gyökeres",
+      "team": "Arsenal"
+    },
+    {
+      "card_number": "CA-VV",
+      "player": "Virgil van Dijk",
+      "team": "Liverpool FC"
+    },
+    {
+      "card_number": "CA-WH",
+      "player": "Adam Wharton",
+      "team": "Crystal Palace"
+    },
+    {
+      "card_number": "CA-WR",
+      "player": "Wayne Rooney",
+      "team": "Manchester United"
+    },
+    {
+      "card_number": "CA-XS",
+      "player": "Xavi Simons",
+      "team": "Tottenham Hotspur"
+    },
+    {
+      "card_number": "CA-YA",
+      "player": "Yaya Touré",
+      "team": "Manchester City"
+    },
+    {
+      "card_number": "CA-YI",
+      "player": "Yasin Ayari",
+      "team": "Brighton & Hove Albion"
+    },
+    {
+      "card_number": "CA-YM",
+      "player": "Yankuba Minteh",
+      "team": "Brighton & Hove Albion"
+    },
+    {
+      "card_number": "CA-YT",
+      "player": "Youri Tielemans",
+      "team": "Aston Villa"
+    },
+    {
+      "card_number": "CA-ZI",
+      "player": "Zlatan Ibrahimović",
+      "team": "Manchester United"
+    }
+  ]
+}
