@@ -412,6 +412,10 @@
             <strong id="playerChecklistEntries">0</strong>
           </div>
           <div class="player-stat">
+            <span>Any modeled hit chance</span>
+            <strong id="playerOverallHitChance">—</strong>
+          </div>
+          <div class="player-stat">
             <span>Auto hit chance</span>
             <strong id="playerAutoChance">—</strong>
           </div>
@@ -429,7 +433,7 @@
           </div>
         </div>
         <p class="spot-note" style="margin-top:10px!important">
-          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting.
+          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs.
         </p>
 
         <div id="playerChecklistDetail" class="player-card-list"></div>
@@ -557,6 +561,7 @@
     const playerValuedCards = document.getElementById("playerValuedCards");
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
     const playerChecklistEntries = document.getElementById("playerChecklistEntries");
+    const playerOverallHitChance = document.getElementById("playerOverallHitChance");
     const playerAutoChance = document.getElementById("playerAutoChance");
     const playerExpectedAutos = document.getElementById("playerExpectedAutos");
     const playerExpectedInserts = document.getElementById("playerExpectedInserts");
@@ -979,6 +984,7 @@
       selectedPlayer = null;
       localStorage.removeItem("breakmetric_player");
       playerPanel.classList.remove("visible");
+      playerOverallHitChance.textContent = "—";
       playerAutoChance.textContent = "—";
       playerExpectedAutos.textContent = "—";
       playerExpectedInserts.textContent = "—";
@@ -1043,6 +1049,9 @@
       const probabilityEntry =
         playerProbabilityData?.teams?.[team.value]?.[selectedPlayer] || null;
 
+      const overallHitChance = Number(
+        probabilityEntry?.overall?.chance_at_least_one_modeled_hit_percent
+      );
       const autoChance = Number(
         probabilityEntry?.autographs?.chance_at_least_one_percent
       );
@@ -1055,6 +1064,11 @@
       const expectedBaseParallels = Number(
         probabilityEntry?.base?.expected_hits_per_case
       );
+
+      playerOverallHitChance.textContent =
+        probabilityEntry && Number.isFinite(overallHitChance)
+          ? overallHitChance.toFixed(1) + "%"
+          : "—";
 
       playerAutoChance.textContent =
         probabilityEntry && Number.isFinite(autoChance)
