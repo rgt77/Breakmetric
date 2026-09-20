@@ -1,0 +1,28 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_format": "Hobby Case",
+  "validated_at": "2026-09-20",
+  "version": 2,
+  "scope": "Hobby format routing, physical configuration and analysis-unit integrity",
+  "checks": {
+    "product_id_matches": true,
+    "format_id_matches": true,
+    "format_is_ready": true,
+    "analysis_manifest_present": true,
+    "format_integrity_route_present": true,
+    "boxes_per_case_matches_analysis_unit": true,
+    "packs_per_case_math_matches": true,
+    "cards_per_case_math_matches": true,
+    "analysis_unit_is_one_case": true,
+    "analysis_unit_display_is_explicit": true,
+    "ev_data_present": true,
+    "player_probability_data_present": true,
+    "autograph_probability_data_present": true,
+    "insert_probability_data_present": true,
+    "base_probability_data_present": true,
+    "production_estimate_data_present": true
+  },
+  "result": "pass",
+  "note": "The selected box format is Hobby, while the current BreakMetric probability and EV analysis unit is one 12-box Hobby case (240 packs / 960 cards)."
+}
