@@ -1,0 +1,28 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 145,
+  "checks": {
+    "overall_probability_present": true,
+    "overall_probability_bounded": true,
+    "overall_expected_hits_is_sum": true,
+    "ui_metric_present": true,
+    "ui_reads_overall_probability": true,
+    "model_note_present": true,
+    "engine_helper_present": true
+  },
+  "sample": {
+    "team": "Chelsea",
+    "player": "Estêvão Willian",
+    "overall": {
+      "expected_modeled_hits_per_case": 2.192617,
+      "chance_at_least_one_modeled_hit_percent": 88.922,
+      "categories": [
+        "base",
+        "inserts",
+        "autographs"
+      ],
+      "note": "Combined from modeled category hit probabilities using an independence approximation."
+    }
+  },
+  "result": "pass"
+}
