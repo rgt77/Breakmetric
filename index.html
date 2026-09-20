@@ -699,6 +699,10 @@
             <div>Price-spread alert<small>Flags wide raw comp ranges; it does not recalculate market value.</small></div>
             <strong id="marketSpreadAlert">—</strong>
           </div>
+          <div class="player-data-row">
+            <div>Market record integrity</div>
+            <strong id="marketRecordIntegrity">—</strong>
+          </div>
         </div>
       </details>
 
@@ -967,6 +971,7 @@
   <script src="src/marketCoverage.js"></script>
   <script src="src/marketEvidenceQuality.js"></script>
   <script src="src/marketRecordQuality.js"></script>
+  <script src="src/marketRecordIssues.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
@@ -1022,6 +1027,7 @@
     const marketLatestSale = document.getElementById("marketLatestSale");
     const marketRecordFreshness = document.getElementById("marketRecordFreshness");
     const marketSpreadAlert = document.getElementById("marketSpreadAlert");
+    const marketRecordIntegrity = document.getElementById("marketRecordIntegrity");
     const marketEvidencePanel = document.getElementById("marketEvidencePanel");
     const freshProduct = document.getElementById("freshProduct");
     const freshFormat = document.getElementById("freshFormat");
@@ -1322,6 +1328,7 @@
       marketLatestSale.textContent = "Loading…";
       marketRecordFreshness.textContent = "Loading…";
       marketSpreadAlert.textContent = "Loading…";
+      marketRecordIntegrity.textContent = "Loading…";
 
       try {
         const records = await Promise.all(
@@ -1339,6 +1346,12 @@
           .map(row => BreakMetricMarketRecordQuality.validate(row))
           .find(result => !result.valid);
         if (invalid) throw new Error(invalid.errors.join(" · "));
+
+        const issueRows = records.map(record =>
+          BreakMetricMarketRecordIssues.audit(record, new Date())
+        );
+        const issueAggregate =
+          BreakMetricMarketRecordIssues.aggregate(issueRows);
 
         const aggregate = BreakMetricMarketRecordQuality.aggregate(qualityRows);
         marketRecordSample.textContent =
@@ -1359,11 +1372,18 @@
           ? wide.length + " record" + (wide.length === 1 ? "" : "s") +
             " with ≥4× min/max spread"
           : "No ≥4× spread in stored records";
+        marketRecordIntegrity.textContent =
+          issueAggregate.invalid_record_count
+            ? issueAggregate.invalid_record_count + " invalid records"
+            : issueAggregate.warning_count
+              ? "Pass · " + issueAggregate.warning_count + " review warnings"
+              : "Pass · no record issues";
       } catch (error) {
         marketRecordSample.textContent = "Record-quality load failed";
         marketLatestSale.textContent = "Unavailable";
         marketRecordFreshness.textContent = "Unavailable";
         marketSpreadAlert.textContent = "Unavailable";
+        marketRecordIntegrity.textContent = "Unavailable";
       }
     }
 
@@ -1372,6 +1392,7 @@
       marketLatestSale.textContent = "—";
       marketRecordFreshness.textContent = "—";
       marketSpreadAlert.textContent = "—";
+      marketRecordIntegrity.textContent = "—";
     }
 
     function updateMarketCoverageUi() {
