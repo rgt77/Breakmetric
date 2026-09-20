@@ -157,6 +157,7 @@
       "ev_data",
       "ev_scope_data",
       "ev_work_queue_data",
+      "ev_contribution_provenance_data",
       "market_verification_queue_data",
       "base_checklist_data",
       "autograph_checklist_data",
@@ -652,6 +653,41 @@
     });
   };
 
+  api.validateEvContributionProvenance=function(data={}, productId, formatId, evData={}){
+    const errors=[],warnings=[];
+    if(data.schema_version!==1) errors.push("EV contribution provenance schema_version mismatch");
+    if(data.product_id!==productId) errors.push("EV contribution provenance product_id mismatch");
+    if(formatId && data.format_id!==formatId) errors.push("EV contribution provenance format_id mismatch");
+    if(data.model!=="ev-contribution-provenance-v1") errors.push("EV contribution provenance model mismatch");
+    if(!Array.isArray(data.entries)){
+      errors.push("EV contribution provenance entries missing");
+      return result(errors,warnings);
+    }
+    const committed=[];
+    for(const [team,row] of Object.entries(evData?.teams||{})){
+      for(const item of row?.contributions||[]) committed.push({team,...item});
+    }
+    const keys=[];
+    for(const entry of data.entries){
+      const key=entry?.team+"|"+entry?.card_id;
+      keys.push(key);
+      const evItem=committed.find(x=>x.team===entry.team && x.card_id===entry.card_id);
+      if(!evItem) errors.push("EV provenance entry lacks committed contribution: "+key);
+      if(typeof entry?.derived_ev_file!=="string" || !entry.derived_ev_file) errors.push("EV provenance derivation file missing: "+key);
+      if(typeof entry?.market_source_file!=="string" || !entry.market_source_file) errors.push("EV provenance market source missing: "+key);
+      if(entry?.formula!=="expected_copies_per_case × market_value_usd") errors.push("EV provenance formula mismatch: "+key);
+      if(entry?.probability_metric!=="calculation.expected_copies_per_case") errors.push("EV provenance probability metric mismatch: "+key);
+      if(evItem && Math.abs(Number(entry.ev_contribution_usd)-Number(evItem.ev_contribution_usd))>0.0001){
+        errors.push("EV provenance contribution mismatch: "+key);
+      }
+    }
+    if(!uniqueStrings(keys)) errors.push("EV provenance keys not unique");
+    if(data.entries.length!==committed.length) errors.push("EV provenance contribution count mismatch");
+    if(Number(data.summary?.contribution_count)!==committed.length) errors.push("EV provenance summary contribution count mismatch");
+    if(Number(data.summary?.missing_derivation_count)!==0) errors.push("EV provenance reports missing derivations");
+    return result(errors,warnings,{ev_provenance_contribution_count:data.entries.length});
+  };
+
   api.validateMarketVerificationQueue=function(data={}, productId, formatId, evData={}){
     const errors=[],warnings=[];
     if(data.schema_version!==1) errors.push("market verification queue schema_version mismatch");
@@ -894,6 +930,12 @@
         context.formatId || null,
         canonical,
         bundle.evScope
+      ),
+      api.validateEvContributionProvenance(
+        bundle.evContributionProvenance,
+        productId,
+        context.formatId || null,
+        bundle.teamEv
       ),
       api.validateMarketVerificationQueue(
         bundle.marketVerificationQueue,
