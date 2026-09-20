@@ -25,7 +25,8 @@
       "team_base_parallel_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json",
       "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
       "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
-      "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json"
+      "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json",
+      "integrity_data": "data/validation/2026-topps-chrome-premier-league-product-integrity-v1.json"
     },
     {
       "id": "2025-topps-chrome-premier-league",
