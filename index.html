@@ -80,7 +80,7 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(5,1fr);
+      grid-template-columns:repeat(6,1fr);
       gap:12px;
       margin-top:22px;
     }
@@ -207,6 +207,10 @@
           <strong id="resultAutoChance">Loading…</strong>
         </div>
         <div class="result">
+          <span>Expected autos</span>
+          <strong id="resultExpectedAutos">Loading…</strong>
+        </div>
+        <div class="result">
           <span>Expected net</span>
           <strong id="resultNet">—</strong>
         </div>
@@ -247,6 +251,7 @@
 
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
+    const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -337,6 +342,7 @@
         updateAutographChance();
       } catch (error) {
         resultAutoChance.textContent = "Unavailable";
+        resultExpectedAutos.textContent = "Unavailable";
       }
     }
 
@@ -346,6 +352,7 @@
 
       if (!row) {
         resultAutoChance.textContent = "—";
+        resultExpectedAutos.textContent = "—";
         return;
       }
 
@@ -357,6 +364,15 @@
       resultAutoChance.textContent =
         Number.isFinite(Number(chance))
           ? Number(chance).toFixed(1) + "%"
+          : "—";
+
+      const expectedAutos =
+        row.expected_autographs_per_12_box_case ??
+        row.expected_autos_per_12_box_case;
+
+      resultExpectedAutos.textContent =
+        Number.isFinite(Number(expectedAutos))
+          ? Number(expectedAutos).toFixed(2)
           : "—";
     }
 
