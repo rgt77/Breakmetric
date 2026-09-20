@@ -554,7 +554,7 @@
           <strong id="resultAutoChance">Loading…</strong>
         </div>
         <div class="result">
-          <span>BreakMetric EV</span>
+          <span id="resultEvLabel">Partial team EV</span>
           <strong id="resultEvSummary">Loading…</strong>
         </div>
         <div class="result">
@@ -584,7 +584,7 @@
             <strong id="resultExpectedBaseParallels">Loading…</strong>
           </div>
           <div class="result">
-            <span>Observed serials</span>
+            <span>Live supply tracking</span>
             <strong id="resultTrackedSerials">Loading…</strong>
           </div>
           <div class="result">
@@ -592,7 +592,7 @@
             <strong id="resultLiveOddsStatus">Loading…</strong>
           </div>
           <div class="result">
-            <span>Sealed supply</span>
+            <span>Product sealed supply</span>
             <strong id="resultSealedSupplyStatus">Loading…</strong>
           </div>
           <div class="result">
@@ -611,7 +611,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.2</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.3</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -783,6 +783,7 @@
       team.innerHTML = "";
       teamGrid.innerHTML = "";
       playerGrid.innerHTML = "";
+      resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
       evCoverage.textContent = "Loading EV coverage…";
     }
@@ -915,7 +916,7 @@
           team.value = previousTeam;
         } else if (teams.length) {
           team.value = teams[0];
-          writeProductSelection("team", team.value, productIdAtStart);
+          writeProductSelection("team", team.value);
         }
 
         selectedPlayer =
@@ -1224,6 +1225,7 @@
 
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
+    const resultEvLabel = document.getElementById("resultEvLabel");
     const resultEvSummary = document.getElementById("resultEvSummary");
     const evCoverage = document.getElementById("evCoverage");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
@@ -1923,8 +1925,11 @@
       const serialCount = Number(entry.confirmed_unique_serials || 0);
       const trackedCardCount = Number(entry.tracked_numbered_cards || 0);
       resultTrackedSerials.textContent =
-        serialCount + " across " + trackedCardCount + " tracked card" +
-        (trackedCardCount === 1 ? "" : "s");
+        trackedCardCount + " tracked card" +
+        (trackedCardCount === 1 ? "" : "s") +
+        " · " +
+        serialCount + " observed cop" +
+        (serialCount === 1 ? "y" : "ies");
 
       resultLiveOddsStatus.textContent =
         entry.live_odds_status === "scenario-only"
@@ -2120,6 +2125,7 @@
       if (!entry) {
         currentTeamEntry = null;
         currentEvUsd = null;
+        resultEvLabel.textContent = "Team EV";
         resultEvSummary.textContent = "Not ready";
         evCoverage.textContent = "No valued cards yet";
         return;
@@ -2130,10 +2136,14 @@
       resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
 
       if (entry.coverage_complete) {
-        evCoverage.textContent = "Complete EV coverage";
+        resultEvLabel.textContent = "Team EV";
+        evCoverage.textContent = "Complete EV coverage · " + team.value;
       } else {
+        resultEvLabel.textContent = "Partial team EV";
         const count = Number(entry.valued_card_count || 0);
-        evCoverage.textContent = "Partial EV · " + count + " valued card" + (count === 1 ? "" : "s");
+        evCoverage.textContent =
+          "Partial " + team.value + " EV · " +
+          count + " valued card" + (count === 1 ? "" : "s");
       }
     }
 
