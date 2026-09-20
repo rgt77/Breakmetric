@@ -1,0 +1,67 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "methodology": "Hobby-exclusive #201 numbered-parallel triangulation",
+  "configuration": {
+    "packs_per_box": 20,
+    "boxes_per_case": 12
+  },
+  "signals": [
+    {
+      "name": "Gold Refractor",
+      "print_run": 50,
+      "pack_odds_denominator": 32175,
+      "implied_hobby_packs": 1608750,
+      "implied_hobby_boxes": 80437.5,
+      "implied_hobby_cases": 6703.125
+    },
+    {
+      "name": "Orange Refractor",
+      "print_run": 25,
+      "pack_odds_denominator": 64350,
+      "implied_hobby_packs": 1608750,
+      "implied_hobby_boxes": 80437.5,
+      "implied_hobby_cases": 6703.125
+    },
+    {
+      "name": "Black Refractor",
+      "print_run": 10,
+      "pack_odds_denominator": 154440,
+      "implied_hobby_packs": 1544400,
+      "implied_hobby_boxes": 77220,
+      "implied_hobby_cases": 6435
+    },
+    {
+      "name": "Red Refractor",
+      "print_run": 5,
+      "pack_odds_denominator": 308880,
+      "implied_hobby_packs": 1544400,
+      "implied_hobby_boxes": 77220,
+      "implied_hobby_cases": 6435
+    },
+    {
+      "name": "Superfractor",
+      "print_run": 1,
+      "pack_odds_denominator": 1544400,
+      "implied_hobby_packs": 1544400,
+      "implied_hobby_boxes": 77220,
+      "implied_hobby_cases": 6435
+    }
+  ],
+  "aggregate": {
+    "implied_hobby_packs_low": 1544400,
+    "implied_hobby_packs_median": 1544400,
+    "implied_hobby_packs_high": 1608750,
+    "implied_hobby_boxes_low": 77220,
+    "implied_hobby_boxes_median": 77220,
+    "implied_hobby_boxes_high": 80437.5,
+    "implied_hobby_cases_low": 6435,
+    "implied_hobby_cases_median": 6435,
+    "implied_hobby_cases_high": 6703.125,
+    "spread_percent_of_median": 4.17,
+    "consistency": "medium",
+    "confidence": "medium",
+    "interpretation": "Five independent numbered #201 parallels imply a Hobby production band. Black, Red and Superfractor converge exactly at 1,544,400 packs; Gold and Orange converge at 1,608,750 packs. BreakMetric keeps the full band rather than forcing a false exact total."
+  },
+  "usage_rule": "This is an implied original Hobby-production range, not a claim about how much sealed product remains today."
+}
