@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 135-144",
+  "checks": {
+    "player_probability_loader": true,
+    "player_auto_chance_metric": true,
+    "player_expected_autos_metric": true,
+    "player_expected_inserts_metric": true,
+    "player_expected_base_metric": true,
+    "probability_lookup_is_team_and_player_specific": true,
+    "probability_metrics_update_on_player_detail": true,
+    "player_odds_method_note_visible": true,
+    "existing_team_metrics_preserved": true,
+    "existing_serial_tracker_preserved": true
+  },
+  "result": "pass"
+}
