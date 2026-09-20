@@ -1,0 +1,18 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 169,
+  "checks": {
+    "scoped_key_helper": true,
+    "format_scoped": true,
+    "team_scoped": true,
+    "player_scoped": true,
+    "reset_preserves_saved_player": true,
+    "team_change_clears_current_player": true,
+    "product_restores_selection": true,
+    "initial_product_restores_selection": true,
+    "atomic_loader_restores_player": true,
+    "legacy_keys_migrated": true,
+    "legacy_global_player_startup_removed": true
+  },
+  "result": "pass"
+}
