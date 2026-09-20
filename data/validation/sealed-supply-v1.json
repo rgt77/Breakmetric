@@ -1,0 +1,49 @@
+{
+  "validated_at": "2026-09-20",
+  "steps": "105-114",
+  "checks": [
+    {
+      "name": "manufacturer_sold_out_is_qualitative_only",
+      "passed": true
+    },
+    {
+      "name": "secondary_sealed_sale_is_qualitative_only",
+      "passed": true
+    },
+    {
+      "name": "public_break_events_are_lower_bound_only",
+      "passed": true
+    },
+    {
+      "name": "release_age_is_tracked",
+      "passed": true,
+      "value_days": 227
+    },
+    {
+      "name": "no_sealed_fraction_invented",
+      "passed": true
+    },
+    {
+      "name": "quantitative_source_types_required",
+      "passed": true,
+      "value": 2
+    },
+    {
+      "name": "serial_evidence_required",
+      "passed": true
+    },
+    {
+      "name": "live_odds_currently_scenario_only",
+      "passed": true
+    },
+    {
+      "name": "official_odds_remain_default",
+      "passed": true
+    },
+    {
+      "name": "evidence_sources_are_timestamped",
+      "passed": true
+    }
+  ],
+  "result": "pass"
+}
