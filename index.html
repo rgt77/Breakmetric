@@ -676,6 +676,23 @@
         </div>
       </div>
       <div id="evCoverage" style="margin-top:10px;font-size:.82rem;color:var(--muted)">Loading EV coverage…</div>
+      <details class="details-panel" id="evCoveragePanel">
+        <summary>EV coverage detail</summary>
+        <div class="player-card-list">
+          <div class="player-data-row">
+            <div>Coverage basis<small>BreakMetric does not invent an EV coverage percentage without a defensible denominator.</small></div>
+            <strong id="evCoverageBasis">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Market verification</div>
+            <strong id="evSourceCoverage">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Current blockers</div>
+            <strong id="evCoverageBlockers">Pending</strong>
+          </div>
+        </div>
+      </details>
 
       <section id="playerPanel" class="player-panel">
         <div class="player-panel-head">
@@ -803,6 +820,7 @@
   <script src="src/teamReadiness.js"></script>
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
+  <script src="src/evCoverage.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
@@ -1408,6 +1426,9 @@
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
       evCoverage.textContent = "Loading EV coverage…";
+      evCoverageBasis.textContent = "Pending";
+      evSourceCoverage.textContent = "Pending";
+      evCoverageBlockers.textContent = "Pending";
       dataProductIntegrity.textContent = "Pending";
       dataProductIntegrity.className = "";
       dataFormatIntegrity.textContent = "Pending";
@@ -2176,6 +2197,9 @@
     const resultEvLabel = document.getElementById("resultEvLabel");
     const resultEvSummary = document.getElementById("resultEvSummary");
     const evCoverage = document.getElementById("evCoverage");
+    const evCoverageBasis = document.getElementById("evCoverageBasis");
+    const evSourceCoverage = document.getElementById("evSourceCoverage");
+    const evCoverageBlockers = document.getElementById("evCoverageBlockers");
     const resultExpectedAutosLabel = document.getElementById("resultExpectedAutosLabel");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
@@ -3029,6 +3053,32 @@
       }
     }
 
+    function updateEvCoverageUi() {
+      const model = BreakMetricEvCoverage.build({
+        teamEv: currentTeamEntry,
+        market: selectedTeamMarketEvidence()
+      });
+      const validation = BreakMetricEvCoverage.validate(model);
+
+      if (!validation.valid) {
+        evCoverageBasis.textContent = "Coverage model unavailable";
+        evSourceCoverage.textContent = "Unavailable";
+        evCoverageBlockers.textContent = validation.errors.join(" · ");
+        return;
+      }
+
+      evCoverageBasis.textContent =
+        model.status === "complete"
+          ? "Complete scope definition"
+          : model.status === "partial"
+            ? model.valued_card_count + " valued cards · denominator not established"
+            : "No valued cards";
+
+      evSourceCoverage.textContent = BreakMetricEvCoverage.sourceLabel(model);
+      evCoverageBlockers.textContent =
+        model.blockers.length ? model.blockers.join(" · ") : "None";
+    }
+
     function updateTeamEv() {
       const entry = teamEvData?.teams?.[team.value];
 
@@ -3038,6 +3088,7 @@
         resultEvLabel.textContent = "Team EV";
         resultEvSummary.textContent = "Not ready";
         evCoverage.textContent = "No valued cards yet";
+        updateEvCoverageUi();
         updateDataStatusUi();
         return;
       }
@@ -3064,6 +3115,7 @@
             : "");
       }
 
+      updateEvCoverageUi();
       updateDataStatusUi();
     }
 
