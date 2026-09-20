@@ -887,6 +887,27 @@
       return parts.length ? parts.join(" · ") : "Configuration pending";
     }
 
+    function marketAuditMatchesEvSnapshot(audit, evData) {
+      const auditedTeam = audit?.team;
+      const teamEntry = auditedTeam ? evData?.teams?.[auditedTeam] : null;
+
+      if (!auditedTeam || !teamEntry) return false;
+
+      const auditKeys = (audit.entries || [])
+        .map(item => item.card_id + "|" + item.source_file)
+        .sort();
+
+      const evKeys = (teamEntry.contributions || [])
+        .map(item => item.card_id + "|" + item.market_source_file)
+        .sort();
+
+      return (
+        auditKeys.length === evKeys.length &&
+        auditKeys.every((key,index) => key === evKeys[index]) &&
+        Number(audit.audited_card_contributions || 0) === evKeys.length
+      );
+    }
+
     function updateDataStatusUi() {
       const integrityPassed =
         !analysisContent.hidden &&
@@ -916,14 +937,19 @@
         dataMarketCoverage.className = "status-warn";
       }
 
-      const audited = Number(
-        marketAuditData?.audited_card_contributions || 0
-      );
-      const originalVerified = Number(
-        marketAuditData?.original_marketplace_verified_card_contributions || 0
-      );
+      const teamEvidence = currentTeamEntry?.market_evidence || null;
+      const auditAppliesToTeam = marketAuditData?.team === team.value;
+      const audited = auditAppliesToTeam
+        ? Number(teamEvidence?.audited_contribution_count || 0)
+        : 0;
+      const originalVerified = auditAppliesToTeam
+        ? Number(teamEvidence?.original_marketplace_verified_contribution_count || 0)
+        : 0;
 
-      if (marketAuditData?.market_evidence_status === "secondary-source-only") {
+      if (!auditAppliesToTeam || !teamEvidence) {
+        dataMarketSourceQuality.textContent = "No audited market data for " + team.value;
+        dataMarketSourceQuality.className = "status-warn";
+      } else if (teamEvidence.status === "secondary-source-only") {
         dataMarketSourceQuality.textContent =
           "Secondary only · " + originalVerified + "/" + audited + " original verified";
         dataMarketSourceQuality.className = "status-warn";
@@ -936,7 +962,7 @@
           "Mixed · " + originalVerified + "/" + audited + " original verified";
         dataMarketSourceQuality.className = "status-warn";
       } else {
-        dataMarketSourceQuality.textContent = "No audit data";
+        dataMarketSourceQuality.textContent = "No audited market data for " + team.value;
         dataMarketSourceQuality.className = "status-warn";
       }
 
@@ -1163,11 +1189,12 @@
 
         if (
           nextMarketAudit?.result !== "pass" ||
-          nextMarketAudit?.product_id !== productIdAtStart
+          nextMarketAudit?.product_id !== productIdAtStart ||
+          !marketAuditMatchesEvSnapshot(nextMarketAudit, nextTeamEv)
         ) {
           formatStatus.innerHTML =
             "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-            "</strong> · <span class=\"integrity-fail\">Market evidence audit failed.</span>";
+            "</strong> · <span class=\"integrity-fail\">Market audit / EV mismatch.</span>";
           analysisContent.hidden = true;
           return;
         }
