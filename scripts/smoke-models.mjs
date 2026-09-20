@@ -33,6 +33,7 @@ const assert=(condition,message)=>{
 
 for(const file of [
   "src/analysisQuality.js",
+  "src/teamComparison.js",
   "src/evCoverage.js",
   "src/evWorkQueue.js",
   "src/evContributionProvenance.js",
@@ -46,6 +47,34 @@ for(const file of [
   "src/errorModel.js",
   "src/runtimeContracts.js"
 ]) load(file);
+
+const comparisonRows=sandbox.BreakMetricTeamComparison.build({
+  metadata:{teams:[{name:"Chelsea"},{name:"Arsenal"}]},
+  autographProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_autograph_in_case_percent:74.88},
+    {team:"Arsenal",chance_at_least_one_autograph_in_case_percent:78.84}
+  ]},
+  insertProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_insert_in_case_percent:99.96},
+    {team:"Arsenal",chance_at_least_one_insert_in_case_percent:100}
+  ]},
+  baseParallelProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_base_parallel_in_case_percent:99.98},
+    {team:"Arsenal",chance_at_least_one_base_parallel_in_case_percent:99.98}
+  ]},
+  readiness:{
+    Chelsea:{probability:{ready:true,autograph_checklist_count:1},ev:{status:"partial"},market:{status:"secondary-source"},roi:{eligible:false}},
+    Arsenal:{probability:{ready:true,autograph_checklist_count:1},ev:{status:"not-valued"},market:{status:"not-audited"},roi:{eligible:false}}
+  },
+  teamEv:{teams:{Chelsea:{valued_card_count:27}}},
+  marketRegistry:{teams:{Chelsea:{audited_contribution_count:27,original_marketplace_verified_contribution_count:0}}}
+});
+assert(
+  sandbox.BreakMetricTeamComparison.validate(comparisonRows,["Chelsea","Arsenal"]).valid,
+  "team comparison smoke validation failed"
+);
+assert(comparisonRows[0].team==="Chelsea" && comparisonRows[1].team==="Arsenal","team comparison order changed");
+assert(comparisonRows[0].roi_eligible===false,"team comparison ROI gate failed");
 
 const quality=sandbox.BreakMetricAnalysisQuality.build({
   readiness:{probability:{ready:true}},
