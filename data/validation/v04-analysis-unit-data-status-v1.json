@@ -1,0 +1,28 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 188-207",
+  "release": "BreakMetric v0.4",
+  "checks": {
+    "step_188_analysis_unit_metadata_present": true,
+    "step_189_analysis_unit_math_validated": true,
+    "step_190_hobby_points_to_integrity_v2": true,
+    "step_191_analysis_unit_helpers_present": true,
+    "step_192_format_card_exposes_analysis_unit": true,
+    "step_193_format_card_exposes_physical_scope": true,
+    "step_194_analysis_scope_panel_present": true,
+    "step_195_player_expected_labels_are_dynamic": true,
+    "step_196_team_expected_labels_are_dynamic": true,
+    "step_197_breadcrumb_includes_analysis_unit": true,
+    "step_198_probability_wording_replaces_risk": true,
+    "step_199_hit_chance_not_profit_chance_disclosed": true,
+    "step_200_probability_and_market_coverage_separated": true,
+    "step_201_analysis_hidden_until_integrity_pass": true,
+    "step_202_product_integrity_status_visible": true,
+    "step_203_format_integrity_status_visible": true,
+    "step_204_market_ev_status_visible": true,
+    "step_205_roi_gate_status_visible": true,
+    "step_206_accessible_selection_controls": true,
+    "step_207_v04_and_integrity_chain_pass": true
+  },
+  "result": "pass"
+}
