@@ -45,6 +45,7 @@ for(const file of [
   "src/urlState.js",
   "src/dataLoader.js",
   "src/errorModel.js",
+  "src/storage.js",
   "src/runtimeContracts.js"
 ]) load(file);
 
@@ -220,6 +221,14 @@ const recordAudit=sandbox.BreakMetricMarketRecordIssues.audit(
 );
 assert(recordAudit.valid,"market record issue audit failed: "+recordAudit.errors.join("; "));
 assert(recordAudit.metrics.sale_count===30,"market record issue sale count failed");
+
+assert(sandbox.BreakMetricStorage.mode()==="session-fallback","storage fallback mode smoke failed");
+sandbox.BreakMetricStorage.set("smoke-key","value");
+assert(sandbox.BreakMetricStorage.get("smoke-key") === "value","storage fallback read/write failed");
+sandbox.BreakMetricStorage.setJson("smoke-json",{ok:true});
+assert(sandbox.BreakMetricStorage.getJson("smoke-json")?.ok === true,"storage JSON helper failed");
+sandbox.BreakMetricStorage.remove("smoke-key");
+assert(sandbox.BreakMetricStorage.get("smoke-key",null) === null,"storage fallback remove failed");
 
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(typeof sandbox.BreakMetricDataLoader.loadMany==="function","data loader batch API missing");
