@@ -1,0 +1,39 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 115-124",
+  "checks": [
+    {
+      "name": "odds_derived_production_is_quantitative",
+      "passed": true
+    },
+    {
+      "name": "quantitative_source_type_count_is_one",
+      "passed": true
+    },
+    {
+      "name": "production_denominator_available",
+      "passed": true
+    },
+    {
+      "name": "sealed_fraction_still_unavailable",
+      "passed": true
+    },
+    {
+      "name": "live_odds_still_blocked",
+      "passed": true
+    },
+    {
+      "name": "ui_shows_implied_hobby_cases",
+      "passed": true
+    },
+    {
+      "name": "ui_loads_production_json",
+      "passed": true
+    },
+    {
+      "name": "ui_does_not_claim_current_sealed_percentage",
+      "passed": true
+    }
+  ],
+  "result": "pass"
+}
