@@ -182,8 +182,8 @@
         </div>
 
         <div>
-          <label for="ev">Expected value</label>
-          <input id="ev" type="number" min="0" step="0.01" placeholder="300" />
+          <label>BreakMetric EV</label>
+          <input id="evDisplay" type="text" value="Loading…" readonly />
         </div>
       </div>
 
@@ -221,8 +221,10 @@
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
-    const ev = document.getElementById("ev");
+    const evDisplay = document.getElementById("evDisplay");
     const calculate = document.getElementById("calculate");
+    let teamEvData = null;
+    let currentEvUsd = null;
     const fxStatus = document.getElementById("fxStatus");
     let lastCurrency = currency.value;
 
@@ -267,8 +269,13 @@
           price.value = (Number(price.value) * rate).toFixed(2);
         }
 
-        if (ev.value !== "") {
-          ev.value = (Number(ev.value) * rate).toFixed(2);
+        if (currentEvUsd !== null) {
+          const usdToSelected = to === "USD" ? 1 : (
+            from === "USD" ? rate : null
+          );
+          if (usdToSelected !== null) {
+            evDisplay.value = money(currentEvUsd * usdToSelected);
+          }
         }
 
         fxStatus.textContent =
@@ -292,17 +299,66 @@
       }
     });
 
+
+    async function loadTeamEv() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"
+        );
+        if (!response.ok) throw new Error("EV data unavailable");
+        teamEvData = await response.json();
+        updateTeamEv();
+      } catch (error) {
+        evDisplay.value = "EV unavailable";
+        currentEvUsd = null;
+      }
+    }
+
+    function updateTeamEv() {
+      const entry = teamEvData?.teams?.[team.value];
+
+      if (!entry) {
+        currentEvUsd = null;
+        evDisplay.value = "Not calculated yet";
+        return;
+      }
+
+      currentEvUsd = Number(entry.partial_ev_usd);
+      evDisplay.value = money(currentEvUsd);
+    }
+
+    team.addEventListener("change", () => {
+      updateTeamEv();
+      if (price.value) calculate.click();
+    });
+
+    loadTeamEv();
+
     calculate.addEventListener("click", () => {
       const spotPrice = Number(price.value);
-      const expectedValue = Number(ev.value);
-
       resultTeam.textContent = team.value;
 
-      if (!(spotPrice > 0) || !(expectedValue >= 0)) {
-        resultNet.textContent = "Enter values";
+      if (!(spotPrice > 0)) {
+        resultNet.textContent = "Enter spot price";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
         return;
+      }
+
+      if (currentEvUsd === null) {
+        resultNet.textContent = "EV not ready";
+        resultRatio.textContent = "—";
+        resultRoi.textContent = "—";
+        return;
+      }
+
+      let expectedValue = currentEvUsd;
+
+      if (currency.value !== "USD") {
+        const shown = Number(
+          evDisplay.value.replace(/[^0-9,.-]/g, "").replace(",", ".")
+        );
+        if (Number.isFinite(shown)) expectedValue = shown;
       }
 
       const net = expectedValue - spotPrice;
