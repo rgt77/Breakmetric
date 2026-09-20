@@ -1,0 +1,578 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source": {
+    "name": "2026 PL Chrome Odds_FINAL",
+    "url": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+    "verified": true
+  },
+  "notation": {
+    "per_box": "Guaranteed/average quantity stated by Topps per Hobby box",
+    "pack_odds": "Topps odds expressed as 1:N Hobby packs"
+  },
+  "sections": {
+    "base_cards": [
+      {
+        "name": "Refractor",
+        "type": "per_box",
+        "value": 6
+      },
+      {
+        "name": "Prism Refractor",
+        "type": "per_box",
+        "value": 4
+      },
+      {
+        "name": "Teal Refractor",
+        "type": "pack_odds",
+        "denominator": 51
+      },
+      {
+        "name": "Yellow Refractor",
+        "type": "pack_odds",
+        "denominator": 51
+      },
+      {
+        "name": "Pink Refractor",
+        "type": "pack_odds",
+        "denominator": 52
+      },
+      {
+        "name": "Aqua Refractor",
+        "type": "pack_odds",
+        "denominator": 57
+      },
+      {
+        "name": "Aqua Wave",
+        "type": "pack_odds",
+        "denominator": 57
+      },
+      {
+        "name": "Blue Refractor",
+        "type": "pack_odds",
+        "denominator": 79
+      },
+      {
+        "name": "Blue Wave",
+        "type": "pack_odds",
+        "denominator": 79
+      },
+      {
+        "name": "Green Refractor",
+        "type": "pack_odds",
+        "denominator": 103
+      },
+      {
+        "name": "Green Wave",
+        "type": "pack_odds",
+        "denominator": 103
+      },
+      {
+        "name": "Purple Refractor",
+        "type": "pack_odds",
+        "denominator": 128
+      },
+      {
+        "name": "Purple Wave",
+        "type": "pack_odds",
+        "denominator": 128
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 221
+      },
+      {
+        "name": "Gold Wave",
+        "type": "pack_odds",
+        "denominator": 221
+      },
+      {
+        "name": "White Refractor",
+        "type": "pack_odds",
+        "denominator": 322
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 375
+      },
+      {
+        "name": "Orange Wave",
+        "type": "pack_odds",
+        "denominator": 375
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 1036
+      },
+      {
+        "name": "Black Wave",
+        "type": "pack_odds",
+        "denominator": 1036
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 2046
+      },
+      {
+        "name": "Red Wave",
+        "type": "pack_odds",
+        "denominator": 2046
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 9653
+      },
+      {
+        "name": "Premier League Retrofractor",
+        "type": "pack_odds",
+        "denominator": 88
+      },
+      {
+        "name": "Frozenfractors",
+        "type": "pack_odds",
+        "denominator": 1618
+      }
+    ],
+    "common_inserts": [
+      {
+        "name": "Base (5 themes)",
+        "type": "per_box",
+        "value": 10
+      },
+      {
+        "name": "Green Refractor",
+        "type": "pack_odds",
+        "denominator": 221
+      },
+      {
+        "name": "Purple Refractor",
+        "type": "pack_odds",
+        "denominator": 258
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 404
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 844
+      },
+      {
+        "name": "Refractor",
+        "type": "pack_odds",
+        "denominator": 2306
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 4197
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 23051
+      }
+    ],
+    "short_print_inserts": [
+      {
+        "name": "Locked In",
+        "type": "pack_odds",
+        "denominator": 258
+      },
+      {
+        "name": "Locked In Black Refractor",
+        "type": "pack_odds",
+        "denominator": 4919
+      },
+      {
+        "name": "Locked In Red Refractor",
+        "type": "pack_odds",
+        "denominator": 8775
+      },
+      {
+        "name": "Locked In Superfractor",
+        "type": "pack_odds",
+        "denominator": 48263
+      },
+      {
+        "name": "Chrome Anime",
+        "type": "pack_odds",
+        "denominator": 1298
+      },
+      {
+        "name": "Chrome Anime Black Refractor",
+        "type": "pack_odds",
+        "denominator": 24132
+      },
+      {
+        "name": "Chrome Anime Red Refractor",
+        "type": "pack_odds",
+        "denominator": 51480
+      },
+      {
+        "name": "Chrome Anime Superfractor",
+        "type": "pack_odds",
+        "denominator": 257400
+      },
+      {
+        "name": "Helix",
+        "type": "pack_odds",
+        "denominator": 1931
+      },
+      {
+        "name": "Helix Superfractor",
+        "type": "pack_odds",
+        "denominator": 257400
+      },
+      {
+        "name": "A Cold and Rainy Night in Chrome",
+        "type": "pack_odds",
+        "denominator": 903
+      },
+      {
+        "name": "A Cold and Rainy Night in Chrome Black Shimmer",
+        "type": "pack_odds",
+        "denominator": 9534
+      },
+      {
+        "name": "A Cold and Rainy Night in Chrome Red Shimmer",
+        "type": "pack_odds",
+        "denominator": 14850
+      },
+      {
+        "name": "A Cold and Rainy Night in Chrome Superfractor",
+        "type": "pack_odds",
+        "denominator": 70200
+      },
+      {
+        "name": "Give Him His Flowers",
+        "type": "pack_odds",
+        "denominator": 5064
+      },
+      {
+        "name": "Give Him His Flowers Snapdragon Variation",
+        "type": "pack_odds",
+        "denominator": 9964
+      },
+      {
+        "name": "Give Him His Flowers Iris Variation",
+        "type": "pack_odds",
+        "denominator": 14169
+      },
+      {
+        "name": "Give Him His Flowers Roses Variation",
+        "type": "pack_odds",
+        "denominator": 70200
+      },
+      {
+        "name": "Genius Chrome",
+        "type": "pack_odds",
+        "denominator": 2472
+      },
+      {
+        "name": "Genius Chrome Black Refractor",
+        "type": "pack_odds",
+        "denominator": 6462
+      },
+      {
+        "name": "Genius Chrome Red Refractor",
+        "type": "pack_odds",
+        "denominator": 12979
+      },
+      {
+        "name": "Genius Chrome Superfractor",
+        "type": "pack_odds",
+        "denominator": 64350
+      },
+      {
+        "name": "Triple Platinum",
+        "type": "pack_odds",
+        "denominator": 4119
+      },
+      {
+        "name": "Triple Platinum Black Stainless Steel",
+        "type": "pack_odds",
+        "denominator": 6462
+      },
+      {
+        "name": "Triple Platinum Red Stainless Steel",
+        "type": "pack_odds",
+        "denominator": 12979
+      },
+      {
+        "name": "Triple Platinum Superfractor",
+        "type": "pack_odds",
+        "denominator": 64350
+      },
+      {
+        "name": "Club Crests Superfractor",
+        "type": "pack_odds",
+        "denominator": 128700
+      },
+      {
+        "name": "Premier League Trophy Superfractor",
+        "type": "pack_odds",
+        "denominator": 1544400
+      },
+      {
+        "name": "Winners Enclosure Superfractor",
+        "type": "pack_odds",
+        "denominator": 386100
+      }
+    ],
+    "hobby_exclusive_card_201": [
+      {
+        "name": "Base Card #201",
+        "type": "pack_odds",
+        "denominator": 16257
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 32175
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 64350
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 154440
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 308880
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 1544400
+      }
+    ],
+    "autographs": [
+      {
+        "name": "Chrome Autograph Cards",
+        "type": "pack_odds",
+        "denominator": 123
+      },
+      {
+        "name": "Aqua Refractor",
+        "type": "pack_odds",
+        "denominator": 170
+      },
+      {
+        "name": "Blue Refractor",
+        "type": "pack_odds",
+        "denominator": 195
+      },
+      {
+        "name": "Green Refractor",
+        "type": "pack_odds",
+        "denominator": 238
+      },
+      {
+        "name": "Green Wave",
+        "type": "pack_odds",
+        "denominator": 241
+      },
+      {
+        "name": "Purple Refractor",
+        "type": "pack_odds",
+        "denominator": 274
+      },
+      {
+        "name": "Purple Wave",
+        "type": "pack_odds",
+        "denominator": 272
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 298
+      },
+      {
+        "name": "Gold Wave",
+        "type": "pack_odds",
+        "denominator": 319
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 564
+      },
+      {
+        "name": "Orange Wave",
+        "type": "pack_odds",
+        "denominator": 575
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 1320
+      },
+      {
+        "name": "Black Wave",
+        "type": "pack_odds",
+        "denominator": 1350
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 2570
+      },
+      {
+        "name": "Red Wave",
+        "type": "pack_odds",
+        "denominator": 2627
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 13548
+      }
+    ],
+    "dual_autographs": [
+      {
+        "name": "Chrome Dual Autograph Cards",
+        "type": "pack_odds",
+        "denominator": 6304
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 2001
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 3329
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 8440
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 15292
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 85800
+      }
+    ],
+    "triple_autographs": [
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 7722
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 8628
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 18170
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 33574
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 140400
+      }
+    ],
+    "superstar_sensations": [
+      {
+        "name": "Base",
+        "type": "pack_odds",
+        "denominator": 2278
+      },
+      {
+        "name": "Gold Refractor",
+        "type": "pack_odds",
+        "denominator": 3146
+      },
+      {
+        "name": "Orange Refractor",
+        "type": "pack_odds",
+        "denominator": 4935
+      },
+      {
+        "name": "Black Refractor",
+        "type": "pack_odds",
+        "denominator": 9775
+      },
+      {
+        "name": "Red Refractor",
+        "type": "pack_odds",
+        "denominator": 19800
+      },
+      {
+        "name": "Superfractor",
+        "type": "pack_odds",
+        "denominator": 102960
+      }
+    ],
+    "other_autograph_hits": [
+      {
+        "name": "Winners Enclosure - Autograph Edition Superfractor",
+        "type": "pack_odds",
+        "denominator": 514800
+      },
+      {
+        "name": "Winners Enclosure - Quad Autograph Superfractor",
+        "type": "pack_odds",
+        "denominator": 1544400
+      },
+      {
+        "name": "Kings of the Premier League - Quad Autograph Superfractor",
+        "type": "pack_odds",
+        "denominator": 1544400
+      },
+      {
+        "name": "Cold Battle - Frozenfractor (On Card)",
+        "type": "pack_odds",
+        "denominator": 110315
+      },
+      {
+        "name": "Zero Hours (On Card)",
+        "type": "pack_odds",
+        "denominator": 10436
+      },
+      {
+        "name": "Zero Hours Black Refractor (On Card)",
+        "type": "pack_odds",
+        "denominator": 20058
+      },
+      {
+        "name": "Zero Hours Red Refractor (On Card)",
+        "type": "pack_odds",
+        "denominator": 46800
+      },
+      {
+        "name": "Zero Hours Superfractor (On Card)",
+        "type": "pack_odds",
+        "denominator": 140400
+      }
+    ]
+  }
+}
