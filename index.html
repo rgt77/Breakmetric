@@ -397,6 +397,18 @@
 
       
       <div class="section-title">1 · Choose product / release</div>
+      <div class="browse-search" style="margin-top:0">
+        <label for="productSearch">Search product / release</label>
+        <input
+          id="productSearch"
+          type="search"
+          autocomplete="off"
+          placeholder="Try 2025, Premier League, Topps Chrome…"
+        />
+        <p id="productSearchStatus" class="browse-search-hint" aria-live="polite">
+          Type to filter products by brand, competition or year.
+        </p>
+      </div>
       <div id="productGrid" class="product-grid" aria-label="Products and releases"></div>
       <div id="productStatus" class="format-status" aria-live="polite">
         Loading products…
@@ -606,6 +618,8 @@
   <footer>© 2026 BreakMetric</footer>
 
   <script>
+    const productSearch = document.getElementById("productSearch");
+    const productSearchStatus = document.getElementById("productSearchStatus");
     const productGrid = document.getElementById("productGrid");
     const productStatus = document.getElementById("productStatus");
     const formatStage = document.getElementById("formatStage");
@@ -651,6 +665,7 @@
       price.value = savedSpotPrice;
     }
 
+    let productSearchQuery = "";
     let formatCatalogData = null;
     let productMetadataData = null;
     let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
@@ -867,7 +882,32 @@
 
     function renderProducts() {
       productGrid.innerHTML = "";
-      const products = productCatalog?.products || [];
+
+      const q = normalizeSearch(productSearchQuery);
+      const products = [...(productCatalog?.products || [])]
+        .filter(item => {
+          if (!q) return true;
+          const haystack = [
+            item.display_name,
+            item.name,
+            item.brand,
+            item.competition,
+            item.year
+          ].map(normalizeSearch).join(" ");
+          return haystack.includes(q);
+        })
+        .sort((a,b) => Number(b.year || 0) - Number(a.year || 0));
+
+      if (!products.length) {
+        productGrid.innerHTML =
+          '<div class="filter-empty">No matching product / release.</div>';
+        productSearchStatus.textContent = "0 matching products";
+        return;
+      }
+
+      productSearchStatus.textContent = q
+        ? products.length + " matching product" + (products.length === 1 ? "" : "s")
+        : products.length + " products · newest release first";
 
       for (const item of products) {
         const button = document.createElement("button");
@@ -1928,6 +1968,11 @@
       updateLiveSupply();
       updateResults();
       updateAnalysisContext();
+    });
+
+    productSearch.addEventListener("input", () => {
+      productSearchQuery = productSearch.value;
+      renderProducts();
     });
 
     browseSearch.addEventListener("input", () => {
