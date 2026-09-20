@@ -38,6 +38,10 @@ pass("v1.2 methodology schema", methodology.schema_version === 1);
 pass("v1.2 methodology principles present", Array.isArray(methodology.principles) && methodology.principles.length >= 7);
 const evPolicy = json("data/methodology/ev-coverage-v1.json");
 pass("EV coverage policy forbids unsupported percentage", evPolicy.current_state?.percentage_allowed === false);
+const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
+pass("market source policy schema", marketSourcePolicy.schema_version === 1);
+pass("market source policy has three tiers", Array.isArray(marketSourcePolicy.source_tiers) && marketSourcePolicy.source_tiers.length === 3);
+pass("secondary market evidence remains provisional", marketSourcePolicy.source_tiers?.find(x => x.id === "secondary-source-realized-sale")?.roi_capability === "provisional-only");
 
 const n100 = json("data/validation/v12-n100.json");
 pass("n100 step count is exactly 100", n100.step_count === 100 && n100.steps?.length === 100);
@@ -102,6 +106,23 @@ for (const product of catalog.products || []) {
 
     const evData = json(format.analysis_data.ev_data);
     const evScope = json(format.analysis_data.ev_scope_data);
+    const evWorkQueue = json(format.analysis_data.ev_work_queue_data);
+    const marketVerificationQueue = json(format.analysis_data.market_verification_queue_data);
+    pass(
+      `EV work queue task count: ${product.id}/${format.id}`,
+      evWorkQueue.model === "ev-work-queue-v1" &&
+      evWorkQueue.tasks?.length === (metadata.teams || []).length * 3
+    );
+    pass(
+      `market verification queue reconciles to EV contributions: ${product.id}/${format.id}`,
+      marketVerificationQueue.model === "market-verification-queue-v1" &&
+      marketVerificationQueue.items?.length ===
+        Object.values(evData.teams || {}).reduce((sum,row)=>sum+(row.contributions || []).length,0)
+    );
+    pass(
+      `market verification queue ranks sequentially: ${product.id}/${format.id}`,
+      marketVerificationQueue.items?.every((row,index)=>Number(row.priority_rank)===index+1)
+    );
     pass(
       `EV scope validates: ${product.id}/${format.id}`,
       evScope.product_id === product.id &&
@@ -156,7 +177,9 @@ try {
 for (const module of [
   "analysisQuality.js",
   "evCoverage.js",
+  "evWorkQueue.js",
   "marketCoverage.js",
+  "marketEvidenceQuality.js",
   "dataFreshness.js",
   "dataLoader.js",
   "errorModel.js",
@@ -176,6 +199,9 @@ pass("combined probability approximation disclosed", html.includes("independence
 pass("skip link present", html.includes('class="skip-link"'));
 pass("analysis quality UI present", html.includes('class="quality-grid"'));
 pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
+pass("EV work queue present", html.includes('id="evWorkPanel"'));
+pass("market source tier visible", html.includes('id="marketSourceTier"'));
+pass("market verification EV gap visible", html.includes('id="marketVerificationEvGap"'));
 pass("market evidence detail present", html.includes('id="marketEvidencePanel"'));
 pass("freshness panel present", html.includes('id="dataFreshnessPanel"'));
 pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'));
