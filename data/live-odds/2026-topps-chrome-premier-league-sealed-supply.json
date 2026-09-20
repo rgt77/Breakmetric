@@ -1,0 +1,48 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "purpose": "Estimate the remaining sealed fraction using multiple independent evidence sources.",
+  "rules": [
+    "Use ranges rather than a single exact percentage whenever uncertainty is material.",
+    "Do not use Serial Tracker observations alone as proof of sealed supply remaining.",
+    "Prefer independent evidence sources.",
+    "Store date and source type for every estimate.",
+    "Live Odds should consume low/mid/high sealed-fraction scenarios separately.",
+    "If no credible evidence exists, status remains no-evidence and manufacturer odds stay unchanged."
+  ],
+  "evidence": [
+    {
+      "source": null,
+      "source_type": "manufacturer_or_distributor_inventory",
+      "sealed_fraction_low": null,
+      "sealed_fraction_high": null,
+      "confidence_weight": 3,
+      "observed_at": null,
+      "note": null
+    },
+    {
+      "source": null,
+      "source_type": "major_retail_inventory",
+      "sealed_fraction_low": null,
+      "sealed_fraction_high": null,
+      "confidence_weight": 2,
+      "observed_at": null,
+      "note": null
+    },
+    {
+      "source": null,
+      "source_type": "secondary_market_sealed_supply",
+      "sealed_fraction_low": null,
+      "sealed_fraction_high": null,
+      "confidence_weight": 1,
+      "observed_at": null,
+      "note": null
+    }
+  ],
+  "current_estimate": {
+    "status": "no-evidence",
+    "sealed_fraction_low": null,
+    "sealed_fraction_mid": null,
+    "sealed_fraction_high": null,
+    "confidence": "none"
+  }
+}
