@@ -1,0 +1,20 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 187,
+  "purpose": "Ensure product/release routing and box-format analysis routing have a single source of truth.",
+  "checks": {
+    "step_187_ready_products_have_no_analysis_routes": true,
+    "step_187_pending_products_have_no_analysis_routes": true,
+    "step_187_ready_product_only_requires_release_routes": true,
+    "step_187_ready_format_owns_all_analysis_routes": true,
+    "step_187_pending_formats_have_no_analysis_manifest": true,
+    "step_187_product_metadata_is_format_neutral": true,
+    "step_187_hobby_configuration_is_on_format": true,
+    "step_187_ui_uses_format_paths_for_analysis": true,
+    "step_187_ui_never_uses_product_paths_for_analysis": true,
+    "step_187_ui_blocks_unready_formats": true,
+    "step_187_product_integrity_is_release_scoped": true,
+    "step_187_catalog_points_to_v2_product_integrity": true
+  },
+  "result": "pass"
+}
