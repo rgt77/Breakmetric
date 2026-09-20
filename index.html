@@ -1113,10 +1113,7 @@
         return;
       }
 
-      setAnalysisLoadState(
-        "loading",
-        "Loading and validating product, format and market datasets…"
-      );
+      setAnalysisLoadState("loading", "Loading and validating product, format and market datasets…");
 
       const token = ++productLoadToken;
       const productIdAtStart = currentProduct.id;
