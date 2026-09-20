@@ -55,6 +55,63 @@
     .tool h2{margin:0 0 8px;font-size:1.5rem}
     .tool p{margin:0 0 22px;color:var(--muted)}
     .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .spot-toolbar{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin:12px 0 4px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#0e1528;
+    }
+    .spot-control{width:min(420px,100%)}
+    .spot-control label{
+      display:block;
+      margin-bottom:7px;
+      font-size:.78rem;
+      font-weight:700;
+      color:var(--muted);
+    }
+    .price-combo{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      background:#0b1223;
+    }
+    .price-combo:focus-within{border-color:var(--accent)}
+    .price-combo input,
+    .price-combo select{
+      border:0;
+      border-radius:0;
+      background:transparent;
+      outline:none;
+    }
+    .price-combo input{min-width:0;font-size:1.08rem;font-weight:700}
+    .price-combo select{
+      width:auto;
+      min-width:78px;
+      border-left:1px solid var(--line);
+      padding-left:12px;
+      padding-right:12px;
+      font-weight:700;
+      color:var(--accent);
+      cursor:pointer;
+    }
+    .spot-note{
+      margin:7px 0 0!important;
+      font-size:.72rem!important;
+      color:var(--muted)!important;
+    }
+    .spot-purpose{
+      max-width:370px;
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.45;
+    }
     .browse-search{margin:20px 0 6px}
     .browse-search input{padding:14px 16px}
     .browse-search-hint{margin:7px 0 0!important;font-size:.75rem;color:var(--muted)}
@@ -238,6 +295,8 @@
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:760px){
       .summary,.primary-results,.detail-results,.form-grid,.player-stats{grid-template-columns:1fr}
+      .spot-toolbar{align-items:stretch;flex-direction:column}
+      .spot-control{width:100%}
       .hero{padding-top:55px}
       nav{display:none}
     }
@@ -321,28 +380,6 @@
             <option>West Ham United</option>
             <option>Wolverhampton Wanderers</option>
           </select>
-
-      <div class="form-grid">
-        <div>
-          <label for="currency">Currency</label>
-          <select id="currency">
-            <option value="USD" selected>USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="SEK">SEK</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="price">Spot price</label>
-          <input id="price" type="number" min="0" step="0.01" placeholder="350" />
-        </div>
-      </div>
-
-      <p id="fxStatus" style="margin-top:12px;font-size:.82rem;color:var(--muted)">
-        Exchange rates load automatically when you change currency.
-      </p>
-
       <div class="player-browser">
         <div class="section-title">2 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players"></div>
@@ -377,6 +414,35 @@
       </section>
 
       <div class="section-title">Team overview</div>
+
+      <div class="spot-toolbar">
+        <div class="spot-control">
+          <label for="price">Your spot price</label>
+          <div class="price-combo">
+            <input
+              id="price"
+              type="number"
+              min="0"
+              step="0.01"
+              inputmode="decimal"
+              placeholder="Enter price"
+            />
+            <select id="currency" aria-label="Currency">
+              <option value="USD" selected>USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="SEK">SEK</option>
+            </select>
+          </div>
+          <p id="fxStatus" class="spot-note">
+            Currency is selected automatically and can be changed here.
+          </p>
+        </div>
+        <div class="spot-purpose">
+          Enter what the team spot costs. BreakMetric compares that price with the team EV and calculates ROI when EV coverage is complete.
+        </div>
+      </div>
+
       <div class="results primary-results">
         <div class="result">
           <span>Team</span>
