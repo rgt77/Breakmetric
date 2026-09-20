@@ -1,0 +1,272 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source_odds_pdf": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+  "mappings": [
+    {
+      "checklist_sections": [
+        "The Streets Won't Forget",
+        "Alive and Kicking",
+        "That's His Job",
+        "Stoppage Time Heartbreaker",
+        "Golazo"
+      ],
+      "pooled_checklist_size": 100,
+      "pooled_odds": true,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "per_box",
+          "value": 10
+        },
+        {
+          "variant": "Green Refractor",
+          "type": "pack_odds",
+          "denominator": 221
+        },
+        {
+          "variant": "Purple Refractor",
+          "type": "pack_odds",
+          "denominator": 258
+        },
+        {
+          "variant": "Gold Refractor",
+          "type": "pack_odds",
+          "denominator": 404
+        },
+        {
+          "variant": "Orange Refractor",
+          "type": "pack_odds",
+          "denominator": 844
+        },
+        {
+          "variant": "Refractor",
+          "type": "pack_odds",
+          "denominator": 2306
+        },
+        {
+          "variant": "Red Refractor",
+          "type": "pack_odds",
+          "denominator": 4197
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 23051
+        }
+      ],
+      "note": "Topps publishes these five 20-card insert themes as one shared odds pool ('Base (5 themes)')."
+    },
+    {
+      "checklist_section": "Locked In",
+      "checklist_size": 50,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 258
+        },
+        {
+          "variant": "Black Refractor",
+          "type": "pack_odds",
+          "denominator": 4919
+        },
+        {
+          "variant": "Red Refractor",
+          "type": "pack_odds",
+          "denominator": 8775
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 48263
+        }
+      ]
+    },
+    {
+      "checklist_section": "Chrome Anime",
+      "checklist_size": 10,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 1298
+        },
+        {
+          "variant": "Black Refractor",
+          "type": "pack_odds",
+          "denominator": 24132
+        },
+        {
+          "variant": "Red Refractor",
+          "type": "pack_odds",
+          "denominator": 51480
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 257400
+        }
+      ]
+    },
+    {
+      "checklist_section": "Helix",
+      "checklist_size": 10,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 1931
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 257400
+        }
+      ]
+    },
+    {
+      "checklist_section": "A Cold and Rainy Night in Chrome",
+      "checklist_size": 25,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 903
+        },
+        {
+          "variant": "Black Shimmer",
+          "type": "pack_odds",
+          "denominator": 9534
+        },
+        {
+          "variant": "Red Shimmer",
+          "type": "pack_odds",
+          "denominator": 14850
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 70200
+        }
+      ]
+    },
+    {
+      "checklist_section": "Give Him His Flowers",
+      "checklist_size": 25,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 5064
+        },
+        {
+          "variant": "Snapdragon Variation",
+          "type": "pack_odds",
+          "denominator": 9964
+        },
+        {
+          "variant": "Iris Variation",
+          "type": "pack_odds",
+          "denominator": 14169
+        },
+        {
+          "variant": "Roses Variation",
+          "type": "pack_odds",
+          "denominator": 70200
+        }
+      ]
+    },
+    {
+      "checklist_section": "Genius Chrome",
+      "checklist_size": 25,
+      "hobby_exclusive": true,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 2472
+        },
+        {
+          "variant": "Black Refractor",
+          "type": "pack_odds",
+          "denominator": 6462
+        },
+        {
+          "variant": "Red Refractor",
+          "type": "pack_odds",
+          "denominator": 12979
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 64350
+        }
+      ]
+    },
+    {
+      "checklist_section": "Triple Platinum",
+      "checklist_size": 25,
+      "hobby_exclusive": true,
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "type": "pack_odds",
+          "denominator": 4119
+        },
+        {
+          "variant": "Black Stainless Steel",
+          "type": "pack_odds",
+          "denominator": 6462
+        },
+        {
+          "variant": "Red Stainless Steel",
+          "type": "pack_odds",
+          "denominator": 12979
+        },
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 64350
+        }
+      ]
+    },
+    {
+      "checklist_section": "Club Crests",
+      "checklist_size": 20,
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 128700
+        }
+      ],
+      "note": "Only the Hobby odds row explicitly published for this set is mapped."
+    },
+    {
+      "checklist_section": "Premier League Trophy",
+      "checklist_size": 1,
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 1544400
+        }
+      ],
+      "note": "Team allocation is unresolved in the checklist data."
+    },
+    {
+      "checklist_section": "Winners Enclosure",
+      "checklist_size": 4,
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "type": "pack_odds",
+          "denominator": 386100
+        }
+      ],
+      "note": "Team allocation is unresolved in the checklist data."
+    }
+  ],
+  "methodology_note": "No odds are invented. Only Hobby rows explicitly represented in the stored Topps odds dataset are mapped. Team probabilities are calculated later from checklist composition."
+}
