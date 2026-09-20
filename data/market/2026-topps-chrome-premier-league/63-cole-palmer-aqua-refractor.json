@@ -1,0 +1,31 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "63",
+  "player": "Cole Palmer",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Aqua Refractor",
+  "serial_numbering": 199,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-02-17",
+      "sale_price": 20,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/cole-palmer-aqua-refractor-63",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 20,
+    "mean_usd": 20,
+    "min_usd": 20,
+    "max_usd": 20,
+    "sale_count": 1,
+    "confidence": "low"
+  },
+  "note": "Only listings whose sale title matched this exact Hobby parallel were included."
+}
