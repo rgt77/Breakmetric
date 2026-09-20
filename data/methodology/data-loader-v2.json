@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "model": "static-data-loader-v2",
+  "generated_at": "2026-09-20",
+  "path_policy": {
+    "required_prefix": "data/",
+    "required_suffix": ".json",
+    "forbidden": [
+      "absolute paths",
+      "external URLs",
+      "parent traversal",
+      "backslash paths"
+    ]
+  },
+  "request_policy": {
+    "default_timeout_ms": 12000,
+    "default_retries": 1,
+    "max_concurrency": 12,
+    "application_concurrency": 6,
+    "default_max_bytes": 5000000
+  },
+  "cache_policy": {
+    "in_memory": true,
+    "in_flight_deduplication": true,
+    "persistent_cache": false
+  },
+  "metrics": [
+    "requests",
+    "cache_hits",
+    "cache_misses",
+    "inflight_hits",
+    "retries",
+    "failures",
+    "parsed_bytes"
+  ],
+  "rules": [
+    "Analysis JSON must be same-origin static data paths.",
+    "External or traversal paths are rejected before fetch.",
+    "Large JSON payloads are rejected before activation.",
+    "Bundle loading uses bounded concurrency rather than unbounded Promise.all.",
+    "Cache metrics are diagnostic and do not affect analysis values."
+  ]
+}
