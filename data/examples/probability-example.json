@@ -1,0 +1,14 @@
+{
+  "example": "Gold Refractor",
+  "manufacturer_odds": "1:221 packs",
+  "format": "Hobby",
+  "packs_per_box": 20,
+  "boxes_per_case": 12,
+  "explanation": "Probability of at least one Gold Refractor of any player in the relevant parallel checklist.",
+  "formula": "1 - (1 - 1/221)^n",
+  "results": {
+    "per_pack_percent": 0.4525,
+    "per_box_percent": 8.67,
+    "per_case_percent": 66.29
+  }
+}
