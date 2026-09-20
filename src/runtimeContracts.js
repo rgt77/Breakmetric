@@ -535,6 +535,12 @@
     const canonical=api.teamNamesFromMetadata(bundle.metadata||{});
     const results=[
       api.validateProductMetadata(bundle.metadata,productId),
+      context.catalogEntry
+        ? api.validateProductMetadataAgainstCatalog(
+            bundle.metadata,
+            context.catalogEntry
+          )
+        : null,
       api.validateBaseChecklist(bundle.baseChecklist,productId,canonical),
       api.validateAutographChecklist(bundle.autographChecklist,productId,canonical),
       api.validatePlayerIndex(bundle.playerIndex,productId,canonical),
