@@ -40,6 +40,9 @@ const evPolicy = json("data/methodology/ev-coverage-v1.json");
 pass("EV coverage policy forbids unsupported percentage", evPolicy.current_state?.percentage_allowed === false);
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
+const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
+pass("team comparison policy schema", teamComparisonPolicy.schema_version === 1);
+pass("team comparison remains descriptive", teamComparisonPolicy.default_order === "canonical-checklist-order");
 pass("market record quality policy schema", marketRecordQualityPolicy.schema_version === 1);
 pass("market record spread review threshold", Number(marketRecordQualityPolicy.spread_alert?.ratio_threshold) === 4);
 pass("market source policy schema", marketSourcePolicy.schema_version === 1);
@@ -187,6 +190,7 @@ try {
 
 for (const module of [
   "analysisQuality.js",
+  "teamComparison.js",
   "evCoverage.js",
   "evWorkQueue.js",
   "evContributionProvenance.js",
@@ -227,6 +231,8 @@ pass("freshness panel present", html.includes('id="dataFreshnessPanel"'));
 pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'));
 pass("retry analysis control present", html.includes('id="retryAnalysisButton"'));
 pass("analysis progress UI present", html.includes('class="flow-progress"'));
+pass("team comparison panel present", html.includes('id="teamComparisonPanel"'));
+pass("team comparison has descriptive caption", html.includes("No value ranking is applied"));
 pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
 pass("version is v1.2.0", html.includes("BreakMetric v1.2.0"));
