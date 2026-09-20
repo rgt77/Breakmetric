@@ -249,6 +249,82 @@
     return result(errors,warnings,{ev_contribution_count:contributions});
   };
 
+  api.validateMarketRegistry=function(registry={}, productId, canonicalTeams=[], evData={}, formatId=null){
+    const errors=[],warnings=[];
+    if(registry.product_id!==productId) errors.push("market registry product_id mismatch");
+    if(formatId && registry.format_id!==formatId) errors.push("market registry format_id mismatch");
+    if(!registry.teams || Array.isArray(registry.teams)) {
+      errors.push("market registry teams object missing");
+      return result(errors,warnings);
+    }
+
+    const canonical=[...canonicalTeams].sort();
+    const registryTeams=Object.keys(registry.teams).sort();
+
+    if(canonical.length!==registryTeams.length ||
+       canonical.some((team,index)=>team!==registryTeams[index])) {
+      errors.push("market registry canonical team set mismatch");
+    }
+
+    let auditedTeams=0;
+    let roiEligibleTeams=0;
+
+    for(const team of canonical){
+      const entry=registry.teams?.[team];
+      if(!entry) continue;
+
+      const evRow=evData?.teams?.[team] || null;
+      const evContributions=evRow?.contributions || [];
+      const registryKeys=[...(entry.contribution_keys||[])].sort();
+      const evKeys=evContributions
+        .map(item=>item.card_id+"|"+item.market_source_file)
+        .sort();
+
+      if(entry.status!=="not-audited") auditedTeams++;
+      if(entry.roi_eligible===true) roiEligibleTeams++;
+
+      if(typeof entry.roi_eligible!=="boolean") {
+        errors.push("market registry roi_eligible must be boolean for "+team);
+      }
+
+      if(Boolean(entry.ev_present)!==Boolean(evRow)) {
+        errors.push("market registry ev_present mismatch for "+team);
+      }
+
+      if(entry.status==="not-audited"){
+        if(entry.audit_data!==null) errors.push("unaudited team has audit_data: "+team);
+        if(registryKeys.length) errors.push("unaudited team has contribution keys: "+team);
+        if(entry.roi_eligible===true) errors.push("unaudited team is ROI eligible: "+team);
+      }else{
+        if(typeof entry.audit_data!=="string" || !entry.audit_data) {
+          errors.push("audited team missing audit_data: "+team);
+        }
+        if(!evRow) errors.push("audited team missing EV row: "+team);
+        if(registryKeys.length!==evKeys.length ||
+           registryKeys.some((key,index)=>key!==evKeys[index])) {
+          errors.push("market registry / EV snapshot mismatch for "+team);
+        }
+        if(Number(entry.audited_contribution_count)!==evKeys.length) {
+          errors.push("market registry audited contribution count mismatch for "+team);
+        }
+      }
+
+      if(evContributions.length && entry.status==="not-audited") {
+        errors.push("EV team lacks market audit: "+team);
+      }
+    }
+
+    if(Number(registry.summary?.canonical_team_count)!==canonical.length) {
+      errors.push("market registry canonical team count mismatch");
+    }
+
+    return result(errors,warnings,{
+      market_registry_team_count:registryTeams.length,
+      market_registry_audited_team_count:auditedTeams,
+      market_registry_roi_eligible_team_count:roiEligibleTeams
+    });
+  };
+
   api.validateMarketAudit=function(audit={}, productId, evData={}){
     const errors=[],warnings=[];
     if(audit.product_id!==productId) errors.push("market audit product_id mismatch");
@@ -285,7 +361,13 @@
       api.validateProductId(bundle.sealedSupply,productId,"sealed supply"),
       api.validateProductId(bundle.production,productId,"production estimate"),
       api.validateTeamEv(bundle.teamEv,productId,canonical),
-      api.validateMarketAudit(bundle.marketAudit,productId,bundle.teamEv)
+      api.validateMarketRegistry(
+        bundle.marketRegistry,
+        productId,
+        canonical,
+        bundle.teamEv,
+        context.formatId || null
+      )
     ];
     return merge(results);
   };
