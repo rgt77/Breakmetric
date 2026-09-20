@@ -779,6 +779,7 @@
     let sealedSupplyData = null;
     let productionData = null;
     let marketAuditData = null;
+    let activeContractReport = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -1036,6 +1037,7 @@
       sealedSupplyData = null;
       productionData = null;
       marketAuditData = null;
+      activeContractReport = null;
       currentTeamEntry = null;
       currentEvUsd = null;
       clearPlayerSelection(false);
@@ -1166,6 +1168,37 @@
           return;
         }
 
+        const runtimeBundle = {
+          metadata,
+          playerIndex: nextPlayerIndex,
+          playerProbabilities: nextPlayerProbabilities,
+          baseChecklist: nextBaseChecklist,
+          autographProbabilities: nextAutographProbabilities,
+          autographChecklist: nextAutographChecklist,
+          insertProbabilities: nextInsertProbabilities,
+          baseParallelProbabilities: nextBaseParallelProbabilities,
+          liveSupply: nextLiveSupply,
+          sealedSupply: nextSealedSupply,
+          production: nextProduction,
+          marketAudit: nextMarketAudit,
+          teamEv: nextTeamEv
+        };
+
+        const runtimeContract =
+          BreakMetricContracts.validateAnalysisBundle(runtimeBundle, {
+            productId: productIdAtStart,
+            formatId: formatIdAtStart
+          });
+
+        if (!runtimeContract.valid) {
+          activeContractReport = runtimeContract;
+          formatStatus.innerHTML =
+            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
+            "</strong> · <span class=\"integrity-fail\">Runtime data contract failed.</span>";
+          analysisContent.hidden = true;
+          return;
+        }
+
         if (
           productIntegrity?.result !== "pass" ||
           productIntegrity?.product_id !== productIdAtStart
@@ -1207,9 +1240,10 @@
 
         formatStatus.innerHTML =
           "<strong>" + (selectedFormatConfig()?.name || "Box format") +
-          "</strong> · <span class=\"integrity-pass\">Format integrity validated.</span>";
+          "</strong> · <span class=\"integrity-pass\">Format integrity + runtime contract validated.</span>";
         analysisContent.hidden = false;
 
+        activeContractReport = runtimeContract;
         productMetadataData = metadata;
         playerIndexData = nextPlayerIndex;
         playerProbabilityData = nextPlayerProbabilities;
@@ -1284,8 +1318,14 @@
           return;
         }
 
+        analysisContent.hidden = true;
+        currentTeamEntry = null;
+        currentEvUsd = null;
         resultEvSummary.textContent = "Unavailable";
-        evCoverage.textContent = "Product datasets unavailable";
+        evCoverage.textContent =
+          error?.name === "DataContractError"
+            ? "Dataset contract validation failed"
+            : "Product datasets unavailable";
       }
     }
 
