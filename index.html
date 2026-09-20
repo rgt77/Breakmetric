@@ -172,6 +172,25 @@
     }
     .analysis-context .context-item{color:var(--text);font-weight:700}
     .analysis-context .context-sep{color:var(--muted)}
+    .analysis-scope{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:10px 0 4px;
+    }
+    .analysis-scope>div{
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#0e1528;
+    }
+    .analysis-scope span{
+      display:block;
+      color:var(--muted);
+      font-size:.72rem;
+      margin-bottom:5px;
+    }
+    .analysis-scope strong{font-size:.9rem}
     .browse-search{margin:20px 0 6px}
     .browse-search input{padding:14px 16px}
     .browse-search-hint{margin:7px 0 0!important;font-size:.75rem;color:var(--muted)}
@@ -354,7 +373,7 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:760px){
-      .summary,.primary-results,.detail-results,.form-grid,.player-stats{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
       .hero{padding-top:55px}
@@ -387,8 +406,8 @@
           <span>Value relative to spot price</span>
         </div>
         <div class="metric">
-          <strong>Risk</strong>
-          <span>Hit probability and downside</span>
+          <strong>Probability</strong>
+          <span>Hit likelihood by team and player</span>
         </div>
       </div>
     </section>
@@ -426,6 +445,16 @@
 
       <div id="analysisContent">
       <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
+      <div class="analysis-scope" aria-live="polite">
+        <div>
+          <span>Analysis unit</span>
+          <strong id="analysisUnitText">—</strong>
+        </div>
+        <div>
+          <span>Physical scope</span>
+          <strong id="analysisPhysicalText">—</strong>
+        </div>
+      </div>
       <div class="browse-search">
         <label for="browseSearch">Search team or player</label>
         <input
@@ -490,15 +519,15 @@
             <strong id="playerAutoChance">—</strong>
           </div>
           <div class="player-stat">
-            <span>Expected autos / case</span>
+            <span id="playerExpectedAutosLabel">Expected autos / case</span>
             <strong id="playerExpectedAutos">—</strong>
           </div>
           <div class="player-stat">
-            <span>Expected inserts / case</span>
+            <span id="playerExpectedInsertsLabel">Expected inserts / case</span>
             <strong id="playerExpectedInserts">—</strong>
           </div>
           <div class="player-stat">
-            <span>Expected base parallels / case</span>
+            <span id="playerExpectedBaseParallelsLabel">Expected base parallels / case</span>
             <strong id="playerExpectedBaseParallels">—</strong>
           </div>
           <div class="player-stat">
@@ -507,7 +536,7 @@
           </div>
         </div>
         <p class="spot-note" style="margin-top:10px!important">
-          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. Entry coverage measures checklist entries connected to at least one published Hobby odds row; it does not mean every possible parallel has published odds.
+          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. Hit chance is not the same as profit chance or positive ROI. Entry coverage measures checklist entries connected to at least one published odds row; it does not mean every possible parallel has published odds. Probability-entry coverage and market-value coverage are separate: a player can have complete probability mapping while only a subset of cards has usable market valuations.
         </p>
         <div id="playerCoverageDetail" class="player-card-list"></div>
 
@@ -570,7 +599,7 @@
         <summary>Show details</summary>
         <div class="results detail-results">
           <div class="result">
-            <span>Expected autos</span>
+            <span id="resultExpectedAutosLabel">Expected autos</span>
             <strong id="resultExpectedAutos">Loading…</strong>
           </div>
           <div class="result">
@@ -578,11 +607,11 @@
             <strong id="resultAutoChecklistCount">Loading…</strong>
           </div>
           <div class="result">
-            <span>Expected inserts</span>
+            <span id="resultExpectedInsertsLabel">Expected inserts</span>
             <strong id="resultExpectedInserts">Loading…</strong>
           </div>
           <div class="result">
-            <span>Expected base parallels</span>
+            <span id="resultExpectedBaseParallelsLabel">Expected base parallels</span>
             <strong id="resultExpectedBaseParallels">Loading…</strong>
           </div>
           <div class="result">
@@ -634,6 +663,8 @@
     const formatStatus = document.getElementById("formatStatus");
     const analysisContent = document.getElementById("analysisContent");
     const analysisContext = document.getElementById("analysisContext");
+    const analysisUnitText = document.getElementById("analysisUnitText");
+    const analysisPhysicalText = document.getElementById("analysisPhysicalText");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
@@ -650,8 +681,11 @@
     const playerBaseHitChance = document.getElementById("playerBaseHitChance");
     const playerInsertHitChance = document.getElementById("playerInsertHitChance");
     const playerAutoChance = document.getElementById("playerAutoChance");
+    const playerExpectedAutosLabel = document.getElementById("playerExpectedAutosLabel");
     const playerExpectedAutos = document.getElementById("playerExpectedAutos");
+    const playerExpectedInsertsLabel = document.getElementById("playerExpectedInsertsLabel");
     const playerExpectedInserts = document.getElementById("playerExpectedInserts");
+    const playerExpectedBaseParallelsLabel = document.getElementById("playerExpectedBaseParallelsLabel");
     const playerExpectedBaseParallels = document.getElementById("playerExpectedBaseParallels");
     const playerProbabilityCoverage = document.getElementById("playerProbabilityCoverage");
     const playerCoverageDetail = document.getElementById("playerCoverageDetail");
@@ -763,6 +797,53 @@
         throw new Error("Missing product data path: " + key);
       }
       return value;
+    }
+
+    function analysisUnitConfig() {
+      return selectedFormatConfig()?.analysis_unit || null;
+    }
+
+    function analysisUnitLabel() {
+      return analysisUnitConfig()?.display_name || "selected analysis unit";
+    }
+
+    function formatPhysicalSummary() {
+      const config = selectedFormatConfig()?.configuration || {};
+      const unit = analysisUnitConfig() || {};
+      const parts = [];
+
+      if (Number.isFinite(Number(unit.boxes))) {
+        parts.push(Number(unit.boxes) + " boxes");
+      }
+      if (Number.isFinite(Number(unit.packs))) {
+        parts.push(Number(unit.packs) + " packs");
+      }
+      if (Number.isFinite(Number(unit.cards))) {
+        parts.push(Number(unit.cards) + " cards");
+      }
+
+      if (!parts.length && Number.isFinite(Number(config.packs_per_box))) {
+        parts.push(Number(config.packs_per_box) + " packs / box");
+      }
+
+      return parts.length ? parts.join(" · ") : "Configuration pending";
+    }
+
+    function updateAnalysisUnitUi() {
+      const unitLabel = analysisUnitLabel();
+
+      analysisUnitText.textContent = unitLabel;
+      analysisPhysicalText.textContent = formatPhysicalSummary();
+
+      playerExpectedAutosLabel.textContent = "Expected autos / " + unitLabel;
+      playerExpectedInsertsLabel.textContent = "Expected inserts / " + unitLabel;
+      playerExpectedBaseParallelsLabel.textContent =
+        "Expected base parallels / " + unitLabel;
+
+      resultExpectedAutosLabel.textContent = "Expected autos / " + unitLabel;
+      resultExpectedInsertsLabel.textContent = "Expected inserts / " + unitLabel;
+      resultExpectedBaseParallelsLabel.textContent =
+        "Expected base parallels / " + unitLabel;
     }
 
     function selectedFormatConfig() {
@@ -1083,7 +1164,13 @@
 
         const state = document.createElement("span");
         state.className = "format-state";
-        state.textContent = item.status === "ready" ? "Analysis ready" : "Model pending";
+        state.textContent =
+          item.status === "ready"
+            ? "Analysis ready" +
+              (item.analysis_unit?.display_name
+                ? " · " + item.analysis_unit.display_name
+                : "")
+            : "Model pending";
 
         const note = document.createElement("span");
         note.textContent = item.note || "";
@@ -1091,6 +1178,16 @@
         button.appendChild(title);
         button.appendChild(state);
         button.appendChild(note);
+
+        if (item.status === "ready" && item.analysis_unit) {
+          const scope = document.createElement("span");
+          scope.textContent = [
+            Number(item.analysis_unit.boxes) + " boxes",
+            Number(item.analysis_unit.packs) + " packs",
+            Number(item.analysis_unit.cards) + " cards"
+          ].join(" · ");
+          button.appendChild(scope);
+        }
 
         button.addEventListener("click", async () => {
           if (selectedFormat === item.id) return;
@@ -1245,16 +1342,20 @@
 
     function updateAnalysisContext() {
       if (!analysisContext) return;
+      updateAnalysisUnitUi();
 
       const productLabel =
         currentProduct?.display_name ||
         currentProduct?.name ||
         "Product";
 
-      const formatLabel =
-        (formatCatalogData?.formats || [])
-          .find(item => item.id === selectedFormat)?.name ||
-        "Box type";
+      const formatConfig = selectedFormatConfig();
+      const formatLabel = formatConfig
+        ? formatConfig.name +
+          (formatConfig.analysis_unit?.display_name
+            ? " · " + formatConfig.analysis_unit.display_name
+            : "")
+        : "Box type";
 
       const teamLabel = team.value || "Team";
       const parts = [productLabel, formatLabel, teamLabel];
@@ -1312,9 +1413,12 @@
     const resultEvLabel = document.getElementById("resultEvLabel");
     const resultEvSummary = document.getElementById("resultEvSummary");
     const evCoverage = document.getElementById("evCoverage");
+    const resultExpectedAutosLabel = document.getElementById("resultExpectedAutosLabel");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
+    const resultExpectedInsertsLabel = document.getElementById("resultExpectedInsertsLabel");
     const resultExpectedInserts = document.getElementById("resultExpectedInserts");
+    const resultExpectedBaseParallelsLabel = document.getElementById("resultExpectedBaseParallelsLabel");
     const resultExpectedBaseParallels = document.getElementById("resultExpectedBaseParallels");
     const resultTrackedSerials = document.getElementById("resultTrackedSerials");
     const resultLiveOddsStatus = document.getElementById("resultLiveOddsStatus");
