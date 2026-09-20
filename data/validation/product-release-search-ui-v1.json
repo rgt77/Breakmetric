@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 167,
+  "checks": {
+    "product_search_present": true,
+    "status_present": true,
+    "live_listener": true,
+    "filters_display_name": true,
+    "filters_brand": true,
+    "filters_competition": true,
+    "filters_year": true,
+    "newest_first": true,
+    "empty_state": true,
+    "existing_product_click_flow_preserved": true
+  },
+  "result": "pass"
+}
