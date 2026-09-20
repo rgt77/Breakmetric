@@ -2148,7 +2148,7 @@
     }
 
     team.addEventListener("change", () => {
-      writeProductSelection("team", team.value, productIdAtStart);
+      writeProductSelection("team", team.value);
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
