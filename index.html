@@ -605,6 +605,24 @@
         </p>
       </details>
 
+      <details class="details-panel" id="dataFreshnessPanel">
+        <summary>Data dates</summary>
+        <div class="player-card-list">
+          <div class="player-data-row">
+            <div>Product validation</div>
+            <strong id="freshProduct">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Format validation</div>
+            <strong id="freshFormat">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Market registry</div>
+            <strong id="freshMarket">Pending</strong>
+          </div>
+        </div>
+      </details>
+
       <div class="browse-search">
         <label for="browseSearch">Search team or player</label>
         <input
@@ -821,6 +839,7 @@
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
+  <script src="src/dataFreshness.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
@@ -854,6 +873,9 @@
     const qualityMarket = document.getElementById("qualityMarket");
     const qualityRoi = document.getElementById("qualityRoi");
     const analysisProvenanceRows = document.getElementById("analysisProvenanceRows");
+    const freshProduct = document.getElementById("freshProduct");
+    const freshFormat = document.getElementById("freshFormat");
+    const freshMarket = document.getElementById("freshMarket");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
@@ -933,6 +955,8 @@
     let formatLoadToken = 0;
     let formatCatalogData = null;
     let productMetadataData = null;
+    let productIntegrityData = null;
+    let formatIntegrityData = null;
     let selectedProductId =
       initialUrlState.product ||
       localStorage.getItem("breakmetric_product") ||
@@ -1116,6 +1140,45 @@
       });
     }
 
+    function currentFreshness() {
+      return BreakMetricFreshness.build({
+        productIntegrity: productIntegrityData,
+        formatIntegrity: formatIntegrityData,
+        marketRegistry: marketRegistryData
+      });
+    }
+
+    function updateFreshnessUi() {
+      const freshness = currentFreshness();
+      const validation = BreakMetricFreshness.validate(freshness);
+
+      if (!validation.valid) {
+        freshProduct.textContent = "Invalid date";
+        freshFormat.textContent = "Invalid date";
+        freshMarket.textContent = "Invalid date";
+        return;
+      }
+
+      freshProduct.textContent =
+        BreakMetricFreshness.label(freshness.product_validated_at);
+      freshFormat.textContent =
+        BreakMetricFreshness.label(freshness.format_validated_at);
+      freshMarket.textContent =
+        BreakMetricFreshness.label(freshness.market_generated_at);
+    }
+
+    function appendProvenanceRow(label, value) {
+      const row = document.createElement("div");
+      row.className = "player-data-row";
+      const left = document.createElement("div");
+      left.textContent = label;
+      const right = document.createElement("strong");
+      right.textContent = value;
+      row.appendChild(left);
+      row.appendChild(right);
+      analysisProvenanceRows.appendChild(row);
+    }
+
     function updateAnalysisProvenance() {
       const provenance = buildCurrentAnalysisProvenance();
       analysisProvenanceData = provenance;
@@ -1141,18 +1204,23 @@
       }
 
       for (const item of BreakMetricProvenance.summaryLines(provenance)) {
-        const row = document.createElement("div");
-        row.className = "player-data-row";
+        appendProvenanceRow(item.label, item.value);
+      }
 
-        const left = document.createElement("div");
-        left.textContent = item.label;
-
-        const right = document.createElement("strong");
-        right.textContent = item.value;
-
-        row.appendChild(left);
-        row.appendChild(right);
-        analysisProvenanceRows.appendChild(row);
+      const freshness = currentFreshness();
+      if (BreakMetricFreshness.validate(freshness).valid) {
+        appendProvenanceRow(
+          "Product validated",
+          BreakMetricFreshness.label(freshness.product_validated_at)
+        );
+        appendProvenanceRow(
+          "Format validated",
+          BreakMetricFreshness.label(freshness.format_validated_at)
+        );
+        appendProvenanceRow(
+          "Market registry",
+          BreakMetricFreshness.label(freshness.market_generated_at)
+        );
       }
 
       if (selectedPlayer && provenance.probability.player_probability_available) {
@@ -1401,6 +1469,8 @@
     function resetProductData() {
       productLoadToken += 1;
       productMetadataData = null;
+      productIntegrityData = null;
+      formatIntegrityData = null;
       teamEvData = null;
       baseChecklistData = null;
       playerIndexData = null;
@@ -1450,6 +1520,9 @@
       qualityRoi.textContent = "Locked";
       qualityRoi.className = "quality-locked";
       analysisProvenanceRows.innerHTML = "";
+      freshProduct.textContent = "Pending";
+      freshFormat.textContent = "Pending";
+      freshMarket.textContent = "Pending";
       setAnalysisLoadState("idle");
     }
 
@@ -1677,6 +1750,8 @@
         setAnalysisLoadState("ready");
 
         activeContractReport = runtimeContract;
+        productIntegrityData = productIntegrity;
+        formatIntegrityData = formatIntegrity;
         productMetadataData = metadata;
         playerIndexData = nextPlayerIndex;
         playerProbabilityData = nextPlayerProbabilities;
@@ -1763,6 +1838,7 @@
         updateResults();
         updateAnalysisContext();
         updateAnalysisProvenance();
+        updateFreshnessUi();
         syncUrlState();
       } catch (error) {
         if (
