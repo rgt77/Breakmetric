@@ -700,6 +700,7 @@
 
   <footer>© 2026 BreakMetric</footer>
 
+  <script src="src/runtimeContracts.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
@@ -759,6 +760,7 @@
 
     let productSearchQuery = "";
     let productLoadToken = 0;
+    let formatLoadToken = 0;
     let formatCatalogData = null;
     let productMetadataData = null;
     let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
@@ -1288,7 +1290,11 @@
     }
 
     async function loadFormats() {
-      if (!currentProduct?.format_data) {
+      const token = ++formatLoadToken;
+      const productIdAtStart = currentProduct?.id || null;
+      const formatPathAtStart = currentProduct?.format_data || null;
+
+      if (!currentProduct || !formatPathAtStart) {
         formatCatalogData = null;
         formatGrid.innerHTML = "";
         formatStage.hidden = true;
@@ -1298,22 +1304,64 @@
       }
 
       formatStage.hidden = false;
+      analysisContent.hidden = true;
+      formatGrid.innerHTML = "";
       formatStatus.textContent = "Loading box formats…";
 
       try {
-        const response = await fetch(currentProduct.format_data);
+        const response = await fetch(formatPathAtStart);
         if (!response.ok) throw new Error("Format catalog unavailable");
-        formatCatalogData = await response.json();
+        const nextFormatCatalog = await response.json();
 
-        if (!(formatCatalogData.formats || []).some(item => item.id === selectedFormat)) {
-          selectedFormat = "hobby";
+        if (
+          token !== formatLoadToken ||
+          currentProduct?.id !== productIdAtStart ||
+          currentProduct?.format_data !== formatPathAtStart
+        ) {
+          return;
+        }
+
+        const contract = BreakMetricContracts.validateFormatCatalog(
+          nextFormatCatalog,
+          productIdAtStart
+        );
+
+        if (!contract.valid) {
+          const error = new Error(
+            "Format catalog contract failed: " + contract.errors.join("; ")
+          );
+          error.name = "DataContractError";
+          throw error;
+        }
+
+        formatCatalogData = nextFormatCatalog;
+
+        const reconciledFormat = BreakMetricContracts.reconcileFormat(
+          formatCatalogData,
+          selectedFormat
+        );
+
+        if (reconciledFormat !== selectedFormat) {
+          selectedFormat = reconciledFormat;
+          writeProductSelection("format", selectedFormat);
         }
 
         renderFormats();
         applyFormatSelection();
       } catch (error) {
+        if (
+          token !== formatLoadToken ||
+          currentProduct?.id !== productIdAtStart
+        ) {
+          return;
+        }
+
+        formatCatalogData = null;
         formatGrid.innerHTML = "";
-        formatStatus.textContent = "Box format data unavailable.";
+        formatStatus.textContent =
+          error?.name === "DataContractError"
+            ? "Box format data failed integrity validation."
+            : "Box format data unavailable.";
         analysisContent.hidden = true;
       }
     }
@@ -1466,6 +1514,9 @@
         button.addEventListener("click", async () => {
           selectedProductId = item.id;
           productLoadToken += 1;
+          formatLoadToken += 1;
+          formatCatalogData = null;
+          formatGrid.innerHTML = "";
           localStorage.setItem("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
@@ -2466,6 +2517,9 @@
         }
 
         if (currentProduct?.status === "ready") {
+          formatLoadToken += 1;
+          formatCatalogData = null;
+          formatGrid.innerHTML = "";
           resetProductData();
           await loadFormats();
 
