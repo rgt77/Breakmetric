@@ -66,6 +66,14 @@ pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
 
+const n200 = json("data/validation/v13-n200.json");
+pass("n200 step count is exactly 200", n200.step_count === 200 && n200.steps?.length === 200);
+pass("n200 starts at step 498", n200.steps?.[0]?.step === 498);
+pass("n200 ends at step 697", n200.steps?.[199]?.step === 697);
+pass("n200 steps are sequential", n200.steps?.every((row,index)=>row.step === 498 + index));
+pass("n200 implementation flags complete", n200.steps?.every(row=>row.implemented === true));
+pass("n200 release marker is v1.3.0", n200.release === "BreakMetric v1.3.0");
+
 const catalog = json("data/products/catalog.json");
 pass("product catalog has products", Array.isArray(catalog.products) && catalog.products.length > 0);
 
@@ -190,6 +198,15 @@ for (const product of catalog.products || []) {
 }
 
 const html = read("index.html");
+const headers = read("_headers");
+const webmanifest = json("site.webmanifest");
+pass("webmanifest name is BreakMetric", webmanifest.name === "BreakMetric");
+pass("webmanifest standalone display", webmanifest.display === "standalone");
+pass("webmanifest theme matches app", webmanifest.theme_color === "#0b1020");
+pass("production headers revalidate HTML", headers.includes("/index.html") && headers.includes("Cache-Control: no-cache, must-revalidate"));
+pass("production headers revalidate data", headers.includes("/data/*"));
+pass("production headers define source cache", headers.includes("/src/*") && headers.includes("max-age=300"));
+pass("production headers define manifest cache", headers.includes("/site.webmanifest") && headers.includes("max-age=3600"));
 const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join("\n");
 try {
   new vm.Script(inline, { filename: "index.inline.js" });
@@ -215,7 +232,7 @@ for (const module of [
   "urlState.js"
 ]) {
   pass(
-    `v1.2 module loaded in UI: ${module}`,
+    `required module loaded in UI: ${module}`,
     html.includes(`src/${module}`)
   );
 }
@@ -258,7 +275,12 @@ pass("inline app has no direct localStorage calls", !inline.includes("localStora
 pass("bundle loading uses bounded loadMany", html.includes("BreakMetricDataLoader.loadMany(paths") && html.includes("concurrency: 6"));
 pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
-pass("version is v1.2.0", html.includes("BreakMetric v1.2.0"));
+pass("webmanifest linked", html.includes('rel="manifest" href="site.webmanifest"'));
+pass("Open Graph title present", html.includes('property="og:title"'));
+pass("Open Graph description present", html.includes('property="og:description"'));
+pass("Open Graph website type present", html.includes('property="og:type" content="website"'));
+pass("dark color scheme declared", html.includes('name="color-scheme" content="dark"'));
+pass("version is v1.3.0", html.includes("BreakMetric v1.3.0"));
 
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
