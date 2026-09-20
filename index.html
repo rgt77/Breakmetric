@@ -812,6 +812,10 @@
             <strong id="evCategoryScope">Pending</strong>
           </div>
           <div class="player-data-row">
+            <div>EV derivation lineage<small>Each valued contribution must resolve to a derivation file and market source.</small></div>
+            <strong id="evDerivationLineage">Pending</strong>
+          </div>
+          <div class="player-data-row">
             <div>Current blockers</div>
             <strong id="evCoverageBlockers">Pending</strong>
           </div>
@@ -968,6 +972,7 @@
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
   <script src="src/evWorkQueue.js"></script>
+  <script src="src/evContributionProvenance.js"></script>
   <script src="src/marketCoverage.js"></script>
   <script src="src/marketEvidenceQuality.js"></script>
   <script src="src/marketRecordQuality.js"></script>
@@ -1121,6 +1126,7 @@
     let teamEvData = null;
     let evScopeData = null;
     let evWorkQueueData = null;
+    let evContributionProvenanceData = null;
     let marketVerificationQueueData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
@@ -1796,6 +1802,7 @@
       teamEvData = null;
       evScopeData = null;
       evWorkQueueData = null;
+      evContributionProvenanceData = null;
       marketVerificationQueueData = null;
       baseChecklistData = null;
       playerIndexData = null;
@@ -1824,6 +1831,7 @@
       evCoverageBasis.textContent = "Pending";
       evSourceCoverage.textContent = "Pending";
       evCategoryScope.textContent = "Pending";
+      evDerivationLineage.textContent = "Pending";
       evCoverageBlockers.textContent = "Pending";
       evNextTask.textContent = "Pending";
       evTeamQueue.textContent = "Pending";
@@ -1905,6 +1913,7 @@
           teamEv: formatPath("ev_data"),
           evScope: formatPath("ev_scope_data"),
           evWorkQueue: formatPath("ev_work_queue_data"),
+          evContributionProvenance: formatPath("ev_contribution_provenance_data"),
           marketVerificationQueue: formatPath("market_verification_queue_data")
         };
 
@@ -1927,6 +1936,7 @@
           nextTeamEv,
           nextEvScope,
           nextEvWorkQueue,
+          nextEvContributionProvenance,
           nextMarketVerificationQueue
         ] = await Promise.all([
           fetchJsonForProduct(paths.productIntegrity, token),
@@ -1947,6 +1957,7 @@
           fetchJsonForProduct(paths.teamEv, token),
           fetchJsonForProduct(paths.evScope, token),
           fetchJsonForProduct(paths.evWorkQueue, token),
+          fetchJsonForProduct(paths.evContributionProvenance, token),
           fetchJsonForProduct(paths.marketVerificationQueue, token)
         ]);
 
@@ -1975,6 +1986,7 @@
           teamEv: nextTeamEv,
           evScope: nextEvScope,
           evWorkQueue: nextEvWorkQueue,
+          evContributionProvenance: nextEvContributionProvenance,
           marketVerificationQueue: nextMarketVerificationQueue
         };
 
@@ -2120,6 +2132,7 @@
         teamEvData = nextTeamEv;
         evScopeData = nextEvScope;
         evWorkQueueData = nextEvWorkQueue;
+        evContributionProvenanceData = nextEvContributionProvenance;
         marketVerificationQueueData = nextMarketVerificationQueue;
 
         const previousTeam =
@@ -2685,6 +2698,7 @@
     const evCoverageBasis = document.getElementById("evCoverageBasis");
     const evSourceCoverage = document.getElementById("evSourceCoverage");
     const evCategoryScope = document.getElementById("evCategoryScope");
+    const evDerivationLineage = document.getElementById("evDerivationLineage");
     const evCoverageBlockers = document.getElementById("evCoverageBlockers");
     const evNextTask = document.getElementById("evNextTask");
     const evTeamQueue = document.getElementById("evTeamQueue");
@@ -3611,6 +3625,7 @@
         evCoverageBasis.textContent = "Coverage model unavailable";
         evSourceCoverage.textContent = "Unavailable";
         evCategoryScope.textContent = "Unavailable";
+        evDerivationLineage.textContent = "Unavailable";
         evCoverageBlockers.textContent = validation.errors.join(" · ");
         return;
       }
@@ -3634,6 +3649,18 @@
       } else {
         evCategoryScope.textContent = "Scope unavailable";
       }
+
+      const lineage = BreakMetricEvContributionProvenance.teamSummary(
+        evContributionProvenanceData || {},
+        team.value
+      );
+      evDerivationLineage.textContent =
+        lineage.contribution_count
+          ? lineage.derivation_linked_count + "/" +
+            lineage.contribution_count + " derivation-linked · " +
+            lineage.market_linked_count + "/" +
+            lineage.contribution_count + " market-linked"
+          : "No EV contributions";
 
       evCoverageBasis.textContent =
         model.status === "complete"
