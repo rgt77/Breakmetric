@@ -36,3 +36,35 @@ export function calculateMarketValue(sales) {
     confidence: confidenceFromSalesCount(validSales.length)
   };
 }
+
+
+// Evidence-aware confidence. Sales-count confidence alone must never promote
+// secondary-source-only data to verified/high-confidence market value.
+export function evidenceAwareConfidence({
+  original_verified_sale_count = 0,
+  secondary_realized_sale_count = 0,
+  original_source_count = 0
+} = {}) {
+  if (original_verified_sale_count >= 10 && original_source_count >= 2) {
+    return "high";
+  }
+  if (original_verified_sale_count >= 4) {
+    return "medium";
+  }
+  if (original_verified_sale_count >= 1) {
+    return "low";
+  }
+  if (secondary_realized_sale_count >= 1) {
+    return "provisional";
+  }
+  return "none";
+}
+
+export function marketValueStatus({
+  original_verified_sale_count = 0,
+  secondary_realized_sale_count = 0
+} = {}) {
+  if (original_verified_sale_count > 0) return "verified";
+  if (secondary_realized_sale_count > 0) return "provisional-secondary-source";
+  return "unavailable";
+}
