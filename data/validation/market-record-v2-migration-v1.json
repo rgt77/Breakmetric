@@ -1,0 +1,51 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 228-232",
+  "market_record_schema_version": 2,
+  "audited_market_records": 27,
+  "audited_sales": 72,
+  "secondary_source_realized_sales": 72,
+  "original_marketplace_verified_sales": 0,
+  "legacy_verification_flags_found": 0,
+  "audit_generator": "src/marketAudit.js",
+  "checks": {
+    "step_228_market_record_schema_v2_available": true,
+    "step_229_all_27_market_records_migrated": true,
+    "step_230_all_72_sales_are_secondary_source": true,
+    "step_230_zero_original_marketplace_verified_sales": true,
+    "step_230_zero_legacy_verification_flags": true,
+    "step_231_audit_is_reproducible": true,
+    "step_231_audit_source_count_matches_ev": true,
+    "step_232_market_files_pass_three_batch_validation": true
+  },
+  "result": "pass",
+  "batch_validation": [
+    {
+      "batch": 1,
+      "records": 9,
+      "sales": 17,
+      "secondary": 17,
+      "original": 0,
+      "legacy": 0,
+      "problems": 0
+    },
+    {
+      "batch": 2,
+      "records": 9,
+      "sales": 41,
+      "secondary": 41,
+      "original": 0,
+      "legacy": 0,
+      "problems": 0
+    },
+    {
+      "batch": 3,
+      "records": 9,
+      "sales": 14,
+      "secondary": 14,
+      "original": 0,
+      "legacy": 0,
+      "problems": 0
+    }
+  ]
+}
