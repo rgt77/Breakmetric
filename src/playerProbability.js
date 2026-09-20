@@ -23,3 +23,17 @@ export function chanceAtLeastOneFromDraws(draws, checklistShare) {
 export function combineIndependentNoHitProbabilities(noHitProbabilities = []) {
   return 1 - noHitProbabilities.reduce((product, value) => product * value, 1);
 }
+
+
+export function overallModeledHitChance(categoryChances = []) {
+  const valid = categoryChances
+    .map(Number)
+    .filter(value => Number.isFinite(value) && value >= 0 && value <= 1);
+
+  if (!valid.length) return 0;
+
+  return 1 - valid.reduce(
+    (noHit, chance) => noHit * (1 - chance),
+    1
+  );
+}
