@@ -20,7 +20,6 @@
         "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
         "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
         "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json",
-        "market_evidence_audit_data": "data/market/2026-topps-chrome-premier-league/market-evidence-audit-v2.json",
         "market_evidence_registry_data": "data/market/2026-topps-chrome-premier-league/market-evidence-registry-v1.json"
       },
       "configuration": {
