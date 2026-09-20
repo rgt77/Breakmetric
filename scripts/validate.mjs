@@ -101,6 +101,38 @@ for (const product of catalog.products || []) {
     pass(`market registry date valid: ${product.id}/${format.id}`, strictDate(registry.generated_at));
 
     const evData = json(format.analysis_data.ev_data);
+    const evScope = json(format.analysis_data.ev_scope_data);
+    pass(
+      `EV scope validates: ${product.id}/${format.id}`,
+      evScope.product_id === product.id &&
+      evScope.format_id === format.id &&
+      evScope.model === "team-ev-scope-v1"
+    );
+    pass(
+      `EV scope canonical team count: ${product.id}/${format.id}`,
+      Object.keys(evScope.teams || {}).length === (metadata.teams || []).length
+    );
+    for (const team of (metadata.teams || []).map(row => row.name)) {
+      const scopeRow = evScope.teams?.[team];
+      const evRow = evData.teams?.[team] || null;
+      const categories = ["base_parallels","inserts","autographs"];
+      const valuedScope = categories.reduce(
+        (sum,key) => sum + Number(scopeRow?.categories?.[key]?.valued_contribution_count || 0),
+        0
+      );
+      pass(
+        `EV scope categories present: ${product.id}/${format.id}/${team}`,
+        categories.every(key => scopeRow?.categories?.[key])
+      );
+      pass(
+        `EV scope contribution count matches EV: ${product.id}/${format.id}/${team}`,
+        valuedScope === Number(evRow?.valued_card_count || 0)
+      );
+      pass(
+        `EV scope completion matches EV: ${product.id}/${format.id}/${team}`,
+        Boolean(scopeRow?.coverage_complete) === Boolean(evRow?.coverage_complete)
+      );
+    }
     for (const [team,row] of Object.entries(evData.teams || {})) {
       if (row.coverage_complete === true) {
         pass(
