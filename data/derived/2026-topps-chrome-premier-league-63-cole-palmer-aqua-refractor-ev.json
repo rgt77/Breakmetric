@@ -1,0 +1,20 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "63",
+  "player": "Cole Palmer",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Aqua Refractor",
+  "market_value_usd": 20,
+  "hobby": {
+    "parallel_odds_per_pack": "1:57",
+    "eligible_base_cards": 200,
+    "packs_per_case": 240
+  },
+  "assumption": "All 200 standard base subjects are treated as equally likely within the Aqua Refractor parallel.",
+  "calculation": {
+    "expected_copies_per_case": 0.021052631578947368,
+    "probability_at_least_one_in_case": 0.020833476092045777,
+    "ev_contribution_usd": 0.42105263157894735
+  }
+}
