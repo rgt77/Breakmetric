@@ -206,6 +206,20 @@
           errors.push("ready format "+format.id+" lacks integrity_data");
         }
 
+        const allocation=format.break_allocation_policy||{};
+        if(allocation.status!=="protected"){
+          errors.push("ready format "+format.id+" break allocation policy must be protected");
+        }
+        if(allocation.single_team_rule!=="listed-team"){
+          errors.push("ready format "+format.id+" single-team allocation rule invalid");
+        }
+        if(allocation.multi_team_rule!=="exclude-until-explicit-break-rule"){
+          errors.push("ready format "+format.id+" multi-team allocation rule invalid");
+        }
+        if(allocation.ev_treatment!=="exclude-unallocated-multi-team-cards"){
+          errors.push("ready format "+format.id+" EV allocation treatment invalid");
+        }
+
         const config=format.configuration||{};
         for(const key of ["boxes_per_case","packs_per_box","cards_per_pack"]){
           if(!finite(config[key]) || Number(config[key])<=0){
