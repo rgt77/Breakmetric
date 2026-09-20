@@ -259,6 +259,10 @@
             <strong id="resultSealedSupplyStatus">Loading…</strong>
           </div>
           <div class="result">
+            <span>Implied Hobby cases</span>
+            <strong id="resultImpliedHobbyCases">Loading…</strong>
+          </div>
+          <div class="result">
             <span>Expected net</span>
             <strong id="resultNet">—</strong>
           </div>
@@ -301,6 +305,7 @@
     let baseParallelProbabilityData = null;
     let liveSupplyData = null;
     let sealedSupplyData = null;
+    let productionData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -349,6 +354,7 @@
     const resultTrackedSerials = document.getElementById("resultTrackedSerials");
     const resultLiveOddsStatus = document.getElementById("resultLiveOddsStatus");
     const resultSealedSupplyStatus = document.getElementById("resultSealedSupplyStatus");
+    const resultImpliedHobbyCases = document.getElementById("resultImpliedHobbyCases");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -430,6 +436,25 @@
     });
 
 
+    async function loadProductionEstimate() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json"
+        );
+        if (!response.ok) throw new Error("Production estimate unavailable");
+        productionData = await response.json();
+        const low = Number(productionData?.aggregate?.implied_hobby_cases_low);
+        const high = Number(productionData?.aggregate?.implied_hobby_cases_high);
+
+        resultImpliedHobbyCases.textContent =
+          Number.isFinite(low) && Number.isFinite(high)
+            ? Math.round(low).toLocaleString() + "–" + Math.round(high).toLocaleString()
+            : "Unavailable";
+      } catch (error) {
+        resultImpliedHobbyCases.textContent = "Unavailable";
+      }
+    }
+
     async function loadSealedSupply() {
       try {
         const response = await fetch(
@@ -448,6 +473,8 @@
 
       if (status === "qualitative-evidence-only") {
         resultSealedSupplyStatus.textContent = "Signals only";
+      } else if (status === "production-denominator-estimated") {
+        resultSealedSupplyStatus.textContent = "Production known · sealed unknown";
       } else if (status === "estimated-range") {
         resultSealedSupplyStatus.textContent = "Estimated range";
       } else {
@@ -705,6 +732,7 @@
     loadBaseParallelProbabilities();
     loadLiveSupply();
     loadSealedSupply();
+    loadProductionEstimate();
     loadProducts();
 
     function updateResults() {
