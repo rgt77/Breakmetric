@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "checks": {
+    "one_price_input": true,
+    "one_currency_select": true,
+    "one_fx_status": true,
+    "spot_after_team_overview": true,
+    "spot_before_team_results": true,
+    "currency_compact_inside_price_combo": true,
+    "search_before_spot": true,
+    "players_before_spot": true,
+    "existing_currency_logic_preserved": true,
+    "existing_price_logic_preserved": true
+  },
+  "result": "pass"
+}
