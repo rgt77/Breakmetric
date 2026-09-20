@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "checks": {
+    "format_grid_present": true,
+    "format_status_present": true,
+    "analysis_wrapper_present": true,
+    "box_type_is_step_1": true,
+    "team_is_step_2": true,
+    "player_is_step_3": true,
+    "format_persistence": true,
+    "unsupported_formats_hide_analysis": true,
+    "hobby_shows_analysis": true,
+    "no_false_cross_format_analysis": true
+  },
+  "result": "pass"
+}
