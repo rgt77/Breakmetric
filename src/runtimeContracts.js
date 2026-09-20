@@ -290,6 +290,12 @@
     return merge(results);
   };
 
+  api.reconcileProduct=function(catalog={},storedProduct){
+    const products=catalog.products||[];
+    if(products.some(x=>x.id===storedProduct)) return storedProduct;
+    return products.find(x=>x.status==="ready")?.id || products[0]?.id || null;
+  };
+
   api.reconcileFormat=function(catalog={},storedFormat){
     const formats=catalog.formats||[];
     if(formats.some(x=>x.id===storedFormat)) return storedFormat;
