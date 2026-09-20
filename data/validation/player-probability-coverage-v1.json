@@ -1,0 +1,45 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 146-155",
+  "checks": [
+    {
+      "name": "all_players_have_coverage",
+      "passed": true
+    },
+    {
+      "name": "coverage_is_bounded",
+      "passed": true
+    },
+    {
+      "name": "category_coverage_present",
+      "passed": true
+    },
+    {
+      "name": "unmapped_sections_are_explicit",
+      "passed": true
+    },
+    {
+      "name": "cold_battle_plural_mapping_supported",
+      "passed": true
+    },
+    {
+      "name": "main_auto_label_normalization_preserved",
+      "passed": true
+    },
+    {
+      "name": "overall_hit_chance_preserved",
+      "passed": true
+    },
+    {
+      "name": "no_missing_odds_invented",
+      "passed": true
+    }
+  ],
+  "distribution": {
+    "complete": 364,
+    "partial": 0,
+    "none": 0,
+    "total": 364
+  },
+  "result": "pass"
+}
