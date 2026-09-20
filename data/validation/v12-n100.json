@@ -1,0 +1,516 @@
+{
+  "validated_at": "2026-09-20",
+  "release": "BreakMetric v1.2.0",
+  "block": "steps 397-496",
+  "step_count": 100,
+  "steps": [
+    {
+      "step": 397,
+      "title": "Create analysis quality model",
+      "implemented": true
+    },
+    {
+      "step": 398,
+      "title": "Normalize market confidence levels",
+      "implemented": true
+    },
+    {
+      "step": 399,
+      "title": "Define probability readiness state",
+      "implemented": true
+    },
+    {
+      "step": 400,
+      "title": "Define EV readiness state",
+      "implemented": true
+    },
+    {
+      "step": 401,
+      "title": "Define ROI gate reasons",
+      "implemented": true
+    },
+    {
+      "step": 402,
+      "title": "Validate analysis quality summaries",
+      "implemented": true
+    },
+    {
+      "step": 403,
+      "title": "Add v1.2 methodology manifest",
+      "implemented": true
+    },
+    {
+      "step": 404,
+      "title": "Document probability EV market and ROI separation",
+      "implemented": true
+    },
+    {
+      "step": 405,
+      "title": "Add four-part analysis readiness UI",
+      "implemented": true
+    },
+    {
+      "step": 406,
+      "title": "Move technical integrity status into advanced details",
+      "implemented": true
+    },
+    {
+      "step": 407,
+      "title": "Create shareable URL-state model",
+      "implemented": true
+    },
+    {
+      "step": 408,
+      "title": "Restore product selection from URL",
+      "implemented": true
+    },
+    {
+      "step": 409,
+      "title": "Restore box-format selection from URL",
+      "implemented": true
+    },
+    {
+      "step": 410,
+      "title": "Restore team selection from URL",
+      "implemented": true
+    },
+    {
+      "step": 411,
+      "title": "Restore player selection from URL",
+      "implemented": true
+    },
+    {
+      "step": 412,
+      "title": "Synchronize selections into the address bar",
+      "implemented": true
+    },
+    {
+      "step": 413,
+      "title": "Add Copy analysis link action",
+      "implemented": true
+    },
+    {
+      "step": 414,
+      "title": "Add accessible copy-link status",
+      "implemented": true
+    },
+    {
+      "step": 415,
+      "title": "Add Clear player and price action",
+      "implemented": true
+    },
+    {
+      "step": 416,
+      "title": "Preserve share state after validated dataset load",
+      "implemented": true
+    },
+    {
+      "step": 417,
+      "title": "Create explicit EV coverage model",
+      "implemented": true
+    },
+    {
+      "step": 418,
+      "title": "Prohibit unsupported EV coverage percentages",
+      "implemented": true
+    },
+    {
+      "step": 419,
+      "title": "Track EV denominator-definition status",
+      "implemented": true
+    },
+    {
+      "step": 420,
+      "title": "Expose EV coverage blockers",
+      "implemented": true
+    },
+    {
+      "step": 421,
+      "title": "Track audited EV contributions",
+      "implemented": true
+    },
+    {
+      "step": 422,
+      "title": "Track original-marketplace verification count",
+      "implemented": true
+    },
+    {
+      "step": 423,
+      "title": "Track secondary-source contribution count",
+      "implemented": true
+    },
+    {
+      "step": 424,
+      "title": "Add EV coverage detail panel",
+      "implemented": true
+    },
+    {
+      "step": 425,
+      "title": "Show EV blockers and source-verification basis",
+      "implemented": true
+    },
+    {
+      "step": 426,
+      "title": "Require coverage_definition before complete EV is accepted",
+      "implemented": true
+    },
+    {
+      "step": 427,
+      "title": "Create dataset freshness model",
+      "implemented": true
+    },
+    {
+      "step": 428,
+      "title": "Parse strict ISO dataset dates",
+      "implemented": true
+    },
+    {
+      "step": 429,
+      "title": "Calculate dataset age in days",
+      "implemented": true
+    },
+    {
+      "step": 430,
+      "title": "Add human-readable data-age labels",
+      "implemented": true
+    },
+    {
+      "step": 431,
+      "title": "Retain product-integrity validation date at runtime",
+      "implemented": true
+    },
+    {
+      "step": 432,
+      "title": "Retain format-integrity validation date at runtime",
+      "implemented": true
+    },
+    {
+      "step": 433,
+      "title": "Expose market-registry generated date",
+      "implemented": true
+    },
+    {
+      "step": 434,
+      "title": "Add Data dates panel",
+      "implemented": true
+    },
+    {
+      "step": 435,
+      "title": "Add dataset dates to analysis provenance",
+      "implemented": true
+    },
+    {
+      "step": 436,
+      "title": "Validate freshness date structure",
+      "implemented": true
+    },
+    {
+      "step": 437,
+      "title": "Create resilient static-data loader",
+      "implemented": true
+    },
+    {
+      "step": 438,
+      "title": "Add in-memory dataset cache",
+      "implemented": true
+    },
+    {
+      "step": 439,
+      "title": "Deduplicate in-flight dataset requests",
+      "implemented": true
+    },
+    {
+      "step": 440,
+      "title": "Add data-loader cache management and stats",
+      "implemented": true
+    },
+    {
+      "step": 441,
+      "title": "Add bounded dataset request timeout",
+      "implemented": true
+    },
+    {
+      "step": 442,
+      "title": "Retry transient HTTP timeout and server failures",
+      "implemented": true
+    },
+    {
+      "step": 443,
+      "title": "Do not retry non-transient HTTP failures",
+      "implemented": true
+    },
+    {
+      "step": 444,
+      "title": "Surface dataset JSON parse failures distinctly",
+      "implemented": true
+    },
+    {
+      "step": 445,
+      "title": "Use resilient loader for analysis datasets",
+      "implemented": true
+    },
+    {
+      "step": 446,
+      "title": "Use resilient loader for product and format catalogs",
+      "implemented": true
+    },
+    {
+      "step": 447,
+      "title": "Expand focus-visible coverage",
+      "implemented": true
+    },
+    {
+      "step": 448,
+      "title": "Respect prefers-reduced-motion",
+      "implemented": true
+    },
+    {
+      "step": 449,
+      "title": "Add Ctrl/Cmd+K product-search shortcut",
+      "implemented": true
+    },
+    {
+      "step": 450,
+      "title": "Add slash team/player-search shortcut",
+      "implemented": true
+    },
+    {
+      "step": 451,
+      "title": "Allow Escape to clear team/player search",
+      "implemented": true
+    },
+    {
+      "step": 452,
+      "title": "Allow Escape to clear product search",
+      "implemented": true
+    },
+    {
+      "step": 453,
+      "title": "Expose keyboard shortcuts through aria-keyshortcuts",
+      "implemented": true
+    },
+    {
+      "step": 454,
+      "title": "Show keyboard shortcut hint",
+      "implemented": true
+    },
+    {
+      "step": 455,
+      "title": "Increase compact action touch targets",
+      "implemented": true
+    },
+    {
+      "step": 456,
+      "title": "Preserve live filtering after keyboard clearing",
+      "implemented": true
+    },
+    {
+      "step": 457,
+      "title": "Create market evidence coverage model",
+      "implemented": true
+    },
+    {
+      "step": 458,
+      "title": "Track audited contribution count",
+      "implemented": true
+    },
+    {
+      "step": 459,
+      "title": "Track original-marketplace verified count",
+      "implemented": true
+    },
+    {
+      "step": 460,
+      "title": "Track secondary-source contribution count",
+      "implemented": true
+    },
+    {
+      "step": 461,
+      "title": "Calculate original-verification share only from audited data",
+      "implemented": true
+    },
+    {
+      "step": 462,
+      "title": "Validate market evidence counts and shares",
+      "implemented": true
+    },
+    {
+      "step": 463,
+      "title": "Normalize market evidence status labels",
+      "implemented": true
+    },
+    {
+      "step": 464,
+      "title": "Add Market evidence detail panel",
+      "implemented": true
+    },
+    {
+      "step": 465,
+      "title": "Clarify verification share is not EV coverage",
+      "implemented": true
+    },
+    {
+      "step": 466,
+      "title": "Add market evidence detail to provenance",
+      "implemented": true
+    },
+    {
+      "step": 467,
+      "title": "Create user-safe error model",
+      "implemented": true
+    },
+    {
+      "step": 468,
+      "title": "Classify stale-load and contract errors",
+      "implemented": true
+    },
+    {
+      "step": 469,
+      "title": "Classify timeout and parse errors",
+      "implemented": true
+    },
+    {
+      "step": 470,
+      "title": "Classify HTTP network and unknown errors",
+      "implemented": true
+    },
+    {
+      "step": 471,
+      "title": "Create user-safe error messages",
+      "implemented": true
+    },
+    {
+      "step": 472,
+      "title": "Keep bounded in-session error history",
+      "implemented": true
+    },
+    {
+      "step": 473,
+      "title": "Add Retry analysis control",
+      "implemented": true
+    },
+    {
+      "step": 474,
+      "title": "Add safe load-error detail panel",
+      "implemented": true
+    },
+    {
+      "step": 475,
+      "title": "Retry selected analysis without page reload",
+      "implemented": true
+    },
+    {
+      "step": 476,
+      "title": "Use assertive live status for blocking load errors",
+      "implemented": true
+    },
+    {
+      "step": 477,
+      "title": "Add five-stage analysis progress component",
+      "implemented": true
+    },
+    {
+      "step": 478,
+      "title": "Make progress component responsive",
+      "implemented": true
+    },
+    {
+      "step": 479,
+      "title": "Track release-selection progress",
+      "implemented": true
+    },
+    {
+      "step": 480,
+      "title": "Track box-format progress",
+      "implemented": true
+    },
+    {
+      "step": 481,
+      "title": "Track team-selection progress",
+      "implemented": true
+    },
+    {
+      "step": 482,
+      "title": "Mark player drill-down as optional",
+      "implemented": true
+    },
+    {
+      "step": 483,
+      "title": "Track spot-price progress",
+      "implemented": true
+    },
+    {
+      "step": 484,
+      "title": "Expose active progress step with aria-current",
+      "implemented": true
+    },
+    {
+      "step": 485,
+      "title": "Refresh progress from analysis context changes",
+      "implemented": true
+    },
+    {
+      "step": 486,
+      "title": "Refresh progress from spot-price changes",
+      "implemented": true
+    },
+    {
+      "step": 487,
+      "title": "Add model smoke-test harness",
+      "implemented": true
+    },
+    {
+      "step": 488,
+      "title": "Smoke-test analysis quality model",
+      "implemented": true
+    },
+    {
+      "step": 489,
+      "title": "Smoke-test EV coverage model",
+      "implemented": true
+    },
+    {
+      "step": 490,
+      "title": "Smoke-test market evidence model",
+      "implemented": true
+    },
+    {
+      "step": 491,
+      "title": "Smoke-test dataset freshness model",
+      "implemented": true
+    },
+    {
+      "step": 492,
+      "title": "Smoke-test shareable URL roundtrip",
+      "implemented": true
+    },
+    {
+      "step": 493,
+      "title": "Smoke-test break-allocation runtime contract",
+      "implemented": true
+    },
+    {
+      "step": 494,
+      "title": "Expand static release validation for v1.2 invariants",
+      "implemented": true
+    },
+    {
+      "step": 495,
+      "title": "Run validation smoke tests and syntax checks in CI",
+      "implemented": true
+    },
+    {
+      "step": 496,
+      "title": "Version release and commit verified n100 validation manifest",
+      "implemented": true
+    }
+  ],
+  "release_requirements": {
+    "model_smoke_tests": "required",
+    "static_validator": "required",
+    "source_syntax_checks": "required",
+    "pull_request_validation": "required",
+    "main_branch_validation": "required"
+  },
+  "result": "pending-ci"
+}
