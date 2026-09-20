@@ -16,7 +16,9 @@
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev",
       "serial_copy": "14/50",
-      "direct_marketplace_url_recovered": false
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-02-15",
@@ -25,7 +27,9 @@
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev",
       "serial_copy": "34/50",
-      "direct_marketplace_url_recovered": false
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     }
   ],
   "calculated_market_value": {
@@ -35,7 +39,16 @@
     "min_usd": 2000,
     "max_usd": 2800,
     "sale_count": 2,
-    "confidence": "low"
+    "confidence": "provisional",
+    "sample_size_confidence": "low",
+    "status": "provisional-secondary-source"
   },
-  "note": "Exact card/parallel comps found. Original eBay pages were not recovered in the free workflow, so these are secondary-source confirmed realized sales."
+  "note": "Exact card/parallel comps found. Original eBay pages were not recovered in the free workflow, so these are secondary-source confirmed realized sales. Original marketplace sale pages have not been recovered in the stored record; use as provisional secondary-source market evidence.",
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 2,
+    "discovery_only_sale_count": 0
+  }
 }
