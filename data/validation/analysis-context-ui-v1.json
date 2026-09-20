@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 166,
+  "checks": {
+    "context_bar_present": true,
+    "product_in_context": true,
+    "format_in_context": true,
+    "team_in_context": true,
+    "player_optional_in_context": true,
+    "arrow_separator": true,
+    "product_changes_refresh": true,
+    "team_changes_refresh": true,
+    "player_changes_refresh": true,
+    "context_is_responsive": true
+  },
+  "result": "pass"
+}
