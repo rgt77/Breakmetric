@@ -1,0 +1,19 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 105-114",
+  "result": "pass",
+  "checks": {
+    "ui_has_sealed_supply_status": true,
+    "ui_loads_sealed_supply_json": true,
+    "ui_labels_qualitative_evidence_as_signals_only": true,
+    "live_odds_status_still_present": true,
+    "no_fake_percentage_shown": true
+  },
+  "current_model_state": {
+    "manufacturer_stock": "sold_out",
+    "secondary_sealed_market": "observed",
+    "public_break_activity": "observed",
+    "quantitative_sealed_fraction": false,
+    "live_odds_adjustment": "scenario-only"
+  }
+}
