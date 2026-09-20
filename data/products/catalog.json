@@ -3,11 +3,31 @@
     {
       "id": "2026-topps-chrome-premier-league",
       "name": "2026 Topps Chrome Premier League",
+      "display_name": "Topps Chrome Soccer · Premier League · 2026",
+      "brand": "Topps Chrome Soccer",
+      "competition": "Premier League",
+      "year": "2026",
+      "status": "ready",
       "format": "Hobby Case",
       "boxes_per_case": 12,
       "packs_per_box": 20,
       "active": true,
-      "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"
+      "format_data": "data/formats/2026-topps-chrome-premier-league.json",
+      "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
+      "note": "Current BreakMetric dataset."
+    },
+    {
+      "id": "2025-topps-chrome-premier-league",
+      "name": "2025 Topps Chrome Premier League",
+      "display_name": "Topps Chrome Soccer · Premier League · 2025",
+      "brand": "Topps Chrome Soccer",
+      "competition": "Premier League",
+      "year": "2025",
+      "status": "pending",
+      "active": false,
+      "format_data": null,
+      "ev_data": null,
+      "note": "Product slot prepared. BreakMetric data has not been added yet."
     }
   ]
 }
