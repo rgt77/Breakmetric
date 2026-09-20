@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 27.58,
-      "valued_card_count": 9,
+      "partial_ev_usd": 28.8,
+      "valued_card_count": 10,
       "coverage_complete": false,
       "contributions": [
         {
@@ -72,6 +72,13 @@
           "set": "Base Cards",
           "parallel": "Aqua Wave Refractor",
           "ev_contribution_usd": 1.2211
+        },
+        {
+          "card_id": "68-green-wave-refractor",
+          "player": "Estêvão Willian",
+          "set": "Base Cards",
+          "parallel": "Green Wave Refractor",
+          "ev_contribution_usd": 1.2233
         }
       ]
     }
