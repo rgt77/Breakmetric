@@ -233,7 +233,7 @@
     .player-panel-head p{margin:5px 0 0;font-size:.82rem;color:var(--muted)}
     .player-stats{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(4,1fr);
       gap:10px;
       margin-top:16px;
     }
@@ -407,8 +407,13 @@
             <span>Observed serials</span>
             <strong id="playerTrackedSerials">0</strong>
           </div>
+          <div class="player-stat">
+            <span>Checklist entries</span>
+            <strong id="playerChecklistEntries">0</strong>
+          </div>
         </div>
 
+        <div id="playerChecklistDetail" class="player-card-list"></div>
         <div id="playerSerialDetail" class="player-card-list"></div>
         <div id="playerCardList" class="player-card-list"></div>
       </section>
@@ -532,6 +537,8 @@
     const playerEv = document.getElementById("playerEv");
     const playerValuedCards = document.getElementById("playerValuedCards");
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
+    const playerChecklistEntries = document.getElementById("playerChecklistEntries");
+    const playerChecklistDetail = document.getElementById("playerChecklistDetail");
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
 
@@ -549,6 +556,7 @@
 
     let teamEvData = null;
     let baseChecklistData = null;
+    let playerIndexData = null;
     let selectedPlayer = null;
     let searchQuery = "";
     let autographProbabilityData = null;
@@ -702,17 +710,16 @@
     }
 
     function playersForTeamName(teamName) {
+      const indexedPlayers = (playerIndexData?.teams?.[teamName] || [])
+        .map(item => item.player);
+
+      if (indexedPlayers.length) return indexedPlayers;
+
       const basePlayers = (baseChecklistData?.cards || [])
         .filter(card => card.team === teamName)
         .map(card => card.player);
 
-      const evPlayers = (teamEvData?.teams?.[teamName]?.contributions || [])
-        .map(item => item.player);
-
-      const trackedPlayers = (liveSupplyData?.teams?.[teamName]?.tracked_cards || [])
-        .map(item => item.player);
-
-      return [...new Set([...basePlayers, ...evPlayers, ...trackedPlayers].filter(Boolean))];
+      return [...new Set(basePlayers.filter(Boolean))];
     }
 
     function matchingTeams() {
@@ -808,6 +815,21 @@
       }
     }
 
+    async function loadPlayerIndex() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json"
+        );
+        if (!response.ok) throw new Error("Player index unavailable");
+        playerIndexData = await response.json();
+        renderTeams();
+        renderPlayers();
+        updatePlayerDetail();
+      } catch (error) {
+        playerIndexData = null;
+      }
+    }
+
     async function loadBaseChecklist() {
       try {
         const response = await fetch(
@@ -824,39 +846,33 @@
     }
 
     function playersForCurrentTeam() {
-      const basePlayers = (baseChecklistData?.cards || [])
+      const indexed = playerIndexData?.teams?.[team.value] || [];
+
+      if (indexed.length) {
+        return indexed.map(item => ({
+          name: item.player,
+          card_number: item.base_card_number,
+          designation: item.designation || null,
+          total_checklist_entries: Number(item.total_checklist_entries || 0),
+          checklist_sections: item.checklist_sections || [],
+          checklist_entries: item.checklist_entries || []
+        }));
+      }
+
+      return (baseChecklistData?.cards || [])
         .filter(card => card.team === team.value)
         .map(card => ({
           name: card.player,
           card_number: card.card_number,
-          designation: card.designation || null
+          designation: card.designation || null,
+          total_checklist_entries: 1,
+          checklist_sections: ["Base Cards"],
+          checklist_entries: [{
+            category: "base",
+            section: "Base Cards",
+            card_number: String(card.card_number)
+          }]
         }));
-
-      const extras = [
-        ...(currentTeamEntry?.contributions || []).map(item => ({
-          name: item.player,
-          card_number: null,
-          designation: null
-        })),
-        ...((liveSupplyData?.teams?.[team.value]?.tracked_cards || []).map(item => ({
-          name: item.player,
-          card_number: null,
-          designation: null
-        })))
-      ];
-
-      const byName = new Map();
-      for (const item of [...basePlayers, ...extras]) {
-        if (!item.name) continue;
-        if (!byName.has(item.name)) byName.set(item.name, item);
-      }
-
-      return [...byName.values()].sort((a,b) => {
-        if (Number.isFinite(Number(a.card_number)) && Number.isFinite(Number(b.card_number))) {
-          return Number(a.card_number) - Number(b.card_number);
-        }
-        return a.name.localeCompare(b.name);
-      });
     }
 
     function renderPlayers() {
@@ -894,10 +910,13 @@
         button.appendChild(title);
 
         const meta = document.createElement("span");
-        const cardLabel = item.card_number ? "#" + item.card_number : "Checklist player";
+        const cardLabel = item.card_number ? "Base #" + item.card_number : "No base card";
+        const countLabel =
+          item.total_checklist_entries + " checklist entr" +
+          (item.total_checklist_entries === 1 ? "y" : "ies");
         meta.textContent = item.designation
-          ? cardLabel + " · " + item.designation
-          : cardLabel;
+          ? cardLabel + " · " + item.designation + " · " + countLabel
+          : cardLabel + " · " + countLabel;
         button.appendChild(meta);
 
         button.addEventListener("click", () => {
@@ -923,6 +942,7 @@
       selectedPlayer = null;
       localStorage.removeItem("breakmetric_player");
       playerPanel.classList.remove("visible");
+      playerChecklistDetail.innerHTML = "";
       playerSerialDetail.innerHTML = "";
       playerCardList.innerHTML = "";
     }
@@ -935,6 +955,10 @@
 
       const baseCard = (baseChecklistData?.cards || []).find(
         card => card.team === team.value && card.player === selectedPlayer
+      );
+
+      const indexedPlayer = (playerIndexData?.teams?.[team.value] || []).find(
+        item => item.player === selectedPlayer
       );
 
       const contributions = (currentTeamEntry?.contributions || [])
@@ -971,6 +995,43 @@
         : "Not valued yet";
       playerValuedCards.textContent = String(contributions.length);
       playerTrackedSerials.textContent = String(observedSerials);
+      playerChecklistEntries.textContent = String(
+        indexedPlayer?.total_checklist_entries || (baseCard ? 1 : 0)
+      );
+
+      playerChecklistDetail.innerHTML = "";
+      const checklistEntries = indexedPlayer?.checklist_entries || (
+        baseCard ? [{
+          category: "base",
+          section: "Base Cards",
+          card_number: String(baseCard.card_number)
+        }] : []
+      );
+
+      if (checklistEntries.length) {
+        const sectionCounts = new Map();
+        for (const item of checklistEntries) {
+          const key = item.section || "Checklist";
+          sectionCounts.set(key, (sectionCounts.get(key) || 0) + 1);
+        }
+
+        for (const [sectionName, count] of [...sectionCounts.entries()].sort(
+          (a,b) => a[0].localeCompare(b[0])
+        )) {
+          const row = document.createElement("div");
+          row.className = "player-data-row";
+
+          const left = document.createElement("div");
+          left.textContent = sectionName;
+
+          const right = document.createElement("strong");
+          right.textContent = count + " entr" + (count === 1 ? "y" : "ies");
+
+          row.appendChild(left);
+          row.appendChild(right);
+          playerChecklistDetail.appendChild(row);
+        }
+      }
 
       playerSerialDetail.innerHTML = "";
       if (trackedCards.length) {
@@ -1368,6 +1429,7 @@
     const savedPlayer = localStorage.getItem("breakmetric_player");
     if (savedPlayer) selectedPlayer = savedPlayer;
 
+    loadPlayerIndex();
     loadBaseChecklist();
     loadInitialFxRate();
     loadAutographProbabilities();
