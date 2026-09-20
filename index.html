@@ -186,7 +186,8 @@
     }
     .ghost-button{
       margin:0;padding:8px 11px;border:1px solid var(--line);
-      background:#0b1223;color:var(--text);font-size:.76rem;font-weight:700
+      background:#0b1223;color:var(--text);font-size:.76rem;font-weight:700;
+      min-height:40px
     }
     .ghost-button:hover{border-color:#405273}
     .share-status{color:var(--muted);font-size:.72rem}
@@ -244,9 +245,23 @@
     .product-card:focus-visible,
     .format-card:focus-visible,
     .team-card:focus-visible,
-    .player-card:focus-visible{
+    .player-card:focus-visible,
+    .ghost-button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    select:focus-visible{
       outline:2px solid var(--accent);
       outline-offset:3px;
+    }
+    summary:focus-visible{border-radius:6px}
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important
+      }
+      .team-card:hover,.player-card:hover{transform:none}
     }
     .browse-search{margin:20px 0 6px}
     .browse-search input{padding:14px 16px}
@@ -508,6 +523,7 @@
           id="productSearch"
           type="search"
           autocomplete="off"
+          aria-keyshortcuts="Control+K Meta+K"
           placeholder="Try 2025, Premier League, Topps Chrome…"
         />
         <p id="productSearchStatus" class="browse-search-hint" aria-live="polite">
@@ -535,6 +551,7 @@
         <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
         <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
         <span id="shareStatus" class="share-status" aria-live="polite"></span>
+        <span class="share-status">Shortcuts: / search team/player · Ctrl/⌘K product · Esc clear search</span>
       </div>
       <div class="analysis-scope">
         <div>
@@ -629,6 +646,7 @@
           id="browseSearch"
           type="search"
           autocomplete="off"
+          aria-keyshortcuts="/"
           placeholder="Try Chelsea, Palmer, Estêvão…"
         />
         <p id="searchStatus" class="browse-search-hint" aria-live="polite">
@@ -3223,6 +3241,56 @@
       searchQuery = browseSearch.value;
       renderTeams();
       renderPlayers();
+    });
+
+    function isTypingTarget(element) {
+      return element &&
+        (element.tagName === "INPUT" ||
+         element.tagName === "TEXTAREA" ||
+         element.tagName === "SELECT" ||
+         element.isContentEditable);
+    }
+
+    function clearActiveSearch(input) {
+      if (input === browseSearch) {
+        browseSearch.value = "";
+        searchQuery = "";
+        renderTeams();
+        renderPlayers();
+        searchStatus.textContent =
+          allTeamNames().length + " teams · type to filter teams and players";
+      } else if (input === productSearch) {
+        productSearch.value = "";
+        productSearchQuery = "";
+        renderProducts();
+      }
+    }
+
+    document.addEventListener("keydown", event => {
+      const key = event.key.toLowerCase();
+
+      if ((event.ctrlKey || event.metaKey) && key === "k") {
+        event.preventDefault();
+        productSearch.focus();
+        productSearch.select();
+        return;
+      }
+
+      if (event.key === "/" && !isTypingTarget(document.activeElement)) {
+        event.preventDefault();
+        browseSearch.focus();
+        browseSearch.select();
+        return;
+      }
+
+      if (
+        event.key === "Escape" &&
+        (document.activeElement === browseSearch ||
+         document.activeElement === productSearch)
+      ) {
+        event.preventDefault();
+        clearActiveSearch(document.activeElement);
+      }
     });
 
     copyAnalysisLink.addEventListener("click", async () => {
