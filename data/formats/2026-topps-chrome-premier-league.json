@@ -20,6 +20,13 @@
         "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
         "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
         "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json"
+      },
+      "configuration": {
+        "boxes_per_case": 12,
+        "packs_per_box": 20,
+        "cards_per_pack": 4,
+        "autographs_per_box": 1,
+        "hobby_prism_parallels_per_box": 4
       }
     },
     {
