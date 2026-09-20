@@ -1,0 +1,21 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "63",
+  "player": "Cole Palmer",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Gold Refractor",
+  "market_value_usd": 15.76,
+  "hobby": {
+    "parallel_odds_per_pack": "1:221",
+    "eligible_base_cards": 200,
+    "packs_per_case": 240
+  },
+  "assumption": "All 200 standard base subjects are treated as equally likely within the Gold Refractor parallel.",
+  "calculation": {
+    "probability_specific_card_per_pack": 0.00002262443438914027,
+    "expected_copies_per_case": 0.005429864253393665,
+    "probability_at_least_one_in_case": 0.0054152102782509814,
+    "ev_contribution_usd": 0.08557466063348416
+  }
+}
