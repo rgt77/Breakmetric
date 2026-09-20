@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 41.07,
-      "valued_card_count": 17,
+      "partial_ev_usd": 41.49,
+      "valued_card_count": 18,
       "coverage_complete": false,
       "contributions": [
         {
@@ -128,6 +128,13 @@
           "set": "Base Cards",
           "parallel": "Blue Wave Refractor",
           "ev_contribution_usd": 0.9658
+        },
+        {
+          "card_id": "63-aqua-refractor",
+          "player": "Cole Palmer",
+          "set": "Base Cards",
+          "parallel": "Aqua Refractor",
+          "ev_contribution_usd": 0.4211
         }
       ]
     }
