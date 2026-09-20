@@ -187,7 +187,6 @@
         </div>
       </div>
 
-      <button id="calculate">Calculate</button>
       <p id="fxStatus" style="margin-top:12px;font-size:.82rem;color:var(--muted)">
         Exchange rates load automatically when you change currency.
       </p>
@@ -291,7 +290,7 @@
         fxStatus.textContent =
           `Rate updated: 1 ${from} = ${rate.toFixed(4)} ${to} · ${data.date}`;
 
-        calculate.click();
+        updateResults();
       } catch (error) {
         currency.value = from;
         fxStatus.textContent =
@@ -318,6 +317,7 @@
         if (!response.ok) throw new Error("EV data unavailable");
         teamEvData = await response.json();
         updateTeamEv();
+        updateResults();
       } catch (error) {
         evDisplay.value = "EV unavailable";
         currentEvUsd = null;
@@ -339,12 +339,12 @@
 
     team.addEventListener("change", () => {
       updateTeamEv();
-      if (price.value) calculate.click();
+      updateResults();
     });
 
     loadTeamEv();
 
-    calculate.addEventListener("click", () => {
+    function updateResults() {
       const spotPrice = Number(price.value);
       resultTeam.textContent = team.value;
 
@@ -352,6 +352,8 @@
         resultNet.textContent = "Enter spot price";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
+        resultNet.className = "";
+        resultRoi.className = "";
         return;
       }
 
@@ -359,11 +361,12 @@
         resultNet.textContent = "EV not ready";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
+        resultNet.className = "";
+        resultRoi.className = "";
         return;
       }
 
       const expectedValue = currentEvUsd * usdToSelectedRate;
-
       const net = expectedValue - spotPrice;
       const ratio = expectedValue / spotPrice;
       const roi = ((expectedValue - spotPrice) / spotPrice) * 100;
@@ -374,7 +377,9 @@
 
       resultNet.className = net >= 0 ? "positive" : "negative";
       resultRoi.className = roi >= 0 ? "positive" : "negative";
-    });
+    }
+
+    price.addEventListener("input", updateResults);
   </script>
 </body>
 </html>
