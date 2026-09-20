@@ -184,6 +184,7 @@ for (const module of [
   "marketCoverage.js",
   "marketEvidenceQuality.js",
   "marketRecordQuality.js",
+  "marketRecordIssues.js",
   "dataFreshness.js",
   "dataLoader.js",
   "errorModel.js",
@@ -209,6 +210,7 @@ pass("market verification EV gap visible", html.includes('id="marketVerification
 pass("market record sample visible", html.includes('id="marketRecordSample"'));
 pass("market record freshness visible", html.includes('id="marketRecordFreshness"'));
 pass("market spread alert visible", html.includes('id="marketSpreadAlert"'));
+pass("market record integrity visible", html.includes('id="marketRecordIntegrity"'));
 pass("market record quality is lazy-loaded", html.includes('marketEvidencePanel.addEventListener("toggle"'));
 pass("market evidence detail present", html.includes('id="marketEvidencePanel"'));
 pass("freshness panel present", html.includes('id="dataFreshnessPanel"'));
