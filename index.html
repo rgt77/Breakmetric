@@ -851,7 +851,19 @@
     }
 
     async function loadCurrentProductDatasets() {
-      if (!currentProduct || currentProduct.status !== "ready") return;
+      const format = selectedFormatConfig();
+
+      if (
+        !currentProduct ||
+        currentProduct.status !== "ready" ||
+        !format ||
+        format.status !== "ready" ||
+        !format.analysis_data ||
+        !format.integrity_data
+      ) {
+        analysisContent.hidden = true;
+        return;
+      }
 
       const token = ++productLoadToken;
       const productIdAtStart = currentProduct.id;
@@ -1189,7 +1201,10 @@
 
           if (item.status === "ready") {
             await loadFormats();
-            await loadCurrentProductDatasets();
+
+            if (selectedFormatConfig()?.status === "ready") {
+              await loadCurrentProductDatasets();
+            }
           } else {
             await loadFormats();
           }
@@ -2157,7 +2172,10 @@
         if (currentProduct?.status === "ready") {
           resetProductData();
           await loadFormats();
-          await loadCurrentProductDatasets();
+
+          if (selectedFormatConfig()?.status === "ready") {
+            await loadCurrentProductDatasets();
+          }
         }
       } catch (error) {
         productStatus.textContent = "Product catalog unavailable.";
