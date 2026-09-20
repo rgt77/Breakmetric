@@ -1,0 +1,46 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 125-134",
+  "checks": [
+    {
+      "name": "base_cards_ingested",
+      "passed": true,
+      "value": 201
+    },
+    {
+      "name": "main_autographs_ingested",
+      "passed": true,
+      "value": 128
+    },
+    {
+      "name": "hobby_insert_sections_ingested",
+      "passed": true,
+      "value": 15
+    },
+    {
+      "name": "special_autograph_sections_ingested",
+      "passed": true,
+      "value": 9
+    },
+    {
+      "name": "all_20_teams_present",
+      "passed": true,
+      "value": 20
+    },
+    {
+      "name": "players_beyond_base_are_supported",
+      "passed": true,
+      "value": 163
+    },
+    {
+      "name": "no_unresolved_team_inference",
+      "passed": true
+    },
+    {
+      "name": "checklist_entries_preserved",
+      "passed": true,
+      "value": 744
+    }
+  ],
+  "result": "pass"
+}
