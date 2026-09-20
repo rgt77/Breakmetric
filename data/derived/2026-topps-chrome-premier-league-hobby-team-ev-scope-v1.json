@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_unit": "12-box case",
+  "generated_at": "2026-09-20",
+  "model": "team-ev-scope-v1",
+  "scope_definition": "All single-team Hobby EV-eligible base parallels, inserts and autographs with modeled published odds. Multi-team cards are excluded until an explicit break-allocation rule exists.",
+  "required_categories": [
+    "base_parallels",
+    "inserts",
+    "autographs"
+  ],
+  "rules": [
+    "Category status describes valuation progress, not probability coverage.",
+    "Valued contribution counts must reconcile to the team's committed EV contribution rows.",
+    "No category is complete unless its full EV-eligible card scope has been enumerated and valued.",
+    "Team coverage_complete can be true only when every required category is complete.",
+    "Multi-team cards remain excluded under the active break-allocation policy."
+  ],
+  "teams": {
+    "AFC Bournemouth": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Arsenal": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Aston Villa": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Brentford": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Brighton & Hove Albion": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Burnley FC": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Chelsea": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "partial",
+          "valued_contribution_count": 26
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "partial",
+          "valued_contribution_count": 1
+        }
+      }
+    },
+    "Crystal Palace": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Everton": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Fulham": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Leeds United": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Liverpool FC": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Manchester City": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Manchester United": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Newcastle United": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Nottingham Forest": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Sunderland": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Tottenham Hotspur": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "West Ham United": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    },
+    "Wolverhampton Wanderers": {
+      "coverage_complete": false,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "valued_contribution_count": 0
+        }
+      }
+    }
+  }
+}
