@@ -6,8 +6,8 @@
   "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 42.32,
-      "valued_card_count": 22,
+      "partial_ev_usd": 42.46,
+      "valued_card_count": 23,
       "coverage_complete": false,
       "contributions": [
         {
@@ -163,6 +163,13 @@
           "set": "Base Cards",
           "parallel": "Pink Refractor",
           "ev_contribution_usd": 0.1154
+        },
+        {
+          "card_id": "66-aqua-refractor",
+          "player": "Enzo Fernández",
+          "set": "Base Cards",
+          "parallel": "Aqua Refractor",
+          "ev_contribution_usd": 0.1472
         }
       ]
     }
