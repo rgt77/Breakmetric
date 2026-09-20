@@ -54,6 +54,15 @@ for (const product of catalog.products || []) {
           pass(`analysis route exists: ${product.id}/${format.id}/${key}`, exists(route), route);
         }
 
+        const allocation = format.break_allocation_policy || {};
+        pass(
+          `break allocation protected: ${product.id}/${format.id}`,
+          allocation.status === "protected" &&
+          allocation.single_team_rule === "listed-team" &&
+          allocation.multi_team_rule === "exclude-until-explicit-break-rule" &&
+          allocation.ev_treatment === "exclude-unallocated-multi-team-cards"
+        );
+
         const unit = format.analysis_unit || {};
         const cfg = format.configuration || {};
         pass(`analysis unit is one case: ${product.id}/${format.id}`, unit.type === "case" && Number(unit.cases) === 1);
