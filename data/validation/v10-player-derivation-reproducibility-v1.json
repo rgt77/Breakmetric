@@ -1,0 +1,85 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 356-365",
+  "release": "BreakMetric v1.0",
+  "javascript_syntax": {
+    "inline_app": {
+      "pass": true,
+      "error": null
+    },
+    "runtime_contracts": {
+      "pass": true,
+      "error": null
+    },
+    "player_derivation": {
+      "pass": true,
+      "error": null
+    }
+  },
+  "derivation_reproduction": {
+    "player_index": {
+      "valid": true,
+      "errors": [],
+      "summary": {
+        "mapped_player_team_pairs": 364,
+        "mapped_teams": 20,
+        "total_mapped_checklist_entries": 744,
+        "players_without_base_card": 163
+      }
+    },
+    "player_probabilities": {
+      "valid": true,
+      "tolerance": 0.000001,
+      "mismatch_count": 0,
+      "errors": [],
+      "player_team_rows": 364
+    }
+  },
+  "contracts": {
+    "product_catalog": {
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "product_count": 2,
+        "ready_product_count": 1,
+        "pending_product_count": 1
+      }
+    },
+    "format_catalog": {
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "format_count": 5,
+        "ready_format_count": 1,
+        "pending_format_count": 4,
+        "required_analysis_route_count": 13
+      }
+    },
+    "player_derivation_manifest": {
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "player_derivation_input_count": 7,
+        "player_derivation_generator_version": 1
+      }
+    },
+    "hobby_integrity_version": 5,
+    "hobby_integrity_result": "pass"
+  },
+  "checks": {
+    "step_356_index_generator_exists": true,
+    "step_357_probability_generator_exists": true,
+    "step_358_semantic_comparators_exist": true,
+    "step_359_derivation_manifest_exists": true,
+    "step_360_player_index_reproduces_exactly": true,
+    "step_361_player_probabilities_reproduce_exactly": true,
+    "step_362_reproducibility_evidence_persisted": true,
+    "step_363_hobby_routes_derivation_manifest": true,
+    "step_364_runtime_validates_derivation_manifest": true,
+    "step_365_v10_release_validation": true
+  },
+  "result": "pass"
+}
