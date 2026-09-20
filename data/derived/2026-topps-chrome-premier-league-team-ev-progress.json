@@ -2,8 +2,8 @@
   "product_id": "2026-topps-chrome-premier-league",
   "format": "Hobby Case",
   "currency": "USD",
-  "methodology_status": "partial",
-  "note": "Only verified market-valued card contributions are included. This is not yet full team EV.",
+  "methodology_status": "provisional-partial",
+  "note": "Current team EV is indicative and partial. Chelsea contributions use secondary-source realized-sale records; original marketplace verification is still pending.",
   "teams": {
     "Chelsea": {
       "partial_ev_usd": 42.72,
@@ -15,192 +15,313 @@
           "player": "Estêvão Willian",
           "set": "Chrome Autograph Cards",
           "parallel": "Gold Refractor",
-          "ev_contribution_usd": 15.1
+          "ev_contribution_usd": 15.1,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/CA-EV-gold-refractor-auto.json"
         },
         {
           "card_id": "63-gold-refractor",
           "player": "Cole Palmer",
           "set": "Base Cards",
           "parallel": "Gold Refractor",
-          "ev_contribution_usd": 0.0856
+          "ev_contribution_usd": 0.0856,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-gold-refractor.json"
         },
         {
           "card_id": "68-gold-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Gold Refractor",
-          "ev_contribution_usd": 4.124
+          "ev_contribution_usd": 4.124,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-gold-refractor.json"
         },
         {
           "card_id": "68-orange-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Orange Refractor",
-          "ev_contribution_usd": 1.2256
+          "ev_contribution_usd": 1.2256,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-orange-refractor.json"
         },
         {
           "card_id": "68-aqua-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Aqua Refractor",
-          "ev_contribution_usd": 1.1579
+          "ev_contribution_usd": 1.1579,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-aqua-refractor.json"
         },
         {
           "card_id": "68-teal-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Teal Refractor",
-          "ev_contribution_usd": 0.8
+          "ev_contribution_usd": 0.8,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-teal-refractor.json"
         },
         {
           "card_id": "68-yellow-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Yellow Refractor",
-          "ev_contribution_usd": 1.7647
+          "ev_contribution_usd": 1.7647,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-yellow-refractor.json"
         },
         {
           "card_id": "68-pink-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Pink Refractor",
-          "ev_contribution_usd": 2.1001
+          "ev_contribution_usd": 2.1001,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-pink-refractor.json"
         },
         {
           "card_id": "68-aqua-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Aqua Wave Refractor",
-          "ev_contribution_usd": 1.2211
+          "ev_contribution_usd": 1.2211,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-aqua-wave-refractor.json"
         },
         {
           "card_id": "68-green-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Green Wave Refractor",
-          "ev_contribution_usd": 1.2233
+          "ev_contribution_usd": 1.2233,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-green-wave-refractor.json"
         },
         {
           "card_id": "68-purple-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Purple Refractor",
-          "ev_contribution_usd": 1.7695
+          "ev_contribution_usd": 1.7695,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-purple-refractor.json"
         },
         {
           "card_id": "68-gold-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Gold Wave Refractor",
-          "ev_contribution_usd": 2.3182
+          "ev_contribution_usd": 2.3182,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-gold-wave-refractor.json"
         },
         {
           "card_id": "68-prism-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Prism Refractor",
-          "ev_contribution_usd": 2.4456
+          "ev_contribution_usd": 2.4456,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json"
         },
         {
           "card_id": "68-green-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Green Refractor",
-          "ev_contribution_usd": 1.165
+          "ev_contribution_usd": 1.165,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-green-refractor.json"
         },
         {
           "card_id": "68-purple-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Purple Wave Refractor",
-          "ev_contribution_usd": 2.0156
+          "ev_contribution_usd": 2.0156,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-purple-wave-refractor.json"
         },
         {
           "card_id": "68-orange-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Orange Wave Refractor",
-          "ev_contribution_usd": 1.584
+          "ev_contribution_usd": 1.584,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-orange-wave-refractor.json"
         },
         {
           "card_id": "68-blue-wave-refractor",
           "player": "Estêvão Willian",
           "set": "Base Cards",
           "parallel": "Blue Wave Refractor",
-          "ev_contribution_usd": 0.9658
+          "ev_contribution_usd": 0.9658,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-blue-wave-refractor.json"
         },
         {
           "card_id": "63-aqua-refractor",
           "player": "Cole Palmer",
           "set": "Base Cards",
           "parallel": "Aqua Refractor",
-          "ev_contribution_usd": 0.4211
+          "ev_contribution_usd": 0.4211,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-aqua-refractor.json"
         },
         {
           "card_id": "63-blue-refractor",
           "player": "Cole Palmer",
           "set": "Base Cards",
           "parallel": "Blue Refractor",
-          "ev_contribution_usd": 0.2657
+          "ev_contribution_usd": 0.2657,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-blue-refractor.json"
         },
         {
           "card_id": "63-purple-wave-refractor",
           "player": "Cole Palmer",
           "set": "Base Cards",
           "parallel": "Purple Wave Refractor",
-          "ev_contribution_usd": 0.1781
+          "ev_contribution_usd": 0.1781,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-purple-wave-refractor.json"
         },
         {
           "card_id": "63-gold-wave-refractor",
           "player": "Cole Palmer",
           "set": "Base Cards",
           "parallel": "Gold Wave Refractor",
-          "ev_contribution_usd": 0.2714
+          "ev_contribution_usd": 0.2714,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-gold-wave-refractor.json"
         },
         {
           "card_id": "66-pink-refractor",
           "player": "Enzo Fernández",
           "set": "Base Cards",
           "parallel": "Pink Refractor",
-          "ev_contribution_usd": 0.1154
+          "ev_contribution_usd": 0.1154,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/66-enzo-fernandez-pink-refractor.json"
         },
         {
           "card_id": "66-aqua-refractor",
           "player": "Enzo Fernández",
           "set": "Base Cards",
           "parallel": "Aqua Refractor",
-          "ev_contribution_usd": 0.1472
+          "ev_contribution_usd": 0.1472,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/66-enzo-fernandez-aqua-refractor.json"
         },
         {
           "card_id": "67-pink-refractor",
           "player": "Moisés Caicedo",
           "set": "Base Cards",
           "parallel": "Pink Refractor",
-          "ev_contribution_usd": 0.0981
+          "ev_contribution_usd": 0.0981,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/67-moises-caicedo-pink-refractor.json"
         },
         {
           "card_id": "65-aqua-refractor",
           "player": "Jorrel Hato",
           "set": "Base Cards",
           "parallel": "Aqua Refractor",
-          "ev_contribution_usd": 0.0208
+          "ev_contribution_usd": 0.0208,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/65-jorrel-hato-aqua-refractor.json"
         },
         {
           "card_id": "61-blue-refractor",
           "player": "João Pedro",
           "set": "Base Cards",
           "parallel": "Blue Refractor",
-          "ev_contribution_usd": 0.0911
+          "ev_contribution_usd": 0.0911,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/61-joao-pedro-blue-refractor.json"
         },
         {
           "card_id": "64-pink-refractor",
           "player": "Shumaira Mheuka",
           "set": "Base Cards",
           "parallel": "Pink Refractor",
-          "ev_contribution_usd": 0.0462
+          "ev_contribution_usd": 0.0462,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/64-shumaira-mheuka-pink-refractor.json"
         }
-      ]
+      ],
+      "ev_status": "indicative-provisional",
+      "market_evidence": {
+        "status": "secondary-source-only",
+        "audited_contribution_count": 27,
+        "original_marketplace_verified_contribution_count": 0,
+        "secondary_source_contribution_count": 27,
+        "verified_ev_available": false,
+        "provisional_ev_available": true,
+        "roi_eligible": false,
+        "roi_block_reason": "Original-marketplace verification is incomplete."
+      },
+      "partial_ev_sum_check_usd": 42.7211
     }
   },
-  "generated_from_card_level_ev": true
+  "generated_from_card_level_ev": true,
+  "market_evidence_audit": "data/market/2026-topps-chrome-premier-league/market-evidence-audit-v1.json"
 }
