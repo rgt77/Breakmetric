@@ -1,0 +1,21 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "68",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Blue Wave Refractor",
+  "market_value_usd": 63.58,
+  "hobby": {
+    "odds": "1:79",
+    "eligible_base_cards": 200,
+    "boxes_per_case": 12,
+    "packs_per_case": 240
+  },
+  "assumption": "All 200 standard base subjects are treated as equally likely within the Blue Wave Refractor parallel.",
+  "calculation": {
+    "expected_copies_per_case": 0.015189873417721518,
+    "probability_at_least_one_in_case": 0.015075562676874155,
+    "ev_contribution_usd": 0.9657721518987341
+  }
+}
