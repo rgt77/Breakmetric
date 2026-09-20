@@ -1,0 +1,19 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "validated_at": "2026-09-20",
+  "version": 2,
+  "scope": "release identity, product metadata routing and format-catalog readiness",
+  "checks": {
+    "catalog_product_id_matches": true,
+    "format_catalog_product_id_matches": true,
+    "product_has_release_identity": true,
+    "product_has_20_teams": true,
+    "ready_product_has_core_routes": true,
+    "ready_formats_exist": true,
+    "every_ready_format_has_analysis_manifest": true,
+    "every_ready_format_has_integrity_route": true,
+    "product_metadata_has_no_format_configuration": true
+  },
+  "result": "pass",
+  "note": "Format-specific checklist, probability, EV, supply and production integrity is validated by each ready format's own integrity file."
+}
