@@ -233,7 +233,7 @@
     .player-panel-head p{margin:5px 0 0;font-size:.82rem;color:var(--muted)}
     .player-stats{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
       gap:10px;
       margin-top:16px;
     }
@@ -416,6 +416,14 @@
             <strong id="playerOverallHitChance">—</strong>
           </div>
           <div class="player-stat">
+            <span>Base parallel hit chance</span>
+            <strong id="playerBaseHitChance">—</strong>
+          </div>
+          <div class="player-stat">
+            <span>Insert hit chance</span>
+            <strong id="playerInsertHitChance">—</strong>
+          </div>
+          <div class="player-stat">
             <span>Auto hit chance</span>
             <strong id="playerAutoChance">—</strong>
           </div>
@@ -431,10 +439,15 @@
             <span>Expected base parallels / case</span>
             <strong id="playerExpectedBaseParallels">—</strong>
           </div>
+          <div class="player-stat">
+            <span>Probability entry coverage</span>
+            <strong id="playerProbabilityCoverage">—</strong>
+          </div>
         </div>
         <p class="spot-note" style="margin-top:10px!important">
-          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs.
+          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. Entry coverage measures checklist entries connected to at least one published Hobby odds row; it does not mean every possible parallel has published odds.
         </p>
+        <div id="playerCoverageDetail" class="player-card-list"></div>
 
         <div id="playerChecklistDetail" class="player-card-list"></div>
         <div id="playerSerialDetail" class="player-card-list"></div>
@@ -562,10 +575,14 @@
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
     const playerChecklistEntries = document.getElementById("playerChecklistEntries");
     const playerOverallHitChance = document.getElementById("playerOverallHitChance");
+    const playerBaseHitChance = document.getElementById("playerBaseHitChance");
+    const playerInsertHitChance = document.getElementById("playerInsertHitChance");
     const playerAutoChance = document.getElementById("playerAutoChance");
     const playerExpectedAutos = document.getElementById("playerExpectedAutos");
     const playerExpectedInserts = document.getElementById("playerExpectedInserts");
     const playerExpectedBaseParallels = document.getElementById("playerExpectedBaseParallels");
+    const playerProbabilityCoverage = document.getElementById("playerProbabilityCoverage");
+    const playerCoverageDetail = document.getElementById("playerCoverageDetail");
     const playerChecklistDetail = document.getElementById("playerChecklistDetail");
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
@@ -985,10 +1002,14 @@
       localStorage.removeItem("breakmetric_player");
       playerPanel.classList.remove("visible");
       playerOverallHitChance.textContent = "—";
+      playerBaseHitChance.textContent = "—";
+      playerInsertHitChance.textContent = "—";
       playerAutoChance.textContent = "—";
       playerExpectedAutos.textContent = "—";
       playerExpectedInserts.textContent = "—";
       playerExpectedBaseParallels.textContent = "—";
+      playerProbabilityCoverage.textContent = "—";
+      playerCoverageDetail.innerHTML = "";
       playerChecklistDetail.innerHTML = "";
       playerSerialDetail.innerHTML = "";
       playerCardList.innerHTML = "";
@@ -1052,6 +1073,12 @@
       const overallHitChance = Number(
         probabilityEntry?.overall?.chance_at_least_one_modeled_hit_percent
       );
+      const baseHitChance = Number(
+        probabilityEntry?.base?.chance_at_least_one_percent
+      );
+      const insertHitChance = Number(
+        probabilityEntry?.inserts?.chance_at_least_one_percent
+      );
       const autoChance = Number(
         probabilityEntry?.autographs?.chance_at_least_one_percent
       );
@@ -1068,6 +1095,16 @@
       playerOverallHitChance.textContent =
         probabilityEntry && Number.isFinite(overallHitChance)
           ? overallHitChance.toFixed(1) + "%"
+          : "—";
+
+      playerBaseHitChance.textContent =
+        probabilityEntry && Number.isFinite(baseHitChance)
+          ? baseHitChance.toFixed(1) + "%"
+          : "—";
+
+      playerInsertHitChance.textContent =
+        probabilityEntry && Number.isFinite(insertHitChance)
+          ? insertHitChance.toFixed(1) + "%"
           : "—";
 
       playerAutoChance.textContent =
@@ -1089,6 +1126,35 @@
         probabilityEntry && Number.isFinite(expectedBaseParallels)
           ? expectedBaseParallels.toFixed(2)
           : "—";
+
+      const coverage = probabilityEntry?.coverage || null;
+      const coveragePercent = Number(coverage?.coverage_percent);
+      const modeledEntries = Number(coverage?.modeled_checklist_entries);
+      const totalEntries = Number(coverage?.total_relevant_checklist_entries);
+
+      playerProbabilityCoverage.textContent =
+        coverage && Number.isFinite(coveragePercent)
+          ? coveragePercent.toFixed(0) + "% · " + modeledEntries + "/" + totalEntries
+          : "—";
+
+      playerCoverageDetail.innerHTML = "";
+      if (coverage?.unmapped_sections?.length) {
+        const row = document.createElement("div");
+        row.className = "player-data-row";
+
+        const left = document.createElement("div");
+        left.textContent = "Unmapped probability sections";
+        const detail = document.createElement("small");
+        detail.textContent = coverage.unmapped_sections.join(", ");
+        left.appendChild(detail);
+
+        const right = document.createElement("strong");
+        right.textContent = coverage.status;
+
+        row.appendChild(left);
+        row.appendChild(right);
+        playerCoverageDetail.appendChild(row);
+      }
 
       playerChecklistDetail.innerHTML = "";
       const checklistEntries = indexedPlayer?.checklist_entries || (
