@@ -6,7 +6,21 @@
       "name": "Hobby",
       "status": "ready",
       "analysis_format": "Hobby Case",
-      "note": "Current BreakMetric probability and EV model."
+      "note": "Current BreakMetric probability and EV model.",
+      "integrity_data": "data/validation/2026-topps-chrome-premier-league-hobby-format-integrity-v1.json",
+      "analysis_data": {
+        "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
+        "base_checklist_data": "data/checklists/2026-topps-chrome-premier-league-base.json",
+        "autograph_checklist_data": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+        "player_index_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json",
+        "player_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json",
+        "team_autograph_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-autograph-probabilities.json",
+        "team_insert_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-insert-probabilities.json",
+        "team_base_parallel_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json",
+        "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
+        "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
+        "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json"
+      }
     },
     {
       "id": "value-box",
@@ -16,7 +30,9 @@
         "Monday Night Lights",
         "Black Edge Chrome"
       ],
-      "note": "Checklist format identified; format-specific odds model not yet built."
+      "note": "Checklist format identified; format-specific odds model not yet built.",
+      "integrity_data": null,
+      "analysis_data": null
     },
     {
       "id": "tin",
@@ -26,7 +42,9 @@
         "Clinical Chrome",
         "Black Edge Chrome"
       ],
-      "note": "Checklist format identified; format-specific odds model not yet built."
+      "note": "Checklist format identified; format-specific odds model not yet built.",
+      "integrity_data": null,
+      "analysis_data": null
     },
     {
       "id": "hanger-box",
@@ -36,7 +54,9 @@
         "Lightning Chrome",
         "Black Edge Chrome"
       ],
-      "note": "Checklist format identified; format-specific odds model not yet built."
+      "note": "Checklist format identified; format-specific odds model not yet built.",
+      "integrity_data": null,
+      "analysis_data": null
     },
     {
       "id": "breakers-delight",
@@ -45,7 +65,9 @@
       "exclusive_content": [
         "Retro Rookies Autographs"
       ],
-      "note": "Checklist format identified; format-specific odds model not yet built."
+      "note": "Checklist format identified; format-specific odds model not yet built.",
+      "integrity_data": null,
+      "analysis_data": null
     }
   ]
 }
