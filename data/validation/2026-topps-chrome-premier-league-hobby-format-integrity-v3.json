@@ -1,0 +1,22 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_format": "Hobby Case",
+  "validated_at": "2026-09-20",
+  "version": 3,
+  "scope": "Hobby routing, analysis-unit integrity and market-evidence audit linkage",
+  "checks": {
+    "format_is_ready": true,
+    "analysis_unit_is_12_box_case": true,
+    "pack_math_is_240": true,
+    "card_math_is_960": true,
+    "market_evidence_audit_route_present": true,
+    "ev_route_present": true,
+    "probability_routes_present": true,
+    "checklist_routes_present": true,
+    "supply_routes_present": true,
+    "production_route_present": true
+  },
+  "result": "pass",
+  "note": "Integrity pass means routing and audit linkage are valid. It does not mean market evidence is original-marketplace verified; that status is read from the market audit."
+}
