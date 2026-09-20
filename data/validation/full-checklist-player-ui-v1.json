@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 125-134",
+  "checks": {
+    "player_index_loaded": true,
+    "search_uses_player_index": true,
+    "current_team_uses_player_index": true,
+    "checklist_stat_visible": true,
+    "checklist_detail_visible": true,
+    "no_base_card_supported": true,
+    "checklist_entry_count_on_tiles": true,
+    "section_breakdown_rendered": true,
+    "base_fallback_preserved": true,
+    "existing_ev_and_serial_data_preserved": true
+  },
+  "result": "pass"
+}
