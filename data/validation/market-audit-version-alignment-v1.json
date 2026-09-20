@@ -1,0 +1,14 @@
+{
+  "validated_at": "2026-09-20",
+  "step": 233,
+  "checks": {
+    "audit_v2_file_created": true,
+    "audit_file_version_matches_name": true,
+    "team_ev_points_to_v2": true,
+    "hobby_manifest_points_to_v2": true,
+    "hobby_integrity_passes": true,
+    "no_active_v1_references": true,
+    "superseded_v1_removed": true
+  },
+  "result": "pass"
+}
