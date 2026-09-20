@@ -1,0 +1,222 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "source_odds_pdf": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+  "mappings": [
+    {
+      "checklist_section": "Chrome Autograph Cards",
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "denominator": 123
+        },
+        {
+          "variant": "Aqua Refractor",
+          "denominator": 170
+        },
+        {
+          "variant": "Blue Refractor",
+          "denominator": 195
+        },
+        {
+          "variant": "Green Refractor",
+          "denominator": 238
+        },
+        {
+          "variant": "Green Wave",
+          "denominator": 241
+        },
+        {
+          "variant": "Purple Refractor",
+          "denominator": 274
+        },
+        {
+          "variant": "Purple Wave",
+          "denominator": 272
+        },
+        {
+          "variant": "Gold Refractor",
+          "denominator": 298
+        },
+        {
+          "variant": "Gold Wave",
+          "denominator": 319
+        },
+        {
+          "variant": "Orange Refractor",
+          "denominator": 564
+        },
+        {
+          "variant": "Orange Wave",
+          "denominator": 575
+        },
+        {
+          "variant": "Black Refractor",
+          "denominator": 1320
+        },
+        {
+          "variant": "Black Wave",
+          "denominator": 1350
+        },
+        {
+          "variant": "Red Refractor",
+          "denominator": 2570
+        },
+        {
+          "variant": "Red Wave",
+          "denominator": 2627
+        },
+        {
+          "variant": "Superfractor",
+          "denominator": 13548
+        }
+      ]
+    },
+    {
+      "checklist_section": "Chrome Dual Autograph Cards",
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "denominator": 6304
+        },
+        {
+          "variant": "Gold Refractor",
+          "denominator": 2001
+        },
+        {
+          "variant": "Orange Refractor",
+          "denominator": 3329
+        },
+        {
+          "variant": "Black Refractor",
+          "denominator": 8440
+        },
+        {
+          "variant": "Red Refractor",
+          "denominator": 15292
+        },
+        {
+          "variant": "Superfractor",
+          "denominator": 85800
+        }
+      ]
+    },
+    {
+      "checklist_section": "Chrome Triple Autograph Cards",
+      "odds_rows": [
+        {
+          "variant": "Gold Refractor",
+          "denominator": 7722
+        },
+        {
+          "variant": "Orange Refractor",
+          "denominator": 8628
+        },
+        {
+          "variant": "Black Refractor",
+          "denominator": 18170
+        },
+        {
+          "variant": "Red Refractor",
+          "denominator": 33574
+        },
+        {
+          "variant": "Superfractor",
+          "denominator": 140400
+        }
+      ]
+    },
+    {
+      "checklist_section": "Superstar Sensations Autographs",
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "denominator": 2278
+        },
+        {
+          "variant": "Gold Refractor",
+          "denominator": 3146
+        },
+        {
+          "variant": "Orange Refractor",
+          "denominator": 4935
+        },
+        {
+          "variant": "Black Refractor",
+          "denominator": 9775
+        },
+        {
+          "variant": "Red Refractor",
+          "denominator": 19800
+        },
+        {
+          "variant": "Superfractor",
+          "denominator": 102960
+        }
+      ]
+    },
+    {
+      "checklist_section": "Winners Enclosure Autograph Edition",
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "denominator": 514800
+        }
+      ]
+    },
+    {
+      "checklist_section": "Winners Enclosure Quad Autograph",
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "denominator": 1544400
+        }
+      ]
+    },
+    {
+      "checklist_section": "Kings of the Premier League Quad Autograph",
+      "odds_rows": [
+        {
+          "variant": "Superfractor",
+          "denominator": 1544400
+        }
+      ]
+    },
+    {
+      "checklist_section": "Zero Hours - On-Card Autographs",
+      "odds_rows": [
+        {
+          "variant": "Base",
+          "denominator": 10436
+        },
+        {
+          "variant": "Black Refractor",
+          "denominator": 20058
+        },
+        {
+          "variant": "Red Refractor",
+          "denominator": 46800
+        },
+        {
+          "variant": "Superfractor",
+          "denominator": 140400
+        }
+      ]
+    },
+    {
+      "checklist_sections": [
+        "Cold Battle - Frozenfractor On-Card Autographs",
+        "Cold Battle - Frozenfractor On-Card Dual Autograph"
+      ],
+      "odds_rows": [
+        {
+          "variant": "Frozenfractor",
+          "denominator": 110315
+        }
+      ],
+      "pooled_odds": true,
+      "note": "Topps publishes one Hobby odds row for Cold Battle - Frozenfractor (On Card). BreakMetric must treat these checklist entries as one shared odds pool unless Topps provides more granular odds."
+    }
+  ],
+  "methodology_note": "Denominators are Hobby pack odds from the official Topps odds sheet. No per-player or per-team probability is inferred here; that is calculated later from checklist composition."
+}
