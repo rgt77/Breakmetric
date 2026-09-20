@@ -270,6 +270,18 @@
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
 
+    const savedTeam = localStorage.getItem("breakmetric_team");
+    const savedCurrency = localStorage.getItem("breakmetric_currency");
+    const savedSpotPrice = localStorage.getItem("breakmetric_spot_price");
+
+    if (savedTeam && [...team.options].some(option => option.value === savedTeam)) {
+      team.value = savedTeam;
+    }
+
+    if (savedSpotPrice !== null) {
+      price.value = savedSpotPrice;
+    }
+
     let teamEvData = null;
     let autographProbabilityData = null;
     let autographChecklistData = null;
@@ -301,8 +313,13 @@
     }
 
     const preferredCurrency = preferredCurrencyFromLocale();
-    if ([...currency.options].some(option => option.value === preferredCurrency)) {
-      currency.value = preferredCurrency;
+    const initialCurrency =
+      savedCurrency && [...currency.options].some(option => option.value === savedCurrency)
+        ? savedCurrency
+        : preferredCurrency;
+
+    if ([...currency.options].some(option => option.value === initialCurrency)) {
+      currency.value = initialCurrency;
     }
 
     let lastCurrency = currency.value;
@@ -391,6 +408,7 @@
 
       if (currency.value === nextCurrency) {
         lastCurrency = nextCurrency;
+        localStorage.setItem("breakmetric_currency", nextCurrency);
       }
     });
 
@@ -592,6 +610,7 @@
     }
 
     team.addEventListener("change", () => {
+      localStorage.setItem("breakmetric_team", team.value);
       updateTeamEv();
       updateAutographChance();
       updateAutographChecklistCount();
@@ -655,7 +674,10 @@
       resultRoi.className = roi >= 0 ? "positive" : "negative";
     }
 
-    price.addEventListener("input", updateResults);
+    price.addEventListener("input", () => {
+      localStorage.setItem("breakmetric_spot_price", price.value);
+      updateResults();
+    });
   </script>
 </body>
 </html>
