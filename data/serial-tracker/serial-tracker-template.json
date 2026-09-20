@@ -1,0 +1,37 @@
+{
+  "methodology": {
+    "purpose": "Track uniquely observed serial-numbered copies in public market data.",
+    "rules": [
+      "Each physical serial number counts only once regardless of how many times it is resold.",
+      "A serial number is tied to an exact card identity: product, player, set, parallel and card number.",
+      "Observed copies prove that at least that many copies have been opened.",
+      "Unobserved copies must not automatically be treated as sealed or unopened.",
+      "Live adjusted odds require a separate estimate of how much unopened product remains."
+    ]
+  },
+  "example_card": {
+    "product_id": "2026-topps-chrome-premier-league",
+    "card_number": "68",
+    "player": "Estêvão Willian",
+    "team": "Chelsea",
+    "set": "Base Cards",
+    "parallel": "Gold Refractor",
+    "print_run": 50,
+    "observations": [
+      {
+        "serial_number": 14,
+        "observed_at": "2026-02-10",
+        "marketplace": "eBay",
+        "source_sale_id": null,
+        "source_url": null
+      },
+      {
+        "serial_number": 34,
+        "observed_at": "2026-04-01",
+        "marketplace": "eBay",
+        "source_sale_id": null,
+        "source_url": null
+      }
+    ]
+  }
+}
