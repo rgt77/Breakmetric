@@ -200,18 +200,29 @@
       margin-bottom:5px;
     }
     .analysis-scope strong{font-size:.9rem}
+    .quality-grid,
     .data-status-grid{
       display:grid;
-      grid-template-columns:repeat(6,minmax(0,1fr));
       gap:10px;
       margin:10px 0 4px;
     }
+    .quality-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .data-status-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .quality-grid>div,
     .data-status-grid>div{
       padding:12px 14px;
       border:1px solid var(--line);
       border-radius:12px;
       background:#0b1223;
     }
+    .quality-grid>div{min-height:76px}
+    .quality-grid .quality-label{
+      display:block;color:var(--muted);font-size:.72rem;margin-bottom:6px
+    }
+    .quality-grid strong{font-size:.9rem;line-height:1.3}
+    .quality-ready{color:var(--accent)}
+    .quality-warn{color:#ffd18a}
+    .quality-locked{color:var(--muted)}
     .data-status-grid span{
       display:block;
       color:var(--muted);
@@ -429,12 +440,13 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:980px){
-      .data-status-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .quality-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .data-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .primary-results{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:760px){
       header,main,footer{width:min(100% - 24px,1100px)}
-      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.data-status-grid{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
       .hero{padding-top:55px}
@@ -521,32 +533,54 @@
         </div>
       </div>
 
-      <div class="data-status-grid" aria-label="Data status">
+      <div class="quality-grid" aria-label="Analysis readiness">
         <div>
-          <span>Product integrity</span>
-          <strong id="dataProductIntegrity">Pending</strong>
+          <span class="quality-label">Probability</span>
+          <strong id="qualityProbability">Pending</strong>
         </div>
         <div>
-          <span>Format integrity</span>
-          <strong id="dataFormatIntegrity">Pending</strong>
+          <span class="quality-label">EV coverage</span>
+          <strong id="qualityEv">Pending</strong>
         </div>
         <div>
-          <span>Market EV coverage</span>
-          <strong id="dataMarketCoverage">Pending</strong>
+          <span class="quality-label">Market evidence</span>
+          <strong id="qualityMarket">Pending</strong>
         </div>
         <div>
-          <span>Market source quality</span>
-          <strong id="dataMarketSourceQuality">Pending</strong>
-        </div>
-        <div>
-          <span>Team readiness</span>
-          <strong id="dataTeamReadiness">Pending</strong>
-        </div>
-        <div>
-          <span>ROI status</span>
-          <strong id="dataRoiGate">Withheld</strong>
+          <span class="quality-label">ROI</span>
+          <strong id="qualityRoi">Locked</strong>
         </div>
       </div>
+
+      <details class="details-panel">
+        <summary>Technical data status</summary>
+        <div class="data-status-grid" aria-label="Technical data status">
+          <div>
+            <span>Product integrity</span>
+            <strong id="dataProductIntegrity">Pending</strong>
+          </div>
+          <div>
+            <span>Format integrity</span>
+            <strong id="dataFormatIntegrity">Pending</strong>
+          </div>
+          <div>
+            <span>Market EV coverage</span>
+            <strong id="dataMarketCoverage">Pending</strong>
+          </div>
+          <div>
+            <span>Market source quality</span>
+            <strong id="dataMarketSourceQuality">Pending</strong>
+          </div>
+          <div>
+            <span>Team readiness</span>
+            <strong id="dataTeamReadiness">Pending</strong>
+          </div>
+          <div>
+            <span>ROI status</span>
+            <strong id="dataRoiGate">Withheld</strong>
+          </div>
+        </div>
+      </details>
 
       <details class="details-panel" id="analysisProvenancePanel">
         <summary>Analysis provenance</summary>
@@ -754,6 +788,7 @@
   <script src="src/runtimeContracts.js"></script>
   <script src="src/teamReadiness.js"></script>
   <script src="src/analysisProvenance.js"></script>
+  <script src="src/analysisQuality.js"></script>
   <script>
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
@@ -778,6 +813,10 @@
     const dataMarketSourceQuality = document.getElementById("dataMarketSourceQuality");
     const dataTeamReadiness = document.getElementById("dataTeamReadiness");
     const dataRoiGate = document.getElementById("dataRoiGate");
+    const qualityProbability = document.getElementById("qualityProbability");
+    const qualityEv = document.getElementById("qualityEv");
+    const qualityMarket = document.getElementById("qualityMarket");
+    const qualityRoi = document.getElementById("qualityRoi");
     const analysisProvenanceRows = document.getElementById("analysisProvenanceRows");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
@@ -1073,6 +1112,53 @@
       }
     }
 
+    function updateAnalysisQualityUi() {
+      if (!qualityProbability) return;
+
+      const summary = BreakMetricAnalysisQuality.build({
+        readiness: selectedTeamReadiness(),
+        teamEv: currentTeamEntry,
+        market: selectedTeamMarketEvidence(),
+        spotPrice: Number(price.value),
+        selectedPlayer
+      });
+      const validation = BreakMetricAnalysisQuality.validate(summary);
+
+      if (!validation.valid) {
+        qualityProbability.textContent = "Unavailable";
+        qualityEv.textContent = "Unavailable";
+        qualityMarket.textContent = "Unavailable";
+        qualityRoi.textContent = "Locked";
+        return;
+      }
+
+      qualityProbability.textContent = summary.probability.label;
+      qualityProbability.className =
+        summary.probability.state === "ready" ? "quality-ready" : "quality-warn";
+
+      qualityEv.textContent =
+        summary.ev.label +
+        (summary.ev.valued ? " · " + summary.ev.valued + " valued" : "");
+      qualityEv.className =
+        summary.ev.state === "complete"
+          ? "quality-ready"
+          : summary.ev.state === "partial"
+            ? "quality-warn"
+            : "quality-locked";
+
+      qualityMarket.textContent = summary.market.label;
+      qualityMarket.className =
+        ["high","medium"].includes(summary.market.level)
+          ? "quality-ready"
+          : summary.market.level === "none"
+            ? "quality-locked"
+            : "quality-warn";
+
+      qualityRoi.textContent = summary.roi.reason;
+      qualityRoi.className =
+        summary.roi.eligible ? "quality-ready" : "quality-locked";
+    }
+
     function updateDataStatusUi() {
       const integrityPassed =
         !analysisContent.hidden &&
@@ -1159,6 +1245,8 @@
         dataRoiGate.textContent = "Active";
         dataRoiGate.className = "status-good";
       }
+
+      updateAnalysisQualityUi();
     }
 
     function updateAnalysisUnitUi() {
@@ -1289,6 +1377,14 @@
       dataTeamReadiness.className = "";
       dataRoiGate.textContent = "Withheld";
       dataRoiGate.className = "";
+      qualityProbability.textContent = "Pending";
+      qualityProbability.className = "";
+      qualityEv.textContent = "Pending";
+      qualityEv.className = "";
+      qualityMarket.textContent = "Pending";
+      qualityMarket.className = "";
+      qualityRoi.textContent = "Locked";
+      qualityRoi.className = "quality-locked";
       analysisProvenanceRows.innerHTML = "";
       setAnalysisLoadState("idle");
     }
