@@ -657,7 +657,6 @@
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
 
-    const savedTeam = localStorage.getItem("breakmetric_team");
     const savedCurrency = localStorage.getItem("breakmetric_currency");
     const savedSpotPrice = localStorage.getItem("breakmetric_spot_price");
 
@@ -670,7 +669,7 @@
     let formatCatalogData = null;
     let productMetadataData = null;
     let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
-    let selectedFormat = localStorage.getItem("breakmetric_format") || "hobby";
+    let selectedFormat = "hobby";
     let teamEvData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
@@ -706,6 +705,56 @@
       return data;
     }
 
+    function selectionStorageKey(field, productId = selectedProductId) {
+      return "breakmetric_selection__" + productId + "__" + field;
+    }
+
+    function readProductSelection(field, fallback = null, productId = selectedProductId) {
+      if (!productId) return fallback;
+      const value = localStorage.getItem(selectionStorageKey(field, productId));
+      return value !== null ? value : fallback;
+    }
+
+    function writeProductSelection(field, value, productId = selectedProductId) {
+      if (!productId) return;
+      const key = selectionStorageKey(field, productId);
+
+      if (value === null || value === undefined || value === "") {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, String(value));
+      }
+    }
+
+    function migrateLegacyProductSelection(productId) {
+      if (!productId) return;
+
+      const legacy = {
+        format: localStorage.getItem("breakmetric_format"),
+        team: localStorage.getItem("breakmetric_team"),
+        player: localStorage.getItem("breakmetric_player")
+      };
+
+      for (const [field,value] of Object.entries(legacy)) {
+        if (
+          value !== null &&
+          localStorage.getItem(selectionStorageKey(field, productId)) === null
+        ) {
+          writeProductSelection(field, value, productId);
+        }
+      }
+
+      localStorage.removeItem("breakmetric_format");
+      localStorage.removeItem("breakmetric_team");
+      localStorage.removeItem("breakmetric_player");
+    }
+
+    function restoreProductSelection(productId = selectedProductId) {
+      migrateLegacyProductSelection(productId);
+      selectedFormat = readProductSelection("format", "hobby", productId);
+      selectedPlayer = readProductSelection("player", null, productId);
+    }
+
     function productPath(key) {
       const value = currentProduct?.[key];
       if (typeof value !== "string" || !value) {
@@ -730,7 +779,7 @@
       productionData = null;
       currentTeamEntry = null;
       currentEvUsd = null;
-      clearPlayerSelection();
+      clearPlayerSelection(false);
       team.innerHTML = "";
       teamGrid.innerHTML = "";
       playerGrid.innerHTML = "";
@@ -739,7 +788,8 @@
     }
 
     async function loadProductMetadata() {
-      const previousTeam = localStorage.getItem("breakmetric_team") || team.value;
+      const previousTeam =
+        readProductSelection("team", team.value) || team.value;
 
       try {
         const response = await fetch(productPath("product_data"));
@@ -762,7 +812,7 @@
           team.value = previousTeam;
         } else if (teams.length) {
           team.value = teams[0];
-          localStorage.setItem("breakmetric_team", team.value);
+          writeProductSelection("team", team.value);
         }
 
         renderTeams();
@@ -847,7 +897,7 @@
         teamEvData = nextTeamEv;
 
         const previousTeam =
-          localStorage.getItem("breakmetric_team") || team.value;
+          readProductSelection("team", team.value, productIdAtStart) || team.value;
 
         const teams = (productMetadataData.teams || [])
           .map(item => item.name)
@@ -865,8 +915,11 @@
           team.value = previousTeam;
         } else if (teams.length) {
           team.value = teams[0];
-          localStorage.setItem("breakmetric_team", team.value);
+          writeProductSelection("team", team.value, productIdAtStart);
         }
+
+        selectedPlayer =
+          readProductSelection("player", null, productIdAtStart);
 
         updateTeamEv();
         updateAutographChance();
@@ -964,7 +1017,7 @@
 
         button.addEventListener("click", () => {
           selectedFormat = item.id;
-          localStorage.setItem("breakmetric_format", selectedFormat);
+          writeProductSelection("format", selectedFormat);
           renderFormats();
           applyFormatSelection();
         });
@@ -1058,9 +1111,8 @@
           selectedProductId = item.id;
           productLoadToken += 1;
           localStorage.setItem("breakmetric_product", selectedProductId);
-          selectedFormat = "hobby";
-          localStorage.setItem("breakmetric_format", selectedFormat);
           currentProduct = item;
+          restoreProductSelection(item.id);
           resetProductData();
           renderProducts();
           applyProductSelection();
@@ -1501,7 +1553,7 @@
 
         button.addEventListener("click", () => {
           selectedPlayer = item.name;
-          localStorage.setItem("breakmetric_player", item.name);
+          writeProductSelection("player", item.name);
           renderPlayers();
           updatePlayerDetail();
           updateAnalysisContext();
@@ -1519,9 +1571,11 @@
       }
     }
 
-    function clearPlayerSelection() {
+    function clearPlayerSelection(removeStored = true) {
       selectedPlayer = null;
-      localStorage.removeItem("breakmetric_player");
+      if (removeStored) {
+        writeProductSelection("player", null);
+      }
       playerPanel.classList.remove("visible");
       updateAnalysisContext();
       playerOverallHitChance.textContent = "—";
@@ -2022,6 +2076,10 @@
         currentProduct = (productCatalog.products || [])
           .find(item => item.id === selectedProductId) || null;
 
+        if (currentProduct) {
+          restoreProductSelection(currentProduct.id);
+        }
+
         if (currentProduct?.status === "ready") {
           resetProductData();
           await loadFormats();
@@ -2080,7 +2138,7 @@
     }
 
     team.addEventListener("change", () => {
-      localStorage.setItem("breakmetric_team", team.value);
+      writeProductSelection("team", team.value, productIdAtStart);
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
@@ -2107,9 +2165,6 @@
 
 
     renderTeams();
-
-    const savedPlayer = localStorage.getItem("breakmetric_player");
-    if (savedPlayer) selectedPlayer = savedPlayer;
 
     updateAnalysisContext();
     loadInitialFxRate();
