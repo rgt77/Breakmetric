@@ -1,0 +1,74 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "CA-EV",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Chrome Autograph Cards",
+  "parallel": "Gold Refractor",
+  "print_run": 50,
+  "manufacturer_hobby_odds_for_parallel": "1:298 packs",
+  "eligible_autograph_cards": 128,
+  "packs_per_case": 240,
+  "market_value_usd": 2400,
+  "confirmed_serials": [
+    14,
+    34
+  ],
+  "confirmed_observed": 2,
+  "depletion_trigger_sealed_fraction": 0.96,
+  "interpretation": "With only 2/50 confirmed observed, none of the current 75%, 50%, 25% or 10% sealed scenarios justify reducing the manufacturer probability under the conservative depletion model.",
+  "scenarios": [
+    {
+      "sealed_fraction": 0.75,
+      "confirmed_observed": 2,
+      "confirmed_remaining_maximum": 48,
+      "neutral_expected_remaining": 37.5,
+      "depletion_factor": 1,
+      "original_specific_card_probability_per_pack": 0.000026216442953020134,
+      "adjusted_specific_card_probability_per_pack": 0.000026216442953020134,
+      "original_case_probability_percent": 0.6272,
+      "adjusted_case_probability_percent": 0.6272,
+      "original_ev_usd": 15.1,
+      "adjusted_ev_usd": 15.1
+    },
+    {
+      "sealed_fraction": 0.5,
+      "confirmed_observed": 2,
+      "confirmed_remaining_maximum": 48,
+      "neutral_expected_remaining": 25,
+      "depletion_factor": 1,
+      "original_specific_card_probability_per_pack": 0.000026216442953020134,
+      "adjusted_specific_card_probability_per_pack": 0.000026216442953020134,
+      "original_case_probability_percent": 0.6272,
+      "adjusted_case_probability_percent": 0.6272,
+      "original_ev_usd": 15.1,
+      "adjusted_ev_usd": 15.1
+    },
+    {
+      "sealed_fraction": 0.25,
+      "confirmed_observed": 2,
+      "confirmed_remaining_maximum": 48,
+      "neutral_expected_remaining": 12.5,
+      "depletion_factor": 1,
+      "original_specific_card_probability_per_pack": 0.000026216442953020134,
+      "adjusted_specific_card_probability_per_pack": 0.000026216442953020134,
+      "original_case_probability_percent": 0.6272,
+      "adjusted_case_probability_percent": 0.6272,
+      "original_ev_usd": 15.1,
+      "adjusted_ev_usd": 15.1
+    },
+    {
+      "sealed_fraction": 0.1,
+      "confirmed_observed": 2,
+      "confirmed_remaining_maximum": 48,
+      "neutral_expected_remaining": 5,
+      "depletion_factor": 1,
+      "original_specific_card_probability_per_pack": 0.000026216442953020134,
+      "adjusted_specific_card_probability_per_pack": 0.000026216442953020134,
+      "original_case_probability_percent": 0.6272,
+      "adjusted_case_probability_percent": 0.6272,
+      "original_ev_usd": 15.1,
+      "adjusted_ev_usd": 15.1
+    }
+  ]
+}
