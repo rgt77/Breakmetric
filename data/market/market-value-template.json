@@ -1,38 +1,48 @@
 {
   "methodology": {
-    "primary_metric": "median_verified_realized_sale_price",
-    "discovery_source": "130 Point",
-    "verification_sources": [
-      "eBay",
-      "Fanatics Collect",
-      "other original marketplace"
+    "primary_metric": "median_exact_comparable_realized_sale_price",
+    "evidence_states": [
+      "original-marketplace-verified",
+      "secondary-source-realized-sale",
+      "discovery-only"
     ],
     "rules": [
+      "Store discovery source separately from original marketplace verification.",
       "Use realized sales only.",
       "Do not mix raw and graded cards.",
-      "Require exact matching on product, player, set, parallel, autograph status and serial numbering where relevant.",
-      "Deduplicate the same transaction when it appears in multiple sources.",
-      "Do not invent a direct market value when no exact comparable exists."
+      "Require exact product/player/set/parallel/autograph/serial-numbering match where relevant.",
+      "Deduplicate repeated observations of the same transaction.",
+      "Do not label secondary-source-only evidence as original-marketplace verified."
     ]
   },
   "example_card": {
-    "product_id": "2026-topps-chrome-premier-league",
+    "product_id": "example-product",
+    "card_number": "EX-1",
     "player": "Example Player",
     "team": "Example Team",
-    "set": "Chrome Autograph Cards",
-    "parallel": "Gold Refractor",
+    "set": "Example Set",
+    "parallel": "Example Parallel",
     "serial_numbering": null,
     "grading_state": "raw",
     "sales": [
       {
         "marketplace": "eBay",
+        "discovery_source": "130 Point",
+        "discovery_url": null,
         "source_sale_id": null,
         "source_url": null,
+        "direct_marketplace_url_recovered": false,
         "sale_date": "2026-09-01",
         "sale_price": 100,
         "currency": "USD",
-        "verified": true
+        "evidence_status": "secondary-source-realized-sale"
       }
-    ]
+    ],
+    "market_value": {
+      "status": "provisional-secondary-source",
+      "verified_market_value_usd": null,
+      "provisional_market_value_usd": 100,
+      "confidence": "provisional"
+    }
   }
 }
