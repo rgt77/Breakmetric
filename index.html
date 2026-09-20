@@ -411,7 +411,26 @@
             <span>Checklist entries</span>
             <strong id="playerChecklistEntries">0</strong>
           </div>
+          <div class="player-stat">
+            <span>Auto hit chance</span>
+            <strong id="playerAutoChance">—</strong>
+          </div>
+          <div class="player-stat">
+            <span>Expected autos / case</span>
+            <strong id="playerExpectedAutos">—</strong>
+          </div>
+          <div class="player-stat">
+            <span>Expected inserts / case</span>
+            <strong id="playerExpectedInserts">—</strong>
+          </div>
+          <div class="player-stat">
+            <span>Expected base parallels / case</span>
+            <strong id="playerExpectedBaseParallels">—</strong>
+          </div>
         </div>
+        <p class="spot-note" style="margin-top:10px!important">
+          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting.
+        </p>
 
         <div id="playerChecklistDetail" class="player-card-list"></div>
         <div id="playerSerialDetail" class="player-card-list"></div>
@@ -538,6 +557,10 @@
     const playerValuedCards = document.getElementById("playerValuedCards");
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
     const playerChecklistEntries = document.getElementById("playerChecklistEntries");
+    const playerAutoChance = document.getElementById("playerAutoChance");
+    const playerExpectedAutos = document.getElementById("playerExpectedAutos");
+    const playerExpectedInserts = document.getElementById("playerExpectedInserts");
+    const playerExpectedBaseParallels = document.getElementById("playerExpectedBaseParallels");
     const playerChecklistDetail = document.getElementById("playerChecklistDetail");
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
@@ -557,6 +580,7 @@
     let teamEvData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
+    let playerProbabilityData = null;
     let selectedPlayer = null;
     let searchQuery = "";
     let autographProbabilityData = null;
@@ -815,6 +839,19 @@
       }
     }
 
+    async function loadPlayerProbabilities() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json"
+        );
+        if (!response.ok) throw new Error("Player probabilities unavailable");
+        playerProbabilityData = await response.json();
+        updatePlayerDetail();
+      } catch (error) {
+        playerProbabilityData = null;
+      }
+    }
+
     async function loadPlayerIndex() {
       try {
         const response = await fetch(
@@ -942,6 +979,10 @@
       selectedPlayer = null;
       localStorage.removeItem("breakmetric_player");
       playerPanel.classList.remove("visible");
+      playerAutoChance.textContent = "—";
+      playerExpectedAutos.textContent = "—";
+      playerExpectedInserts.textContent = "—";
+      playerExpectedBaseParallels.textContent = "—";
       playerChecklistDetail.innerHTML = "";
       playerSerialDetail.innerHTML = "";
       playerCardList.innerHTML = "";
@@ -998,6 +1039,42 @@
       playerChecklistEntries.textContent = String(
         indexedPlayer?.total_checklist_entries || (baseCard ? 1 : 0)
       );
+
+      const probabilityEntry =
+        playerProbabilityData?.teams?.[team.value]?.[selectedPlayer] || null;
+
+      const autoChance = Number(
+        probabilityEntry?.autographs?.chance_at_least_one_percent
+      );
+      const expectedAutos = Number(
+        probabilityEntry?.autographs?.expected_hits_per_case
+      );
+      const expectedInserts = Number(
+        probabilityEntry?.inserts?.expected_hits_per_case
+      );
+      const expectedBaseParallels = Number(
+        probabilityEntry?.base?.expected_hits_per_case
+      );
+
+      playerAutoChance.textContent =
+        probabilityEntry && Number.isFinite(autoChance)
+          ? autoChance.toFixed(1) + "%"
+          : "—";
+
+      playerExpectedAutos.textContent =
+        probabilityEntry && Number.isFinite(expectedAutos)
+          ? expectedAutos.toFixed(2)
+          : "—";
+
+      playerExpectedInserts.textContent =
+        probabilityEntry && Number.isFinite(expectedInserts)
+          ? expectedInserts.toFixed(2)
+          : "—";
+
+      playerExpectedBaseParallels.textContent =
+        probabilityEntry && Number.isFinite(expectedBaseParallels)
+          ? expectedBaseParallels.toFixed(2)
+          : "—";
 
       playerChecklistDetail.innerHTML = "";
       const checklistEntries = indexedPlayer?.checklist_entries || (
@@ -1430,6 +1507,7 @@
     if (savedPlayer) selectedPlayer = savedPlayer;
 
     loadPlayerIndex();
+    loadPlayerProbabilities();
     loadBaseChecklist();
     loadInitialFxRate();
     loadAutographProbabilities();
