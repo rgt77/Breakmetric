@@ -622,6 +622,32 @@
         </p>
       </details>
 
+      <details class="details-panel" id="marketEvidencePanel">
+        <summary>Market evidence</summary>
+        <div class="player-card-list">
+          <div class="player-data-row">
+            <div>Evidence status</div>
+            <strong id="marketEvidenceStatus">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Audited contributions</div>
+            <strong id="marketAuditedCount">0</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Original marketplace verified</div>
+            <strong id="marketOriginalCount">0</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Secondary-source contributions</div>
+            <strong id="marketSecondaryCount">0</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Verification share<small>This is source-verification share, not EV coverage.</small></div>
+            <strong id="marketVerificationShare">—</strong>
+          </div>
+        </div>
+      </details>
+
       <details class="details-panel" id="dataFreshnessPanel">
         <summary>Data dates</summary>
         <div class="player-card-list">
@@ -857,6 +883,7 @@
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
+  <script src="src/marketCoverage.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/urlState.js"></script>
@@ -892,6 +919,11 @@
     const qualityMarket = document.getElementById("qualityMarket");
     const qualityRoi = document.getElementById("qualityRoi");
     const analysisProvenanceRows = document.getElementById("analysisProvenanceRows");
+    const marketEvidenceStatus = document.getElementById("marketEvidenceStatus");
+    const marketAuditedCount = document.getElementById("marketAuditedCount");
+    const marketOriginalCount = document.getElementById("marketOriginalCount");
+    const marketSecondaryCount = document.getElementById("marketSecondaryCount");
+    const marketVerificationShare = document.getElementById("marketVerificationShare");
     const freshProduct = document.getElementById("freshProduct");
     const freshFormat = document.getElementById("freshFormat");
     const freshMarket = document.getElementById("freshMarket");
@@ -1167,6 +1199,28 @@
       });
     }
 
+    function updateMarketCoverageUi() {
+      const row = BreakMetricMarketCoverage.build(selectedTeamMarketEvidence());
+      const validation = BreakMetricMarketCoverage.validate(row);
+
+      if (!validation.valid) {
+        marketEvidenceStatus.textContent = "Unavailable";
+        marketAuditedCount.textContent = "—";
+        marketOriginalCount.textContent = "—";
+        marketSecondaryCount.textContent = "—";
+        marketVerificationShare.textContent = "—";
+        return;
+      }
+
+      marketEvidenceStatus.textContent =
+        BreakMetricMarketCoverage.statusLabel(row);
+      marketAuditedCount.textContent = String(row.audited);
+      marketOriginalCount.textContent = String(row.original);
+      marketSecondaryCount.textContent = String(row.secondary);
+      marketVerificationShare.textContent =
+        BreakMetricMarketCoverage.shareLabel(row);
+    }
+
     function updateFreshnessUi() {
       const freshness = currentFreshness();
       const validation = BreakMetricFreshness.validate(freshness);
@@ -1224,6 +1278,20 @@
 
       for (const item of BreakMetricProvenance.summaryLines(provenance)) {
         appendProvenanceRow(item.label, item.value);
+      }
+
+      const marketCoverage = BreakMetricMarketCoverage.build(
+        selectedTeamMarketEvidence()
+      );
+      if (BreakMetricMarketCoverage.validate(marketCoverage).valid) {
+        appendProvenanceRow(
+          "Market evidence",
+          BreakMetricMarketCoverage.statusLabel(marketCoverage)
+        );
+        appendProvenanceRow(
+          "Original verification",
+          BreakMetricMarketCoverage.shareLabel(marketCoverage)
+        );
       }
 
       const freshness = currentFreshness();
@@ -1395,6 +1463,7 @@
       }
 
       updateAnalysisQualityUi();
+      updateMarketCoverageUi();
     }
 
     function updateAnalysisUnitUi() {
@@ -1539,6 +1608,11 @@
       qualityRoi.textContent = "Locked";
       qualityRoi.className = "quality-locked";
       analysisProvenanceRows.innerHTML = "";
+      marketEvidenceStatus.textContent = "Pending";
+      marketAuditedCount.textContent = "0";
+      marketOriginalCount.textContent = "0";
+      marketSecondaryCount.textContent = "0";
+      marketVerificationShare.textContent = "—";
       freshProduct.textContent = "Pending";
       freshFormat.textContent = "Pending";
       freshMarket.textContent = "Pending";
