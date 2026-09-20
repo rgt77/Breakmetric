@@ -112,12 +112,14 @@
       font-size:.82rem;
       line-height:1.45;
     }
+    .product-grid,
     .format-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
       gap:10px;
       margin:10px 0 12px;
     }
+    .product-card,
     .format-card{
       margin:0;
       min-height:88px;
@@ -130,13 +132,18 @@
       cursor:pointer;
       font:inherit;
     }
+    .product-card.active,
     .format-card.active{
       border-color:var(--accent);
       background:rgba(101,230,180,.08);
     }
+    .product-card strong,
     .format-card strong{display:block;font-size:.95rem}
+    .product-card span,
     .format-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
+    .product-card .product-state,
     .format-card .format-state{color:var(--accent)}
+    .product-card.pending{opacity:.78}
     .format-status{
       margin:8px 0 18px;
       padding:12px 14px;
@@ -373,16 +380,19 @@
       <h2>Spot value calculator</h2>
       <p>Choose a team, drill down to a player and compare the break data with the spot price.</p>
 
-      <div id="productField" style="display:none;margin-bottom:14px">
-        <label for="product">Product / break</label>
-        <select id="product"></select>
+      
+      <div class="section-title">1 · Choose product / release</div>
+      <div id="productGrid" class="product-grid" aria-label="Products and releases"></div>
+      <div id="productStatus" class="format-status" aria-live="polite">
+        Loading products…
       </div>
 
-      
-      <div class="section-title">1 · Choose box type</div>
-      <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
-      <div id="formatStatus" class="format-status" aria-live="polite">
-        Loading box formats…
+      <div id="formatStage">
+        <div class="section-title">2 · Choose box type</div>
+        <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
+        <div id="formatStatus" class="format-status" aria-live="polite">
+          Select a product first.
+        </div>
       </div>
 
       <div id="analysisContent">
@@ -399,7 +409,7 @@
         </p>
       </div>
 
-      <div class="section-title">2 · Choose team</div>
+      <div class="section-title">3 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true">
             <option>AFC Bournemouth</option>
@@ -424,7 +434,7 @@
             <option>Wolverhampton Wanderers</option>
           </select>
       <div class="player-browser">
-        <div class="section-title">3 · Choose player</div>
+        <div class="section-title">4 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players"></div>
       </div>
 
@@ -601,8 +611,11 @@
   <footer>© 2026 BreakMetric</footer>
 
   <script>
-    const productField = document.getElementById("productField");
-    const product = document.getElementById("product");
+    const productGrid = document.getElementById("productGrid");
+    const productStatus = document.getElementById("productStatus");
+    const formatStage = document.getElementById("formatStage");
+    const product = document.createElement("select");
+    product.id = "product";
     const team = document.getElementById("team");
     const currency = document.getElementById("currency");
     const price = document.getElementById("price");
@@ -647,6 +660,7 @@
     }
 
     let formatCatalogData = null;
+    let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
     let selectedFormat = localStorage.getItem("breakmetric_format") || "hobby";
     let teamEvData = null;
     let baseChecklistData = null;
@@ -669,10 +683,20 @@
     const fxStatus = document.getElementById("fxStatus");
 
     async function loadFormats() {
+      if (!currentProduct?.format_data) {
+        formatCatalogData = null;
+        formatGrid.innerHTML = "";
+        formatStage.hidden = true;
+        analysisContent.hidden = true;
+        formatStatus.textContent = "No box-format model is available for this release yet.";
+        return;
+      }
+
+      formatStage.hidden = false;
+      formatStatus.textContent = "Loading box formats…";
+
       try {
-        const response = await fetch(
-          "data/formats/2026-topps-chrome-premier-league.json"
-        );
+        const response = await fetch(currentProduct.format_data);
         if (!response.ok) throw new Error("Format catalog unavailable");
         formatCatalogData = await response.json();
 
@@ -683,6 +707,7 @@
         renderFormats();
         applyFormatSelection();
       } catch (error) {
+        formatGrid.innerHTML = "";
         formatStatus.textContent = "Box format data unavailable.";
         analysisContent.hidden = true;
       }
@@ -749,6 +774,80 @@
       formatStatus.innerHTML =
         "<strong>" + selected.name + "</strong> · Format recognized, but its own odds/EV model is not built yet." +
         (exclusive ? " Exclusive checklist content: " + exclusive + "." : "");
+    }
+
+    function renderProducts() {
+      productGrid.innerHTML = "";
+      const products = productCatalog?.products || [];
+
+      for (const item of products) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "product-card" +
+          (selectedProductId === item.id ? " active" : "") +
+          (item.status === "pending" ? " pending" : "");
+
+        const title = document.createElement("strong");
+        title.textContent = item.display_name || item.name;
+
+        const state = document.createElement("span");
+        state.className = "product-state";
+        state.textContent = item.status === "ready" ? "Dataset ready" : "Dataset pending";
+
+        const note = document.createElement("span");
+        note.textContent = item.note || "";
+
+        button.appendChild(title);
+        button.appendChild(state);
+        button.appendChild(note);
+
+        button.addEventListener("click", async () => {
+          selectedProductId = item.id;
+          localStorage.setItem("breakmetric_product", selectedProductId);
+          selectedFormat = "hobby";
+          localStorage.setItem("breakmetric_format", selectedFormat);
+          currentProduct = item;
+          clearPlayerSelection();
+          renderProducts();
+          applyProductSelection();
+          await loadFormats();
+
+          if (item.status === "ready") {
+            await loadTeamEv();
+          }
+        });
+
+        productGrid.appendChild(button);
+      }
+    }
+
+    function applyProductSelection() {
+      const selected = (productCatalog?.products || [])
+        .find(item => item.id === selectedProductId);
+
+      currentProduct = selected || null;
+
+      if (!selected) {
+        productStatus.textContent = "Select a product / release.";
+        formatStage.hidden = true;
+        analysisContent.hidden = true;
+        return;
+      }
+
+      if (selected.status === "ready") {
+        productStatus.innerHTML =
+          "<strong>" + (selected.display_name || selected.name) +
+          "</strong> · BreakMetric dataset available.";
+        formatStage.hidden = false;
+        return;
+      }
+
+      productStatus.innerHTML =
+        "<strong>" + (selected.display_name || selected.name) +
+        "</strong> · Product slot exists, but odds/checklist/EV data has not been added yet.";
+      formatStage.hidden = true;
+      analysisContent.hidden = true;
     }
 
     function preferredCurrencyFromLocale() {
@@ -1620,24 +1719,25 @@
         if (!response.ok) throw new Error("Product catalog unavailable");
 
         productCatalog = await response.json();
-        const activeProducts = (productCatalog.products || []).filter(p => p.active);
 
-        product.innerHTML = "";
-        for (const item of activeProducts) {
-          const option = document.createElement("option");
-          option.value = item.id;
-          option.textContent = item.name + " — " + item.format;
-          product.appendChild(option);
+        if (!(productCatalog.products || []).some(item => item.id === selectedProductId)) {
+          selectedProductId = (productCatalog.products || []).find(item => item.status === "ready")?.id || null;
         }
 
-        productField.style.display = activeProducts.length > 1 ? "block" : "none";
-        currentProduct = activeProducts[0] || null;
+        renderProducts();
+        applyProductSelection();
 
-        if (currentProduct) {
-          product.value = currentProduct.id;
+        currentProduct = (productCatalog.products || [])
+          .find(item => item.id === selectedProductId) || null;
+
+        if (currentProduct?.status === "ready") {
+          await loadFormats();
           await loadTeamEv();
         }
       } catch (error) {
+        productStatus.textContent = "Product catalog unavailable.";
+        formatStage.hidden = true;
+        analysisContent.hidden = true;
         resultEvSummary.textContent = "Product unavailable";
         evCoverage.textContent = "Product data unavailable";
       }
@@ -1706,14 +1806,7 @@
       renderPlayers();
     });
 
-    product.addEventListener("change", async () => {
-      currentProduct = productCatalog.products.find(p => p.id === product.value) || null;
-      clearPlayerSelection();
-      await loadTeamEv();
-      renderPlayers();
-    });
 
-    loadFormats();
     renderTeams();
 
     const savedPlayer = localStorage.getItem("breakmetric_player");
