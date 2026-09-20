@@ -11,9 +11,9 @@
     "step_172_product_sealed_supply_label": true,
     "step_173_version_is_v03": true,
     "step_174_team_change_uses_product_scoped_helper": true,
-    "step_174_no_out_of_scope_product_id_reference_in_team_handler": false,
+    "step_174_no_out_of_scope_product_id_reference_in_team_handler": true,
     "step_174_roi_remains_blocked_when_ev_incomplete": true,
     "step_174_product_context_and_atomic_loading_preserved": true
   },
-  "result": "fail"
+  "result": "pass"
 }
