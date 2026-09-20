@@ -666,6 +666,7 @@
     }
 
     let productSearchQuery = "";
+    let productLoadToken = 0;
     let formatCatalogData = null;
     let productMetadataData = null;
     let selectedProductId = localStorage.getItem("breakmetric_product") || "2026-topps-chrome-premier-league";
@@ -690,6 +691,21 @@
     let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
 
+    async function fetchJsonForProduct(path, token) {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error("Product dataset unavailable: " + path);
+
+      const data = await response.json();
+
+      if (token !== productLoadToken) {
+        const staleError = new Error("Stale product load");
+        staleError.name = "StaleProductLoad";
+        throw staleError;
+      }
+
+      return data;
+    }
+
     function productPath(key) {
       const value = currentProduct?.[key];
       if (typeof value !== "string" || !value) {
@@ -699,6 +715,7 @@
     }
 
     function resetProductData() {
+      productLoadToken += 1;
       productMetadataData = null;
       teamEvData = null;
       baseChecklistData = null;
@@ -762,26 +779,132 @@
     async function loadCurrentProductDatasets() {
       if (!currentProduct || currentProduct.status !== "ready") return;
 
-      await loadProductMetadata();
+      const token = ++productLoadToken;
+      const productIdAtStart = currentProduct.id;
 
-      await Promise.all([
-        loadPlayerIndex(),
-        loadPlayerProbabilities(),
-        loadBaseChecklist(),
-        loadAutographProbabilities(),
-        loadAutographChecklist(),
-        loadInsertProbabilities(),
-        loadBaseParallelProbabilities(),
-        loadLiveSupply(),
-        loadSealedSupply(),
-        loadProductionEstimate(),
-        loadTeamEv()
-      ]);
+      try {
+        const paths = {
+          metadata: productPath("product_data"),
+          playerIndex: productPath("player_index_data"),
+          playerProbabilities: productPath("player_probability_data"),
+          baseChecklist: productPath("base_checklist_data"),
+          autographProbabilities: productPath("team_autograph_probability_data"),
+          autographChecklist: productPath("autograph_checklist_data"),
+          insertProbabilities: productPath("team_insert_probability_data"),
+          baseParallelProbabilities: productPath("team_base_parallel_probability_data"),
+          liveSupply: productPath("live_supply_data"),
+          sealedSupply: productPath("sealed_supply_data"),
+          production: productPath("production_estimate_data"),
+          teamEv: currentProduct.ev_data
+        };
 
-      renderTeams();
-      renderPlayers();
-      updatePlayerDetail();
-      updateResults();
+        const [
+          metadata,
+          nextPlayerIndex,
+          nextPlayerProbabilities,
+          nextBaseChecklist,
+          nextAutographProbabilities,
+          nextAutographChecklist,
+          nextInsertProbabilities,
+          nextBaseParallelProbabilities,
+          nextLiveSupply,
+          nextSealedSupply,
+          nextProduction,
+          nextTeamEv
+        ] = await Promise.all([
+          fetchJsonForProduct(paths.metadata, token),
+          fetchJsonForProduct(paths.playerIndex, token),
+          fetchJsonForProduct(paths.playerProbabilities, token),
+          fetchJsonForProduct(paths.baseChecklist, token),
+          fetchJsonForProduct(paths.autographProbabilities, token),
+          fetchJsonForProduct(paths.autographChecklist, token),
+          fetchJsonForProduct(paths.insertProbabilities, token),
+          fetchJsonForProduct(paths.baseParallelProbabilities, token),
+          fetchJsonForProduct(paths.liveSupply, token),
+          fetchJsonForProduct(paths.sealedSupply, token),
+          fetchJsonForProduct(paths.production, token),
+          fetchJsonForProduct(paths.teamEv, token)
+        ]);
+
+        if (
+          token !== productLoadToken ||
+          currentProduct?.id !== productIdAtStart
+        ) {
+          return;
+        }
+
+        productMetadataData = metadata;
+        playerIndexData = nextPlayerIndex;
+        playerProbabilityData = nextPlayerProbabilities;
+        baseChecklistData = nextBaseChecklist;
+        autographProbabilityData = nextAutographProbabilities;
+        autographChecklistData = nextAutographChecklist;
+        insertProbabilityData = nextInsertProbabilities;
+        baseParallelProbabilityData = nextBaseParallelProbabilities;
+        liveSupplyData = nextLiveSupply;
+        sealedSupplyData = nextSealedSupply;
+        productionData = nextProduction;
+        teamEvData = nextTeamEv;
+
+        const previousTeam =
+          localStorage.getItem("breakmetric_team") || team.value;
+
+        const teams = (productMetadataData.teams || [])
+          .map(item => item.name)
+          .filter(Boolean);
+
+        team.innerHTML = "";
+        for (const name of teams) {
+          const option = document.createElement("option");
+          option.value = name;
+          option.textContent = name;
+          team.appendChild(option);
+        }
+
+        if (teams.includes(previousTeam)) {
+          team.value = previousTeam;
+        } else if (teams.length) {
+          team.value = teams[0];
+          localStorage.setItem("breakmetric_team", team.value);
+        }
+
+        updateTeamEv();
+        updateAutographChance();
+        updateAutographChecklistCount();
+        updateExpectedInserts();
+        updateExpectedBaseParallels();
+        updateLiveSupply();
+        updateSealedSupplyStatus();
+
+        const low = Number(
+          productionData?.aggregate?.implied_hobby_cases_low
+        );
+        const high = Number(
+          productionData?.aggregate?.implied_hobby_cases_high
+        );
+        resultImpliedHobbyCases.textContent =
+          Number.isFinite(low) && Number.isFinite(high)
+            ? Math.round(low).toLocaleString() +
+              "–" +
+              Math.round(high).toLocaleString()
+            : "Unavailable";
+
+        renderTeams();
+        renderPlayers();
+        updatePlayerDetail();
+        updateResults();
+        updateAnalysisContext();
+      } catch (error) {
+        if (
+          error?.name === "StaleProductLoad" ||
+          token !== productLoadToken
+        ) {
+          return;
+        }
+
+        resultEvSummary.textContent = "Unavailable";
+        evCoverage.textContent = "Product datasets unavailable";
+      }
     }
 
     async function loadFormats() {
@@ -933,6 +1056,7 @@
 
         button.addEventListener("click", async () => {
           selectedProductId = item.id;
+          productLoadToken += 1;
           localStorage.setItem("breakmetric_product", selectedProductId);
           selectedFormat = "hobby";
           localStorage.setItem("breakmetric_format", selectedFormat);
