@@ -33,7 +33,10 @@
         analysis_unit:stringValue(format.analysis_unit?.display_name),
         boxes:Number(format.analysis_unit?.boxes || 0),
         packs:Number(format.analysis_unit?.packs || 0),
-        cards:Number(format.analysis_unit?.cards || 0)
+        cards:Number(format.analysis_unit?.cards || 0),
+        allocation_policy_status:stringValue(format.break_allocation_policy?.status),
+        multi_team_rule:stringValue(format.break_allocation_policy?.multi_team_rule),
+        ev_allocation_treatment:stringValue(format.break_allocation_policy?.ev_treatment)
       },
       probability:{
         source_type:"manufacturer-published odds + normalized checklist mapping",
@@ -84,6 +87,15 @@
        Number(provenance.format.packs)<=0){
       errors.push("provenance pack count invalid");
     }
+    if(provenance.format?.allocation_policy_status!=="protected"){
+      errors.push("provenance break allocation policy not protected");
+    }
+    if(provenance.format?.multi_team_rule!=="exclude-until-explicit-break-rule"){
+      errors.push("provenance multi-team allocation rule invalid");
+    }
+    if(provenance.format?.ev_allocation_treatment!=="exclude-unallocated-multi-team-cards"){
+      errors.push("provenance EV allocation treatment invalid");
+    }
     if(!provenance.probability?.player_generator ||
        provenance.probability.player_generator==="—"){
       errors.push("provenance player generator missing");
@@ -126,6 +138,13 @@
         value:
           stringValue(format.analysis_unit) +
           " · " + Number(format.packs || 0) + " packs"
+      },
+      {
+        label:"Break allocation",
+        value:
+          format.multi_team_rule==="exclude-until-explicit-break-rule"
+            ? "Single-team mapped · multi-team excluded from team EV"
+            : stringValue(format.multi_team_rule)
       },
       {
         label:"EV evidence",
