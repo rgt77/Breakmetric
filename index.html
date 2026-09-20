@@ -80,7 +80,7 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(6,1fr);
+      grid-template-columns:repeat(7,1fr);
       gap:12px;
       margin-top:22px;
     }
@@ -211,6 +211,10 @@
           <strong id="resultExpectedAutos">Loading…</strong>
         </div>
         <div class="result">
+          <span>Expected inserts</span>
+          <strong id="resultExpectedInserts">Loading…</strong>
+        </div>
+        <div class="result">
           <span>Expected net</span>
           <strong id="resultNet">—</strong>
         </div>
@@ -241,6 +245,7 @@
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let autographProbabilityData = null;
+    let insertProbabilityData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -252,6 +257,7 @@
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
+    const resultExpectedInserts = document.getElementById("resultExpectedInserts");
     const resultNet = document.getElementById("resultNet");
     const resultRatio = document.getElementById("resultRatio");
     const resultRoi = document.getElementById("resultRoi");
@@ -331,6 +337,37 @@
       }
     });
 
+
+    async function loadInsertProbabilities() {
+      try {
+        const response = await fetch(
+          "data/derived/2026-topps-chrome-premier-league-hobby-team-insert-probabilities.json"
+        );
+        if (!response.ok) throw new Error("Insert probabilities unavailable");
+        insertProbabilityData = await response.json();
+        updateExpectedInserts();
+      } catch (error) {
+        resultExpectedInserts.textContent = "Unavailable";
+      }
+    }
+
+    function updateExpectedInserts() {
+      const rows = insertProbabilityData?.teams || [];
+      const row = rows.find(item => item.team === team.value);
+
+      if (!row) {
+        resultExpectedInserts.textContent = "—";
+        return;
+      }
+
+      const expected =
+        row.expected_insert_hits_per_12_box_case;
+
+      resultExpectedInserts.textContent =
+        Number.isFinite(Number(expected))
+          ? Number(expected).toFixed(2)
+          : "—";
+    }
 
     async function loadAutographProbabilities() {
       try {
@@ -447,6 +484,7 @@
     team.addEventListener("change", () => {
       updateTeamEv();
       updateAutographChance();
+      updateExpectedInserts();
       updateResults();
     });
 
@@ -456,6 +494,7 @@
     });
 
     loadAutographProbabilities();
+    loadInsertProbabilities();
     loadProducts();
 
     function updateResults() {
