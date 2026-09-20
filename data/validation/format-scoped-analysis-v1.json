@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 180-182",
+  "checks": {
+    "step_181_format_config_helper": true,
+    "step_181_analysis_paths_are_format_scoped": true,
+    "step_181_format_click_reloads_dataset": true,
+    "step_181_format_change_resets_stale_data": true,
+    "step_181_stale_check_includes_format": true,
+    "step_182_format_integrity_loaded": true,
+    "step_182_format_id_validated": true,
+    "step_182_analysis_hidden_until_validation": true,
+    "step_182_format_pass_visible": true,
+    "step_182_format_fail_blocks": true
+  },
+  "result": "pass"
+}
