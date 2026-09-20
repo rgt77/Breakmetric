@@ -1,48 +1,32 @@
 {
   "product_id": "2026-topps-chrome-premier-league",
-  "purpose": "Estimate the remaining sealed fraction using multiple independent evidence sources.",
+  "purpose": "Estimate remaining sealed fraction only when quantitative evidence supports it.",
   "rules": [
-    "Use ranges rather than a single exact percentage whenever uncertainty is material.",
-    "Do not use Serial Tracker observations alone as proof of sealed supply remaining.",
-    "Prefer independent evidence sources.",
-    "Store date and source type for every estimate.",
-    "Live Odds should consume low/mid/high sealed-fraction scenarios separately.",
-    "If no credible evidence exists, status remains no-evidence and manufacturer odds stay unchanged."
+    "Qualitative sold-out signals do not equal a sealed percentage.",
+    "Secondary-market sealed sales prove supply still exists but do not measure total supply.",
+    "Observed public breaks are a lower bound, not a representative sample of all openings.",
+    "Serial observations alone do not measure sealed product remaining.",
+    "A Live Odds adjustment requires a valid sealed-fraction range plus serial evidence.",
+    "At least two independent quantitative source types are required before Live Odds can become active."
   ],
-  "evidence": [
-    {
-      "source": null,
-      "source_type": "manufacturer_or_distributor_inventory",
-      "sealed_fraction_low": null,
-      "sealed_fraction_high": null,
-      "confidence_weight": 3,
-      "observed_at": null,
-      "note": null
-    },
-    {
-      "source": null,
-      "source_type": "major_retail_inventory",
-      "sealed_fraction_low": null,
-      "sealed_fraction_high": null,
-      "confidence_weight": 2,
-      "observed_at": null,
-      "note": null
-    },
-    {
-      "source": null,
-      "source_type": "secondary_market_sealed_supply",
-      "sealed_fraction_low": null,
-      "sealed_fraction_high": null,
-      "confidence_weight": 1,
-      "observed_at": null,
-      "note": null
-    }
-  ],
+  "evidence_status": {
+    "qualitative_signal_count": 7,
+    "quantitative_source_types": 0,
+    "serial_evidence_available": true,
+    "sealed_fraction_range_available": false
+  },
   "current_estimate": {
-    "status": "no-evidence",
+    "status": "qualitative-evidence-only",
     "sealed_fraction_low": null,
     "sealed_fraction_mid": null,
     "sealed_fraction_high": null,
-    "confidence": "none"
-  }
+    "confidence": "none",
+    "live_odds_adjustment_allowed": false
+  },
+  "next_quantitative_targets": [
+    "verified production total or print-run-derived production denominator",
+    "dated verified distributor/retailer inventory counts",
+    "repeatable marketplace sealed-listing census with deduplication",
+    "opening-volume dataset with known observation coverage"
+  ]
 }
