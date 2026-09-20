@@ -37,6 +37,7 @@ for(const file of [
   "src/evWorkQueue.js",
   "src/marketCoverage.js",
   "src/marketEvidenceQuality.js",
+  "src/marketRecordQuality.js",
   "src/dataFreshness.js",
   "src/urlState.js",
   "src/dataLoader.js",
@@ -157,6 +158,19 @@ assert(qualityValidation.valid,"market evidence quality validation failed");
 const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
 assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
 assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+
+const marketRecord=JSON.parse(
+  fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json"),"utf8")
+);
+const recordQuality=sandbox.BreakMetricMarketRecordQuality.evaluate(
+  marketRecord,
+  new Date("2026-09-20T00:00:00Z")
+);
+assert(sandbox.BreakMetricMarketRecordQuality.validate(recordQuality).valid,"market record quality invalid");
+assert(recordQuality.sale_count===30,"market record sample-size smoke failed");
+assert(recordQuality.sample_size_confidence==="high","market record sample band failed");
+assert(recordQuality.source_status==="secondary-source-only","market record source status failed");
+assert(["fresh","current","aging","stale"].includes(recordQuality.recency_status),"market record recency band failed");
 
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(
