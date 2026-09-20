@@ -3,7 +3,7 @@
   "format": "Hobby",
   "analysis_unit": "12-box case",
   "audited_at": "2026-09-20",
-  "audit_version": 1,
+  "audit_version": 2,
   "scope": "Market evidence behind current Chelsea partial EV contributions.",
   "audited_card_contributions": 27,
   "original_marketplace_verified_card_contributions": 0,
@@ -13,7 +13,7 @@
   "verified_ev_available": false,
   "provisional_ev_available": true,
   "roi_eligible": false,
-  "interpretation": "The stored card values are usable as provisional secondary-source market evidence, but none of the 27 current Chelsea contribution files stores recovered original eBay sale URLs. Legacy verified_as_realized_sale flags are not treated as original-marketplace verification.",
+  "interpretation": "All current Chelsea contribution records are market-record schema v2 and are explicitly classified as provisional secondary-source evidence until an original marketplace sale is recovered and stored.",
   "entries": [
     {
       "card_id": "CA-EV-gold-refractor-auto",
@@ -367,5 +367,8 @@
       "ev_use": "provisional-only"
     }
   ],
-  "result": "pass"
+  "result": "pass",
+  "source_schema_version": 2,
+  "generator": "src/marketAudit.js",
+  "generation_rule": "Regenerate from the market_source_file values in the current team EV contribution list; do not infer original marketplace verification from legacy booleans."
 }
