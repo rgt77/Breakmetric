@@ -193,7 +193,7 @@
     .analysis-scope strong{font-size:.9rem}
     .data-status-grid{
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-template-columns:repeat(5,minmax(0,1fr));
       gap:10px;
       margin:10px 0 4px;
     }
@@ -498,6 +498,10 @@
           <strong id="dataMarketCoverage">Pending</strong>
         </div>
         <div>
+          <span>Market source quality</span>
+          <strong id="dataMarketSourceQuality">Pending</strong>
+        </div>
+        <div>
           <span>ROI status</span>
           <strong id="dataRoiGate">Withheld</strong>
         </div>
@@ -535,7 +539,7 @@
 
         <div class="player-stats">
           <div class="player-stat">
-            <span>Partial player EV</span>
+            <span>Indicative partial player EV</span>
             <strong id="playerEv">—</strong>
           </div>
           <div class="player-stat">
@@ -619,7 +623,7 @@
           </p>
         </div>
         <div class="spot-purpose">
-          Enter what the team spot costs. BreakMetric compares that price with the team EV and calculates ROI when EV coverage is complete.
+          Enter what the team spot costs. BreakMetric calculates ROI only when EV coverage is complete and the market-source verification gate is satisfied.
         </div>
       </div>
 
@@ -690,7 +694,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v0.4</b> — interactive prototype.</p>
+      <p class="status"><b>BreakMetric v0.5</b> — interactive prototype.</p>
     </section>
   </main>
 
@@ -716,6 +720,7 @@
     const dataProductIntegrity = document.getElementById("dataProductIntegrity");
     const dataFormatIntegrity = document.getElementById("dataFormatIntegrity");
     const dataMarketCoverage = document.getElementById("dataMarketCoverage");
+    const dataMarketSourceQuality = document.getElementById("dataMarketSourceQuality");
     const dataRoiGate = document.getElementById("dataRoiGate");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
@@ -771,6 +776,7 @@
     let liveSupplyData = null;
     let sealedSupplyData = null;
     let productionData = null;
+    let marketAuditData = null;
     let productCatalog = null;
     let currentProduct = null;
     let currentTeamEntry = null;
@@ -910,8 +916,35 @@
         dataMarketCoverage.className = "status-warn";
       }
 
+      const audited = Number(
+        marketAuditData?.audited_card_contributions || 0
+      );
+      const originalVerified = Number(
+        marketAuditData?.original_marketplace_verified_card_contributions || 0
+      );
+
+      if (marketAuditData?.market_evidence_status === "secondary-source-only") {
+        dataMarketSourceQuality.textContent =
+          "Secondary only · " + originalVerified + "/" + audited + " original verified";
+        dataMarketSourceQuality.className = "status-warn";
+      } else if (audited > 0 && originalVerified === audited) {
+        dataMarketSourceQuality.textContent =
+          "Original verified · " + originalVerified + "/" + audited;
+        dataMarketSourceQuality.className = "status-good";
+      } else if (audited > 0) {
+        dataMarketSourceQuality.textContent =
+          "Mixed · " + originalVerified + "/" + audited + " original verified";
+        dataMarketSourceQuality.className = "status-warn";
+      } else {
+        dataMarketSourceQuality.textContent = "No audit data";
+        dataMarketSourceQuality.className = "status-warn";
+      }
+
       if (!currentTeamEntry?.coverage_complete) {
         dataRoiGate.textContent = "Withheld · EV incomplete";
+        dataRoiGate.className = "status-warn";
+      } else if (currentTeamEntry?.market_evidence?.roi_eligible !== true) {
+        dataRoiGate.textContent = "Withheld · source verification";
         dataRoiGate.className = "status-warn";
       } else if (!(Number(price.value) > 0)) {
         dataRoiGate.textContent = "Ready · enter spot price";
@@ -974,6 +1007,7 @@
       liveSupplyData = null;
       sealedSupplyData = null;
       productionData = null;
+      marketAuditData = null;
       currentTeamEntry = null;
       currentEvUsd = null;
       clearPlayerSelection(false);
@@ -1058,6 +1092,7 @@
           liveSupply: formatPath("live_supply_data"),
           sealedSupply: formatPath("sealed_supply_data"),
           production: formatPath("production_estimate_data"),
+          marketAudit: formatPath("market_evidence_audit_data"),
           teamEv: formatPath("ev_data")
         };
 
@@ -1075,6 +1110,7 @@
           nextLiveSupply,
           nextSealedSupply,
           nextProduction,
+          nextMarketAudit,
           nextTeamEv
         ] = await Promise.all([
           fetchJsonForProduct(paths.productIntegrity, token),
@@ -1090,6 +1126,7 @@
           fetchJsonForProduct(paths.liveSupply, token),
           fetchJsonForProduct(paths.sealedSupply, token),
           fetchJsonForProduct(paths.production, token),
+          fetchJsonForProduct(paths.marketAudit, token),
           fetchJsonForProduct(paths.teamEv, token)
         ]);
 
@@ -1124,6 +1161,17 @@
           return;
         }
 
+        if (
+          nextMarketAudit?.result !== "pass" ||
+          nextMarketAudit?.product_id !== productIdAtStart
+        ) {
+          formatStatus.innerHTML =
+            "<strong>" + (selectedFormatConfig()?.name || "Box format") +
+            "</strong> · <span class=\"integrity-fail\">Market evidence audit failed.</span>";
+          analysisContent.hidden = true;
+          return;
+        }
+
         productStatus.innerHTML =
           "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
           "</strong> · <span class=\"integrity-pass\">Dataset integrity validated.</span>";
@@ -1144,6 +1192,7 @@
         liveSupplyData = nextLiveSupply;
         sealedSupplyData = nextSealedSupply;
         productionData = nextProduction;
+        marketAuditData = nextMarketAudit;
         teamEvData = nextTeamEv;
 
         const previousTeam =
@@ -2102,7 +2151,13 @@
           const left = document.createElement("div");
           left.textContent = item.parallel;
           const sub = document.createElement("small");
-          sub.textContent = item.set;
+          sub.textContent =
+            item.set +
+            (item.market_evidence_status === "secondary-source-realized-sale"
+              ? " · Secondary-source comp"
+              : item.original_marketplace_verified
+                ? " · Original marketplace verified"
+                : "");
           left.appendChild(sub);
 
           const right = document.createElement("strong");
@@ -2441,11 +2496,18 @@
         resultEvLabel.textContent = "Team EV";
         evCoverage.textContent = "Complete EV coverage · " + team.value;
       } else {
-        resultEvLabel.textContent = "Partial team EV";
+        resultEvLabel.textContent =
+          entry.ev_status === "indicative-provisional"
+            ? "Indicative partial team EV"
+            : "Partial team EV";
         const count = Number(entry.valued_card_count || 0);
         evCoverage.textContent =
-          "Partial " + team.value + " EV · " +
-          count + " valued card" + (count === 1 ? "" : "s");
+          (entry.ev_status === "indicative-provisional" ? "Indicative partial " : "Partial ") +
+          team.value + " EV · " +
+          count + " valued card" + (count === 1 ? "" : "s") +
+          (entry.market_evidence?.status === "secondary-source-only"
+            ? " · secondary-source market comps"
+            : "");
       }
 
       updateDataStatusUi();
@@ -2511,6 +2573,16 @@
       if (!currentTeamEntry?.coverage_complete) {
         updateDataStatusUi();
         resultNet.textContent = "Waiting for full EV";
+        resultRatio.textContent = "—";
+        resultRoi.textContent = "—";
+        resultNet.className = "";
+        resultRoi.className = "";
+        return;
+      }
+
+      if (currentTeamEntry?.market_evidence?.roi_eligible !== true) {
+        updateDataStatusUi();
+        resultNet.textContent = "Waiting for verified market sources";
         resultRatio.textContent = "—";
         resultRoi.textContent = "—";
         resultNet.className = "";
