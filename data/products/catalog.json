@@ -1,0 +1,13 @@
+{
+  "products": [
+    {
+      "id": "2026-topps-chrome-premier-league",
+      "name": "2026 Topps Chrome Premier League",
+      "format": "Hobby Case",
+      "boxes_per_case": 12,
+      "packs_per_box": 20,
+      "active": true,
+      "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"
+    }
+  ]
+}
