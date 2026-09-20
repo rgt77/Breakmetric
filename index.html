@@ -658,6 +658,14 @@
             <span>ROI status</span>
             <strong id="dataRoiGate">Withheld</strong>
           </div>
+          <div>
+            <span>Dataset loader</span>
+            <strong id="dataLoaderStatus">Pending</strong>
+          </div>
+          <div>
+            <span>Cache / requests</span>
+            <strong id="dataLoaderMetrics">—</strong>
+          </div>
         </div>
       </details>
 
@@ -1074,6 +1082,8 @@
     const dataMarketSourceQuality = document.getElementById("dataMarketSourceQuality");
     const dataTeamReadiness = document.getElementById("dataTeamReadiness");
     const dataRoiGate = document.getElementById("dataRoiGate");
+    const dataLoaderStatus = document.getElementById("dataLoaderStatus");
+    const dataLoaderMetrics = document.getElementById("dataLoaderMetrics");
     const qualityProbability = document.getElementById("qualityProbability");
     const qualityEv = document.getElementById("qualityEv");
     const qualityMarket = document.getElementById("qualityMarket");
@@ -1397,12 +1407,18 @@
       marketRecordIntegrity.textContent = "Loading…";
 
       try {
-        const records = await Promise.all(
-          sources.map(path => BreakMetricDataLoader.loadJson(path, {
+        const recordMap = await BreakMetricDataLoader.loadMany(
+          Object.fromEntries(sources.map((path,index) => ["record" + index,path])),
+          {
+            concurrency: 6,
             timeoutMs: 12000,
-            retries: 1
-          }))
+            retries: 1,
+            useCache: true,
+            maxBytes: 5_000_000
+          }
         );
+        const records = Object.values(recordMap);
+        updateLoaderStatsUi();
         if (team.value !== teamAtStart) return;
 
         const qualityRows = records.map(record =>
@@ -1667,7 +1683,25 @@
         summary.roi.eligible ? "quality-ready" : "quality-locked";
     }
 
+    function updateLoaderStatsUi() {
+      const stats = BreakMetricDataLoader.stats();
+      dataLoaderStatus.textContent =
+        stats.in_flight > 0
+          ? stats.in_flight + " requests in flight"
+          : "Idle · concurrency capped at 6";
+      dataLoaderStatus.className =
+        stats.failures > 0 ? "status-warn" : stats.in_flight === 0 ? "status-good" : "";
+
+      dataLoaderMetrics.textContent =
+        stats.cached + " cached · " +
+        stats.requests + " network · " +
+        stats.cache_hits + " cache hits · " +
+        stats.retries + " retries";
+      dataLoaderMetrics.className = stats.failures > 0 ? "status-warn" : "";
+    }
+
     function updateDataStatusUi() {
+      updateLoaderStatsUi();
       const integrityPassed =
         !analysisContent.hidden &&
         currentProduct?.status === "ready" &&
@@ -1910,6 +1944,10 @@
       dataTeamReadiness.className = "";
       dataRoiGate.textContent = "Withheld";
       dataRoiGate.className = "";
+      dataLoaderStatus.textContent = "Pending";
+      dataLoaderStatus.className = "";
+      dataLoaderMetrics.textContent = "—";
+      dataLoaderMetrics.className = "";
       qualityProbability.textContent = "Pending";
       qualityProbability.className = "";
       qualityEv.textContent = "Pending";
@@ -1978,49 +2016,38 @@
           marketVerificationQueue: formatPath("market_verification_queue_data")
         };
 
-        const [
+        const loaded = await BreakMetricDataLoader.loadMany(paths, {
+          concurrency: 6,
+          timeoutMs: 12000,
+          retries: 1,
+          useCache: true,
+          maxBytes: 5_000_000
+        });
+
+        const {
           productIntegrity,
           formatIntegrity,
           metadata,
-          nextPlayerIndex,
-          nextPlayerProbabilities,
-          nextPlayerDerivationManifest,
-          nextBaseChecklist,
-          nextAutographProbabilities,
-          nextAutographChecklist,
-          nextInsertProbabilities,
-          nextBaseParallelProbabilities,
-          nextLiveSupply,
-          nextSealedSupply,
-          nextProduction,
-          nextMarketRegistry,
-          nextTeamEv,
-          nextEvScope,
-          nextEvWorkQueue,
-          nextEvContributionProvenance,
-          nextMarketVerificationQueue
-        ] = await Promise.all([
-          fetchJsonForProduct(paths.productIntegrity, token),
-          fetchJsonForProduct(paths.formatIntegrity, token),
-          fetchJsonForProduct(paths.metadata, token),
-          fetchJsonForProduct(paths.playerIndex, token),
-          fetchJsonForProduct(paths.playerProbabilities, token),
-          fetchJsonForProduct(paths.playerDerivationManifest, token),
-          fetchJsonForProduct(paths.baseChecklist, token),
-          fetchJsonForProduct(paths.autographProbabilities, token),
-          fetchJsonForProduct(paths.autographChecklist, token),
-          fetchJsonForProduct(paths.insertProbabilities, token),
-          fetchJsonForProduct(paths.baseParallelProbabilities, token),
-          fetchJsonForProduct(paths.liveSupply, token),
-          fetchJsonForProduct(paths.sealedSupply, token),
-          fetchJsonForProduct(paths.production, token),
-          fetchJsonForProduct(paths.marketRegistry, token),
-          fetchJsonForProduct(paths.teamEv, token),
-          fetchJsonForProduct(paths.evScope, token),
-          fetchJsonForProduct(paths.evWorkQueue, token),
-          fetchJsonForProduct(paths.evContributionProvenance, token),
-          fetchJsonForProduct(paths.marketVerificationQueue, token)
-        ]);
+          playerIndex: nextPlayerIndex,
+          playerProbabilities: nextPlayerProbabilities,
+          playerDerivationManifest: nextPlayerDerivationManifest,
+          baseChecklist: nextBaseChecklist,
+          autographProbabilities: nextAutographProbabilities,
+          autographChecklist: nextAutographChecklist,
+          insertProbabilities: nextInsertProbabilities,
+          baseParallelProbabilities: nextBaseParallelProbabilities,
+          liveSupply: nextLiveSupply,
+          sealedSupply: nextSealedSupply,
+          production: nextProduction,
+          marketRegistry: nextMarketRegistry,
+          teamEv: nextTeamEv,
+          evScope: nextEvScope,
+          evWorkQueue: nextEvWorkQueue,
+          evContributionProvenance: nextEvContributionProvenance,
+          marketVerificationQueue: nextMarketVerificationQueue
+        } = loaded;
+
+        updateLoaderStatsUi();
 
         if (
           token !== productLoadToken ||
