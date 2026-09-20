@@ -10,6 +10,10 @@ Published manufacturer odds are combined with normalized checklist pools. Where 
 
 Team EV is the sum of card-level EV contributions that have both a modeled hit frequency and a usable market value. A partial EV is displayed as partial and never unlocks ROI.
 
+## EV category scope
+
+EV completeness is tracked against three required Hobby categories: **base parallels**, **inserts** and **autographs**. Category progress records how many committed EV contributions have been valued, but a category is not marked complete until its full single-team EV-eligible scope has been enumerated and valued. Multi-team cards remain excluded under the active break-allocation policy.
+
 ## Market evidence
 
 Secondary-source realized sales are treated as provisional. Original-marketplace verification is tracked separately. Market evidence quality is visible independently from probability coverage.
