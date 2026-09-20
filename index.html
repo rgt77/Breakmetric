@@ -415,6 +415,15 @@
       background:rgba(14,21,40,.92);
     }
     .player-panel.visible{display:block}
+    .player-detail-section{
+      margin-top:12px;border-top:1px solid var(--line);padding-top:10px
+    }
+    .player-detail-section summary{
+      cursor:pointer;color:var(--muted);font-weight:700;font-size:.82rem
+    }
+    .player-detail-section[open] summary{color:var(--text)}
+    .player-panel-actions{display:flex;align-items:center;gap:8px}
+    .player-panel-actions .ghost-button{margin:0}
     .player-panel-head{
       display:flex;
       justify-content:space-between;
@@ -875,13 +884,16 @@
         </div>
       </details>
 
-      <section id="playerPanel" class="player-panel">
+      <section id="playerPanel" class="player-panel" role="region" aria-labelledby="playerName">
         <div class="player-panel-head">
           <div>
             <h3 id="playerName">Player</h3>
             <p id="playerMeta"></p>
           </div>
-          <span id="playerBadge" class="rookie-badge" style="display:none"></span>
+          <div class="player-panel-actions">
+            <span id="playerBadge" class="rookie-badge" style="display:none"></span>
+            <button id="clearPlayerButton" class="ghost-button" type="button">Clear player</button>
+          </div>
         </div>
 
         <div class="player-stats">
@@ -934,14 +946,28 @@
             <strong id="playerProbabilityCoverage">—</strong>
           </div>
         </div>
-        <p class="spot-note" style="margin-top:10px!important">
-          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. ¹The combined figure uses an independence approximation across modeled categories. Hit chance is not the same as profit chance or positive ROI. Entry coverage measures checklist entries connected to at least one published odds row; it does not mean every possible parallel has published odds. Probability-entry coverage and market-value coverage are separate: a player can have complete probability mapping while only a subset of cards has usable market valuations.
-        </p>
-        <div id="playerCoverageDetail" class="player-card-list"></div>
+        <details class="player-detail-section">
+          <summary>Probability methodology & coverage</summary>
+          <p class="spot-note" style="margin-top:10px!important">
+            Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. ¹The combined figure uses an independence approximation across modeled categories. Hit chance is not the same as profit chance or positive ROI. Entry coverage measures checklist entries connected to at least one published odds row; it does not mean every possible parallel has published odds. Probability-entry coverage and market-value coverage are separate: a player can have complete probability mapping while only a subset of cards has usable market valuations.
+          </p>
+          <div id="playerCoverageDetail" class="player-card-list"></div>
+        </details>
 
-        <div id="playerChecklistDetail" class="player-card-list"></div>
-        <div id="playerSerialDetail" class="player-card-list"></div>
-        <div id="playerCardList" class="player-card-list"></div>
+        <details class="player-detail-section">
+          <summary>Checklist appearances</summary>
+          <div id="playerChecklistDetail" class="player-card-list"></div>
+        </details>
+
+        <details class="player-detail-section">
+          <summary>Serial tracking</summary>
+          <div id="playerSerialDetail" class="player-card-list"></div>
+        </details>
+
+        <details class="player-detail-section">
+          <summary>Valued cards</summary>
+          <div id="playerCardList" class="player-card-list"></div>
+        </details>
       </section>
 
       <details class="details-panel">
@@ -1078,6 +1104,7 @@
     const playerName = document.getElementById("playerName");
     const playerMeta = document.getElementById("playerMeta");
     const playerBadge = document.getElementById("playerBadge");
+    const clearPlayerButton = document.getElementById("clearPlayerButton");
     const playerEv = document.getElementById("playerEv");
     const playerValuedCards = document.getElementById("playerValuedCards");
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
@@ -3143,6 +3170,7 @@
           "aria-pressed",
           selectedPlayer === item.name ? "true" : "false"
         );
+        button.setAttribute("aria-controls", "playerPanel");
 
         const title = document.createElement("strong");
         title.textContent = item.name;
@@ -3194,10 +3222,10 @@
       playerExpectedInserts.textContent = "—";
       playerExpectedBaseParallels.textContent = "—";
       playerProbabilityCoverage.textContent = "—";
-      playerCoverageDetail.innerHTML = "";
-      playerChecklistDetail.innerHTML = "";
-      playerSerialDetail.innerHTML = "";
-      playerCardList.innerHTML = "";
+      playerCoverageDetail.replaceChildren();
+      playerChecklistDetail.replaceChildren();
+      playerSerialDetail.replaceChildren();
+      playerCardList.replaceChildren();
       updateAnalysisProvenance();
     }
 
@@ -3323,7 +3351,7 @@
           ? coveragePercent.toFixed(0) + "% · " + modeledEntries + "/" + totalEntries
           : "—";
 
-      playerCoverageDetail.innerHTML = "";
+      playerCoverageDetail.replaceChildren();
       if (coverage?.unmapped_sections?.length) {
         const row = document.createElement("div");
         row.className = "player-data-row";
@@ -3342,7 +3370,7 @@
         playerCoverageDetail.appendChild(row);
       }
 
-      playerChecklistDetail.innerHTML = "";
+      playerChecklistDetail.replaceChildren();
       const checklistEntries = indexedPlayer?.checklist_entries || (
         baseCard ? [{
           category: "base",
@@ -3376,7 +3404,7 @@
         }
       }
 
-      playerSerialDetail.innerHTML = "";
+      playerSerialDetail.replaceChildren();
       if (trackedCards.length) {
         for (const item of trackedCards) {
           const row = document.createElement("div");
@@ -3402,7 +3430,7 @@
         }
       }
 
-      playerCardList.innerHTML = "";
+      playerCardList.replaceChildren();
       if (contributions.length) {
         for (const item of contributions) {
           const row = document.createElement("div");
@@ -3829,6 +3857,13 @@
     productSearch.addEventListener("input", () => {
       productSearchQuery = productSearch.value;
       renderProducts();
+    });
+
+    clearPlayerButton.addEventListener("click", () => {
+      clearPlayerSelection();
+      renderPlayers();
+      syncUrlState();
+      playerGrid.focus?.();
     });
 
     marketEvidencePanel.addEventListener("toggle", () => {
