@@ -4,23 +4,27 @@ BreakMetric is a sports-card case-break analysis platform built around published
 
 ## Current release
 
-**v1.1.1 hardening**
+**v1.2.0**
 
-- Product flow: release → box format → team → player.
+- Product flow: release → box format → team → optional player drill-down → spot price.
 - 2026 Topps Chrome Premier League Hobby is the active analysis-ready dataset.
-- Probability analysis is available from the committed Hobby odds/checklist model.
+- Probability, EV coverage, market evidence and ROI readiness are displayed as separate states.
 - EV and ROI remain beta and are explicitly gated by coverage and market-source verification.
-- Spot price and currency are stored atomically; failed FX requests do not mutate the user's price.
-- Runtime contracts block analysis when product, format or dataset integrity fails.
+- Multi-team cards are excluded from team EV until an explicit break-allocation rule is defined.
+- Analysis selections can be shared through the URL.
+- Static datasets use bounded retry, request timeout, in-memory caching and in-flight deduplication.
+- Blocking analysis-load errors can be retried without reloading the page.
+- Dataset validation dates and market-registry dates are visible in provenance.
+- Spot price and currency are persisted atomically.
 
 ## Validation
 
-Every push and pull request runs the BreakMetric validation workflow.
+Every pull request and every push to `main` runs three release gates:
 
 ```bash
 node scripts/validate.mjs
+node scripts/smoke-models.mjs
+for file in src/*.js; do node --check "$file"; done
 ```
 
-The validator checks JSON parsing, ready-product/format routes, case-pack-card arithmetic, inline application JavaScript, currency hardening invariants and core disclosure requirements. Source files are also syntax-checked in CI.
-
-See `docs/v1.1.1-hardening.md` for the current release gates.
+The v1.2 development ledger is documented in `docs/v1.2-n100.md` and `data/validation/v12-n100.json`.

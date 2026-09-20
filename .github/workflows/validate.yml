@@ -2,7 +2,7 @@ name: BreakMetric validation
 
 on:
   push:
-    branches: ["main", "v1.1-hardening-n20"]
+    branches: ["main", "v1.2-n100"]
   pull_request:
 
 permissions:
@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "20"
-      - name: Validate data contracts and UI hardening
+          node-version: "24"
+      - name: Validate data contracts and UI invariants
         run: node scripts/validate.mjs
+      - name: Smoke-test analysis models
+        run: node scripts/smoke-models.mjs
       - name: Syntax-check source modules
         shell: bash
         run: |

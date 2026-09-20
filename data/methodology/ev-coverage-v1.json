@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "model": "ev-coverage-v1",
+  "rules": [
+    "Do not display an EV coverage percentage until a defensible value-bearing-card denominator exists.",
+    "A count of valued cards may be shown independently from completeness.",
+    "Probability-entry coverage must not be reused as EV coverage.",
+    "Market-audit coverage and original-marketplace verification must be shown separately.",
+    "coverage_complete may only be true when the modeled value-bearing-card scope is explicitly complete."
+  ],
+  "current_state": {
+    "percentage_allowed": false,
+    "reason": "The current dataset does not yet define a complete value-bearing-card denominator for each team."
+  }
+}
