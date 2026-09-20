@@ -7,7 +7,7 @@
       "status": "ready",
       "analysis_format": "Hobby Case",
       "note": "Current BreakMetric probability and EV model.",
-      "integrity_data": "data/validation/2026-topps-chrome-premier-league-hobby-format-integrity-v4.json",
+      "integrity_data": "data/validation/2026-topps-chrome-premier-league-hobby-format-integrity-v5.json",
       "analysis_data": {
         "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
         "base_checklist_data": "data/checklists/2026-topps-chrome-premier-league-base.json",
