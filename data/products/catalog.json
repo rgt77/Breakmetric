@@ -8,24 +8,10 @@
       "competition": "Premier League",
       "year": "2026",
       "status": "ready",
-      "format": "Hobby Case",
-      "boxes_per_case": 12,
-      "packs_per_box": 20,
       "active": true,
       "format_data": "data/formats/2026-topps-chrome-premier-league.json",
-      "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
       "note": "Current BreakMetric dataset.",
       "product_data": "data/products/2026-topps-chrome-premier-league.json",
-      "base_checklist_data": "data/checklists/2026-topps-chrome-premier-league-base.json",
-      "autograph_checklist_data": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
-      "player_index_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json",
-      "player_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json",
-      "team_autograph_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-autograph-probabilities.json",
-      "team_insert_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-insert-probabilities.json",
-      "team_base_parallel_probability_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json",
-      "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
-      "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
-      "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json",
       "integrity_data": "data/validation/2026-topps-chrome-premier-league-product-integrity-v1.json"
     },
     {
@@ -38,19 +24,8 @@
       "status": "pending",
       "active": false,
       "format_data": null,
-      "ev_data": null,
       "note": "Product slot prepared. BreakMetric data has not been added yet.",
-      "product_data": null,
-      "base_checklist_data": null,
-      "autograph_checklist_data": null,
-      "player_index_data": null,
-      "player_probability_data": null,
-      "team_autograph_probability_data": null,
-      "team_insert_probability_data": null,
-      "team_base_parallel_probability_data": null,
-      "live_supply_data": null,
-      "sealed_supply_data": null,
-      "production_estimate_data": null
+      "product_data": null
     }
   ]
 }
