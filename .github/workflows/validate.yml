@@ -20,6 +20,8 @@ jobs:
           node-version: "24"
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
+      - name: Validate market records
+        run: node scripts/validate-market-records.mjs
       - name: Validate data contracts and UI invariants
         run: node scripts/validate.mjs
       - name: Smoke-test analysis models
