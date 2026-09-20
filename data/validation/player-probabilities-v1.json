@@ -1,0 +1,40 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 135-144",
+  "checks": [
+    {
+      "name": "all_player_pairs_have_probability_records",
+      "passed": true,
+      "value": 364
+    },
+    {
+      "name": "standard_base_expected_per_player_matches_team_model",
+      "passed": true
+    },
+    {
+      "name": "card_201_uses_separate_model",
+      "passed": true
+    },
+    {
+      "name": "insert_probabilities_created",
+      "passed": true
+    },
+    {
+      "name": "autograph_probabilities_created",
+      "passed": true
+    },
+    {
+      "name": "probabilities_bounded",
+      "passed": true
+    },
+    {
+      "name": "no_missing_odds_invented",
+      "passed": true
+    },
+    {
+      "name": "multi_team_ownership_not_inferred",
+      "passed": true
+    }
+  ],
+  "result": "pass"
+}
