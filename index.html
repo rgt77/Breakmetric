@@ -790,6 +790,28 @@
         </div>
       </details>
 
+      <details class="details-panel" id="evWorkPanel">
+        <summary>EV work queue</summary>
+        <div class="player-card-list">
+          <div class="player-data-row">
+            <div>Next task for selected team</div>
+            <strong id="evNextTask">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Team queue</div>
+            <strong id="evTeamQueue">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Product queue<small>Required team/category valuation tasks.</small></div>
+            <strong id="evGlobalQueue">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Highest-impact market verification<small>Prioritized by current EV contribution only; this does not alter EV.</small></div>
+            <strong id="marketNextVerification">Pending</strong>
+          </div>
+        </div>
+      </details>
+
       <section id="playerPanel" class="player-panel">
         <div class="player-panel-head">
           <div>
@@ -917,6 +939,7 @@
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
+  <script src="src/evWorkQueue.js"></script>
   <script src="src/marketCoverage.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
@@ -1058,6 +1081,8 @@
     let selectedFormat = initialUrlState.format || "hobby";
     let teamEvData = null;
     let evScopeData = null;
+    let evWorkQueueData = null;
+    let marketVerificationQueueData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
     let playerProbabilityData = null;
@@ -1613,6 +1638,8 @@
       formatIntegrityData = null;
       teamEvData = null;
       evScopeData = null;
+      evWorkQueueData = null;
+      marketVerificationQueueData = null;
       baseChecklistData = null;
       playerIndexData = null;
       playerProbabilityData = null;
@@ -1641,6 +1668,10 @@
       evSourceCoverage.textContent = "Pending";
       evCategoryScope.textContent = "Pending";
       evCoverageBlockers.textContent = "Pending";
+      evNextTask.textContent = "Pending";
+      evTeamQueue.textContent = "Pending";
+      evGlobalQueue.textContent = "Pending";
+      marketNextVerification.textContent = "Pending";
       dataProductIntegrity.textContent = "Pending";
       dataProductIntegrity.className = "";
       dataFormatIntegrity.textContent = "Pending";
@@ -1712,7 +1743,9 @@
           production: formatPath("production_estimate_data"),
           marketRegistry: formatPath("market_evidence_registry_data"),
           teamEv: formatPath("ev_data"),
-          evScope: formatPath("ev_scope_data")
+          evScope: formatPath("ev_scope_data"),
+          evWorkQueue: formatPath("ev_work_queue_data"),
+          marketVerificationQueue: formatPath("market_verification_queue_data")
         };
 
         const [
@@ -1732,7 +1765,9 @@
           nextProduction,
           nextMarketRegistry,
           nextTeamEv,
-          nextEvScope
+          nextEvScope,
+          nextEvWorkQueue,
+          nextMarketVerificationQueue
         ] = await Promise.all([
           fetchJsonForProduct(paths.productIntegrity, token),
           fetchJsonForProduct(paths.formatIntegrity, token),
@@ -1750,7 +1785,9 @@
           fetchJsonForProduct(paths.production, token),
           fetchJsonForProduct(paths.marketRegistry, token),
           fetchJsonForProduct(paths.teamEv, token),
-          fetchJsonForProduct(paths.evScope, token)
+          fetchJsonForProduct(paths.evScope, token),
+          fetchJsonForProduct(paths.evWorkQueue, token),
+          fetchJsonForProduct(paths.marketVerificationQueue, token)
         ]);
 
         if (
@@ -1776,7 +1813,9 @@
           production: nextProduction,
           marketRegistry: nextMarketRegistry,
           teamEv: nextTeamEv,
-          evScope: nextEvScope
+          evScope: nextEvScope,
+          evWorkQueue: nextEvWorkQueue,
+          marketVerificationQueue: nextMarketVerificationQueue
         };
 
         const runtimeContract =
@@ -1920,6 +1959,8 @@
         analysisProvenanceData = baseProvenance;
         teamEvData = nextTeamEv;
         evScopeData = nextEvScope;
+        evWorkQueueData = nextEvWorkQueue;
+        marketVerificationQueueData = nextMarketVerificationQueue;
 
         const previousTeam =
           (initialUrlState.product === productIdAtStart && initialUrlState.team) ||
@@ -2485,6 +2526,10 @@
     const evSourceCoverage = document.getElementById("evSourceCoverage");
     const evCategoryScope = document.getElementById("evCategoryScope");
     const evCoverageBlockers = document.getElementById("evCoverageBlockers");
+    const evNextTask = document.getElementById("evNextTask");
+    const evTeamQueue = document.getElementById("evTeamQueue");
+    const evGlobalQueue = document.getElementById("evGlobalQueue");
+    const marketNextVerification = document.getElementById("marketNextVerification");
     const resultExpectedAutosLabel = document.getElementById("resultExpectedAutosLabel");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
@@ -3338,6 +3383,63 @@
       }
     }
 
+    function updateEvWorkQueueUi() {
+      if (!evWorkQueueData) {
+        evNextTask.textContent = "Unavailable";
+        evTeamQueue.textContent = "Unavailable";
+        evGlobalQueue.textContent = "Unavailable";
+        marketNextVerification.textContent = "Unavailable";
+        return;
+      }
+
+      const validation = BreakMetricEvWorkQueue.validate(
+        evWorkQueueData,
+        allTeamNames()
+      );
+      if (!validation.valid) {
+        evNextTask.textContent = "Queue invalid";
+        evTeamQueue.textContent = validation.errors[0] || "Queue invalid";
+        evGlobalQueue.textContent = "Unavailable";
+        marketNextVerification.textContent = "Unavailable";
+        return;
+      }
+
+      const next = BreakMetricEvWorkQueue.nextTask(
+        evWorkQueueData,
+        team.value
+      );
+      const teamTasks = BreakMetricEvWorkQueue.teamTasks(
+        evWorkQueueData,
+        team.value
+      );
+      const summary = BreakMetricEvWorkQueue.summary(evWorkQueueData);
+
+      evNextTask.textContent = BreakMetricEvWorkQueue.label(next);
+      evTeamQueue.textContent = teamTasks
+        .map(task => {
+          const label = {
+            base_parallels: "Base",
+            inserts: "Inserts",
+            autographs: "Autos"
+          }[task.category] || task.category;
+          return label + ": " + task.status;
+        })
+        .join(" · ");
+      evGlobalQueue.textContent =
+        summary.complete + "/" + summary.total + " complete · " +
+        summary.partial + " partial · " +
+        summary.not_started + " not started";
+
+      const verification = (marketVerificationQueueData?.items || [])
+        .find(item => !item.original_marketplace_verified);
+      marketNextVerification.textContent = verification
+        ? "#" + verification.priority_rank + " " +
+          verification.player + " · " +
+          verification.parallel + " · $" +
+          Number(verification.ev_contribution_usd).toFixed(2) + " EV impact"
+        : "No pending original-marketplace verification";
+    }
+
     function updateEvCoverageUi() {
       const model = BreakMetricEvCoverage.build({
         teamEv: currentTeamEntry,
@@ -3422,6 +3524,7 @@
       }
 
       updateEvCoverageUi();
+      updateEvWorkQueueUi();
       updateDataStatusUi();
     }
 
