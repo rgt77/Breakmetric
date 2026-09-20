@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 234-235",
+  "audited_team": "Chelsea",
+  "audited_contributions": 27,
+  "checks": {
+    "step_234_audit_bound_to_team": true,
+    "step_234_audit_has_snapshot_keys": true,
+    "step_234_runtime_snapshot_matcher": true,
+    "step_234_runtime_gate_blocks_mismatch": true,
+    "step_235_source_quality_is_team_specific": true,
+    "step_235_non_audited_team_does_not_show_chelsea_counts": true,
+    "step_235_roi_gate_remains_team_specific": true
+  },
+  "result": "pass"
+}
