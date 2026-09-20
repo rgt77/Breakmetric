@@ -1,0 +1,36 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "68",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Gold Refractor",
+  "serial_numbering": 50,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-04-01",
+      "sale_price": 834,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "verified_as_realized_sale": true
+    },
+    {
+      "sale_date": "2026-02-10",
+      "sale_price": 685,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 759.5,
+    "mean_usd": 759.5,
+    "min_usd": 685,
+    "max_usd": 834,
+    "sale_count": 2,
+    "confidence": "low"
+  }
+}
