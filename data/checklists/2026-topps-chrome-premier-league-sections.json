@@ -1,0 +1,238 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "source": {
+    "type": "official_topps_checklist",
+    "url": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
+    "pages": 18
+  },
+  "purpose": "Master checklist section map. Used to determine which checklist sections are eligible for the Hobby product before probability/value calculations.",
+  "sections": [
+    {
+      "category": "base",
+      "name": "Base Cards",
+      "count": 200,
+      "hobby_eligible": true
+    },
+    {
+      "category": "base",
+      "name": "Hobby-Exclusive Base Card",
+      "count": 1,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    },
+    {
+      "category": "insert",
+      "name": "The Streets Won't Forget",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Alive and Kicking",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "That's His Job",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Stoppage Time Heartbreaker",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Golazo",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Locked In",
+      "count": 50,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "A Cold and Rainy Night in Chrome",
+      "count": 25,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Give Him His Flowers",
+      "count": 25,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Club Crests",
+      "count": 20,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Premier League Trophy",
+      "count": 1,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Winners Enclosure",
+      "count": 4,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Chrome Anime",
+      "count": 10,
+      "hobby_eligible": true
+    },
+    {
+      "category": "insert",
+      "name": "Helix",
+      "count": 10,
+      "hobby_eligible": true
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Genius Chrome",
+      "count": 25,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Triple Platinum",
+      "count": 25,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Clinical Chrome",
+      "count": 30,
+      "hobby_eligible": false,
+      "exclusive_to": [
+        "Tin"
+      ]
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Monday Night Lights",
+      "count": 40,
+      "hobby_eligible": false,
+      "exclusive_to": [
+        "Value Box"
+      ]
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Lightning Chrome",
+      "count": 30,
+      "hobby_eligible": false,
+      "exclusive_to": [
+        "Hanger Box"
+      ]
+    },
+    {
+      "category": "sku_exclusive_insert",
+      "name": "Black Edge Chrome",
+      "count": 50,
+      "hobby_eligible": false,
+      "exclusive_to": [
+        "Value Box",
+        "Tin",
+        "Hanger Box"
+      ]
+    },
+    {
+      "category": "autograph",
+      "name": "Chrome Autograph Cards",
+      "count": 128,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Chrome Dual Autograph Cards",
+      "count": 25,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Chrome Triple Autograph Cards",
+      "count": 13,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Winners Enclosure Autograph Edition",
+      "count": 4,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Winners Enclosure Quad Autograph",
+      "count": 1,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Kings of the Premier League Quad Autograph",
+      "count": 1,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Superstar Sensations Autographs",
+      "count": 17,
+      "hobby_eligible": true
+    },
+    {
+      "category": "autograph",
+      "name": "Retro Rookies Autographs",
+      "count": 7,
+      "hobby_eligible": false,
+      "exclusive_to": [
+        "Breaker’s Delight"
+      ]
+    },
+    {
+      "category": "autograph",
+      "name": "Zero Hours - On-Card Autographs",
+      "count": 11,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    },
+    {
+      "category": "autograph",
+      "name": "Cold Battle - Frozenfractor On-Card Autographs",
+      "count": 2,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    },
+    {
+      "category": "autograph",
+      "name": "Cold Battle - Frozenfractor On-Card Dual Autograph",
+      "count": 1,
+      "hobby_eligible": true,
+      "exclusive_to": [
+        "Hobby"
+      ]
+    }
+  ]
+}
