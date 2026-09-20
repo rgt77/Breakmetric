@@ -80,7 +80,7 @@
     }
     .results{
       display:grid;
-      grid-template-columns:repeat(8,1fr);
+      grid-template-columns:repeat(9,1fr);
       gap:12px;
       margin-top:22px;
     }
@@ -211,6 +211,10 @@
           <strong id="resultExpectedAutos">Loading…</strong>
         </div>
         <div class="result">
+          <span>Auto checklist cards</span>
+          <strong id="resultAutoChecklistCount">Loading…</strong>
+        </div>
+        <div class="result">
           <span>Expected inserts</span>
           <strong id="resultExpectedInserts">Loading…</strong>
         </div>
@@ -249,6 +253,7 @@
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let autographProbabilityData = null;
+    let autographChecklistData = null;
     let insertProbabilityData = null;
     let baseParallelProbabilityData = null;
     let productCatalog = null;
@@ -262,6 +267,7 @@
     const resultTeam = document.getElementById("resultTeam");
     const resultAutoChance = document.getElementById("resultAutoChance");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
+    const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
     const resultExpectedInserts = document.getElementById("resultExpectedInserts");
     const resultExpectedBaseParallels = document.getElementById("resultExpectedBaseParallels");
     const resultNet = document.getElementById("resultNet");
@@ -405,6 +411,28 @@
           : "—";
     }
 
+    async function loadAutographChecklist() {
+      try {
+        const response = await fetch(
+          "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json"
+        );
+        if (!response.ok) throw new Error("Autograph checklist unavailable");
+        autographChecklistData = await response.json();
+        updateAutographChecklistCount();
+      } catch (error) {
+        resultAutoChecklistCount.textContent = "Unavailable";
+      }
+    }
+
+    function updateAutographChecklistCount() {
+      const count = autographChecklistData?.team_counts?.[team.value];
+
+      resultAutoChecklistCount.textContent =
+        Number.isFinite(Number(count))
+          ? String(Number(count))
+          : "0";
+    }
+
     async function loadAutographProbabilities() {
       try {
         const response = await fetch(
@@ -520,6 +548,7 @@
     team.addEventListener("change", () => {
       updateTeamEv();
       updateAutographChance();
+      updateAutographChecklistCount();
       updateExpectedInserts();
       updateExpectedBaseParallels();
       updateResults();
@@ -531,6 +560,7 @@
     });
 
     loadAutographProbabilities();
+    loadAutographChecklist();
     loadInsertProbabilities();
     loadBaseParallelProbabilities();
     loadProducts();
