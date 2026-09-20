@@ -1,0 +1,201 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format": "Hobby",
+  "model": "base parallel team exposure",
+  "assumptions": [
+    "The 200 standard base cards are treated as the eligible checklist for standard base parallels.",
+    "Within each standard base parallel, all 200 checklist subjects are treated as equally likely unless Topps publishes card-level print-run differences.",
+    "Card #201 Max Dowman is excluded from the standard 200-card base pool because Topps publishes separate Hobby odds for card #201.",
+    "Per-box parallel quantities are treated as checklist draws; pack-odds rows use official Topps Hobby denominators."
+  ],
+  "configuration": {
+    "packs_per_box": 20,
+    "boxes_per_case": 12,
+    "packs_per_case": 240
+  },
+  "teams": [
+    {
+      "team": "AFC Bournemouth",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Arsenal",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Aston Villa",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Brentford",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Brighton & Hove Albion",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Burnley FC",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Chelsea",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Crystal Palace",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Everton",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Fulham",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Leeds United",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Liverpool FC",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Manchester City",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Manchester United",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Newcastle United",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Nottingham Forest",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Sunderland",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Tottenham Hotspur",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "West Ham United",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    },
+    {
+      "team": "Wolverhampton Wanderers",
+      "base_cards_in_200_card_checklist": 10,
+      "share_of_base_checklist_percent": 5,
+      "expected_base_parallel_hits_per_12_box_case": 8.237,
+      "chance_at_least_one_base_parallel_in_case_percent": 99.98
+    }
+  ],
+  "hobby_exclusive_card_201": {
+    "card_number": 201,
+    "player": "Max Dowman",
+    "team": "Arsenal",
+    "variants": [
+      {
+        "variant": "Base Card #201",
+        "denominator": 16257,
+        "probability_per_case_percent": 1.4655,
+        "expected_hits_per_case": 0.014763
+      },
+      {
+        "variant": "Gold Refractor",
+        "denominator": 32175,
+        "probability_per_case_percent": 0.7432,
+        "expected_hits_per_case": 0.007459
+      },
+      {
+        "variant": "Orange Refractor",
+        "denominator": 64350,
+        "probability_per_case_percent": 0.3723,
+        "expected_hits_per_case": 0.00373
+      },
+      {
+        "variant": "Black Refractor",
+        "denominator": 154440,
+        "probability_per_case_percent": 0.1553,
+        "expected_hits_per_case": 0.001554
+      },
+      {
+        "variant": "Red Refractor",
+        "denominator": 308880,
+        "probability_per_case_percent": 0.0777,
+        "expected_hits_per_case": 0.000777
+      },
+      {
+        "variant": "Superfractor",
+        "denominator": 1544400,
+        "probability_per_case_percent": 0.0155,
+        "expected_hits_per_case": 0.000155
+      }
+    ]
+  }
+}
