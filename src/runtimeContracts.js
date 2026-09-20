@@ -156,6 +156,8 @@
     const requiredAnalysisKeys=[
       "ev_data",
       "ev_scope_data",
+      "ev_work_queue_data",
+      "market_verification_queue_data",
       "base_checklist_data",
       "autograph_checklist_data",
       "player_index_data",
@@ -571,6 +573,148 @@
     });
   };
 
+  api.validateEvWorkQueue=function(data={}, productId, formatId, canonicalTeams=[], evScope={}){
+    const errors=[],warnings=[];
+    if(data.schema_version!==1) errors.push("EV work queue schema_version mismatch");
+    if(data.product_id!==productId) errors.push("EV work queue product_id mismatch");
+    if(formatId && data.format_id!==formatId) errors.push("EV work queue format_id mismatch");
+    if(data.model!=="ev-work-queue-v1") errors.push("EV work queue model mismatch");
+    if(!Array.isArray(data.tasks)) {
+      errors.push("EV work queue tasks missing");
+      return result(errors,warnings);
+    }
+
+    const canonical=new Set(canonicalTeams);
+    const allowedCategories=new Set(["base_parallels","inserts","autographs"]);
+    const allowedStatuses=new Set(["not-started","partial","complete"]);
+    const ids=[];
+    const keys=[];
+    let partial=0, complete=0, notStarted=0;
+
+    for(const task of data.tasks){
+      if(typeof task?.id!=="string" || !task.id) errors.push("EV work queue task id missing");
+      else ids.push(task.id);
+      if(!canonical.has(task?.team)) errors.push("EV work queue unknown team: "+task?.team);
+      if(!allowedCategories.has(task?.category)) errors.push("EV work queue invalid category: "+task?.category);
+      if(!allowedStatuses.has(task?.status)) errors.push("EV work queue invalid status: "+task?.id);
+      if(!Number.isInteger(Number(task?.priority)) || Number(task.priority)<1 || Number(task.priority)>9){
+        errors.push("EV work queue invalid priority: "+task?.id);
+      }
+      if(!nonNegative(task?.valued_contribution_count)){
+        errors.push("EV work queue valued count invalid: "+task?.id);
+      }
+      if(task?.status!=="complete" &&
+         (typeof task?.next_action!=="string" || !task.next_action)){
+        errors.push("EV work queue next_action missing: "+task?.id);
+      }
+
+      const key=task?.team+"|"+task?.category;
+      keys.push(key);
+      const scope=evScope?.teams?.[task?.team]?.categories?.[task?.category];
+      if(!scope){
+        errors.push("EV work queue scope category missing: "+key);
+      }else{
+        if(scope.status!==task.status){
+          errors.push("EV work queue status differs from EV scope: "+key);
+        }
+        if(Number(scope.valued_contribution_count)!==Number(task.valued_contribution_count)){
+          errors.push("EV work queue valued count differs from EV scope: "+key);
+        }
+      }
+
+      if(task.status==="partial") partial++;
+      if(task.status==="complete") complete++;
+      if(task.status==="not-started") notStarted++;
+    }
+
+    if(!uniqueStrings(ids)) errors.push("EV work queue ids not unique");
+    if(!uniqueStrings(keys)) errors.push("EV work queue team/category keys not unique");
+    if(data.tasks.length!==canonicalTeams.length*3){
+      errors.push("EV work queue task count mismatch");
+    }
+    if(Number(data.summary?.task_count)!==data.tasks.length){
+      errors.push("EV work queue summary task_count mismatch");
+    }
+    if(Number(data.summary?.partial_task_count)!==partial){
+      errors.push("EV work queue summary partial count mismatch");
+    }
+    if(Number(data.summary?.complete_task_count)!==complete){
+      errors.push("EV work queue summary complete count mismatch");
+    }
+    if(Number(data.summary?.not_started_task_count)!==notStarted){
+      errors.push("EV work queue summary not-started count mismatch");
+    }
+
+    return result(errors,warnings,{
+      ev_work_queue_task_count:data.tasks.length,
+      ev_work_queue_partial_count:partial,
+      ev_work_queue_complete_count:complete
+    });
+  };
+
+  api.validateMarketVerificationQueue=function(data={}, productId, formatId, evData={}){
+    const errors=[],warnings=[];
+    if(data.schema_version!==1) errors.push("market verification queue schema_version mismatch");
+    if(data.product_id!==productId) errors.push("market verification queue product_id mismatch");
+    if(formatId && data.format_id!==formatId) errors.push("market verification queue format_id mismatch");
+    if(data.model!=="market-verification-queue-v1") errors.push("market verification queue model mismatch");
+    if(!Array.isArray(data.items)){
+      errors.push("market verification queue items missing");
+      return result(errors,warnings);
+    }
+
+    const evMap=new Map();
+    for(const [team,row] of Object.entries(evData?.teams||{})){
+      for(const item of row?.contributions||[]){
+        evMap.set(team+"|"+item.card_id,item);
+      }
+    }
+
+    const keys=[];
+    let verified=0;
+    for(let index=0;index<data.items.length;index++){
+      const item=data.items[index];
+      const key=item?.team+"|"+item?.card_id;
+      keys.push(key);
+      const evItem=evMap.get(key);
+      if(!evItem) errors.push("market verification queue item missing from EV: "+key);
+      else{
+        if(Math.abs(Number(item.ev_contribution_usd)-Number(evItem.ev_contribution_usd))>0.0001){
+          errors.push("market verification queue EV contribution mismatch: "+key);
+        }
+        if(item.market_source_file!==evItem.market_source_file){
+          errors.push("market verification queue source mismatch: "+key);
+        }
+      }
+      if(Number(item?.priority_rank)!==index+1){
+        errors.push("market verification queue rank mismatch: "+key);
+      }
+      if(typeof item?.original_marketplace_verified!=="boolean"){
+        errors.push("market verification queue verified flag invalid: "+key);
+      }
+      if(item.original_marketplace_verified) verified++;
+    }
+
+    if(!uniqueStrings(keys)) errors.push("market verification queue keys not unique");
+    if(data.items.length!==evMap.size){
+      errors.push("market verification queue contribution count mismatch");
+    }
+    if(Number(data.summary?.contribution_count)!==data.items.length){
+      errors.push("market verification queue summary contribution count mismatch");
+    }
+    if(Number(data.summary?.original_verified_count)!==verified){
+      errors.push("market verification queue summary verified count mismatch");
+    }
+    if(Number(data.summary?.pending_original_verification_count)!==data.items.length-verified){
+      errors.push("market verification queue summary pending count mismatch");
+    }
+
+    return result(errors,warnings,{
+      market_verification_queue_count:data.items.length,
+      market_verification_verified_count:verified
+    });
+  };
+
   api.validateTeamEv=function(data={}, productId, canonicalTeams=[]){
     const errors=[],warnings=[];
     if(data.product_id!==productId) errors.push("team EV product_id mismatch");
@@ -742,6 +886,19 @@
         productId,
         context.formatId || null,
         canonical,
+        bundle.teamEv
+      ),
+      api.validateEvWorkQueue(
+        bundle.evWorkQueue,
+        productId,
+        context.formatId || null,
+        canonical,
+        bundle.evScope
+      ),
+      api.validateMarketVerificationQueue(
+        bundle.marketVerificationQueue,
+        productId,
+        context.formatId || null,
         bundle.teamEv
       ),
       api.validateMarketRegistry(
