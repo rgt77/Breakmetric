@@ -167,12 +167,22 @@
         </div>
 
         <div>
-          <label for="price">Spot price (USD)</label>
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD" selected>USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="SEK">SEK — Swedish Krona</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="price">Spot price</label>
           <input id="price" type="number" min="0" step="0.01" placeholder="350" />
         </div>
 
         <div>
-          <label for="ev">Expected value (USD)</label>
+          <label for="ev">Expected value</label>
           <input id="ev" type="number" min="0" step="0.01" placeholder="300" />
         </div>
       </div>
@@ -206,6 +216,7 @@
 
   <script>
     const team = document.getElementById("team");
+    const currency = document.getElementById("currency");
     const price = document.getElementById("price");
     const ev = document.getElementById("ev");
     const calculate = document.getElementById("calculate");
@@ -216,9 +227,16 @@
     const resultRoi = document.getElementById("resultRoi");
 
     function money(value) {
-      return new Intl.NumberFormat("en-US", {
+      const locales = {
+        USD: "en-US",
+        EUR: "en-IE",
+        GBP: "en-GB",
+        SEK: "sv-SE"
+      };
+
+      return new Intl.NumberFormat(locales[currency.value] || "en-US", {
         style: "currency",
-        currency: "USD",
+        currency: currency.value,
         maximumFractionDigits: 2
       }).format(value);
     }
