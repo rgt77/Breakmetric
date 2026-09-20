@@ -154,6 +154,8 @@
       font-size:.82rem;
     }
     .format-status strong{color:var(--text)}
+    .integrity-pass{color:var(--accent)}
+    .integrity-fail{color:var(--danger)}
     #analysisContent[hidden]{display:none}
     .analysis-context{
       display:flex;
@@ -835,6 +837,7 @@
 
       try {
         const paths = {
+          integrity: productPath("integrity_data"),
           metadata: productPath("product_data"),
           playerIndex: productPath("player_index_data"),
           playerProbabilities: productPath("player_probability_data"),
@@ -850,6 +853,7 @@
         };
 
         const [
+          integrity,
           metadata,
           nextPlayerIndex,
           nextPlayerProbabilities,
@@ -863,6 +867,7 @@
           nextProduction,
           nextTeamEv
         ] = await Promise.all([
+          fetchJsonForProduct(paths.integrity, token),
           fetchJsonForProduct(paths.metadata, token),
           fetchJsonForProduct(paths.playerIndex, token),
           fetchJsonForProduct(paths.playerProbabilities, token),
@@ -883,6 +888,21 @@
         ) {
           return;
         }
+
+        if (
+          integrity?.result !== "pass" ||
+          integrity?.product_id !== productIdAtStart
+        ) {
+          productStatus.innerHTML =
+            "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
+            "</strong> · <span class=\"integrity-fail\">Dataset integrity check failed.</span>";
+          analysisContent.hidden = true;
+          return;
+        }
+
+        productStatus.innerHTML =
+          "<strong>" + (currentProduct?.display_name || currentProduct?.name || "Product") +
+          "</strong> · <span class=\"integrity-pass\">Dataset integrity validated.</span>";
 
         productMetadataData = metadata;
         playerIndexData = nextPlayerIndex;
@@ -1147,7 +1167,7 @@
       if (selected.status === "ready") {
         productStatus.innerHTML =
           "<strong>" + (selected.display_name || selected.name) +
-          "</strong> · BreakMetric dataset available.";
+          "</strong> · Dataset available · integrity check pending.";
         formatStage.hidden = false;
         return;
       }
