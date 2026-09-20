@@ -38,6 +38,7 @@ for(const file of [
   "src/marketCoverage.js",
   "src/marketEvidenceQuality.js",
   "src/marketRecordQuality.js",
+  "src/marketRecordIssues.js",
   "src/dataFreshness.js",
   "src/urlState.js",
   "src/dataLoader.js",
@@ -171,6 +172,12 @@ assert(recordQuality.sale_count===30,"market record sample-size smoke failed");
 assert(recordQuality.sample_size_confidence==="high","market record sample band failed");
 assert(recordQuality.source_status==="secondary-source-only","market record source status failed");
 assert(["fresh","current","aging","stale"].includes(recordQuality.recency_status),"market record recency band failed");
+const recordAudit=sandbox.BreakMetricMarketRecordIssues.audit(
+  marketRecord,
+  new Date("2026-09-20T00:00:00Z")
+);
+assert(recordAudit.valid,"market record issue audit failed: "+recordAudit.errors.join("; "));
+assert(recordAudit.metrics.sale_count===30,"market record issue sale count failed");
 
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(
