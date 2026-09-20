@@ -1,0 +1,79 @@
+{
+  "methodology_version": "1.0",
+  "validated_at": "2026-09-20",
+  "subject": "Estêvão Willian Gold Refractor Autograph #CA-EV /50",
+  "checks": [
+    {
+      "name": "serials_are_unique",
+      "passed": true,
+      "detail": "Observed serials are 14 and 34."
+    },
+    {
+      "name": "serials_within_print_run",
+      "passed": true,
+      "detail": "Both serials are within 1–50."
+    },
+    {
+      "name": "confirmed_observed_count",
+      "passed": true,
+      "value": 2
+    },
+    {
+      "name": "confirmed_remaining_maximum",
+      "passed": true,
+      "value": 48
+    },
+    {
+      "name": "observed_share_percent",
+      "passed": true,
+      "value": 4
+    },
+    {
+      "name": "live_probability_never_exceeds_manufacturer_probability",
+      "passed": true
+    },
+    {
+      "name": "75_percent_sealed_scenario_reduction",
+      "passed": true,
+      "value": false
+    },
+    {
+      "name": "50_percent_sealed_scenario_reduction",
+      "passed": true,
+      "value": false
+    },
+    {
+      "name": "25_percent_sealed_scenario_reduction",
+      "passed": true,
+      "value": false
+    },
+    {
+      "name": "10_percent_sealed_scenario_reduction",
+      "passed": true,
+      "value": false
+    },
+    {
+      "name": "depletion_trigger_sealed_fraction",
+      "passed": true,
+      "value": 0.96
+    },
+    {
+      "name": "unsourced_sealed_fraction_is_not_presented_as_fact",
+      "passed": true
+    },
+    {
+      "name": "ui_has_tracked_serials_field",
+      "passed": true
+    },
+    {
+      "name": "ui_has_live_odds_status_field",
+      "passed": true
+    },
+    {
+      "name": "ui_loads_live_supply_summary",
+      "passed": true
+    }
+  ],
+  "result": "pass",
+  "note": "Current observed data do not justify lowering manufacturer odds for the tracked /50 card in the configured sealed-product scenarios. Live Odds remains scenario-only until a sourced sealed-supply estimate exists."
+}
