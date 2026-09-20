@@ -24,6 +24,15 @@
       "passed": true
     },
     {
+      "name": "main_autograph_label_normalized",
+      "passed": true,
+      "value": {
+        "mapped_checklist_cards": 1,
+        "expected_hits_per_case": 0.088429,
+        "chance_at_least_one_percent": 8.463
+      }
+    },
+    {
       "name": "probabilities_bounded",
       "passed": true
     },
