@@ -12,7 +12,7 @@
       "format_data": "data/formats/2026-topps-chrome-premier-league.json",
       "note": "Current BreakMetric dataset.",
       "product_data": "data/products/2026-topps-chrome-premier-league.json",
-      "integrity_data": "data/validation/2026-topps-chrome-premier-league-product-integrity-v1.json"
+      "integrity_data": "data/validation/2026-topps-chrome-premier-league-product-integrity-v2.json"
     },
     {
       "id": "2025-topps-chrome-premier-league",
