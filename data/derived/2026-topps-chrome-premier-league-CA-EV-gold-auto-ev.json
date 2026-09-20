@@ -1,0 +1,21 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "CA-EV",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Chrome Autograph Cards",
+  "parallel": "Gold Refractor",
+  "market_value_usd": 2400,
+  "hobby": {
+    "parallel_odds_per_pack": "1:298",
+    "autograph_checklist_size": 128,
+    "packs_per_case": 240
+  },
+  "assumption": "All 128 eligible cards in this autograph parallel are equally likely.",
+  "calculation": {
+    "probability_specific_card_per_pack": 0.000026216442953020134,
+    "expected_copies_per_case": 0.006291946308724832,
+    "probability_at_least_one_in_case": 0.006272275424544671,
+    "ev_contribution_usd": 15.100671140939596
+  }
+}
