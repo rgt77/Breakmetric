@@ -1,0 +1,38 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "subject": "Hobby-exclusive Base Card #201 Max Dowman",
+  "team": "Arsenal",
+  "purpose": "Use serial-numbered Hobby-exclusive #201 parallels as independent implied Hobby-production signals.",
+  "sources": {
+    "official_odds": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630",
+    "numbering_reference": "https://www.beckett.com/news/2026-topps-chrome-premier-league-soccer-cards/"
+  },
+  "parallels": [
+    {
+      "name": "Gold Refractor",
+      "print_run": 50,
+      "pack_odds_denominator": 32175
+    },
+    {
+      "name": "Orange Refractor",
+      "print_run": 25,
+      "pack_odds_denominator": 64350
+    },
+    {
+      "name": "Black Refractor",
+      "print_run": 10,
+      "pack_odds_denominator": 154440
+    },
+    {
+      "name": "Red Refractor",
+      "print_run": 5,
+      "pack_odds_denominator": 308880
+    },
+    {
+      "name": "Superfractor",
+      "print_run": 1,
+      "pack_odds_denominator": 1544400
+    }
+  ],
+  "caveat": "Manufacturer odds can be approximate and may reflect replacement/holdback practices or other packing effects. Therefore signals are triangulated into a range rather than treated as an exact production count."
+}
