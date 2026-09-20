@@ -1,0 +1,17 @@
+{
+  "validated_at": "2026-09-20",
+  "block": "steps 156-165",
+  "checks": {
+    "step_156_catalog_has_complete_ready_manifest": true,
+    "step_157_pending_release_has_no_borrowed_paths": true,
+    "step_158_product_context_helper_exists": true,
+    "step_159_team_list_is_product_metadata_driven": true,
+    "step_160_player_data_is_product_scoped": true,
+    "step_161_team_probability_data_is_product_scoped": true,
+    "step_162_supply_and_production_are_product_scoped": true,
+    "step_163_product_switch_resets_release_state": true,
+    "step_164_production_label_is_estimate": true,
+    "step_165_serial_template_points_to_gold_auto": true
+  },
+  "result": "pass"
+}
