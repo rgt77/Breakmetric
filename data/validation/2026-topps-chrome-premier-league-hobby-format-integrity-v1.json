@@ -1,0 +1,23 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_format": "Hobby Case",
+  "validated_at": "2026-09-20",
+  "version": 1,
+  "checks": {
+    "format_manifest_exists": true,
+    "product_id_matches": true,
+    "format_id_matches": true,
+    "ev_data_is_hobby_case": true,
+    "player_probability_data_is_hobby_case": true,
+    "team_autograph_probability_data_is_hobby": true,
+    "team_insert_probability_data_is_hobby": true,
+    "team_base_parallel_probability_data_is_hobby": true,
+    "production_estimate_data_is_hobby": true,
+    "shared_checklists_belong_to_same_product": true,
+    "live_supply_belongs_to_same_product": true,
+    "sealed_supply_belongs_to_same_product": true
+  },
+  "result": "pass",
+  "note": "This gate validates that the ready Hobby format points only to datasets intended for the same product and Hobby analysis context."
+}
