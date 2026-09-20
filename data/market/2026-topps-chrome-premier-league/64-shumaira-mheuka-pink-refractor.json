@@ -1,0 +1,31 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "64",
+  "player": "Shumaira Mheuka",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Pink Refractor",
+  "serial_numbering": 250,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-05-30",
+      "sale_price": 2,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/shumaira-mheuka-pink-refractor-64",
+      "verified_as_realized_sale": true
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 2,
+    "mean_usd": 2,
+    "min_usd": 2,
+    "max_usd": 2,
+    "sale_count": 1,
+    "confidence": "low"
+  },
+  "note": "Only listings whose sale title matched this exact Hobby parallel were included."
+}
