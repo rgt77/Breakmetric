@@ -225,6 +225,7 @@
     const calculate = document.getElementById("calculate");
     let teamEvData = null;
     let currentEvUsd = null;
+    let usdToSelectedRate = 1;
     const fxStatus = document.getElementById("fxStatus");
     let lastCurrency = currency.value;
 
@@ -254,13 +255,13 @@
       fxStatus.textContent = "Updating exchange rate…";
 
       try {
-        const response = await fetch(
+        const rateResponse = await fetch(
           `https://api.frankfurter.dev/v2/rate/${from.toLowerCase()}/${to.toLowerCase()}`
         );
 
-        if (!response.ok) throw new Error("Exchange-rate request failed");
+        if (!rateResponse.ok) throw new Error("Exchange-rate request failed");
 
-        const data = await response.json();
+        const data = await rateResponse.json();
         const rate = Number(data.rate);
 
         if (!Number.isFinite(rate)) throw new Error("Invalid exchange rate");
@@ -269,13 +270,22 @@
           price.value = (Number(price.value) * rate).toFixed(2);
         }
 
-        if (currentEvUsd !== null) {
-          const usdToSelected = to === "USD" ? 1 : (
-            from === "USD" ? rate : null
+        if (to === "USD") {
+          usdToSelectedRate = 1;
+        } else {
+          const usdResponse = await fetch(
+            `https://api.frankfurter.dev/v2/rate/usd/${to.toLowerCase()}`
           );
-          if (usdToSelected !== null) {
-            evDisplay.value = money(currentEvUsd * usdToSelected);
+          if (!usdResponse.ok) throw new Error("USD exchange-rate request failed");
+          const usdData = await usdResponse.json();
+          usdToSelectedRate = Number(usdData.rate);
+          if (!Number.isFinite(usdToSelectedRate)) {
+            throw new Error("Invalid USD exchange rate");
           }
+        }
+
+        if (currentEvUsd !== null) {
+          evDisplay.value = money(currentEvUsd * usdToSelectedRate);
         }
 
         fxStatus.textContent =
@@ -324,7 +334,7 @@
       }
 
       currentEvUsd = Number(entry.partial_ev_usd);
-      evDisplay.value = money(currentEvUsd);
+      evDisplay.value = money(currentEvUsd * usdToSelectedRate);
     }
 
     team.addEventListener("change", () => {
@@ -352,14 +362,7 @@
         return;
       }
 
-      let expectedValue = currentEvUsd;
-
-      if (currency.value !== "USD") {
-        const shown = Number(
-          evDisplay.value.replace(/[^0-9,.-]/g, "").replace(",", ".")
-        );
-        if (Number.isFinite(shown)) expectedValue = shown;
-      }
+      const expectedValue = currentEvUsd * usdToSelectedRate;
 
       const net = expectedValue - spotPrice;
       const ratio = expectedValue / spotPrice;
