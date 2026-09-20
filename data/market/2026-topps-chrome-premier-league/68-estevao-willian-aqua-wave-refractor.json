@@ -15,7 +15,9 @@
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-aqua-wave-refractor-68",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-03-16",
@@ -23,7 +25,9 @@
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-aqua-wave-refractor-68",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-03-05",
@@ -31,7 +35,9 @@
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-aqua-wave-refractor-68",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     },
     {
       "sale_date": "2026-03-04",
@@ -39,7 +45,9 @@
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-aqua-wave-refractor-68",
-      "verified_as_realized_sale": true
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
     }
   ],
   "calculated_market_value": {
@@ -49,6 +57,16 @@
     "min_usd": 36,
     "max_usd": 125,
     "sale_count": 4,
-    "confidence": "medium"
-  }
+    "confidence": "provisional",
+    "sample_size_confidence": "medium",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 4,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Original marketplace sale pages have not been recovered in the stored record; use as provisional secondary-source market evidence."
 }
