@@ -1,0 +1,15 @@
+{
+  "product": "2026 Topps Chrome Premier League",
+  "team": "Manchester United",
+  "parallel": "Gold Refractor",
+  "manufacturer_odds": "1:221 packs",
+  "eligible_team_cards": 10,
+  "eligible_total_cards": 200,
+  "assumption": "All eligible standard base cards are equally likely within this parallel checklist.",
+  "results": {
+    "team_share_percent": 5,
+    "probability_per_pack_percent": 0.0226,
+    "probability_per_box_percent": 0.4515,
+    "probability_per_case_percent": 5.2857
+  }
+}
