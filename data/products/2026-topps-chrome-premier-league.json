@@ -104,5 +104,9 @@
     "product_page": "https://www.topps.com/products/2026-topps-chrome-premier-league-hobby-box-sealed-case",
     "checklist": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/FINAL_PL_Chrome_Checklist.pdf?v=1787961630",
     "odds": "https://cdn.shopify.com/s/files/1/0662/9749/5709/files/2026_PL_Chrome_Odds_FINAL.pdf?v=1787961630"
-  }
+  },
+  "display_name": "Topps Chrome Soccer · Premier League · 2026",
+  "brand": "Topps Chrome Soccer",
+  "competition": "Premier League",
+  "year": "2026"
 }
