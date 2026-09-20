@@ -325,6 +325,15 @@
     .team-readiness-badge.ready{color:var(--accent)}
     .team-readiness-badge.warn{color:#ffd18a}
     .team-readiness-badge.muted{color:var(--muted)}
+    .comparison-wrap{overflow-x:auto;margin-top:12px}
+    .comparison-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.78rem}
+    .comparison-table caption{text-align:left;color:var(--muted);padding:0 0 10px}
+    .comparison-table th,.comparison-table td{
+      text-align:left;padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap
+    }
+    .comparison-table th{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}
+    .comparison-table tr.selected{background:rgba(101,230,180,.07)}
+    .comparison-table td:first-child{font-weight:700}
     .filter-empty{
       grid-column:1/-1;
       color:var(--muted);
@@ -741,6 +750,28 @@
       <div class="section-title">3 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true"></select>
+
+      <details class="details-panel" id="teamComparisonPanel">
+        <summary>Compare team data</summary>
+        <div class="comparison-wrap">
+          <table class="comparison-table">
+            <caption>Factual probability and data-readiness comparison. No value ranking is applied.</caption>
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th>Auto chance</th>
+                <th>Insert chance</th>
+                <th>Base parallel chance</th>
+                <th>EV coverage</th>
+                <th>Market evidence</th>
+                <th>ROI gate</th>
+              </tr>
+            </thead>
+            <tbody id="teamComparisonBody"></tbody>
+          </table>
+        </div>
+      </details>
+
       <div class="player-browser">
         <div class="section-title">4 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players"></div>
@@ -968,6 +999,7 @@
 
   <script src="src/runtimeContracts.js"></script>
   <script src="src/teamReadiness.js"></script>
+  <script src="src/teamComparison.js"></script>
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
@@ -1040,6 +1072,7 @@
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
+    const teamComparisonBody = document.getElementById("teamComparisonBody");
     const playerGrid = document.getElementById("playerGrid");
     const playerPanel = document.getElementById("playerPanel");
     const playerName = document.getElementById("playerName");
@@ -1824,6 +1857,7 @@
       clearPlayerSelection(false);
       team.innerHTML = "";
       teamGrid.innerHTML = "";
+      teamComparisonBody.replaceChildren();
       playerGrid.innerHTML = "";
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
@@ -2199,6 +2233,7 @@
             : "Unavailable";
 
         renderTeams();
+        renderTeamComparison();
         renderPlayers();
         updatePlayerDetail();
         updateResults();
@@ -2857,6 +2892,63 @@
             : null;
         })
         .filter(Boolean);
+    }
+
+    function buildTeamComparisonRows() {
+      return BreakMetricTeamComparison.build({
+        metadata: productMetadataData,
+        autographProbabilities: autographProbabilityData,
+        insertProbabilities: insertProbabilityData,
+        baseParallelProbabilities: baseParallelProbabilityData,
+        readiness: teamReadinessData,
+        teamEv: teamEvData,
+        marketRegistry: marketRegistryData
+      });
+    }
+
+    function renderTeamComparison() {
+      teamComparisonBody.replaceChildren();
+      if (!productMetadataData || !teamReadinessData) return;
+
+      const rows = buildTeamComparisonRows();
+      const canonicalTeams = allTeamNames();
+      const validation = BreakMetricTeamComparison.validate(
+        rows,
+        canonicalTeams
+      );
+
+      if (!validation.valid) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 7;
+        td.textContent = "Team comparison unavailable: " +
+          validation.errors[0];
+        tr.appendChild(td);
+        teamComparisonBody.appendChild(tr);
+        return;
+      }
+
+      for (const row of rows) {
+        const tr = document.createElement("tr");
+        if (row.team === team.value) tr.className = "selected";
+
+        const values = [
+          row.team,
+          BreakMetricTeamComparison.formatPercent(row.auto_chance_percent),
+          BreakMetricTeamComparison.formatPercent(row.insert_chance_percent),
+          BreakMetricTeamComparison.formatPercent(row.base_parallel_chance_percent),
+          BreakMetricTeamComparison.evLabel(row),
+          BreakMetricTeamComparison.marketLabel(row),
+          row.roi_eligible ? "Ready" : "Locked"
+        ];
+
+        for (const value of values) {
+          const td = document.createElement("td");
+          td.textContent = value;
+          tr.appendChild(td);
+        }
+        teamComparisonBody.appendChild(tr);
+      }
     }
 
     function renderTeams() {
@@ -3722,6 +3814,7 @@
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
+      renderTeamComparison();
       renderPlayers();
       updateAutographChance();
       updateAutographChecklistCount();
