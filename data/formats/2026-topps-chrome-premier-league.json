@@ -7,7 +7,7 @@
       "status": "ready",
       "analysis_format": "Hobby Case",
       "note": "Current BreakMetric probability and EV model.",
-      "integrity_data": "data/validation/2026-topps-chrome-premier-league-hobby-format-integrity-v3.json",
+      "integrity_data": "data/validation/2026-topps-chrome-premier-league-hobby-format-integrity-v4.json",
       "analysis_data": {
         "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
         "base_checklist_data": "data/checklists/2026-topps-chrome-premier-league-base.json",
@@ -20,7 +20,8 @@
         "live_supply_data": "data/derived/2026-topps-chrome-premier-league-team-live-supply-summary.json",
         "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
         "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json",
-        "market_evidence_audit_data": "data/market/2026-topps-chrome-premier-league/market-evidence-audit-v2.json"
+        "market_evidence_audit_data": "data/market/2026-topps-chrome-premier-league/market-evidence-audit-v2.json",
+        "market_evidence_registry_data": "data/market/2026-topps-chrome-premier-league/market-evidence-registry-v1.json"
       },
       "configuration": {
         "boxes_per_case": 12,
