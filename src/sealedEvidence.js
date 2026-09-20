@@ -20,6 +20,10 @@ export const SEALED_EVIDENCE_TYPES = {
     quantitative: true,
     meaning: "A sourced production total usable as a denominator."
   },
+  ODDS_DERIVED_PRODUCTION_RANGE: {
+    quantitative: true,
+    meaning: "A production range inferred from Hobby-exclusive numbered print runs and official Hobby odds. Quantitative, but not an audited manufacturer production record."
+  },
   SERIAL_OBSERVATION: {
     quantitative: true,
     meaning: "A uniquely observed numbered card; lower bound on copies opened."
