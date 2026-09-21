@@ -36,6 +36,7 @@
     "candidate must carry a qualifying original marketplace locator"
   ],
   "safety_rules": [
+    "A marketplace-local ended date may map to a different canonical stored date only when an offset-bearing original marketplace timestamp is persisted and deterministically normalizes to the stored UTC calendar date.",
     "Verification of the original 72 supporting sales is scope-frozen: newly discovered later sales may be documented as source drift but must not be silently inserted into the stored verification sample.",
     "If the original marketplace listing currency differs from the stored canonical sale currency, price matching requires explicit traceable currency-conversion provenance; matching a secondary-source converted amount is not sufficient.",
     "A recovered marketplace item ID discovered through a secondary source is a useful locator candidate, not verified sale evidence by itself.",
@@ -70,6 +71,16 @@
       "never-researched unresolved candidates are worked before already-attempted candidates",
       "within the same research state, lower contribution priority rank then lower sale index wins",
       "when all eligible candidates have attempts, the oldest last_research_attempt_at is retried first"
+    ]
+  },
+  "timestamp_date_provenance": {
+    "canonical_date_basis": "UTC calendar date",
+    "required_basis_value": "utc-date-from-original-marketplace-timestamp",
+    "requirements": [
+      "original marketplace timestamp must include Z or an explicit numeric UTC offset",
+      "timestamp must parse deterministically",
+      "normalized UTC calendar date must equal candidate observed sale_date",
+      "candidate observed sale_date must equal the frozen stored sale_date"
     ]
   }
 }
