@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-yellow-refractor::0",
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-yellow-refractor.json",
+  "sale_index": 0,
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "secondary-source",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "68",
+    "parallel": "Yellow Refractor",
+    "print_run": 275,
+    "player": "Estêvão Willian",
+    "team": "Chelsea"
+  },
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-03-03",
+    "sale_price_usd": 75,
+    "marketplace": "eBay",
+    "serial_copy": null
+  },
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-yellow-refractor-68",
+    "evidence": "Historical sale row remains visible, but the source currently suppresses its outbound marketplace link; no safe item ID is assigned."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "No safe original marketplace locator recovered. A newer seller-feedback item cannot be safely mapped to this stored 2026-03-03 $75 sale."
+}
