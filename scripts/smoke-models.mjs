@@ -46,6 +46,7 @@ for(const file of [
   "src/dataLoader.js",
   "src/errorModel.js",
   "src/storage.js",
+  "src/spotCurrency.js",
   "src/runtimeContracts.js"
 ]) load(file);
 
@@ -229,6 +230,62 @@ sandbox.BreakMetricStorage.setJson("smoke-json",{ok:true});
 assert(sandbox.BreakMetricStorage.getJson("smoke-json")?.ok === true,"storage JSON helper failed");
 sandbox.BreakMetricStorage.remove("smoke-key");
 assert(sandbox.BreakMetricStorage.get("smoke-key",null) === null,"storage fallback remove failed");
+
+const canonicalUsd=123.456789;
+const usdToSek=10.123456;
+const usdToEur=0.912345;
+const sekDisplay=sandbox.BreakMetricSpotCurrency.displayFromCanonicalUsd(
+  canonicalUsd,
+  "SEK",
+  usdToSek
+);
+const eurDisplay=sandbox.BreakMetricSpotCurrency.displayFromCanonicalUsd(
+  canonicalUsd,
+  "EUR",
+  usdToEur
+);
+const backToUsd=sandbox.BreakMetricSpotCurrency.displayFromCanonicalUsd(
+  canonicalUsd,
+  "USD",
+  1
+);
+assert(Math.abs(backToUsd-canonicalUsd)<1e-12,"canonical FX roundtrip drifted");
+assert(
+  Math.abs(
+    sandbox.BreakMetricSpotCurrency.canonicalUsdFromDisplay(
+      Number(sekDisplay.toFixed(2)),
+      "SEK",
+      usdToSek
+    )-canonicalUsd
+  )>0,
+  "rounded display unexpectedly identical to canonical amount"
+);
+assert(
+  Math.abs(
+    sandbox.BreakMetricSpotCurrency.displayFromCanonicalUsd(
+      canonicalUsd,
+      "EUR",
+      usdToEur
+    )-eurDisplay
+  )<1e-12,
+  "canonical FX display conversion is unstable"
+);
+const editedCanonical=sandbox.BreakMetricSpotCurrency.canonicalUsdFromDisplay(
+  1000,
+  "SEK",
+  usdToSek
+);
+assert(
+  Math.abs(editedCanonical-(1000/usdToSek))<1e-12,
+  "manual spot edit did not replace canonical USD basis"
+);
+const persisted=sandbox.BreakMetricSpotCurrency.persistedState(
+  1000,
+  "SEK",
+  editedCanonical
+);
+assert(persisted.schema_version===2,"spot state schema v2 missing");
+assert(Math.abs(persisted.usd_amount-editedCanonical)<1e-12,"spot state lost canonical USD amount");
 
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
 assert(typeof sandbox.BreakMetricDataLoader.loadMany==="function","data loader batch API missing");

@@ -229,6 +229,7 @@ for (const module of [
   "dataLoader.js",
   "errorModel.js",
   "storage.js",
+  "spotCurrency.js",
   "urlState.js"
 ]) {
   pass(
@@ -238,8 +239,18 @@ for (const module of [
 }
 
 pass("atomic spot state enabled", html.includes("breakmetric_spot_state"));
+pass("canonical spot USD state enabled", html.includes("canonicalSpotUsd"));
+pass("spot state schema v2 persisted", html.includes("BreakMetricSpotCurrency.persistedState"));
+pass("FX conversion uses USD canonical basis", html.includes("displayFromCanonicalUsd") && html.includes("canonicalUsdFromDisplay"));
+pass("price edits refresh canonical spot basis", html.includes("price.addEventListener(\"input\"") && html.includes("updateCanonicalSpotFromDisplay"));
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
-pass("FX conversion is staged", html.includes("Fetch every rate first"));
+pass(
+  "FX conversion is staged",
+  html.includes("Resolve both currencies through USD before mutating UI state") &&
+  html.includes("Promise.all([") &&
+  html.includes("usdFrom") &&
+  html.includes("usdTarget")
+);
 pass("EV beta disclosure present", html.includes("EV and ROI remain beta"));
 pass("combined probability approximation disclosed", html.includes("independence approximation"));
 pass("skip link present", html.includes('class="skip-link"'));

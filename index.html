@@ -1057,6 +1057,7 @@
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
   <script src="src/storage.js"></script>
+  <script src="src/spotCurrency.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
@@ -1153,42 +1154,54 @@
     let savedSpotState = null;
 
     try {
-      const parsed = JSON.parse(BreakMetricStorage.get("breakmetric_spot_state") || "null");
-      if (
-        parsed &&
-        Number.isFinite(Number(parsed.amount)) &&
-        typeof parsed.currency === "string"
-      ) {
-        savedSpotState = {
-          amount: Number(parsed.amount),
-          currency: parsed.currency
-        };
-      }
+      savedSpotState = BreakMetricSpotCurrency.normalizeSavedState(
+        JSON.parse(BreakMetricStorage.get("breakmetric_spot_state") || "null") || {}
+      );
     } catch (_) {
       savedSpotState = null;
     }
 
     if (!savedSpotState && legacySavedSpotPrice !== null) {
-      savedSpotState = {
+      savedSpotState = BreakMetricSpotCurrency.normalizeSavedState({
         amount: Number(legacySavedSpotPrice),
         currency: savedCurrency || "USD"
-      };
+      });
       BreakMetricStorage.remove("breakmetric_spot_price");
     }
 
-    if (savedSpotState && Number.isFinite(savedSpotState.amount)) {
+    if (savedSpotState) {
       price.value = String(savedSpotState.amount);
     }
 
+    let canonicalSpotUsd = savedSpotState?.usd_amount ?? (
+      savedSpotState?.currency === "USD" ? savedSpotState.amount : null
+    );
+    let fxRateReady = savedSpotState?.currency === "USD";
+
     function persistSpotState() {
       const amount = Number(price.value);
-      if (!(amount >= 0) || !Number.isFinite(amount)) {
+      const state = BreakMetricSpotCurrency.persistedState(
+        amount,
+        currency.value,
+        canonicalSpotUsd
+      );
+      if (!state) {
         BreakMetricStorage.remove("breakmetric_spot_state");
         return;
       }
-      BreakMetricStorage.set(
-        "breakmetric_spot_state",
-        JSON.stringify({ amount, currency: currency.value })
+      BreakMetricStorage.setJson("breakmetric_spot_state", state);
+    }
+
+    function updateCanonicalSpotFromDisplay() {
+      const amount = price.value === "" ? null : Number(price.value);
+      if (amount === null) {
+        canonicalSpotUsd = null;
+        return;
+      }
+      canonicalSpotUsd = BreakMetricSpotCurrency.canonicalUsdFromDisplay(
+        amount,
+        currency.value,
+        currency.value === "USD" ? 1 : (fxRateReady ? usdToSelectedRate : null)
       );
     }
 
@@ -2865,6 +2878,7 @@
 
     async function convertInputs(from, to) {
       if (from === to) {
+        updateCanonicalSpotFromDisplay();
         persistSpotState();
         return true;
       }
@@ -2874,18 +2888,43 @@
       const originalAmount = price.value === "" ? null : Number(price.value);
 
       try {
-        // Fetch every rate first. UI and persisted state are committed only
-        // after the complete conversion plan is valid.
-        const direct = await fetchFxRate(from, to);
-        const usdTarget =
-          to === "USD" ? { rate: 1, date: direct.date } : await fetchFxRate("USD", to);
+        // Resolve both currencies through USD before mutating UI state.
+        // This preserves an unrounded canonical amount and prevents drift
+        // from repeated conversions of rounded display values.
+        const [usdFrom, usdTarget] = await Promise.all([
+          from === "USD" ? Promise.resolve({ rate: 1, date: null }) : fetchFxRate("USD", from),
+          to === "USD" ? Promise.resolve({ rate: 1, date: null }) : fetchFxRate("USD", to)
+        ]);
 
-        const convertedAmount =
+        const nextCanonicalUsd =
           originalAmount === null
             ? null
-            : originalAmount * direct.rate;
+            : Number.isFinite(Number(canonicalSpotUsd))
+              ? Number(canonicalSpotUsd)
+              : BreakMetricSpotCurrency.canonicalUsdFromDisplay(
+                  originalAmount,
+                  from,
+                  usdFrom.rate
+                );
 
+        const convertedAmount =
+          nextCanonicalUsd === null
+            ? null
+            : BreakMetricSpotCurrency.displayFromCanonicalUsd(
+                nextCanonicalUsd,
+                to,
+                usdTarget.rate
+              );
+
+        const directRate = BreakMetricSpotCurrency.directRateFromUsdRates(
+          usdFrom.rate,
+          usdTarget.rate
+        );
+        if (!(directRate > 0)) throw new Error("Invalid exchange-rate plan");
+
+        canonicalSpotUsd = nextCanonicalUsd;
         usdToSelectedRate = usdTarget.rate;
+        fxRateReady = true;
 
         if (convertedAmount !== null) {
           price.value = convertedAmount.toFixed(2);
@@ -2896,9 +2935,10 @@
         }
         updatePlayerDetail();
 
+        const rateDate = usdTarget.date || usdFrom.date;
         fxStatus.textContent =
-          `Rate updated: 1 ${from} = ${direct.rate.toFixed(4)} ${to}` +
-          (direct.date ? ` · ${direct.date}` : "");
+          `Rate updated: 1 ${from} = ${directRate.toFixed(4)} ${to}` +
+          (rateDate ? ` · ${rateDate}` : "");
 
         persistSpotState();
         updateResults();
@@ -3524,6 +3564,11 @@
     async function loadInitialFxRate() {
       if (currency.value === "USD") {
         usdToSelectedRate = 1;
+        fxRateReady = true;
+        if (canonicalSpotUsd === null && price.value !== "") {
+          updateCanonicalSpotFromDisplay();
+          persistSpotState();
+        }
         return;
       }
 
@@ -3534,8 +3579,20 @@
         if (!response.ok) throw new Error("Initial FX request failed");
         const data = await response.json();
         const rate = Number(data.rate);
-        if (!Number.isFinite(rate)) throw new Error("Invalid initial FX rate");
+        if (!Number.isFinite(rate) || !(rate > 0)) {
+          throw new Error("Invalid initial FX rate");
+        }
         usdToSelectedRate = rate;
+        fxRateReady = true;
+
+        if (canonicalSpotUsd === null && price.value !== "") {
+          canonicalSpotUsd = BreakMetricSpotCurrency.canonicalUsdFromDisplay(
+            Number(price.value),
+            currency.value,
+            usdToSelectedRate
+          );
+        }
+
         fxStatus.textContent =
           `Rate loaded: 1 USD = ${rate.toFixed(4)} ${currency.value} · ${data.date}`;
         persistSpotState();
@@ -3543,6 +3600,7 @@
         updatePlayerDetail();
         updateResults();
       } catch (error) {
+        fxRateReady = false;
         fxStatus.textContent =
           "Could not load the initial exchange rate. USD values may be shown until currency is changed.";
       }
@@ -4090,6 +4148,7 @@
     }
 
     price.addEventListener("input", () => {
+      updateCanonicalSpotFromDisplay();
       persistSpotState();
       updateResults();
     });
