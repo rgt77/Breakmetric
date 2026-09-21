@@ -12,6 +12,8 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - EV and ROI remain beta until coverage and original-marketplace verification gates pass.
 - Multi-team cards remain excluded from team EV until an explicit break-allocation rule exists.
 - EV work is now tracked across 20 teams × base parallels, inserts and autographs.
+- The Hobby EV denominator is now fully enumerated as 8,896 card × modeled-variant contribution slots; Chelsea currently has 27/638 valued slots (4.2% count-based slot coverage).
+- EV slot coverage is explicitly count-based and is not an EV-weighted estimate of economic completeness.
 - Current EV contributions have deterministic derivation provenance and a priority queue for original-marketplace verification.
 - Market records are audited for schema, median/sample consistency, evidence integrity and duplicate warnings.
 - Market evidence exposes source tier, verification EV gap, sample size, recency and price-spread review flags.
@@ -29,9 +31,11 @@ BreakMetric is a sports-card case-break analysis platform built around published
 Every pull request and every push to supported release/step branches runs the release gates.
 
 ```bash
-node scripts/generate-data-version.mjs --check
 node scripts/audit-source-modules.mjs
+node scripts/generate-ev-eligible-inventory.mjs --check
+node scripts/validate-ev-eligible-inventory.mjs
 node scripts/generate-v13-pipeline.mjs --check
+node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
