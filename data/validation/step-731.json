@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 731,
+  "title": "Recover and verify Estevao #68 Prism Refractor sales",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 3,
+    "team": "Chelsea",
+    "card_id": "68-prism-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Prism Refractor",
+    "supporting_sale_count": 30
+  },
+  "result": {
+    "recovered_original_locator_count": 30,
+    "original_verified_sale_count": 1,
+    "unresolved_sale_count": 29
+  },
+  "guarantees": [
+    "All 30 stored Prism supporting sales have recovered eBay item locators.",
+    "Sale index 0 is promoted only because the original eBay page directly confirms SOLD state, 2026-09-03, US $8.50 and exact card identity.",
+    "Sale index 1 remains unresolved because the original eBay page shows C $8.00 while the stored $5.70 USD value has no original-source currency-conversion provenance.",
+    "Unnumbered Prism identity preserves print_run as null rather than coercing it to zero.",
+    "No EV contribution or realized sale price is changed."
+  ]
+}
