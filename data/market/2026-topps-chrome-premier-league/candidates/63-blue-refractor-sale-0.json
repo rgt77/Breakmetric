@@ -31,5 +31,29 @@
     "evidence": "Historical sold-listing outbound link recovered eBay item 137207071795."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original eBay item is directly readable and confirms exact card identity and US $19.99, but currently renders as an active Buy It Now listing rather than a historical sold event. It cannot verify the stored 2026-04-19 sale."
+  "research_note": "Original eBay item is readable and confirms exact card identity and price, but it is currently an active listing. The historical frozen sale event remains unresolved.",
+  "research_state": "attempted-historical-event-unresolved",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-first-pass-step-812",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review",
+        "original-ebay-active-listing-read"
+      ],
+      "outcome": "historical-event-unresolved",
+      "original_marketplace_page_accessible": true,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Original eBay item 137207071795 is directly readable and confirms exact card identity and US $19.99, but renders as an active Buy It Now listing rather than the frozen historical 2026-04-19 sold event.",
+      "source_notes": [
+        "Original eBay page confirms Cole Palmer, 2026 Topps Chrome Premier League, Blue Refractor /150, card #63, Chelsea and US $19.99.",
+        "Current page state is active Buy It Now, so it cannot prove the frozen historical sale."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }
