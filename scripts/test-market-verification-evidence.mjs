@@ -145,6 +145,53 @@ assert.deepEqual(
   record.sales.map(row=>row.sale_price)
 );
 
+const timestampEvidence={
+  ...valid,
+  original_marketplace_ended_at:"2026-02-06T17:00:00-07:00",
+  sale_date_basis:"utc-date-from-original-marketplace-timestamp"
+};
+assert.equal(
+  validateEvidence({
+    task,
+    record,
+    product,
+    evidence:timestampEvidence
+  }).valid,
+  true
+);
+const timestampApplied=applyEvidence({
+  task,
+  record,
+  product,
+  evidence:timestampEvidence
+});
+assert.equal(timestampApplied.applied,true);
+assert.equal(
+  timestampApplied.record.sales[0].original_marketplace_ended_at,
+  "2026-02-06T17:00:00-07:00"
+);
+assert.equal(
+  timestampApplied.record.sales[0].original_marketplace_sale_date_basis,
+  "utc-date-from-original-marketplace-timestamp"
+);
+
+const wrongTimestampEvidence={
+  ...timestampEvidence,
+  original_marketplace_ended_at:"2026-02-07T17:00:00-07:00"
+};
+const wrongTimestampValidation=validateEvidence({
+  task,
+  record,
+  product,
+  evidence:wrongTimestampEvidence
+});
+assert.equal(wrongTimestampValidation.valid,false);
+assert.ok(
+  wrongTimestampValidation.errors.some(error=>
+    error.includes("timestamp does not normalize")
+  )
+);
+
 const stableIdOnly={
   ...valid,
   direct_marketplace_url:undefined,
@@ -356,6 +403,8 @@ console.log(JSON.stringify({
     "wrong card number is rejected even for same player",
     "wrong parallel is rejected even within Chrome",
     "valid original marketplace sale URL accepted",
+    "offset-bearing marketplace timestamp may normalize to canonical UTC sale date",
+    "timestamp with a different UTC date is rejected",
     "canonical eBay Singapore listing host accepted",
     "canonical eBay Spain listing host accepted",
     "unnumbered verified identity preserves null print run",
