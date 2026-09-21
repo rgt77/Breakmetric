@@ -25,6 +25,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 Every pull request and every push to supported release/step branches runs the release gates.
 
 ```bash
+node scripts/audit-source-modules.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-ev-provenance.mjs
@@ -36,3 +37,14 @@ for file in src/*.js; do node --check "$file"; done
 ```
 
 The v1.3 development ledger is documented in `docs/v1.3-n200.md` and `data/validation/v13-n200.json`.
+
+
+## Source-module inventory
+
+All `src/*.js` files are explicitly classified in `data/validation/source-module-inventory-v1.json`.
+
+- **Runtime:** loaded by `index.html`.
+- **CI generator:** source-of-truth model logic executed by validation tooling.
+- **Offline model library:** retained model/research utilities that are not part of the current browser runtime or mandatory CI path.
+
+CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
