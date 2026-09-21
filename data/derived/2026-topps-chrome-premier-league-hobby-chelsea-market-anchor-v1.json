@@ -90,16 +90,6 @@
         "median_market_value_usd": 2400
       }
     },
-    "João Pedro": {
-      "all": {
-        "observation_count": 1,
-        "median_market_value_usd": 6
-      },
-      "base_parallels": {
-        "observation_count": 1,
-        "median_market_value_usd": 6
-      }
-    },
     "Jorrel Hato": {
       "all": {
         "observation_count": 1,
@@ -108,6 +98,16 @@
       "base_parallels": {
         "observation_count": 1,
         "median_market_value_usd": 0.99
+      }
+    },
+    "João Pedro": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
       }
     },
     "Liam Delap": {
