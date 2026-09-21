@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "block": "steps 714-718",
+  "step_count": 5,
+  "steps": [
+    {
+      "step": 714,
+      "title": "Enumerate exact EV-eligible contribution denominator",
+      "implemented": true
+    },
+    {
+      "step": 715,
+      "title": "Validate eligible inventory and unique EV provenance resolution",
+      "implemented": true
+    },
+    {
+      "step": 716,
+      "title": "Make EV scope and work queue denominator-driven",
+      "implemented": true
+    },
+    {
+      "step": 717,
+      "title": "Expose count-based EV slot coverage in runtime UI",
+      "implemented": true
+    },
+    {
+      "step": 718,
+      "title": "Gate denominator reproducibility and semantics in CI",
+      "implemented": true
+    }
+  ],
+  "result": "pending-ci"
+}
