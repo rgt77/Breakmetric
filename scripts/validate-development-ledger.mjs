@@ -124,15 +124,27 @@ for(const [id,file,start,end] of exactManifestRanges){
   );
 }
 
-const finalPhase=phases.at(-1);
+const firstPassPhase=phases.find(
+  phase=>phase.id==="research-first-pass-complete"
+);
 const firstPass=json("data/validation/steps-777-825.json");
 pass(
-  "final canonical phase matches completed first market research pass",
-  finalPhase?.start===777 &&
-  finalPhase?.end===825 &&
+  "completed first market research pass remains in canonical history",
+  firstPassPhase?.start===777 &&
+  firstPassPhase?.end===825 &&
   firstPass.step_range?.start===777 &&
   firstPass.step_range?.end===825 &&
   firstPass.original_unresolved_pool?.first_pass_complete===true
+);
+
+const audit=json("data/validation/architecture-review-steps-1-825.json");
+pass(
+  "steps 1-825 architecture audit remains an immutable reviewed snapshot",
+  audit.schema_version===1 &&
+  audit.reviewed_step_range?.start===1 &&
+  audit.reviewed_step_range?.end===825 &&
+  Number(ledger.canonical_step_end)>=825 &&
+  audit.result==="pass-with-structural-actions"
 );
 
 const policy=json("data/methodology/validation-architecture-v1.json");
