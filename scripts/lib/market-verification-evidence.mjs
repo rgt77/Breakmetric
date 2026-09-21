@@ -14,6 +14,16 @@ function text(value){
   return typeof value==="string" ? value.trim() : "";
 }
 
+function identityText(value){
+  return text(value)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g," ")
+    .trim()
+    .replace(/\s+/g," ");
+}
+
 function urlHost(value){
   try{
     const url=new URL(value);
@@ -95,10 +105,72 @@ export function hasOriginalLocator(evidence={},marketplace=""){
   );
 }
 
-export function validateEvidence({task={},record={},evidence={}}={}){
+function validateListingIdentity({task={},record={},product={},evidence={}}={}){
   const errors=[];
-  if(evidence.schema_version!==1){
-    errors.push("evidence schema_version must be 1");
+  const listing=evidence.listing_identity||{};
+  const policy=product.market_identity||{};
+  const accepted=(policy.accepted_series_aliases||[])
+    .map(identityText)
+    .filter(Boolean);
+  const observedSeries=identityText(listing.series);
+
+  if(!text(evidence.product_id) || evidence.product_id!==record.product_id){
+    errors.push("evidence product_id does not match market record product");
+  }
+  if(!product?.id || product.id!==record.product_id){
+    errors.push("product identity metadata does not match market record product");
+  }
+  if(!observedSeries){
+    errors.push("listing identity series is required");
+  }else if(!accepted.includes(observedSeries)){
+    errors.push("listing identity series does not match target product family");
+  }
+
+  if(
+    identityText(listing.card_number)!==
+    identityText(record.card_number)
+  ){
+    errors.push("listing identity card_number does not match market record");
+  }
+  if(
+    identityText(listing.parallel)!==
+    identityText(record.parallel)
+  ){
+    errors.push("listing identity parallel does not match market record");
+  }
+  if(
+    !Number.isInteger(Number(listing.print_run)) ||
+    Number(listing.print_run)!==Number(record.serial_numbering)
+  ){
+    errors.push("listing identity print_run does not match market record");
+  }
+  if(
+    identityText(listing.player)!==
+    identityText(record.player)
+  ){
+    errors.push("listing identity player does not match market record");
+  }
+  if(
+    text(listing.team) &&
+    identityText(listing.team)!==identityText(record.team)
+  ){
+    errors.push("listing identity team does not match market record");
+  }
+
+  if(text(task.player)!==text(record.player)){
+    errors.push("verification task player does not match market record");
+  }
+  if(text(task.parallel)!==text(record.parallel)){
+    errors.push("verification task parallel does not match market record");
+  }
+
+  return errors;
+}
+
+export function validateEvidence({task={},record={},product={},evidence={}}={}){
+  const errors=[];
+  if(evidence.schema_version!==2){
+    errors.push("evidence schema_version must be 2");
   }
   if(!text(evidence.task_id) || evidence.task_id!==task.task_id){
     errors.push("evidence task_id does not match verification task");
@@ -134,6 +206,13 @@ export function validateEvidence({task={},record={},evidence={}}={}){
   if(text(record.parallel)!==text(task.parallel)){
     errors.push("market record parallel does not match task");
   }
+
+  errors.push(...validateListingIdentity({
+    task,
+    record,
+    product,
+    evidence
+  }));
 
   const sale=record.sales?.[Number(task.sale_index)];
   if(!sale){
@@ -244,8 +323,8 @@ function evidenceSummary(record){
   };
 }
 
-export function applyEvidence({task={},record={},evidence={}}={}){
-  const validation=validateEvidence({task,record,evidence});
+export function applyEvidence({task={},record={},product={},evidence={}}={}){
+  const validation=validateEvidence({task,record,product,evidence});
   if(!validation.valid){
     return {
       applied:false,
@@ -268,6 +347,15 @@ export function applyEvidence({task={},record={},evidence={}}={}){
 
   if(directUrl) sale.direct_marketplace_url=directUrl;
   if(stableSaleId) sale.source_sale_id=stableSaleId;
+  sale.original_marketplace_identity={
+    product_id:evidence.product_id,
+    series:text(evidence.listing_identity?.series),
+    card_number:text(evidence.listing_identity?.card_number),
+    parallel:text(evidence.listing_identity?.parallel),
+    print_run:Number(evidence.listing_identity?.print_run),
+    player:text(evidence.listing_identity?.player),
+    team:text(evidence.listing_identity?.team)||null
+  };
   sale.direct_marketplace_url_recovered=Boolean(directUrl);
   sale.evidence_status="original-marketplace-verified";
   sale.original_marketplace_verified=true;
