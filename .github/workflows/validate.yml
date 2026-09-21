@@ -24,6 +24,10 @@ jobs:
         run: node scripts/validate-market-records.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
+      - name: Validate player derivation reproducibility
+        run: node scripts/validate-player-derivation.mjs
+      - name: Test spot and FX state
+        run: node scripts/test-spot-fx.mjs
       - name: Validate data contracts and UI invariants
         run: node scripts/validate.mjs
       - name: Smoke-test analysis models
