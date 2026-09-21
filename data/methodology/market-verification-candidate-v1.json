@@ -36,6 +36,7 @@
     "candidate must carry a qualifying original marketplace locator"
   ],
   "safety_rules": [
+    "If the original marketplace listing currency differs from the stored canonical sale currency, price matching requires explicit traceable currency-conversion provenance; matching a secondary-source converted amount is not sufficient.",
     "A recovered marketplace item ID discovered through a secondary source is a useful locator candidate, not verified sale evidence by itself.",
     "Secondary-source card identity or sale-event observations cannot make a candidate evidence-eligible.",
     "An active relisting of the exact physical serial-numbered card remains unresolved.",
