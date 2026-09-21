@@ -6,7 +6,7 @@
   "sale_index": 14,
   "marketplace": "eBay",
   "listing_state": "sold",
-  "identity_source_kind": "secondary-source",
+  "identity_source_kind": "original-marketplace",
   "checked_at": "2026-09-21",
   "listing_identity": {
     "series": "2026 Topps Chrome Premier League",
@@ -17,19 +17,44 @@
     "team": "Chelsea"
   },
   "observed_sale": {
-    "source_kind": "secondary-source",
+    "source_kind": "original-marketplace",
     "sale_date": "2026-05-06",
     "sale_price_usd": 12.5,
     "marketplace": "eBay",
-    "serial_copy": null
+    "serial_copy": null,
+    "original_marketplace_ended_at": "2026-05-05T17:33:00-07:00",
+    "sale_date_basis": "utc-date-from-original-marketplace-timestamp"
   },
   "discovery_source": {
     "name": "SportsCardsPro",
     "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-prism-refractor-68",
     "evidence": "Historical sold-listing outbound link recovered eBay item 127838378858."
   },
-  "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original marketplace locator recovered, but card identity and historical sale-event details remain secondary-source observations; keep unresolved.",
+  "assessment_status": "historical-sale-match",
+  "research_note": "Original eBay item 127838378858 directly confirms SOLD status, exact 2026 Topps Chrome Premier League #68 Prism Refractor identity, Chelsea, Estêvão Willian and US $12.50. The marketplace ended timestamp 2026-05-05T17:33:00-07:00 normalizes to the stored canonical UTC sale date 2026-05-06.",
   "source_sale_id": "127838378858",
-  "direct_marketplace_url": "https://www.ebay.com.au/itm/127838378858"
+  "direct_marketplace_url": "https://www.ebay.com/itm/127838378858",
+  "research_state": "attempted-historical-sale-match",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-retry-step-773",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "original-ebay-sold-page-read"
+      ],
+      "outcome": "historical-sale-match",
+      "original_marketplace_page_accessible": true,
+      "historical_sale_event_observed": true,
+      "evidence_found": true,
+      "source_notes": [
+        "Original eBay item 127838378858 is directly readable and marked SOLD.",
+        "Original title confirms 2026 Topps Chrome Premier League Estevao Willian RC Prism Refractor #68 Chelsea.",
+        "Original price is US $12.50.",
+        "Original ended timestamp is May 05, 2026 17:33 PDT, represented as 2026-05-05T17:33:00-07:00, which normalizes to 2026-05-06 UTC."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }
