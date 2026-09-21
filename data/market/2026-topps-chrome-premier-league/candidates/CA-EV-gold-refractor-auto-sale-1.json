@@ -31,5 +31,29 @@
     "evidence": "Outbound sale link resolved to eBay item 157681835833; sold date, price and title remain secondary-source observations."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Recovered original eBay item locator. Do not promote until card identity and the historical sale event are independently observed on the original marketplace or equivalent original-source record."
+  "research_note": "Original eBay locator is retained, but a dedicated original-source retry could not independently observe the historical sale event. Keep unresolved and move the research queue forward.",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-retry-step-757",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review"
+      ],
+      "outcome": "original-source-unavailable",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Recovered eBay item 157681835833 remains inaccessible as a historical original-marketplace sale page. Exact item-ID and exact-title searches did not return an independently readable original-source copy.",
+      "source_notes": [
+        "SportsCardsPro still reports the exact 2026 Topps Chrome Premier League Gold Refractor Autograph #34/50 #CA-EV sale at $2,800 on 2026-02-15.",
+        "The discovery-source outbound locator remains eBay item 157681835833.",
+        "Direct eBay retrieval is inaccessible in this research attempt."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21",
+  "research_state": "attempted-original-source-unavailable"
 }
