@@ -58,7 +58,9 @@ ok(Math.abs(evSum-Number(research.summary?.new_ev_contribution_usd||0))<0.0001,"
 ok(Number(research.summary?.chelsea_valued_contribution_count)===Number(teamEv.teams?.Chelsea?.valued_card_count),"research summary valued count mismatch");
 ok(Number(research.summary?.chelsea_remaining_contribution_count)===Number(queue.summary?.remaining_task_count),"research summary remaining count mismatch");
 ok(Number(teamEv.teams?.Chelsea?.valued_card_count)===Number(queue.summary?.already_valued_contribution_count),"team EV valued count mismatch");
-const chelseaCommittedEv=(teamEv.teams?.Chelsea?.contributions||[])\n  .reduce((sum,item)=>sum+Number(item.ev_contribution_usd||0),0);\nok(Math.abs(Number(teamEv.teams?.Chelsea?.partial_ev_sum_check_usd)-chelseaCommittedEv)<0.0001,"team EV partial sum mismatch");
+const chelseaCommittedEv=(teamEv.teams?.Chelsea?.contributions||[])
+  .reduce((sum,item)=>sum+Number(item.ev_contribution_usd||0),0);
+ok(Math.abs(Number(teamEv.teams?.Chelsea?.partial_ev_sum_check_usd)-chelseaCommittedEv)<0.0001,"team EV partial sum mismatch");
 ok(Number(queue.summary?.already_valued_contribution_count)+Number(queue.summary?.remaining_task_count)===638,"completion queue denominator mismatch");
 ok(Number(queue.summary?.remaining_task_count)===638-Number(queue.summary?.already_valued_contribution_count),"completion queue remaining count mismatch");
 
