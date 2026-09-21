@@ -248,6 +248,7 @@ for (const module of [
   "fxRate.js",
   "fxCoordinator.js",
   "runtimeGuard.js",
+  "selectionCoordinator.js",
   "teamReadiness.js",
   "analysisProvenance.js",
   "urlState.js"
@@ -308,6 +309,21 @@ pass(
   html.includes("runtimeDependencyReport") &&
   html.includes("BreakMetric could not start because required application modules failed to load.") &&
   html.includes("runtimeDependencyReport.missing.join")
+);
+pass(
+  "manual product selection is continuation-guarded",
+  html.includes("selectionCoordinator.begin(item.id)") &&
+  html.includes("selectionOperation") &&
+  html.includes("selectionCoordinator.isCurrent")
+);
+pass(
+  "initial product bootstrap is continuation-guarded",
+  html.includes("selectionCoordinator.begin(currentProduct.id)") &&
+  (html.match(/selectionCoordinator\.isCurrent\(/g) || []).length >= 2
+);
+pass(
+  "selection coordinator is runtime-required",
+  html.includes('"BreakMetricSelectionCoordinator"')
 );
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
 pass(
