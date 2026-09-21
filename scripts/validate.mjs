@@ -1078,11 +1078,12 @@ pass(
   )
 );
 pass(
-  "next untouched CA-EV sale remains eligible after sale zero attempt",
-  !Array.isArray(nextCaEvCandidate.research_attempts) &&
-  nextCaEvCandidate.assessment_status === "identity-match-sale-unresolved" &&
+  "step 756 next target was preserved and has now been researched",
   step756.next_research_policy?.expected_next_task_id ===
-    nextCaEvCandidate.task_id
+    nextCaEvCandidate.task_id &&
+  Array.isArray(nextCaEvCandidate.research_attempts) &&
+  nextCaEvCandidate.research_attempts.length >= 1 &&
+  nextCaEvCandidate.assessment_status === "identity-match-sale-unresolved"
 );
 pass(
   "candidate validator checks research attempt provenance",
@@ -1090,7 +1091,7 @@ pass(
     "last_research_attempt_at must match latest attempt"
   ) &&
   read("scripts/validate-market-verification-candidates.mjs").includes(
-    "unavailable research_state requires matching attempt"
+    "research_state must match latest attempt outcome"
   )
 );
 
