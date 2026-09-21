@@ -159,7 +159,7 @@ const output={
   model:"automated-valuation-candidates-v1",
   product_id:config.product_id,
   format_id:config.format_id,
-  generated_at:new Date().toISOString(),
+  generated_at:observations.generated_at||null,
   methodology:"data/methodology/automated-market-valuation-v1.json",
   canonical_ev_mutated:false,
   summary:{
@@ -174,11 +174,11 @@ const output={
 };
 
 fs.writeFileSync(
-  path.join(root,config.automated_valuation_file),
+  path.resolve(root,outputOverride||config.automated_valuation_file),
   stable(output)
 );
 console.log(JSON.stringify({
   result:"written",
-  output:config.automated_valuation_file,
+  output:outputOverride||config.automated_valuation_file,
   summary:output.summary
 },null,2));
