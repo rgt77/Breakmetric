@@ -1078,11 +1078,12 @@ pass(
   )
 );
 pass(
-  "next untouched CA-EV sale remains eligible after sale zero attempt",
-  !Array.isArray(nextCaEvCandidate.research_attempts) &&
-  nextCaEvCandidate.assessment_status === "identity-match-sale-unresolved" &&
+  "step 756 next target was preserved and has now been researched",
   step756.next_research_policy?.expected_next_task_id ===
-    nextCaEvCandidate.task_id
+    nextCaEvCandidate.task_id &&
+  Array.isArray(nextCaEvCandidate.research_attempts) &&
+  nextCaEvCandidate.research_attempts.length >= 1 &&
+  nextCaEvCandidate.assessment_status === "identity-match-sale-unresolved"
 );
 pass(
   "candidate validator checks research attempt provenance",
@@ -1090,8 +1091,49 @@ pass(
     "last_research_attempt_at must match latest attempt"
   ) &&
   read("scripts/validate-market-verification-candidates.mjs").includes(
-    "unavailable research_state requires matching attempt"
+    "research_state must match latest attempt outcome"
   )
+);
+
+const researchBlock757761 = json("data/validation/steps-757-761.json");
+const researchSteps757761 = [757,758,759,760,761].map(step=>
+  json(`data/validation/step-${step}.json`)
+);
+const nextPrismResearch = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-3.json"
+);
+pass(
+  "steps 757-761 unresolved research block is complete",
+  researchBlock757761.step_count === 5 &&
+  researchBlock757761.steps?.join(",") === "757,758,759,760,761" &&
+  researchSteps757761.every(row=>row.implemented===true)
+);
+pass(
+  "steps 757-761 preserve fail-closed unresolved outcomes",
+  researchBlock757761.outcomes?.original_source_unavailable === 4 &&
+  researchBlock757761.outcomes?.historical_event_unresolved === 1 &&
+  researchBlock757761.outcomes?.historical_sale_match === 0 &&
+  researchSteps757761.every(row=>
+    row.result?.evidence_promoted===false &&
+    row.result?.candidate_status==="identity-match-sale-unresolved"
+  )
+);
+pass(
+  "six unresolved sales now have persisted research attempts",
+  researchBlock757761.cumulative_research_progress?.research_attempted_unresolved_count === 6 &&
+  read("README.md").includes("6 of the 70 unresolved supporting sales")
+);
+pass(
+  "research state tracks latest attempt outcome generically",
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    'const expectedResearchState="attempted-"+latest.outcome'
+  )
+);
+pass(
+  "next unresolved research target advances to Prism sale index three",
+  researchBlock757761.next_research_task_id === nextPrismResearch.task_id &&
+  !Array.isArray(nextPrismResearch.research_attempts) &&
+  nextPrismResearch.assessment_status === "identity-match-sale-unresolved"
 );
 
 console.log(JSON.stringify({

@@ -20,7 +20,7 @@
     "evidence": "Outbound sold-listing link resolved to eBay item 177989347985. SportsCardsPro title identifies the exact Chrome #68 Gold Refractor and serial 10/50; date and price remain secondary-source observations."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Recovered original eBay item locator from the SportsCardsPro outbound sold-listing link. Do not promote until card identity and the historical sale event are observed from original-marketplace or equivalent original-source evidence.",
+  "research_note": "Original eBay locator is retained, but a dedicated original-source retry could not independently observe the historical sale event. Keep unresolved and move the research queue forward.",
   "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-gold-refractor::0",
   "sale_index": 0,
   "direct_marketplace_url": "https://www.ebay.com/itm/177989347985",
@@ -31,5 +31,29 @@
     "sale_price_usd": 834,
     "marketplace": "eBay",
     "serial_copy": "10/50"
-  }
+  },
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-retry-step-758",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review"
+      ],
+      "outcome": "original-source-unavailable",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Recovered eBay item 177989347985 remains inaccessible as a historical original-marketplace sale page. Exact item-ID searches did not return an independently readable original-source copy.",
+      "source_notes": [
+        "SportsCardsPro still reports exact 2026 Topps Chrome Premier League #68 Gold Refractor 10/50 at $834 on 2026-04-01.",
+        "The discovery-source outbound locator remains eBay item 177989347985.",
+        "Direct eBay retrieval is inaccessible in this research attempt."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21",
+  "research_state": "attempted-original-source-unavailable"
 }
