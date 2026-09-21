@@ -3,7 +3,8 @@ import {
 } from "./market-card-identity.mjs";
 import {
   hasOriginalLocator,
-  validateEvidence
+  validateEvidence,
+  utcDateFromOffsetTimestamp
 } from "./market-verification-evidence.mjs";
 
 function text(value){
@@ -111,6 +112,15 @@ export function assessVerificationCandidate({
   const identitySourceKind=text(candidate.identity_source_kind).toLowerCase();
   const eventSourceKind=text(observed.source_kind).toLowerCase();
 
+  const endedAt=text(observed.original_marketplace_ended_at);
+  const saleDateBasis=text(observed.sale_date_basis);
+  const timestampDateMatches=
+    !endedAt ||
+    (
+      saleDateBasis==="utc-date-from-original-marketplace-timestamp" &&
+      utcDateFromOffsetTimestamp(endedAt)===observed.sale_date
+    );
+
   const eventChecks={
     identity_original_source:
       identitySourceKind==="original-marketplace",
@@ -118,7 +128,8 @@ export function assessVerificationCandidate({
       text(candidate.listing_state).toLowerCase()==="sold",
     sale_date:
       validDate(observed.sale_date) &&
-      observed.sale_date===sale.sale_date,
+      observed.sale_date===sale.sale_date &&
+      timestampDateMatches,
     sale_price:
       moneyMatches(observed.sale_price_usd,sale.sale_price),
     marketplace:
@@ -140,6 +151,11 @@ export function assessVerificationCandidate({
   }
   if(!eventChecks.sale_date){
     blockers.push("candidate sold date does not match stored realized sale");
+    if(endedAt && !timestampDateMatches){
+      blockers.push(
+        "candidate original marketplace timestamp does not normalize to observed sale date"
+      );
+    }
   }
   if(!eventChecks.sale_price){
     blockers.push("candidate sold price does not match stored realized sale");
@@ -213,13 +229,20 @@ export function evidenceFromCandidate({
       series:text(candidate.listing_identity?.series),
       card_number:text(candidate.listing_identity?.card_number),
       parallel:text(candidate.listing_identity?.parallel),
-      print_run:Number(candidate.listing_identity?.print_run),
+      print_run:
+        candidate.listing_identity?.print_run===null ||
+        candidate.listing_identity?.print_run===undefined ||
+        candidate.listing_identity?.print_run===""
+          ? null
+          : Number(candidate.listing_identity.print_run),
       player:text(candidate.listing_identity?.player),
       team:text(candidate.listing_identity?.team)||""
     },
     direct_marketplace_url:text(candidate.direct_marketplace_url),
     source_sale_id:text(candidate.source_sale_id),
     verified_at:text(verifiedAt || candidate.checked_at),
+    original_marketplace_ended_at:endedAt,
+    sale_date_basis:saleDateBasis,
     verification_note:text(candidate.research_note) ||
       "Promoted from an exact historical-sale candidate."
   };
@@ -229,6 +252,12 @@ export function evidenceFromCandidate({
   }
   if(!evidence.source_sale_id){
     delete evidence.source_sale_id;
+  }
+  if(!evidence.original_marketplace_ended_at){
+    delete evidence.original_marketplace_ended_at;
+  }
+  if(!evidence.sale_date_basis){
+    delete evidence.sale_date_basis;
   }
 
   const validation=validateEvidence({
