@@ -644,6 +644,30 @@ pass(
   exists("scripts/test-market-verification-template.mjs")
 );
 
+const step726 = json("data/validation/step-726.json");
+const marketEvidenceIngestSource =
+  read("scripts/lib/market-verification-evidence.mjs");
+pass(
+  "step 726 marketplace locator hardening manifest",
+  step726.step === 726 &&
+  step726.implemented === true &&
+  step726.title === "Harden original-marketplace sale locators"
+);
+pass(
+  "eBay stable sale ids are format-validated",
+  marketEvidenceIngestSource.includes("stableSaleIdMatchesMarketplace") &&
+  marketEvidenceIngestSource.includes("/^\\d{9,15}$/")
+);
+pass(
+  "eBay direct evidence requires a listing item id",
+  marketEvidenceIngestSource.includes("ebayItemIdFromUrl") &&
+  marketEvidenceIngestSource.includes("direct marketplace URL is not a qualifying sale listing")
+);
+pass(
+  "direct URL and stable sale id disagreement fails closed",
+  marketEvidenceIngestSource.includes("direct marketplace URL and stable sale id disagree")
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
