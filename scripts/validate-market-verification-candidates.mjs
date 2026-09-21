@@ -42,6 +42,7 @@ const files=fs.existsSync(candidateDir)
 let historical=0;
 let unresolved=0;
 let mismatched=0;
+const seenTaskIds=new Set();
 
 for(const name of files){
   const rel=path.posix.join(
@@ -52,6 +53,10 @@ for(const name of files){
     fs.readFileSync(path.join(root,rel),"utf8")
   );
   const saleIndex=Number(candidate.sale_index);
+  if(seenTaskIds.has(candidate.task_id)){
+    failures.push(rel+" duplicates candidate task_id "+candidate.task_id);
+  }
+  seenTaskIds.add(candidate.task_id);
   const contribution=(queue.items||[]).find(item=>{
     const expected=[
       queue.product_id,
@@ -168,9 +173,55 @@ for(const name of files){
   }
 }
 
+const expectedTaskIds=[];
+for(const contribution of queue.items||[]){
+  const source=contribution.market_source_file;
+  if(!source || !fs.existsSync(path.join(root,source))){
+    failures.push(
+      "verification queue source missing while checking candidate coverage: "+
+      (source||"<missing>")
+    );
+    continue;
+  }
+  const record=JSON.parse(
+    fs.readFileSync(path.join(root,source),"utf8")
+  );
+  for(const [saleIndex] of (record.sales||[]).entries()){
+    expectedTaskIds.push([
+      queue.product_id,
+      queue.format_id,
+      contribution.team,
+      contribution.card_id,
+      saleIndex
+    ].join("::"));
+  }
+}
+
+for(const taskId of expectedTaskIds){
+  if(!seenTaskIds.has(taskId)){
+    failures.push("missing persisted candidate for frozen task "+taskId);
+  }
+}
+for(const taskId of seenTaskIds){
+  if(!expectedTaskIds.includes(taskId)){
+    failures.push("persisted candidate is outside frozen queue "+taskId);
+  }
+}
+if(files.length!==expectedTaskIds.length){
+  failures.push(
+    "candidate coverage count mismatch: "+
+    files.length+" persisted vs "+expectedTaskIds.length+" frozen sales"
+  );
+}
+
 console.log(JSON.stringify({
   result:failures.length?"fail":"pass",
   candidate_count:files.length,
+  expected_frozen_sale_count:expectedTaskIds.length,
+  unique_task_id_count:seenTaskIds.size,
+  complete_frozen_scope:
+    files.length===expectedTaskIds.length &&
+    seenTaskIds.size===expectedTaskIds.length,
   historical_sale_match_count:historical,
   identity_match_sale_unresolved_count:unresolved,
   identity_mismatch_count:mismatched,
