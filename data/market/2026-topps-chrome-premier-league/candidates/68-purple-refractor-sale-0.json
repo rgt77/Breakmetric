@@ -6,7 +6,7 @@
   "sale_index": 0,
   "marketplace": "eBay",
   "listing_state": "sold",
-  "identity_source_kind": "secondary-source",
+  "identity_source_kind": "original-marketplace",
   "checked_at": "2026-09-21",
   "listing_identity": {
     "series": "2026 Topps Chrome Premier League",
@@ -29,7 +29,30 @@
     "evidence": "Historical sold-listing outbound link recovered eBay item 406784767467."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original marketplace locator recovered, but card identity and historical sale-event details remain secondary-source observations; keep unresolved.",
+  "research_note": "Original eBay platform evidence confirms the exact item/card identity through seller feedback, but the historical sold event cannot be matched on price/date from original-source evidence. Keep unresolved.",
   "source_sale_id": "406784767467",
-  "direct_marketplace_url": "https://www.ebay.co.uk/itm/406784767467"
+  "direct_marketplace_url": "https://www.ebay.co.uk/itm/406784767467",
+  "research_state": "attempted-historical-event-unresolved",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-first-pass-step-795",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review",
+        "original-ebay-feedback-reference"
+      ],
+      "outcome": "historical-event-unresolved",
+      "original_marketplace_page_accessible": true,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Original eBay seller-feedback reference confirms the exact Chrome Purple Refractor item/title, but does not expose a readable historical sold page with the frozen price and date.",
+      "source_notes": [
+        "Original eBay feedback references item 406784767467 and the exact Estêvão #68 Purple Refractor /75 title."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }

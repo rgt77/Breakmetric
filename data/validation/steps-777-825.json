@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "market-verification-first-pass-complete-v1",
+  "step_range": {
+    "start": 777,
+    "end": 825,
+    "count": 49
+  },
+  "steps": [
+    777,
+    778,
+    779,
+    780,
+    781,
+    782,
+    783,
+    784,
+    785,
+    786,
+    787,
+    788,
+    789,
+    790,
+    791,
+    792,
+    793,
+    794,
+    795,
+    796,
+    797,
+    798,
+    799,
+    800,
+    801,
+    802,
+    803,
+    804,
+    805,
+    806,
+    807,
+    808,
+    809,
+    810,
+    811,
+    812,
+    813,
+    814,
+    815,
+    816,
+    817,
+    818,
+    819,
+    820,
+    821,
+    822,
+    823,
+    824,
+    825
+  ],
+  "block_outcomes": {
+    "original_source_unavailable": 44,
+    "historical_event_unresolved": 3,
+    "historical_sale_match": 2
+  },
+  "frozen_scope": {
+    "supporting_sale_count": 72,
+    "original_marketplace_locator_count": 71,
+    "original_marketplace_verified_sale_count": 5,
+    "unresolved_sale_count": 67
+  },
+  "original_unresolved_pool": {
+    "initial_count": 70,
+    "research_touched_count": 70,
+    "promoted_count": 3,
+    "unresolved_after_first_pass": 67,
+    "unresolved_original_source_unavailable": 63,
+    "unresolved_historical_event_unresolved": 4,
+    "untouched_count": 0,
+    "first_pass_complete": true
+  },
+  "new_verified_sales": [
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::19",
+      "source_sale_id": "127802994632",
+      "sale_price_usd": 22.5,
+      "canonical_sale_date": "2026-04-16",
+      "original_marketplace_ended_at": "2026-04-15T18:46:55-07:00"
+    },
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::21",
+      "source_sale_id": "127787552517",
+      "sale_price_usd": 13.26,
+      "canonical_sale_date": "2026-04-08",
+      "original_marketplace_ended_at": "2026-04-07T17:54:00-07:00"
+    }
+  ],
+  "unresolved_original_source_traces": [
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::18",
+      "reason": "Original eBay feedback references exact item/title but not the frozen sale price/date."
+    },
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-purple-refractor::0",
+      "reason": "Original eBay feedback references exact item/title but not the frozen sale price/date."
+    },
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::63-blue-refractor::0",
+      "reason": "Original eBay item is readable only as an active Buy It Now relisting, not the frozen historical sale."
+    }
+  ],
+  "guarantees": [
+    "Every sale in the original 70-sale unresolved pool now has at least one persisted original-source research attempt or has been promoted through original evidence.",
+    "No unresolved frozen sale remains untouched after step 825.",
+    "Original-source unavailability does not become verification.",
+    "Active relistings and incomplete original-platform traces remain fail-closed unresolved.",
+    "No realized sale price or EV contribution is changed by first-pass research."
+  ]
+}

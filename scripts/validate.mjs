@@ -919,7 +919,7 @@ pass(
 pass(
   "README reports current market verification progress",
   read("README.md").includes("71 of the 72 stored supporting sales") &&
-  read("README.md").includes("3 of 72 sales are fully original-marketplace verified")
+  read("README.md").includes("5 of 72 sales are fully original-marketplace verified")
 );
 
 const marketBlock741745 = json("data/validation/steps-741-745.json");
@@ -971,7 +971,7 @@ pass(
 pass(
   "README reports updated market verification progress",
   read("README.md").includes("71 of the 72 stored supporting sales") &&
-  read("README.md").includes("3 of 72 sales are fully original-marketplace verified")
+  read("README.md").includes("5 of 72 sales are fully original-marketplace verified")
 );
 
 const marketBlock746755 = json("data/validation/steps-746-755.json");
@@ -1212,8 +1212,11 @@ pass(
   prismMarketRecord.sales?.[14]?.original_marketplace_identity?.print_run === null &&
   prismMarketRecord.sales?.[14]?.original_marketplace_ended_at ===
     "2026-05-05T17:33:00-07:00" &&
-  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count === 2 &&
-  prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count === 28
+  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count >= 2 &&
+  (
+    Number(prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count||0) +
+    Number(prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count||0)
+  ) === 30
 );
 pass(
   "market timestamp provenance is UTC-normalized and release-gated",
@@ -1247,16 +1250,90 @@ pass(
   researchBlock767776.cumulative_research_progress?.original_verified_sale_count === 3
 );
 pass(
-  "README reports third verified sale and current research progress",
-  read("README.md").includes("3 of 72 sales are fully original-marketplace verified") &&
-  read("README.md").includes("21 of the original 70 unresolved supporting sales") &&
-  read("README.md").includes("49 untouched")
+  "steps 767-776 research progress snapshot remains recorded",
+  researchBlock767776.cumulative_research_progress?.research_touched_original_unresolved_count === 21 &&
+  researchBlock767776.cumulative_research_progress?.research_unattempted_unresolved_count === 49
 );
 pass(
-  "next unresolved research target advances to Prism sale index eighteen",
+  "steps 767-776 next target was preserved and has now been researched",
   researchBlock767776.next_research_task_id === nextPrismResearch18.task_id &&
-  !Array.isArray(nextPrismResearch18.research_attempts) &&
-  nextPrismResearch18.assessment_status === "identity-match-sale-unresolved"
+  Array.isArray(nextPrismResearch18.research_attempts) &&
+  nextPrismResearch18.research_attempts.length >= 1
+);
+
+const researchBlock777825 = json("data/validation/steps-777-825.json");
+const researchSteps777825 = Array.from(
+  {length:49},
+  (_,index)=>json(`data/validation/step-${777+index}.json`)
+);
+const verifiedPrismCandidate19 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-19.json"
+);
+const verifiedPrismCandidate21 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-21.json"
+);
+pass(
+  "steps 777-825 complete all forty-nine remaining first-pass tasks",
+  researchBlock777825.step_range?.count === 49 &&
+  researchBlock777825.steps?.length === 49 &&
+  researchBlock777825.steps?.every((step,index)=>step===777+index) &&
+  researchSteps777825.every(row=>row.implemented===true)
+);
+pass(
+  "steps 777-825 outcomes reconcile",
+  researchBlock777825.block_outcomes?.original_source_unavailable === 44 &&
+  researchBlock777825.block_outcomes?.historical_event_unresolved === 3 &&
+  researchBlock777825.block_outcomes?.historical_sale_match === 2
+);
+pass(
+  "two additional Prism sales are original-marketplace verified",
+  verifiedPrismCandidate19.assessment_status === "historical-sale-match" &&
+  verifiedPrismCandidate19.observed_sale?.source_kind === "original-marketplace" &&
+  verifiedPrismCandidate19.observed_sale?.original_marketplace_ended_at ===
+    "2026-04-15T18:46:55-07:00" &&
+  verifiedPrismCandidate21.assessment_status === "historical-sale-match" &&
+  verifiedPrismCandidate21.observed_sale?.source_kind === "original-marketplace" &&
+  verifiedPrismCandidate21.observed_sale?.original_marketplace_ended_at ===
+    "2026-04-07T17:54:00-07:00" &&
+  prismMarketRecord.sales?.[19]?.source_sale_id === "127802994632" &&
+  prismMarketRecord.sales?.[19]?.original_marketplace_verified === true &&
+  prismMarketRecord.sales?.[21]?.source_sale_id === "127787552517" &&
+  prismMarketRecord.sales?.[21]?.original_marketplace_verified === true &&
+  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count === 4 &&
+  prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count === 26
+);
+pass(
+  "first-pass original-source research is complete for frozen scope",
+  researchBlock777825.original_unresolved_pool?.initial_count === 70 &&
+  researchBlock777825.original_unresolved_pool?.research_touched_count === 70 &&
+  researchBlock777825.original_unresolved_pool?.promoted_count === 3 &&
+  researchBlock777825.original_unresolved_pool?.unresolved_after_first_pass === 67 &&
+  researchBlock777825.original_unresolved_pool?.unresolved_original_source_unavailable === 63 &&
+  researchBlock777825.original_unresolved_pool?.unresolved_historical_event_unresolved === 4 &&
+  researchBlock777825.original_unresolved_pool?.untouched_count === 0 &&
+  researchBlock777825.original_unresolved_pool?.first_pass_complete === true
+);
+pass(
+  "frozen market state is five verified and sixty-seven unresolved",
+  researchBlock777825.frozen_scope?.supporting_sale_count === 72 &&
+  researchBlock777825.frozen_scope?.original_marketplace_locator_count === 71 &&
+  researchBlock777825.frozen_scope?.original_marketplace_verified_sale_count === 5 &&
+  researchBlock777825.frozen_scope?.unresolved_sale_count === 67
+);
+pass(
+  "candidate validator permanently rejects untouched frozen unresolved sales",
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "unresolved frozen sale lacks first-pass research attempt"
+  ) &&
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "first_pass_complete:researchUnattemptedUnresolved===0"
+  )
+);
+pass(
+  "README reports completed first-pass research",
+  read("README.md").includes("5 of 72 sales are fully original-marketplace verified") &&
+  read("README.md").includes("first-pass original-source research phase is complete") &&
+  read("README.md").includes("there are no untouched unresolved sales left")
 );
 
 console.log(JSON.stringify({

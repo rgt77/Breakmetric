@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 780,
+  "title": "Complete first-pass original-source research for frozen sale step 780",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "candidate_file": "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-21.json",
+  "result": {
+    "outcome": "historical-sale-match",
+    "evidence_promoted": true,
+    "research_state": "attempted-historical-sale-match"
+  },
+  "guarantees": [
+    "This frozen supporting sale received a first-pass original-source research attempt.",
+    "Promotion requires directly readable original eBay sold-event evidence matching identity, price and canonical date provenance.",
+    "No realized sale price or EV contribution is changed."
+  ],
+  "original_marketplace_timestamp": {
+    "ended_at": "2026-04-07T17:54:00-07:00",
+    "normalized_utc_date": "2026-04-08"
+  }
+}

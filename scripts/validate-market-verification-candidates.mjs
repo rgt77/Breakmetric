@@ -45,6 +45,7 @@ let mismatched=0;
 let researchAttempted=0;
 let researchUnavailable=0;
 let researchHistoricalUnresolved=0;
+let researchUnattemptedUnresolved=0;
 const seenTaskIds=new Set();
 
 for(const name of files){
@@ -171,6 +172,20 @@ for(const name of files){
     );
   }
 
+  const researchAttemptCount=
+    Array.isArray(candidate.research_attempts)
+      ? candidate.research_attempts.length
+      : 0;
+  if(
+    assessment.status==="identity-match-sale-unresolved" &&
+    researchAttemptCount===0
+  ){
+    researchUnattemptedUnresolved++;
+    failures.push(
+      rel+" unresolved frozen sale lacks first-pass research attempt"
+    );
+  }
+
   if(Array.isArray(candidate.research_attempts)){
     for(const [attemptIndex,attempt] of candidate.research_attempts.entries()){
       const prefix=rel+" research_attempts["+attemptIndex+"]";
@@ -288,6 +303,8 @@ console.log(JSON.stringify({
   research_attempted_candidate_count:researchAttempted,
   research_original_source_unavailable_count:researchUnavailable,
   research_historical_event_unresolved_count:researchHistoricalUnresolved,
+  research_unattempted_unresolved_count:researchUnattemptedUnresolved,
+  first_pass_complete:researchUnattemptedUnresolved===0,
   warning_count:warnings.length,
   failed_count:failures.length,
   failures,

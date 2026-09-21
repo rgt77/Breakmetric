@@ -31,5 +31,28 @@
     "evidence": "Historical sold-listing outbound link recovered eBay item 157817555013."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original marketplace locator recovered, but the exact historical sale event is not independently readable from original-marketplace evidence; keep unresolved."
+  "research_note": "Original marketplace locator is retained, but the first-pass exact-item original-source research could not independently observe the frozen historical sale event. Keep unresolved.",
+  "research_state": "attempted-original-source-unavailable",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-first-pass-step-816",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review"
+      ],
+      "outcome": "original-source-unavailable",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Recovered eBay item 157817555013 is not available as an independently readable historical sold page and exact item-ID/title search returned no qualifying original-source event.",
+      "source_notes": [
+        "Frozen sale remains 2026-05-25 at $3.69 USD.",
+        "Recovered locator remains eBay item 157817555013."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }
