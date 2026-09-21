@@ -11,6 +11,11 @@ const method=read("data/methodology/automated-market-valuation-v1.json");
 const store=read(config.observation_file);
 
 ok(config.enabled===true,"collector must be enabled");
+ok(config.scope?.mode==="full-release-unvalued-slots","collector scope must cover full release");
+ok(Number(config.scope?.eligible_slot_denominator)===8896,"collector denominator must remain 8896");
+for(const [name,file] of Object.entries(config.task_sources||{})){
+  ok(typeof file==="string"&&fs.existsSync(path.join(root,file)),"missing task source: "+name);
+}
 ok(Number(config.fast_lane?.cadence_minutes)>=15,"fast lane cadence must be at least 15 minutes");
 ok(Number(config.fast_lane?.batch_size)>0,"batch size missing");
 ok(Number(config.fast_lane?.min_request_interval_ms)>=1000,"provider rate limit guard must be at least 1000ms");
