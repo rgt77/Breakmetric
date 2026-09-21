@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "market-verification-steps-746-755",
+  "step_count": 10,
+  "steps": [
+    746,
+    747,
+    748,
+    749,
+    750,
+    751,
+    752,
+    753,
+    754,
+    755
+  ],
+  "priority_ranks": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+  ],
+  "supporting_sale_count": 15,
+  "recovered_original_locator_count": 15,
+  "original_verified_sale_count": 0,
+  "unresolved_sale_count": 15,
+  "overall_market_progress_after_block": {
+    "total_supporting_sales": 72,
+    "persisted_candidate_count": 72,
+    "recovered_original_locator_count": 71,
+    "original_verified_sale_count": 2,
+    "complete_candidate_coverage": true
+  },
+  "source_drift": [
+    {
+      "contribution": "63-gold-wave-refractor",
+      "stored_supporting_sale_count": 1,
+      "current_discovery_source_sale_count": 2
+    },
+    {
+      "contribution": "61-blue-refractor",
+      "stored_supporting_sale_count": 1,
+      "current_discovery_source_sale_count": 2
+    },
+    {
+      "contribution": "64-pink-refractor",
+      "stored_supporting_sale_count": 1,
+      "current_discovery_source_sale_count": 2
+    }
+  ],
+  "notable_fail_closed_case": {
+    "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::63-blue-refractor::0",
+    "source_sale_id": "137207071795",
+    "reason": "Original eBay item is directly readable but currently renders as an active Buy It Now listing, so it cannot prove the stored historical 2026-04-19 sale event."
+  }
+}

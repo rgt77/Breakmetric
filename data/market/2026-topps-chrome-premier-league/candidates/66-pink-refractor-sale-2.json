@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::66-pink-refractor::2",
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/66-enzo-fernandez-pink-refractor.json",
+  "sale_index": 2,
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "secondary-source",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "66",
+    "parallel": "Pink Refractor",
+    "print_run": 250,
+    "player": "Enzo Fernández",
+    "team": "Chelsea"
+  },
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-02-20",
+    "sale_price_usd": 5,
+    "marketplace": "eBay",
+    "serial_copy": null
+  },
+  "source_sale_id": "406706222120",
+  "direct_marketplace_url": "https://www.ebay.com.au/itm/406706222120",
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/enzo-fernandez-pink-refractor-66",
+    "evidence": "Historical sold-listing outbound link recovered eBay item 406706222120."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "Original marketplace locator recovered, but the exact historical sale event is not independently readable from original-marketplace evidence; keep unresolved."
+}

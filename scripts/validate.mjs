@@ -916,7 +916,7 @@ pass(
 );
 pass(
   "README reports current market verification progress",
-  read("README.md").includes("56 of the 72 stored supporting sales") &&
+  read("README.md").includes("71 of the 72 stored supporting sales") &&
   read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
 );
 
@@ -968,8 +968,71 @@ pass(
 );
 pass(
   "README reports updated market verification progress",
-  read("README.md").includes("56 of the 72 stored supporting sales") &&
+  read("README.md").includes("71 of the 72 stored supporting sales") &&
   read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
+);
+
+const marketBlock746755 = json("data/validation/steps-746-755.json");
+const marketSteps746755 = Array.from(
+  {length:10},
+  (_,index)=>json(`data/validation/step-${746+index}.json`)
+);
+const blueRelistingCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/63-blue-refractor-sale-0.json"
+);
+pass(
+  "steps 746-755 market verification block is complete",
+  marketBlock746755.step_count === 10 &&
+  marketBlock746755.steps?.every((step,index)=>step===746+index) &&
+  marketSteps746755.every((row,index)=>
+    row.step===746+index && row.implemented===true
+  )
+);
+pass(
+  "steps 746-755 recovered all fifteen locators",
+  marketBlock746755.supporting_sale_count === 15 &&
+  marketBlock746755.recovered_original_locator_count === 15 &&
+  marketSteps746755.reduce(
+    (sum,row)=>sum+Number(row.result?.recovered_original_locator_count||0),
+    0
+  ) === 15
+);
+pass(
+  "frozen 72-sale candidate coverage is complete and unique",
+  marketBlock746755.overall_market_progress_after_block?.persisted_candidate_count === 72 &&
+  marketBlock746755.overall_market_progress_after_block?.complete_candidate_coverage === true &&
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "missing persisted candidate for frozen task"
+  ) &&
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "duplicates candidate task_id"
+  )
+);
+pass(
+  "market locator recovery reaches 71 of 72",
+  marketBlock746755.overall_market_progress_after_block?.recovered_original_locator_count === 71 &&
+  marketBlock746755.overall_market_progress_after_block?.original_verified_sale_count === 2
+);
+pass(
+  "active original listing cannot verify historical Blue sale",
+  blueRelistingCandidate.source_sale_id === "137207071795" &&
+  blueRelistingCandidate.listing_state === "active" &&
+  blueRelistingCandidate.identity_source_kind === "original-marketplace" &&
+  blueRelistingCandidate.observed_sale?.source_kind === "secondary-source" &&
+  blueRelistingCandidate.assessment_status === "identity-match-sale-unresolved"
+);
+pass(
+  "steps 746-755 source drift stays outside frozen sample",
+  marketBlock746755.source_drift?.length === 3 &&
+  marketBlock746755.source_drift.every(row=>
+    row.current_discovery_source_sale_count > row.stored_supporting_sale_count
+  )
+);
+pass(
+  "README reports final frozen-pass locator progress",
+  read("README.md").includes("71 of the 72 stored supporting sales") &&
+  read("README.md").includes("All 72 frozen supporting sales now have exactly one persisted candidate record") &&
+  read("README.md").includes("All 27 current Chelsea contribution priority ranks")
 );
 
 console.log(JSON.stringify({
