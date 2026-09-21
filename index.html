@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BreakMetric — Sports Card Break Analysis</title>
   <meta name="description" content="BreakMetric helps compare sports card break spots using published odds, checklist-derived probabilities and evidence-gated expected value." />
+  <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0b1020" />
+  <meta property="og:title" content="BreakMetric — Sports Card Break Analysis" />
+  <meta property="og:description" content="Published-odds probability analysis with evidence-gated EV and ROI." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1020'/%3E%3Cpath d='M15 14h20c10 0 16 5 16 13 0 5-3 9-8 11 6 2 9 6 9 12H41c0-5-3-7-9-7h-6v7H15V14zm11 10v10h8c4 0 6-2 6-5s-2-5-6-5h-8z' fill='%2365e6b4'/%3E%3C/svg%3E" />
   <style>
     :root{
@@ -325,6 +331,15 @@
     .team-readiness-badge.ready{color:var(--accent)}
     .team-readiness-badge.warn{color:#ffd18a}
     .team-readiness-badge.muted{color:var(--muted)}
+    .comparison-wrap{overflow-x:auto;margin-top:12px}
+    .comparison-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.78rem}
+    .comparison-table caption{text-align:left;color:var(--muted);padding:0 0 10px}
+    .comparison-table th,.comparison-table td{
+      text-align:left;padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap
+    }
+    .comparison-table th{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}
+    .comparison-table tr.selected{background:rgba(101,230,180,.07)}
+    .comparison-table td:first-child{font-weight:700}
     .filter-empty{
       grid-column:1/-1;
       color:var(--muted);
@@ -406,6 +421,15 @@
       background:rgba(14,21,40,.92);
     }
     .player-panel.visible{display:block}
+    .player-detail-section{
+      margin-top:12px;border-top:1px solid var(--line);padding-top:10px
+    }
+    .player-detail-section summary{
+      cursor:pointer;color:var(--muted);font-weight:700;font-size:.82rem
+    }
+    .player-detail-section[open] summary{color:var(--text)}
+    .player-panel-actions{display:flex;align-items:center;gap:8px}
+    .player-panel-actions .ghost-button{margin:0}
     .player-panel-head{
       display:flex;
       justify-content:space-between;
@@ -640,6 +664,18 @@
             <span>ROI status</span>
             <strong id="dataRoiGate">Withheld</strong>
           </div>
+          <div>
+            <span>Dataset loader</span>
+            <strong id="dataLoaderStatus">Pending</strong>
+          </div>
+          <div>
+            <span>Cache / requests</span>
+            <strong id="dataLoaderMetrics">—</strong>
+          </div>
+          <div>
+            <span>Browser storage</span>
+            <strong id="dataStorageStatus">Pending</strong>
+          </div>
         </div>
       </details>
 
@@ -674,6 +710,34 @@
           <div class="player-data-row">
             <div>Verification share<small>This is source-verification share, not EV coverage.</small></div>
             <strong id="marketVerificationShare">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Source tier</div>
+            <strong id="marketSourceTier">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Pending verification EV impact<small>Sum of current EV contributions still lacking original-marketplace verification.</small></div>
+            <strong id="marketVerificationEvGap">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Stored sale sample<small>Loaded lazily when this panel is opened.</small></div>
+            <strong id="marketRecordSample">Open panel to load</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Latest stored sale</div>
+            <strong id="marketLatestSale">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Record freshness</div>
+            <strong id="marketRecordFreshness">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Price-spread alert<small>Flags wide raw comp ranges; it does not recalculate market value.</small></div>
+            <strong id="marketSpreadAlert">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Market record integrity</div>
+            <strong id="marketRecordIntegrity">—</strong>
           </div>
         </div>
       </details>
@@ -713,9 +777,31 @@
       <div class="section-title">3 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true"></select>
+
+      <details class="details-panel" id="teamComparisonPanel">
+        <summary>Compare team data</summary>
+        <div class="comparison-wrap">
+          <table class="comparison-table">
+            <caption>Factual probability and data-readiness comparison. No value ranking is applied.</caption>
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th>Auto chance</th>
+                <th>Insert chance</th>
+                <th>Base parallel chance</th>
+                <th>EV coverage</th>
+                <th>Market evidence</th>
+                <th>ROI gate</th>
+              </tr>
+            </thead>
+            <tbody id="teamComparisonBody"></tbody>
+          </table>
+        </div>
+      </details>
+
       <div class="player-browser">
         <div class="section-title">4 · Choose player</div>
-        <div id="playerGrid" class="player-grid" aria-label="Players"></div>
+        <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
       </div>
 
       <div class="section-title">5 · Team value overview <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
@@ -784,19 +870,48 @@
             <strong id="evCategoryScope">Pending</strong>
           </div>
           <div class="player-data-row">
+            <div>EV derivation lineage<small>Each valued contribution must resolve to a derivation file and market source.</small></div>
+            <strong id="evDerivationLineage">Pending</strong>
+          </div>
+          <div class="player-data-row">
             <div>Current blockers</div>
             <strong id="evCoverageBlockers">Pending</strong>
           </div>
         </div>
       </details>
 
-      <section id="playerPanel" class="player-panel">
+      <details class="details-panel" id="evWorkPanel">
+        <summary>EV work queue</summary>
+        <div class="player-card-list">
+          <div class="player-data-row">
+            <div>Next task for selected team</div>
+            <strong id="evNextTask">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Team queue</div>
+            <strong id="evTeamQueue">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Product queue<small>Required team/category valuation tasks.</small></div>
+            <strong id="evGlobalQueue">Pending</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Highest-impact market verification<small>Prioritized by current EV contribution only; this does not alter EV.</small></div>
+            <strong id="marketNextVerification">Pending</strong>
+          </div>
+        </div>
+      </details>
+
+      <section id="playerPanel" class="player-panel" role="region" aria-labelledby="playerName">
         <div class="player-panel-head">
           <div>
             <h3 id="playerName">Player</h3>
             <p id="playerMeta"></p>
           </div>
-          <span id="playerBadge" class="rookie-badge" style="display:none"></span>
+          <div class="player-panel-actions">
+            <span id="playerBadge" class="rookie-badge" style="display:none"></span>
+            <button id="clearPlayerButton" class="ghost-button" type="button">Clear player</button>
+          </div>
         </div>
 
         <div class="player-stats">
@@ -849,14 +964,28 @@
             <strong id="playerProbabilityCoverage">—</strong>
           </div>
         </div>
-        <p class="spot-note" style="margin-top:10px!important">
-          Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. ¹The combined figure uses an independence approximation across modeled categories. Hit chance is not the same as profit chance or positive ROI. Entry coverage measures checklist entries connected to at least one published odds row; it does not mean every possible parallel has published odds. Probability-entry coverage and market-value coverage are separate: a player can have complete probability mapping while only a subset of cards has usable market valuations.
-        </p>
-        <div id="playerCoverageDetail" class="player-card-list"></div>
+        <details class="player-detail-section">
+          <summary>Probability methodology & coverage</summary>
+          <p class="spot-note" style="margin-top:10px!important">
+            Player odds use official Hobby odds and equal-likelihood checklist assumptions where Topps does not publish card-level weighting. “Any modeled hit” combines base parallels, inserts and autographs. ¹The combined figure uses an independence approximation across modeled categories. Hit chance is not the same as profit chance or positive ROI. Entry coverage measures checklist entries connected to at least one published odds row; it does not mean every possible parallel has published odds. Probability-entry coverage and market-value coverage are separate: a player can have complete probability mapping while only a subset of cards has usable market valuations.
+          </p>
+          <div id="playerCoverageDetail" class="player-card-list"></div>
+        </details>
 
-        <div id="playerChecklistDetail" class="player-card-list"></div>
-        <div id="playerSerialDetail" class="player-card-list"></div>
-        <div id="playerCardList" class="player-card-list"></div>
+        <details class="player-detail-section">
+          <summary>Checklist appearances</summary>
+          <div id="playerChecklistDetail" class="player-card-list"></div>
+        </details>
+
+        <details class="player-detail-section">
+          <summary>Serial tracking</summary>
+          <div id="playerSerialDetail" class="player-card-list"></div>
+        </details>
+
+        <details class="player-detail-section">
+          <summary>Valued cards</summary>
+          <div id="playerCardList" class="player-card-list"></div>
+        </details>
       </section>
 
       <details class="details-panel">
@@ -906,7 +1035,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v1.2.0</b> — probability analysis ready · EV/ROI beta.</p>
+      <p class="status"><b>BreakMetric v1.3.0</b> — probability analysis ready · EV/ROI beta.</p>
     </section>
   </main>
 
@@ -914,13 +1043,20 @@
 
   <script src="src/runtimeContracts.js"></script>
   <script src="src/teamReadiness.js"></script>
+  <script src="src/teamComparison.js"></script>
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
   <script src="src/evCoverage.js"></script>
+  <script src="src/evWorkQueue.js"></script>
+  <script src="src/evContributionProvenance.js"></script>
   <script src="src/marketCoverage.js"></script>
+  <script src="src/marketEvidenceQuality.js"></script>
+  <script src="src/marketRecordQuality.js"></script>
+  <script src="src/marketRecordIssues.js"></script>
   <script src="src/dataFreshness.js"></script>
   <script src="src/dataLoader.js"></script>
   <script src="src/errorModel.js"></script>
+  <script src="src/storage.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
@@ -957,6 +1093,9 @@
     const dataMarketSourceQuality = document.getElementById("dataMarketSourceQuality");
     const dataTeamReadiness = document.getElementById("dataTeamReadiness");
     const dataRoiGate = document.getElementById("dataRoiGate");
+    const dataLoaderStatus = document.getElementById("dataLoaderStatus");
+    const dataLoaderMetrics = document.getElementById("dataLoaderMetrics");
+    const dataStorageStatus = document.getElementById("dataStorageStatus");
     const qualityProbability = document.getElementById("qualityProbability");
     const qualityEv = document.getElementById("qualityEv");
     const qualityMarket = document.getElementById("qualityMarket");
@@ -967,17 +1106,27 @@
     const marketOriginalCount = document.getElementById("marketOriginalCount");
     const marketSecondaryCount = document.getElementById("marketSecondaryCount");
     const marketVerificationShare = document.getElementById("marketVerificationShare");
+    const marketSourceTier = document.getElementById("marketSourceTier");
+    const marketVerificationEvGap = document.getElementById("marketVerificationEvGap");
+    const marketRecordSample = document.getElementById("marketRecordSample");
+    const marketLatestSale = document.getElementById("marketLatestSale");
+    const marketRecordFreshness = document.getElementById("marketRecordFreshness");
+    const marketSpreadAlert = document.getElementById("marketSpreadAlert");
+    const marketRecordIntegrity = document.getElementById("marketRecordIntegrity");
+    const marketEvidencePanel = document.getElementById("marketEvidencePanel");
     const freshProduct = document.getElementById("freshProduct");
     const freshFormat = document.getElementById("freshFormat");
     const freshMarket = document.getElementById("freshMarket");
     const browseSearch = document.getElementById("browseSearch");
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
+    const teamComparisonBody = document.getElementById("teamComparisonBody");
     const playerGrid = document.getElementById("playerGrid");
     const playerPanel = document.getElementById("playerPanel");
     const playerName = document.getElementById("playerName");
     const playerMeta = document.getElementById("playerMeta");
     const playerBadge = document.getElementById("playerBadge");
+    const clearPlayerButton = document.getElementById("clearPlayerButton");
     const playerEv = document.getElementById("playerEv");
     const playerValuedCards = document.getElementById("playerValuedCards");
     const playerTrackedSerials = document.getElementById("playerTrackedSerials");
@@ -999,12 +1148,12 @@
     const playerCardList = document.getElementById("playerCardList");
 
     const initialUrlState = BreakMetricUrlState.read(location.search);
-    const savedCurrency = localStorage.getItem("breakmetric_currency");
-    const legacySavedSpotPrice = localStorage.getItem("breakmetric_spot_price");
+    const savedCurrency = BreakMetricStorage.get("breakmetric_currency");
+    const legacySavedSpotPrice = BreakMetricStorage.get("breakmetric_spot_price");
     let savedSpotState = null;
 
     try {
-      const parsed = JSON.parse(localStorage.getItem("breakmetric_spot_state") || "null");
+      const parsed = JSON.parse(BreakMetricStorage.get("breakmetric_spot_state") || "null");
       if (
         parsed &&
         Number.isFinite(Number(parsed.amount)) &&
@@ -1024,7 +1173,7 @@
         amount: Number(legacySavedSpotPrice),
         currency: savedCurrency || "USD"
       };
-      localStorage.removeItem("breakmetric_spot_price");
+      BreakMetricStorage.remove("breakmetric_spot_price");
     }
 
     if (savedSpotState && Number.isFinite(savedSpotState.amount)) {
@@ -1034,10 +1183,10 @@
     function persistSpotState() {
       const amount = Number(price.value);
       if (!(amount >= 0) || !Number.isFinite(amount)) {
-        localStorage.removeItem("breakmetric_spot_state");
+        BreakMetricStorage.remove("breakmetric_spot_state");
         return;
       }
-      localStorage.setItem(
+      BreakMetricStorage.set(
         "breakmetric_spot_state",
         JSON.stringify({ amount, currency: currency.value })
       );
@@ -1053,11 +1202,14 @@
     let formatIntegrityData = null;
     let selectedProductId =
       initialUrlState.product ||
-      localStorage.getItem("breakmetric_product") ||
+      BreakMetricStorage.get("breakmetric_product") ||
       "2026-topps-chrome-premier-league";
     let selectedFormat = initialUrlState.format || "hobby";
     let teamEvData = null;
     let evScopeData = null;
+    let evWorkQueueData = null;
+    let evContributionProvenanceData = null;
+    let marketVerificationQueueData = null;
     let baseChecklistData = null;
     let playerIndexData = null;
     let playerProbabilityData = null;
@@ -1105,7 +1257,7 @@
 
     function readProductSelection(field, fallback = null, productId = selectedProductId) {
       if (!productId) return fallback;
-      const value = localStorage.getItem(selectionStorageKey(field, productId));
+      const value = BreakMetricStorage.get(selectionStorageKey(field, productId));
       return value !== null ? value : fallback;
     }
 
@@ -1114,9 +1266,9 @@
       const key = selectionStorageKey(field, productId);
 
       if (value === null || value === undefined || value === "") {
-        localStorage.removeItem(key);
+        BreakMetricStorage.remove(key);
       } else {
-        localStorage.setItem(key, String(value));
+        BreakMetricStorage.set(key, String(value));
       }
     }
 
@@ -1124,23 +1276,23 @@
       if (!productId) return;
 
       const legacy = {
-        format: localStorage.getItem("breakmetric_format"),
-        team: localStorage.getItem("breakmetric_team"),
-        player: localStorage.getItem("breakmetric_player")
+        format: BreakMetricStorage.get("breakmetric_format"),
+        team: BreakMetricStorage.get("breakmetric_team"),
+        player: BreakMetricStorage.get("breakmetric_player")
       };
 
       for (const [field,value] of Object.entries(legacy)) {
         if (
           value !== null &&
-          localStorage.getItem(selectionStorageKey(field, productId)) === null
+          BreakMetricStorage.get(selectionStorageKey(field, productId)) === null
         ) {
           writeProductSelection(field, value, productId);
         }
       }
 
-      localStorage.removeItem("breakmetric_format");
-      localStorage.removeItem("breakmetric_team");
-      localStorage.removeItem("breakmetric_player");
+      BreakMetricStorage.remove("breakmetric_format");
+      BreakMetricStorage.remove("breakmetric_team");
+      BreakMetricStorage.remove("breakmetric_player");
     }
 
     function restoreProductSelection(productId = selectedProductId) {
@@ -1243,6 +1395,100 @@
       });
     }
 
+    async function loadSelectedTeamMarketRecordQuality() {
+      const teamAtStart = team.value;
+      const sources = [...new Set(
+        (marketVerificationQueueData?.items || [])
+          .filter(item => item.team === teamAtStart)
+          .map(item => item.market_source_file)
+          .filter(Boolean)
+      )];
+
+      if (!sources.length) {
+        marketRecordSample.textContent = "No market records";
+        marketLatestSale.textContent = "—";
+        marketRecordFreshness.textContent = "No records";
+        marketSpreadAlert.textContent = "—";
+        return;
+      }
+
+      marketRecordSample.textContent = "Loading " + sources.length + " records…";
+      marketLatestSale.textContent = "Loading…";
+      marketRecordFreshness.textContent = "Loading…";
+      marketSpreadAlert.textContent = "Loading…";
+      marketRecordIntegrity.textContent = "Loading…";
+
+      try {
+        const recordMap = await BreakMetricDataLoader.loadMany(
+          Object.fromEntries(sources.map((path,index) => ["record" + index,path])),
+          {
+            concurrency: 6,
+            timeoutMs: 12000,
+            retries: 1,
+            useCache: true,
+            maxBytes: 5_000_000
+          }
+        );
+        const records = Object.values(recordMap);
+        updateLoaderStatsUi();
+        if (team.value !== teamAtStart) return;
+
+        const qualityRows = records.map(record =>
+          BreakMetricMarketRecordQuality.evaluate(record, new Date())
+        );
+        const invalid = qualityRows
+          .map(row => BreakMetricMarketRecordQuality.validate(row))
+          .find(result => !result.valid);
+        if (invalid) throw new Error(invalid.errors.join(" · "));
+
+        const issueRows = records.map(record =>
+          BreakMetricMarketRecordIssues.audit(record, new Date())
+        );
+        const issueAggregate =
+          BreakMetricMarketRecordIssues.aggregate(issueRows);
+
+        const aggregate = BreakMetricMarketRecordQuality.aggregate(qualityRows);
+        marketRecordSample.textContent =
+          aggregate.record_count + " records · " +
+          aggregate.sale_count + " stored sales";
+        marketLatestSale.textContent = aggregate.latest_sale_date || "Unavailable";
+        marketRecordFreshness.textContent =
+          aggregate.fresh_record_count + " fresh · " +
+          aggregate.current_record_count + " current · " +
+          aggregate.aging_record_count + " aging · " +
+          aggregate.stale_record_count + " stale";
+
+        const wide = qualityRows.filter(row =>
+          Number.isFinite(Number(row.price_spread_ratio)) &&
+          Number(row.price_spread_ratio) >= 4
+        );
+        marketSpreadAlert.textContent = wide.length
+          ? wide.length + " record" + (wide.length === 1 ? "" : "s") +
+            " with ≥4× min/max spread"
+          : "No ≥4× spread in stored records";
+        marketRecordIntegrity.textContent =
+          issueAggregate.invalid_record_count
+            ? issueAggregate.invalid_record_count + " invalid records"
+            : issueAggregate.warning_count
+              ? "Pass · " + issueAggregate.warning_count + " review warnings"
+              : "Pass · no record issues";
+      } catch (error) {
+        marketRecordSample.textContent = "Record-quality load failed";
+        marketLatestSale.textContent = "Unavailable";
+        marketRecordFreshness.textContent = "Unavailable";
+        marketSpreadAlert.textContent = "Unavailable";
+        marketRecordIntegrity.textContent = "Unavailable";
+      }
+    }
+
+    function resetMarketRecordQualityUi() {
+      marketRecordSample.textContent = "Open panel to load";
+      marketLatestSale.textContent = "—";
+      marketRecordFreshness.textContent = "—";
+      marketSpreadAlert.textContent = "—";
+      marketRecordIntegrity.textContent = "—";
+    }
+
     function updateMarketCoverageUi() {
       const row = BreakMetricMarketCoverage.build(selectedTeamMarketEvidence());
       const validation = BreakMetricMarketCoverage.validate(row);
@@ -1263,6 +1509,36 @@
       marketSecondaryCount.textContent = String(row.secondary);
       marketVerificationShare.textContent =
         BreakMetricMarketCoverage.shareLabel(row);
+
+      const teamQueue = {
+        items: (marketVerificationQueueData?.items || [])
+          .filter(item => item.team === team.value)
+      };
+      const quality = {
+        market: selectedTeamMarketEvidence(),
+        queue: teamQueue
+      };
+      const qualityValidation =
+        BreakMetricMarketEvidenceQuality.validate(quality);
+      if (qualityValidation.valid) {
+        const tier = BreakMetricMarketEvidenceQuality.sourceTier(
+          quality.market || {}
+        );
+        const impact =
+          BreakMetricMarketEvidenceQuality.verificationImpact(teamQueue);
+        marketSourceTier.textContent =
+          tier.tier ? "Tier " + tier.tier + " · " + tier.label : tier.label;
+        marketVerificationEvGap.textContent =
+          impact.pending_verification_ev_usd > 0
+            ? "$" + impact.pending_verification_ev_usd.toFixed(2) +
+              " of $" + impact.total_ev_usd.toFixed(2)
+            : impact.total_ev_usd > 0
+              ? "Fully original-verified"
+              : "No EV contributions";
+      } else {
+        marketSourceTier.textContent = "Unavailable";
+        marketVerificationEvGap.textContent = "Unavailable";
+      }
     }
 
     function updateFreshnessUi() {
@@ -1419,7 +1695,36 @@
         summary.roi.eligible ? "quality-ready" : "quality-locked";
     }
 
+    function updateStorageStatusUi() {
+      const diagnostics = BreakMetricStorage.diagnostics();
+      dataStorageStatus.textContent =
+        diagnostics.mode === "persistent"
+          ? "Persistent local storage"
+          : "Session fallback · changes may reset on reload";
+      dataStorageStatus.className =
+        diagnostics.mode === "persistent" ? "status-good" : "status-warn";
+    }
+
+    function updateLoaderStatsUi() {
+      const stats = BreakMetricDataLoader.stats();
+      dataLoaderStatus.textContent =
+        stats.in_flight > 0
+          ? stats.in_flight + " requests in flight"
+          : "Idle · concurrency capped at 6";
+      dataLoaderStatus.className =
+        stats.failures > 0 ? "status-warn" : stats.in_flight === 0 ? "status-good" : "";
+
+      dataLoaderMetrics.textContent =
+        stats.cached + " cached · " +
+        stats.requests + " network · " +
+        stats.cache_hits + " cache hits · " +
+        stats.retries + " retries";
+      dataLoaderMetrics.className = stats.failures > 0 ? "status-warn" : "";
+    }
+
     function updateDataStatusUi() {
+      updateLoaderStatsUi();
+      updateStorageStatusUi();
       const integrityPassed =
         !analysisContent.hidden &&
         currentProduct?.status === "ready" &&
@@ -1613,6 +1918,9 @@
       formatIntegrityData = null;
       teamEvData = null;
       evScopeData = null;
+      evWorkQueueData = null;
+      evContributionProvenanceData = null;
+      marketVerificationQueueData = null;
       baseChecklistData = null;
       playerIndexData = null;
       playerProbabilityData = null;
@@ -1633,6 +1941,7 @@
       clearPlayerSelection(false);
       team.innerHTML = "";
       teamGrid.innerHTML = "";
+      teamComparisonBody.replaceChildren();
       playerGrid.innerHTML = "";
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
@@ -1640,7 +1949,12 @@
       evCoverageBasis.textContent = "Pending";
       evSourceCoverage.textContent = "Pending";
       evCategoryScope.textContent = "Pending";
+      evDerivationLineage.textContent = "Pending";
       evCoverageBlockers.textContent = "Pending";
+      evNextTask.textContent = "Pending";
+      evTeamQueue.textContent = "Pending";
+      evGlobalQueue.textContent = "Pending";
+      marketNextVerification.textContent = "Pending";
       dataProductIntegrity.textContent = "Pending";
       dataProductIntegrity.className = "";
       dataFormatIntegrity.textContent = "Pending";
@@ -1653,6 +1967,11 @@
       dataTeamReadiness.className = "";
       dataRoiGate.textContent = "Withheld";
       dataRoiGate.className = "";
+      dataLoaderStatus.textContent = "Pending";
+      dataLoaderStatus.className = "";
+      dataLoaderMetrics.textContent = "—";
+      dataLoaderMetrics.className = "";
+      updateStorageStatusUi();
       qualityProbability.textContent = "Pending";
       qualityProbability.className = "";
       qualityEv.textContent = "Pending";
@@ -1667,6 +1986,9 @@
       marketOriginalCount.textContent = "0";
       marketSecondaryCount.textContent = "0";
       marketVerificationShare.textContent = "—";
+      marketSourceTier.textContent = "Pending";
+      marketVerificationEvGap.textContent = "Pending";
+      resetMarketRecordQualityUi();
       freshProduct.textContent = "Pending";
       freshFormat.textContent = "Pending";
       freshMarket.textContent = "Pending";
@@ -1712,46 +2034,44 @@
           production: formatPath("production_estimate_data"),
           marketRegistry: formatPath("market_evidence_registry_data"),
           teamEv: formatPath("ev_data"),
-          evScope: formatPath("ev_scope_data")
+          evScope: formatPath("ev_scope_data"),
+          evWorkQueue: formatPath("ev_work_queue_data"),
+          evContributionProvenance: formatPath("ev_contribution_provenance_data"),
+          marketVerificationQueue: formatPath("market_verification_queue_data")
         };
 
-        const [
+        const loaded = await BreakMetricDataLoader.loadMany(paths, {
+          concurrency: 6,
+          timeoutMs: 12000,
+          retries: 1,
+          useCache: true,
+          maxBytes: 5_000_000
+        });
+
+        const {
           productIntegrity,
           formatIntegrity,
           metadata,
-          nextPlayerIndex,
-          nextPlayerProbabilities,
-          nextPlayerDerivationManifest,
-          nextBaseChecklist,
-          nextAutographProbabilities,
-          nextAutographChecklist,
-          nextInsertProbabilities,
-          nextBaseParallelProbabilities,
-          nextLiveSupply,
-          nextSealedSupply,
-          nextProduction,
-          nextMarketRegistry,
-          nextTeamEv,
-          nextEvScope
-        ] = await Promise.all([
-          fetchJsonForProduct(paths.productIntegrity, token),
-          fetchJsonForProduct(paths.formatIntegrity, token),
-          fetchJsonForProduct(paths.metadata, token),
-          fetchJsonForProduct(paths.playerIndex, token),
-          fetchJsonForProduct(paths.playerProbabilities, token),
-          fetchJsonForProduct(paths.playerDerivationManifest, token),
-          fetchJsonForProduct(paths.baseChecklist, token),
-          fetchJsonForProduct(paths.autographProbabilities, token),
-          fetchJsonForProduct(paths.autographChecklist, token),
-          fetchJsonForProduct(paths.insertProbabilities, token),
-          fetchJsonForProduct(paths.baseParallelProbabilities, token),
-          fetchJsonForProduct(paths.liveSupply, token),
-          fetchJsonForProduct(paths.sealedSupply, token),
-          fetchJsonForProduct(paths.production, token),
-          fetchJsonForProduct(paths.marketRegistry, token),
-          fetchJsonForProduct(paths.teamEv, token),
-          fetchJsonForProduct(paths.evScope, token)
-        ]);
+          playerIndex: nextPlayerIndex,
+          playerProbabilities: nextPlayerProbabilities,
+          playerDerivationManifest: nextPlayerDerivationManifest,
+          baseChecklist: nextBaseChecklist,
+          autographProbabilities: nextAutographProbabilities,
+          autographChecklist: nextAutographChecklist,
+          insertProbabilities: nextInsertProbabilities,
+          baseParallelProbabilities: nextBaseParallelProbabilities,
+          liveSupply: nextLiveSupply,
+          sealedSupply: nextSealedSupply,
+          production: nextProduction,
+          marketRegistry: nextMarketRegistry,
+          teamEv: nextTeamEv,
+          evScope: nextEvScope,
+          evWorkQueue: nextEvWorkQueue,
+          evContributionProvenance: nextEvContributionProvenance,
+          marketVerificationQueue: nextMarketVerificationQueue
+        } = loaded;
+
+        updateLoaderStatsUi();
 
         if (
           token !== productLoadToken ||
@@ -1776,7 +2096,10 @@
           production: nextProduction,
           marketRegistry: nextMarketRegistry,
           teamEv: nextTeamEv,
-          evScope: nextEvScope
+          evScope: nextEvScope,
+          evWorkQueue: nextEvWorkQueue,
+          evContributionProvenance: nextEvContributionProvenance,
+          marketVerificationQueue: nextMarketVerificationQueue
         };
 
         const runtimeContract =
@@ -1920,6 +2243,9 @@
         analysisProvenanceData = baseProvenance;
         teamEvData = nextTeamEv;
         evScopeData = nextEvScope;
+        evWorkQueueData = nextEvWorkQueue;
+        evContributionProvenanceData = nextEvContributionProvenance;
+        marketVerificationQueueData = nextMarketVerificationQueue;
 
         const previousTeam =
           (initialUrlState.product === productIdAtStart && initialUrlState.team) ||
@@ -1985,6 +2311,7 @@
             : "Unavailable";
 
         renderTeams();
+        renderTeamComparison();
         renderPlayers();
         updatePlayerDetail();
         updateResults();
@@ -2294,7 +2621,7 @@
           formatCatalogData = null;
           formatCatalogContractReport = null;
           formatGrid.innerHTML = "";
-          localStorage.setItem("breakmetric_product", selectedProductId);
+          BreakMetricStorage.set("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
           syncUrlState();
@@ -2484,7 +2811,12 @@
     const evCoverageBasis = document.getElementById("evCoverageBasis");
     const evSourceCoverage = document.getElementById("evSourceCoverage");
     const evCategoryScope = document.getElementById("evCategoryScope");
+    const evDerivationLineage = document.getElementById("evDerivationLineage");
     const evCoverageBlockers = document.getElementById("evCoverageBlockers");
+    const evNextTask = document.getElementById("evNextTask");
+    const evTeamQueue = document.getElementById("evTeamQueue");
+    const evGlobalQueue = document.getElementById("evGlobalQueue");
+    const marketNextVerification = document.getElementById("marketNextVerification");
     const resultExpectedAutosLabel = document.getElementById("resultExpectedAutosLabel");
     const resultExpectedAutos = document.getElementById("resultExpectedAutos");
     const resultAutoChecklistCount = document.getElementById("resultAutoChecklistCount");
@@ -2586,7 +2918,7 @@
 
       if (converted && currency.value === nextCurrency) {
         lastCurrency = nextCurrency;
-        localStorage.setItem("breakmetric_currency", nextCurrency);
+        BreakMetricStorage.set("breakmetric_currency", nextCurrency);
         persistSpotState();
       }
     });
@@ -2638,6 +2970,63 @@
             : null;
         })
         .filter(Boolean);
+    }
+
+    function buildTeamComparisonRows() {
+      return BreakMetricTeamComparison.build({
+        metadata: productMetadataData,
+        autographProbabilities: autographProbabilityData,
+        insertProbabilities: insertProbabilityData,
+        baseParallelProbabilities: baseParallelProbabilityData,
+        readiness: teamReadinessData,
+        teamEv: teamEvData,
+        marketRegistry: marketRegistryData
+      });
+    }
+
+    function renderTeamComparison() {
+      teamComparisonBody.replaceChildren();
+      if (!productMetadataData || !teamReadinessData) return;
+
+      const rows = buildTeamComparisonRows();
+      const canonicalTeams = allTeamNames();
+      const validation = BreakMetricTeamComparison.validate(
+        rows,
+        canonicalTeams
+      );
+
+      if (!validation.valid) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 7;
+        td.textContent = "Team comparison unavailable: " +
+          validation.errors[0];
+        tr.appendChild(td);
+        teamComparisonBody.appendChild(tr);
+        return;
+      }
+
+      for (const row of rows) {
+        const tr = document.createElement("tr");
+        if (row.team === team.value) tr.className = "selected";
+
+        const values = [
+          row.team,
+          BreakMetricTeamComparison.formatPercent(row.auto_chance_percent),
+          BreakMetricTeamComparison.formatPercent(row.insert_chance_percent),
+          BreakMetricTeamComparison.formatPercent(row.base_parallel_chance_percent),
+          BreakMetricTeamComparison.evLabel(row),
+          BreakMetricTeamComparison.marketLabel(row),
+          row.roi_eligible ? "Ready" : "Locked"
+        ];
+
+        for (const value of values) {
+          const td = document.createElement("td");
+          td.textContent = value;
+          tr.appendChild(td);
+        }
+        teamComparisonBody.appendChild(tr);
+      }
     }
 
     function renderTeams() {
@@ -2832,6 +3221,11 @@
           "aria-pressed",
           selectedPlayer === item.name ? "true" : "false"
         );
+        button.setAttribute("aria-controls", "playerPanel");
+        button.setAttribute(
+          "aria-expanded",
+          selectedPlayer === item.name ? "true" : "false"
+        );
 
         const title = document.createElement("strong");
         title.textContent = item.name;
@@ -2883,10 +3277,10 @@
       playerExpectedInserts.textContent = "—";
       playerExpectedBaseParallels.textContent = "—";
       playerProbabilityCoverage.textContent = "—";
-      playerCoverageDetail.innerHTML = "";
-      playerChecklistDetail.innerHTML = "";
-      playerSerialDetail.innerHTML = "";
-      playerCardList.innerHTML = "";
+      playerCoverageDetail.replaceChildren();
+      playerChecklistDetail.replaceChildren();
+      playerSerialDetail.replaceChildren();
+      playerCardList.replaceChildren();
       updateAnalysisProvenance();
     }
 
@@ -3012,7 +3406,7 @@
           ? coveragePercent.toFixed(0) + "% · " + modeledEntries + "/" + totalEntries
           : "—";
 
-      playerCoverageDetail.innerHTML = "";
+      playerCoverageDetail.replaceChildren();
       if (coverage?.unmapped_sections?.length) {
         const row = document.createElement("div");
         row.className = "player-data-row";
@@ -3031,7 +3425,7 @@
         playerCoverageDetail.appendChild(row);
       }
 
-      playerChecklistDetail.innerHTML = "";
+      playerChecklistDetail.replaceChildren();
       const checklistEntries = indexedPlayer?.checklist_entries || (
         baseCard ? [{
           category: "base",
@@ -3065,7 +3459,7 @@
         }
       }
 
-      playerSerialDetail.innerHTML = "";
+      playerSerialDetail.replaceChildren();
       if (trackedCards.length) {
         for (const item of trackedCards) {
           const row = document.createElement("div");
@@ -3091,7 +3485,7 @@
         }
       }
 
-      playerCardList.innerHTML = "";
+      playerCardList.replaceChildren();
       if (contributions.length) {
         for (const item of contributions) {
           const row = document.createElement("div");
@@ -3293,7 +3687,7 @@
         );
 
         if (selectedProductId) {
-          localStorage.setItem("breakmetric_product", selectedProductId);
+          BreakMetricStorage.set("breakmetric_product", selectedProductId);
         }
 
         renderProducts();
@@ -3338,6 +3732,63 @@
       }
     }
 
+    function updateEvWorkQueueUi() {
+      if (!evWorkQueueData) {
+        evNextTask.textContent = "Unavailable";
+        evTeamQueue.textContent = "Unavailable";
+        evGlobalQueue.textContent = "Unavailable";
+        marketNextVerification.textContent = "Unavailable";
+        return;
+      }
+
+      const validation = BreakMetricEvWorkQueue.validate(
+        evWorkQueueData,
+        allTeamNames()
+      );
+      if (!validation.valid) {
+        evNextTask.textContent = "Queue invalid";
+        evTeamQueue.textContent = validation.errors[0] || "Queue invalid";
+        evGlobalQueue.textContent = "Unavailable";
+        marketNextVerification.textContent = "Unavailable";
+        return;
+      }
+
+      const next = BreakMetricEvWorkQueue.nextTask(
+        evWorkQueueData,
+        team.value
+      );
+      const teamTasks = BreakMetricEvWorkQueue.teamTasks(
+        evWorkQueueData,
+        team.value
+      );
+      const summary = BreakMetricEvWorkQueue.summary(evWorkQueueData);
+
+      evNextTask.textContent = BreakMetricEvWorkQueue.label(next);
+      evTeamQueue.textContent = teamTasks
+        .map(task => {
+          const label = {
+            base_parallels: "Base",
+            inserts: "Inserts",
+            autographs: "Autos"
+          }[task.category] || task.category;
+          return label + ": " + task.status;
+        })
+        .join(" · ");
+      evGlobalQueue.textContent =
+        summary.complete + "/" + summary.total + " complete · " +
+        summary.partial + " partial · " +
+        summary.not_started + " not started";
+
+      const verification = (marketVerificationQueueData?.items || [])
+        .find(item => !item.original_marketplace_verified);
+      marketNextVerification.textContent = verification
+        ? "#" + verification.priority_rank + " " +
+          verification.player + " · " +
+          verification.parallel + " · $" +
+          Number(verification.ev_contribution_usd).toFixed(2) + " EV impact"
+        : "No pending original-marketplace verification";
+    }
+
     function updateEvCoverageUi() {
       const model = BreakMetricEvCoverage.build({
         teamEv: currentTeamEntry,
@@ -3349,6 +3800,7 @@
         evCoverageBasis.textContent = "Coverage model unavailable";
         evSourceCoverage.textContent = "Unavailable";
         evCategoryScope.textContent = "Unavailable";
+        evDerivationLineage.textContent = "Unavailable";
         evCoverageBlockers.textContent = validation.errors.join(" · ");
         return;
       }
@@ -3372,6 +3824,18 @@
       } else {
         evCategoryScope.textContent = "Scope unavailable";
       }
+
+      const lineage = BreakMetricEvContributionProvenance.teamSummary(
+        evContributionProvenanceData || {},
+        team.value
+      );
+      evDerivationLineage.textContent =
+        lineage.contribution_count
+          ? lineage.derivation_linked_count + "/" +
+            lineage.contribution_count + " derivation-linked · " +
+            lineage.market_linked_count + "/" +
+            lineage.contribution_count + " market-linked"
+          : "No EV contributions";
 
       evCoverageBasis.textContent =
         model.status === "complete"
@@ -3422,15 +3886,18 @@
       }
 
       updateEvCoverageUi();
+      updateEvWorkQueueUi();
       updateDataStatusUi();
     }
 
     team.addEventListener("change", () => {
       writeProductSelection("team", team.value);
+      resetMarketRecordQualityUi();
       syncUrlState();
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
+      renderTeamComparison();
       renderPlayers();
       updateAutographChance();
       updateAutographChecklistCount();
@@ -3445,6 +3912,19 @@
     productSearch.addEventListener("input", () => {
       productSearchQuery = productSearch.value;
       renderProducts();
+    });
+
+    clearPlayerButton.addEventListener("click", () => {
+      clearPlayerSelection();
+      renderPlayers();
+      syncUrlState();
+      playerGrid.focus?.();
+    });
+
+    marketEvidencePanel.addEventListener("toggle", () => {
+      if (marketEvidencePanel.open) {
+        loadSelectedTeamMarketRecordQuality();
+      }
     });
 
     browseSearch.addEventListener("input", () => {

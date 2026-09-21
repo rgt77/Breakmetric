@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "model": "market-record-quality-v1",
+  "generated_at": "2026-09-20",
+  "recency_bands": {
+    "fresh": {
+      "max_age_days": 30
+    },
+    "current": {
+      "min_age_days": 31,
+      "max_age_days": 90
+    },
+    "aging": {
+      "min_age_days": 91,
+      "max_age_days": 180
+    },
+    "stale": {
+      "min_age_days": 181
+    }
+  },
+  "sample_size_bands": {
+    "high": {
+      "min_sales": 10
+    },
+    "medium": {
+      "min_sales": 4,
+      "max_sales": 9
+    },
+    "low": {
+      "min_sales": 1,
+      "max_sales": 3
+    },
+    "none": {
+      "max_sales": 0
+    }
+  },
+  "spread_alert": {
+    "ratio_threshold": 4,
+    "interpretation": "A wide min/max range is a review flag only. It does not automatically remove sales or recalculate the median."
+  },
+  "rules": [
+    "Market-record quality never upgrades secondary-source evidence to original verification.",
+    "Freshness is based on the latest stored realized-sale date.",
+    "Sample-size confidence and source verification are independent.",
+    "Price-spread alerts require manual review before any comp removal.",
+    "Record-quality calculations do not mutate committed EV or market value."
+  ]
+}

@@ -1,0 +1,1034 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-20",
+  "release": "BreakMetric v1.3.0",
+  "block": "steps 498-697",
+  "step_count": 200,
+  "result": "pass",
+  "steps": [
+    {
+      "step": 498,
+      "title": "Create EV work-queue schema",
+      "implemented": true
+    },
+    {
+      "step": 499,
+      "title": "Generate 60 team/category EV tasks",
+      "implemented": true
+    },
+    {
+      "step": 500,
+      "title": "Standardize three required EV categories",
+      "implemented": true
+    },
+    {
+      "step": 501,
+      "title": "Mirror EV-scope status into work tasks",
+      "implemented": true
+    },
+    {
+      "step": 502,
+      "title": "Prioritize already-partial EV categories",
+      "implemented": true
+    },
+    {
+      "step": 503,
+      "title": "Prioritize Chelsea insert enumeration next",
+      "implemented": true
+    },
+    {
+      "step": 504,
+      "title": "Attach explicit next action to each EV task",
+      "implemented": true
+    },
+    {
+      "step": 505,
+      "title": "Add EV task-count summary",
+      "implemented": true
+    },
+    {
+      "step": 506,
+      "title": "Add partial-task summary",
+      "implemented": true
+    },
+    {
+      "step": 507,
+      "title": "Track teams with active EV progress",
+      "implemented": true
+    },
+    {
+      "step": 508,
+      "title": "Create market-verification priority queue",
+      "implemented": true
+    },
+    {
+      "step": 509,
+      "title": "Include every committed EV contribution in verification queue",
+      "implemented": true
+    },
+    {
+      "step": 510,
+      "title": "Sort verification queue by EV impact",
+      "implemented": true
+    },
+    {
+      "step": 511,
+      "title": "Assign sequential verification priority ranks",
+      "implemented": true
+    },
+    {
+      "step": 512,
+      "title": "Preserve exact market source path per verification item",
+      "implemented": true
+    },
+    {
+      "step": 513,
+      "title": "Track original-marketplace verification flag per contribution",
+      "implemented": true
+    },
+    {
+      "step": 514,
+      "title": "Add EV work-queue browser helper",
+      "implemented": true
+    },
+    {
+      "step": 515,
+      "title": "Add selected-team next-task resolver",
+      "implemented": true
+    },
+    {
+      "step": 516,
+      "title": "Add work-queue summary helpers",
+      "implemented": true
+    },
+    {
+      "step": 517,
+      "title": "Validate EV and verification queues against committed data",
+      "implemented": true
+    },
+    {
+      "step": 518,
+      "title": "Route EV work queue through Hobby format manifest",
+      "implemented": true
+    },
+    {
+      "step": 519,
+      "title": "Route market-verification queue through Hobby format manifest",
+      "implemented": true
+    },
+    {
+      "step": 520,
+      "title": "Load EV work queue into analysis runtime",
+      "implemented": true
+    },
+    {
+      "step": 521,
+      "title": "Load market-verification queue into analysis runtime",
+      "implemented": true
+    },
+    {
+      "step": 522,
+      "title": "Expose selected-team next EV task",
+      "implemented": true
+    },
+    {
+      "step": 523,
+      "title": "Expose selected-team category queue",
+      "implemented": true
+    },
+    {
+      "step": 524,
+      "title": "Expose product-wide EV queue summary",
+      "implemented": true
+    },
+    {
+      "step": 525,
+      "title": "Expose highest-impact pending source verification",
+      "implemented": true
+    },
+    {
+      "step": 526,
+      "title": "Define three-tier market-source policy",
+      "implemented": true
+    },
+    {
+      "step": 527,
+      "title": "Define original-marketplace verified source tier",
+      "implemented": true
+    },
+    {
+      "step": 528,
+      "title": "Define secondary-source realized-sale provisional tier",
+      "implemented": true
+    },
+    {
+      "step": 529,
+      "title": "Define discovery-only excluded tier",
+      "implemented": true
+    },
+    {
+      "step": 530,
+      "title": "Add market-evidence quality model",
+      "implemented": true
+    },
+    {
+      "step": 531,
+      "title": "Calculate market source tier",
+      "implemented": true
+    },
+    {
+      "step": 532,
+      "title": "Calculate original-verification contribution gap",
+      "implemented": true
+    },
+    {
+      "step": 533,
+      "title": "Calculate EV impact awaiting verification",
+      "implemented": true
+    },
+    {
+      "step": 534,
+      "title": "Show market source tier in analysis UI",
+      "implemented": true
+    },
+    {
+      "step": 535,
+      "title": "Show pending verification EV impact in UI",
+      "implemented": true
+    },
+    {
+      "step": 536,
+      "title": "Add deterministic v1.3 queue generator",
+      "implemented": true
+    },
+    {
+      "step": 537,
+      "title": "Gate generated queues against deterministic regeneration",
+      "implemented": true
+    },
+    {
+      "step": 538,
+      "title": "Define market-record quality policy",
+      "implemented": true
+    },
+    {
+      "step": 539,
+      "title": "Define market-record recency bands",
+      "implemented": true
+    },
+    {
+      "step": 540,
+      "title": "Define market-record sample-size bands",
+      "implemented": true
+    },
+    {
+      "step": 541,
+      "title": "Define four-times price-spread review threshold",
+      "implemented": true
+    },
+    {
+      "step": 542,
+      "title": "Add market-record quality model",
+      "implemented": true
+    },
+    {
+      "step": 543,
+      "title": "Calculate stored sale sample size",
+      "implemented": true
+    },
+    {
+      "step": 544,
+      "title": "Separate original and secondary sale counts",
+      "implemented": true
+    },
+    {
+      "step": 545,
+      "title": "Calculate latest stored sale date and age",
+      "implemented": true
+    },
+    {
+      "step": 546,
+      "title": "Classify record recency",
+      "implemented": true
+    },
+    {
+      "step": 547,
+      "title": "Classify sample-size confidence",
+      "implemented": true
+    },
+    {
+      "step": 548,
+      "title": "Calculate raw min/max price spread",
+      "implemented": true
+    },
+    {
+      "step": 549,
+      "title": "Retain market evidence status in record quality",
+      "implemented": true
+    },
+    {
+      "step": 550,
+      "title": "Aggregate record quality across a selected team",
+      "implemented": true
+    },
+    {
+      "step": 551,
+      "title": "Validate market-record quality outputs",
+      "implemented": true
+    },
+    {
+      "step": 552,
+      "title": "Lazy-load market records only when evidence panel opens",
+      "implemented": true
+    },
+    {
+      "step": 553,
+      "title": "Limit lazy record loading to selected team",
+      "implemented": true
+    },
+    {
+      "step": 554,
+      "title": "Reuse dataset cache for lazy record loading",
+      "implemented": true
+    },
+    {
+      "step": 555,
+      "title": "Show stored-sale sample in market panel",
+      "implemented": true
+    },
+    {
+      "step": 556,
+      "title": "Show latest-sale freshness and spread review status",
+      "implemented": true
+    },
+    {
+      "step": 557,
+      "title": "Smoke-test record quality against committed market data",
+      "implemented": true
+    },
+    {
+      "step": 558,
+      "title": "Add market-record issue detector",
+      "implemented": true
+    },
+    {
+      "step": 559,
+      "title": "Validate market-record schema version",
+      "implemented": true
+    },
+    {
+      "step": 560,
+      "title": "Require sales arrays on market records",
+      "implemented": true
+    },
+    {
+      "step": 561,
+      "title": "Validate realized-sale dates",
+      "implemented": true
+    },
+    {
+      "step": 562,
+      "title": "Reject future-dated realized sales",
+      "implemented": true
+    },
+    {
+      "step": 563,
+      "title": "Require positive realized-sale prices",
+      "implemented": true
+    },
+    {
+      "step": 564,
+      "title": "Validate evidence-status vocabulary",
+      "implemented": true
+    },
+    {
+      "step": 565,
+      "title": "Reject legacy verification flags",
+      "implemented": true
+    },
+    {
+      "step": 566,
+      "title": "Require recovered URL for original verification",
+      "implemented": true
+    },
+    {
+      "step": 567,
+      "title": "Require discovery source marketplace and reference for secondary evidence",
+      "implemented": true
+    },
+    {
+      "step": 568,
+      "title": "Reconcile calculated sale count to stored sales",
+      "implemented": true
+    },
+    {
+      "step": 569,
+      "title": "Reconcile stored median to stored sales",
+      "implemented": true
+    },
+    {
+      "step": 570,
+      "title": "Reconcile evidence-summary counts",
+      "implemented": true
+    },
+    {
+      "step": 571,
+      "title": "Prevent secondary-only records from claiming verified value",
+      "implemented": true
+    },
+    {
+      "step": 572,
+      "title": "Detect possible duplicate stored sales",
+      "implemented": true
+    },
+    {
+      "step": 573,
+      "title": "Aggregate record integrity findings",
+      "implemented": true
+    },
+    {
+      "step": 574,
+      "title": "Add full market-record CI audit script",
+      "implemented": true
+    },
+    {
+      "step": 575,
+      "title": "Run market-record audit in release workflow",
+      "implemented": true
+    },
+    {
+      "step": 576,
+      "title": "Expose market-record integrity in selected-team UI",
+      "implemented": true
+    },
+    {
+      "step": 577,
+      "title": "Repair missing Gold and Teal secondary-source references",
+      "implemented": true
+    },
+    {
+      "step": 578,
+      "title": "Map every committed EV contribution to a derivation file",
+      "implemented": true
+    },
+    {
+      "step": 579,
+      "title": "Create EV contribution provenance registry",
+      "implemented": true
+    },
+    {
+      "step": 580,
+      "title": "Declare expected-copies times market-value EV formula",
+      "implemented": true
+    },
+    {
+      "step": 581,
+      "title": "Identify expected-copies metric separately from hit probability",
+      "implemented": true
+    },
+    {
+      "step": 582,
+      "title": "Link each EV contribution to exact market source",
+      "implemented": true
+    },
+    {
+      "step": 583,
+      "title": "Require zero missing derivation links",
+      "implemented": true
+    },
+    {
+      "step": 584,
+      "title": "Add EV contribution provenance helper",
+      "implemented": true
+    },
+    {
+      "step": 585,
+      "title": "Add per-team lineage summary",
+      "implemented": true
+    },
+    {
+      "step": 586,
+      "title": "Add sorted per-team lineage entries",
+      "implemented": true
+    },
+    {
+      "step": 587,
+      "title": "Route EV provenance through Hobby format manifest",
+      "implemented": true
+    },
+    {
+      "step": 588,
+      "title": "Require EV provenance route at runtime",
+      "implemented": true
+    },
+    {
+      "step": 589,
+      "title": "Reconcile runtime provenance to committed team EV",
+      "implemented": true
+    },
+    {
+      "step": 590,
+      "title": "Add EV derivation provenance CI script",
+      "implemented": true
+    },
+    {
+      "step": 591,
+      "title": "Require derivation and market files to exist",
+      "implemented": true
+    },
+    {
+      "step": 592,
+      "title": "Validate derivation team player set and parallel identity",
+      "implemented": true
+    },
+    {
+      "step": 593,
+      "title": "Validate expected copies per case",
+      "implemented": true
+    },
+    {
+      "step": 594,
+      "title": "Validate probability-at-least-one separately",
+      "implemented": true
+    },
+    {
+      "step": 595,
+      "title": "Validate EV formula multiplication",
+      "implemented": true
+    },
+    {
+      "step": 596,
+      "title": "Reconcile derived EV to committed EV within tolerance",
+      "implemented": true
+    },
+    {
+      "step": 597,
+      "title": "Expose and release-gate EV derivation lineage",
+      "implemented": true
+    },
+    {
+      "step": 598,
+      "title": "Add neutral team-comparison model",
+      "implemented": true
+    },
+    {
+      "step": 599,
+      "title": "Preserve canonical checklist team order",
+      "implemented": true
+    },
+    {
+      "step": 600,
+      "title": "Compare case-level autograph probability",
+      "implemented": true
+    },
+    {
+      "step": 601,
+      "title": "Compare case-level insert probability",
+      "implemented": true
+    },
+    {
+      "step": 602,
+      "title": "Compare case-level base-parallel probability",
+      "implemented": true
+    },
+    {
+      "step": 603,
+      "title": "Compare EV coverage status",
+      "implemented": true
+    },
+    {
+      "step": 604,
+      "title": "Compare market-evidence status",
+      "implemented": true
+    },
+    {
+      "step": 605,
+      "title": "Compare ROI gate status",
+      "implemented": true
+    },
+    {
+      "step": 606,
+      "title": "Validate team-comparison probability ranges",
+      "implemented": true
+    },
+    {
+      "step": 607,
+      "title": "Add descriptive team-comparison formatters",
+      "implemented": true
+    },
+    {
+      "step": 608,
+      "title": "Add team-comparison details panel",
+      "implemented": true
+    },
+    {
+      "step": 609,
+      "title": "Add accessible comparison table headings",
+      "implemented": true
+    },
+    {
+      "step": 610,
+      "title": "Add explicit no-value-ranking caption",
+      "implemented": true
+    },
+    {
+      "step": 611,
+      "title": "Highlight selected team without reordering",
+      "implemented": true
+    },
+    {
+      "step": 612,
+      "title": "Render comparison after analysis load",
+      "implemented": true
+    },
+    {
+      "step": 613,
+      "title": "Refresh comparison on team change",
+      "implemented": true
+    },
+    {
+      "step": 614,
+      "title": "Clear comparison during product reset",
+      "implemented": true
+    },
+    {
+      "step": 615,
+      "title": "Define neutral team-comparison policy",
+      "implemented": true
+    },
+    {
+      "step": 616,
+      "title": "Document descriptive comparison methodology",
+      "implemented": true
+    },
+    {
+      "step": 617,
+      "title": "Smoke-test canonical comparison behavior",
+      "implemented": true
+    },
+    {
+      "step": 618,
+      "title": "Label player panel as an accessible region",
+      "implemented": true
+    },
+    {
+      "step": 619,
+      "title": "Group player header actions",
+      "implemented": true
+    },
+    {
+      "step": 620,
+      "title": "Add dedicated Clear player control",
+      "implemented": true
+    },
+    {
+      "step": 621,
+      "title": "Keep core player metrics always visible",
+      "implemented": true
+    },
+    {
+      "step": 622,
+      "title": "Collapse probability methodology detail by default",
+      "implemented": true
+    },
+    {
+      "step": 623,
+      "title": "Collapse checklist appearances by default",
+      "implemented": true
+    },
+    {
+      "step": 624,
+      "title": "Collapse serial tracking by default",
+      "implemented": true
+    },
+    {
+      "step": 625,
+      "title": "Collapse valued-card detail by default",
+      "implemented": true
+    },
+    {
+      "step": 626,
+      "title": "Add progressive-disclosure styling",
+      "implemented": true
+    },
+    {
+      "step": 627,
+      "title": "Connect player buttons to player panel with aria-controls",
+      "implemented": true
+    },
+    {
+      "step": 628,
+      "title": "Expose player selection with aria-expanded",
+      "implemented": true
+    },
+    {
+      "step": 629,
+      "title": "Make player grid programmatically focusable",
+      "implemented": true
+    },
+    {
+      "step": 630,
+      "title": "Clear persisted player selection from dedicated control",
+      "implemented": true
+    },
+    {
+      "step": 631,
+      "title": "Synchronize cleared player state to share URL",
+      "implemented": true
+    },
+    {
+      "step": 632,
+      "title": "Return programmatic focus target to player grid",
+      "implemented": true
+    },
+    {
+      "step": 633,
+      "title": "Replace probability-detail innerHTML reset with safe DOM reset",
+      "implemented": true
+    },
+    {
+      "step": 634,
+      "title": "Replace checklist-detail innerHTML reset with safe DOM reset",
+      "implemented": true
+    },
+    {
+      "step": 635,
+      "title": "Replace serial-detail innerHTML reset with safe DOM reset",
+      "implemented": true
+    },
+    {
+      "step": 636,
+      "title": "Replace valued-card innerHTML reset with safe DOM reset",
+      "implemented": true
+    },
+    {
+      "step": 637,
+      "title": "Define and validate player progressive-disclosure policy",
+      "implemented": true
+    },
+    {
+      "step": 638,
+      "title": "Upgrade static data loader to v2",
+      "implemented": true
+    },
+    {
+      "step": 639,
+      "title": "Restrict datasets to same-origin data paths",
+      "implemented": true
+    },
+    {
+      "step": 640,
+      "title": "Reject external dataset URLs",
+      "implemented": true
+    },
+    {
+      "step": 641,
+      "title": "Reject absolute parent-traversal and backslash paths",
+      "implemented": true
+    },
+    {
+      "step": 642,
+      "title": "Enforce declared payload-size limit",
+      "implemented": true
+    },
+    {
+      "step": 643,
+      "title": "Enforce actual JSON text-size limit",
+      "implemented": true
+    },
+    {
+      "step": 644,
+      "title": "Parse bounded response text as JSON",
+      "implemented": true
+    },
+    {
+      "step": 645,
+      "title": "Track network request count",
+      "implemented": true
+    },
+    {
+      "step": 646,
+      "title": "Track cache-hit count",
+      "implemented": true
+    },
+    {
+      "step": 647,
+      "title": "Track cache-miss count",
+      "implemented": true
+    },
+    {
+      "step": 648,
+      "title": "Track in-flight deduplication hits",
+      "implemented": true
+    },
+    {
+      "step": 649,
+      "title": "Track retries and terminal failures",
+      "implemented": true
+    },
+    {
+      "step": 650,
+      "title": "Add keyed batch-loading API",
+      "implemented": true
+    },
+    {
+      "step": 651,
+      "title": "Clamp batch concurrency",
+      "implemented": true
+    },
+    {
+      "step": 652,
+      "title": "Add safe dataset prefetch helper",
+      "implemented": true
+    },
+    {
+      "step": 653,
+      "title": "Add loader metric reset and diagnostics",
+      "implemented": true
+    },
+    {
+      "step": 654,
+      "title": "Load full analysis bundle with concurrency six",
+      "implemented": true
+    },
+    {
+      "step": 655,
+      "title": "Load lazy market records with concurrency six",
+      "implemented": true
+    },
+    {
+      "step": 656,
+      "title": "Expose dataset loader and cache metrics in technical status",
+      "implemented": true
+    },
+    {
+      "step": 657,
+      "title": "Define and smoke-test data-loader v2 policy",
+      "implemented": true
+    },
+    {
+      "step": 658,
+      "title": "Add resilient browser-storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 659,
+      "title": "Probe persistent browser storage safely",
+      "implemented": true
+    },
+    {
+      "step": 660,
+      "title": "Add in-memory session fallback",
+      "implemented": true
+    },
+    {
+      "step": 661,
+      "title": "Add resilient storage read helper",
+      "implemented": true
+    },
+    {
+      "step": 662,
+      "title": "Mirror writes into session fallback",
+      "implemented": true
+    },
+    {
+      "step": 663,
+      "title": "Add resilient storage remove helper",
+      "implemented": true
+    },
+    {
+      "step": 664,
+      "title": "Add safe JSON read helper",
+      "implemented": true
+    },
+    {
+      "step": 665,
+      "title": "Add safe JSON write helper",
+      "implemented": true
+    },
+    {
+      "step": 666,
+      "title": "Expose active storage mode",
+      "implemented": true
+    },
+    {
+      "step": 667,
+      "title": "Expose storage diagnostics",
+      "implemented": true
+    },
+    {
+      "step": 668,
+      "title": "Load storage abstraction before inline application",
+      "implemented": true
+    },
+    {
+      "step": 669,
+      "title": "Route saved currency through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 670,
+      "title": "Route atomic spot state through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 671,
+      "title": "Route selected product through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 672,
+      "title": "Route product-scoped selections through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 673,
+      "title": "Route legacy selection migration through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 674,
+      "title": "Route currency and product writes through storage abstraction",
+      "implemented": true
+    },
+    {
+      "step": 675,
+      "title": "Show persistent or session-fallback mode in technical status",
+      "implemented": true
+    },
+    {
+      "step": 676,
+      "title": "Remove all direct inline localStorage calls",
+      "implemented": true
+    },
+    {
+      "step": 677,
+      "title": "Define and smoke-test resilient storage policy",
+      "implemented": true
+    },
+    {
+      "step": 678,
+      "title": "Create BreakMetric web app manifest",
+      "implemented": true
+    },
+    {
+      "step": 679,
+      "title": "Define application name and short name",
+      "implemented": true
+    },
+    {
+      "step": 680,
+      "title": "Define manifest start URL scope and standalone display",
+      "implemented": true
+    },
+    {
+      "step": 681,
+      "title": "Define manifest theme and background colors",
+      "implemented": true
+    },
+    {
+      "step": 682,
+      "title": "Declare dark color scheme metadata",
+      "implemented": true
+    },
+    {
+      "step": 683,
+      "title": "Add Open Graph title metadata",
+      "implemented": true
+    },
+    {
+      "step": 684,
+      "title": "Add Open Graph description and website type",
+      "implemented": true
+    },
+    {
+      "step": 685,
+      "title": "Add Twitter summary-card metadata",
+      "implemented": true
+    },
+    {
+      "step": 686,
+      "title": "Link webmanifest from application head",
+      "implemented": true
+    },
+    {
+      "step": 687,
+      "title": "Version user-facing application as v1.3.0",
+      "implemented": true
+    },
+    {
+      "step": 688,
+      "title": "Require HTML revalidation in production headers",
+      "implemented": true
+    },
+    {
+      "step": 689,
+      "title": "Require analysis-data revalidation in production headers",
+      "implemented": true
+    },
+    {
+      "step": 690,
+      "title": "Set short revalidation cache for source modules",
+      "implemented": true
+    },
+    {
+      "step": 691,
+      "title": "Set bounded cache policy for webmanifest",
+      "implemented": true
+    },
+    {
+      "step": 692,
+      "title": "Update README to v1.3.0 capabilities",
+      "implemented": true
+    },
+    {
+      "step": 693,
+      "title": "Document complete v1.3 validation command chain",
+      "implemented": true
+    },
+    {
+      "step": 694,
+      "title": "Create exact 200-step v1.3 N200 manifest",
+      "implemented": true
+    },
+    {
+      "step": 695,
+      "title": "Document steps 498 through 697",
+      "implemented": true
+    },
+    {
+      "step": 696,
+      "title": "Validate exact N200 count range sequence and completion",
+      "implemented": true
+    },
+    {
+      "step": 697,
+      "title": "Enforce v1.3 release metadata and PR/main validation gates",
+      "implemented": true
+    }
+  ],
+  "release_requirements": {
+    "generated_pipeline_check": "required",
+    "market_record_audit": "required",
+    "ev_derivation_provenance": "required",
+    "static_release_validator": "required",
+    "model_smoke_tests": "required",
+    "source_syntax_checks": "required",
+    "pull_request_validation": "required",
+    "main_branch_validation": "required"
+  },
+  "verification": {
+    "branch_ci": "pass",
+    "cloudflare_preview": "pass",
+    "pull_request_ci": "required-on-final-head",
+    "main_branch_ci": "required-after-merge",
+    "gates": [
+      "deterministic pipeline regeneration check",
+      "market record audit",
+      "EV derivation provenance audit",
+      "static data/UI validator",
+      "model smoke tests",
+      "source syntax checks"
+    ]
+  }
+}

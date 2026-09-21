@@ -62,3 +62,20 @@ If no exact comparable exists, BreakMetric must not silently invent a direct mar
 
 ## Cost
 Market-data acquisition for the MVP: 0 SEK/month.
+
+
+## Record freshness and sample quality
+BreakMetric evaluates market-record robustness separately from source verification.
+
+- **Fresh:** latest stored realized sale is 0–30 days old.
+- **Current:** 31–90 days.
+- **Aging:** 91–180 days.
+- **Stale:** more than 180 days.
+- **High sample size:** 10+ stored realized sales.
+- **Medium:** 4–9.
+- **Low:** 1–3.
+
+A secondary-source record with 30 sales can therefore have high sample-size confidence while still remaining **provisional** from a source-verification perspective.
+
+## Price-spread review
+A min/max price spread of 4× or more is surfaced as a review flag. The flag does not silently delete sales, change the median, or upgrade/downgrade the source tier. Wide ranges can be legitimate for scarce cards, so any exclusion requires an explicit data correction or comp-quality decision.

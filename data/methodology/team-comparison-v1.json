@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "model": "team-comparison-v1",
+  "generated_at": "2026-09-20",
+  "default_order": "canonical-checklist-order",
+  "metrics": [
+    "autograph chance at least one per case",
+    "insert chance at least one per case",
+    "base-parallel chance at least one per case",
+    "EV coverage status",
+    "market evidence status",
+    "ROI eligibility gate"
+  ],
+  "rules": [
+    "The comparison is descriptive and does not rank teams by value.",
+    "Unavailable probability data is shown as unavailable rather than inferred.",
+    "EV is shown as coverage status and valued-card count while incomplete.",
+    "ROI is shown only as Ready or Locked according to existing gates.",
+    "The selected team may be highlighted but is not promoted in ordering."
+  ]
+}

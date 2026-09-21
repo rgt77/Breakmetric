@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "model": "player-progressive-disclosure-v1",
+  "generated_at": "2026-09-20",
+  "always_visible": [
+    "player identity",
+    "partial player EV",
+    "valued card count",
+    "observed serial count",
+    "checklist entry count",
+    "combined modeled hit chance",
+    "base hit chance",
+    "insert hit chance",
+    "autograph hit chance",
+    "expected category hits",
+    "probability coverage"
+  ],
+  "collapsed_by_default": [
+    "probability methodology and coverage detail",
+    "checklist appearances",
+    "serial tracking",
+    "valued card contribution detail"
+  ],
+  "rules": [
+    "Selecting a player exposes the player region without forcing keyboard focus.",
+    "Long detail sections are user-expandable and collapsed by default.",
+    "Clearing a player removes persisted player selection and URL player state.",
+    "Player cards expose aria-controls and aria-expanded against the player region."
+  ]
+}

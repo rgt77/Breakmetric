@@ -33,14 +33,49 @@ const assert=(condition,message)=>{
 
 for(const file of [
   "src/analysisQuality.js",
+  "src/teamComparison.js",
   "src/evCoverage.js",
+  "src/evWorkQueue.js",
+  "src/evContributionProvenance.js",
   "src/marketCoverage.js",
+  "src/marketEvidenceQuality.js",
+  "src/marketRecordQuality.js",
+  "src/marketRecordIssues.js",
   "src/dataFreshness.js",
   "src/urlState.js",
   "src/dataLoader.js",
   "src/errorModel.js",
+  "src/storage.js",
   "src/runtimeContracts.js"
 ]) load(file);
+
+const comparisonRows=sandbox.BreakMetricTeamComparison.build({
+  metadata:{teams:[{name:"Chelsea"},{name:"Arsenal"}]},
+  autographProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_autograph_in_case_percent:74.88},
+    {team:"Arsenal",chance_at_least_one_autograph_in_case_percent:78.84}
+  ]},
+  insertProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_insert_in_case_percent:99.96},
+    {team:"Arsenal",chance_at_least_one_insert_in_case_percent:100}
+  ]},
+  baseParallelProbabilities:{teams:[
+    {team:"Chelsea",chance_at_least_one_base_parallel_in_case_percent:99.98},
+    {team:"Arsenal",chance_at_least_one_base_parallel_in_case_percent:99.98}
+  ]},
+  readiness:{
+    Chelsea:{probability:{ready:true,autograph_checklist_count:1},ev:{status:"partial"},market:{status:"secondary-source"},roi:{eligible:false}},
+    Arsenal:{probability:{ready:true,autograph_checklist_count:1},ev:{status:"not-valued"},market:{status:"not-audited"},roi:{eligible:false}}
+  },
+  teamEv:{teams:{Chelsea:{valued_card_count:27}}},
+  marketRegistry:{teams:{Chelsea:{audited_contribution_count:27,original_marketplace_verified_contribution_count:0}}}
+});
+assert(
+  sandbox.BreakMetricTeamComparison.validate(comparisonRows,["Chelsea","Arsenal"]).valid,
+  "team comparison smoke validation failed"
+);
+assert(comparisonRows[0].team==="Chelsea" && comparisonRows[1].team==="Arsenal","team comparison order changed");
+assert(comparisonRows[0].roi_eligible===false,"team comparison ROI gate failed");
 
 const quality=sandbox.BreakMetricAnalysisQuality.build({
   readiness:{probability:{ready:true}},
@@ -131,7 +166,78 @@ assert(evScopeContract.valid,"EV scope contract failed: "+evScopeContract.errors
 assert(evScopeContract.metrics.ev_scope_partial_team_count===1,"EV scope partial-team smoke failed");
 assert(evScopeContract.metrics.ev_scope_complete_team_count===0,"EV scope complete-team smoke failed");
 
+const evWorkQueue=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-work-queue-v1.json"),"utf8")
+);
+assert(
+  sandbox.BreakMetricEvWorkQueue.validate(evWorkQueue,metadata.teams.map(row=>row.name)).valid,
+  "EV work queue helper validation failed"
+);
+assert(sandbox.BreakMetricEvWorkQueue.nextTask(evWorkQueue,"Chelsea")?.priority===1,"Chelsea EV next task priority failed");
+
+const contributionProvenance=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json"),"utf8")
+);
+const contributionProvenanceValidation=sandbox.BreakMetricEvContributionProvenance.validate(
+  contributionProvenance,
+  evData
+);
+assert(contributionProvenanceValidation.valid,"EV contribution provenance helper failed");
+const chelseaLineage=sandbox.BreakMetricEvContributionProvenance.teamSummary(contributionProvenance,"Chelsea");
+assert(chelseaLineage.contribution_count===27,"Chelsea EV lineage count failed");
+assert(chelseaLineage.derivation_linked_count===27,"Chelsea derivation linkage failed");
+
+const verificationQueue=JSON.parse(
+  fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/market-verification-queue-v1.json"),"utf8")
+);
+const qualityValidation=sandbox.BreakMetricMarketEvidenceQuality.validate({
+  market:{
+    audited_contribution_count:27,
+    original_marketplace_verified_contribution_count:0,
+    secondary_source_contribution_count:27
+  },
+  queue:verificationQueue
+});
+assert(qualityValidation.valid,"market evidence quality validation failed");
+const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
+assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
+assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+
+const marketRecord=JSON.parse(
+  fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json"),"utf8")
+);
+const recordQuality=sandbox.BreakMetricMarketRecordQuality.evaluate(
+  marketRecord,
+  new Date("2026-09-20T00:00:00Z")
+);
+assert(sandbox.BreakMetricMarketRecordQuality.validate(recordQuality).valid,"market record quality invalid");
+assert(recordQuality.sale_count===30,"market record sample-size smoke failed");
+assert(recordQuality.sample_size_confidence==="high","market record sample band failed");
+assert(recordQuality.source_status==="secondary-source-only","market record source status failed");
+assert(["fresh","current","aging","stale"].includes(recordQuality.recency_status),"market record recency band failed");
+const recordAudit=sandbox.BreakMetricMarketRecordIssues.audit(
+  marketRecord,
+  new Date("2026-09-20T00:00:00Z")
+);
+assert(recordAudit.valid,"market record issue audit failed: "+recordAudit.errors.join("; "));
+assert(recordAudit.metrics.sale_count===30,"market record issue sale count failed");
+
+assert(sandbox.BreakMetricStorage.mode()==="session-fallback","storage fallback mode smoke failed");
+sandbox.BreakMetricStorage.set("smoke-key","value");
+assert(sandbox.BreakMetricStorage.get("smoke-key") === "value","storage fallback read/write failed");
+sandbox.BreakMetricStorage.setJson("smoke-json",{ok:true});
+assert(sandbox.BreakMetricStorage.getJson("smoke-json")?.ok === true,"storage JSON helper failed");
+sandbox.BreakMetricStorage.remove("smoke-key");
+assert(sandbox.BreakMetricStorage.get("smoke-key",null) === null,"storage fallback remove failed");
+
 assert(typeof sandbox.BreakMetricDataLoader.loadJson==="function","data loader API missing");
+assert(typeof sandbox.BreakMetricDataLoader.loadMany==="function","data loader batch API missing");
+assert(sandbox.BreakMetricDataLoader.isValidPath("data/products/catalog.json")===true,"safe data path rejected");
+assert(sandbox.BreakMetricDataLoader.isValidPath("https://example.com/data.json")===false,"external data URL accepted");
+assert(sandbox.BreakMetricDataLoader.isValidPath("../data/file.json")===false,"parent traversal accepted");
+assert(sandbox.BreakMetricDataLoader.isValidPath("/data/file.json")===false,"absolute data path accepted");
+const loaderStats=sandbox.BreakMetricDataLoader.stats();
+assert(Number(loaderStats.requests)===0 && Number(loaderStats.cached)===0,"loader stats initial state invalid");
 assert(
   sandbox.BreakMetricErrors.userMessage({name:"DataContractError"}).includes("integrity contract"),
   "error model contract message failed"
@@ -142,7 +248,9 @@ console.log(JSON.stringify({
   checks:[
     "analysis quality",
     "EV coverage",
+    "EV work queue",
     "market evidence coverage",
+    "market evidence source quality",
     "dataset freshness",
     "shareable URL state",
     "break-allocation runtime contract",

@@ -25,3 +25,8 @@ Single-team cards are assigned to the listed team. Multi-team cards may contribu
 ## ROI
 
 ROI is gated. It is calculated only after full EV coverage, sufficient source verification and a user-entered spot price.
+
+
+## Team comparison
+
+The comparison table is descriptive. Teams remain in canonical checklist order and are not ranked by “best value.” It shows modeled case-level hit probabilities alongside EV coverage, market-evidence status and the ROI gate. Incomplete EV or locked ROI remains explicitly incomplete/locked.

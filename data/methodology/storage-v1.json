@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "model": "resilient-browser-storage-v1",
+  "generated_at": "2026-09-20",
+  "persistence_order": [
+    "browser localStorage when readable and writable",
+    "in-memory session fallback when persistent storage is unavailable"
+  ],
+  "stored_state": [
+    "selected product",
+    "selected format",
+    "selected team",
+    "selected player",
+    "spot amount and currency",
+    "last currency"
+  ],
+  "rules": [
+    "Storage failures must not block probability analysis.",
+    "Writes are mirrored to the session fallback before persistent storage is attempted.",
+    "Invalid stored JSON falls back safely instead of throwing.",
+    "The UI discloses when session fallback is active.",
+    "Application code accesses persistence through BreakMetricStorage rather than direct localStorage calls."
+  ]
+}

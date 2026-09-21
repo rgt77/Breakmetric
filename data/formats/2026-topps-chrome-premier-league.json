@@ -11,6 +11,9 @@
       "analysis_data": {
         "ev_data": "data/derived/2026-topps-chrome-premier-league-team-ev-progress.json",
         "ev_scope_data": "data/derived/2026-topps-chrome-premier-league-hobby-team-ev-scope-v1.json",
+        "ev_work_queue_data": "data/derived/2026-topps-chrome-premier-league-hobby-ev-work-queue-v1.json",
+        "ev_contribution_provenance_data": "data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json",
+        "market_verification_queue_data": "data/market/2026-topps-chrome-premier-league/market-verification-queue-v1.json",
         "base_checklist_data": "data/checklists/2026-topps-chrome-premier-league-base.json",
         "autograph_checklist_data": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
         "player_index_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-index.json",

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "model": "market-source-policy-v1",
+  "generated_at": "2026-09-20",
+  "source_tiers": [
+    {
+      "tier": 1,
+      "id": "original-marketplace-verified",
+      "label": "Original marketplace verified",
+      "description": "Realized sale stored with direct original marketplace evidence.",
+      "roi_capability": "eligible-when-other-gates-pass"
+    },
+    {
+      "tier": 2,
+      "id": "secondary-source-realized-sale",
+      "label": "Secondary-source realized sale",
+      "description": "A secondary source reports a realized sale on a named marketplace, but the original sale page is not stored.",
+      "roi_capability": "provisional-only"
+    },
+    {
+      "tier": 3,
+      "id": "discovery-only",
+      "label": "Discovery only",
+      "description": "Lead or listing evidence without a defensible realized-sale verification.",
+      "roi_capability": "excluded"
+    }
+  ],
+  "rules": [
+    "Asking prices and active listings are excluded from realized-sale market value.",
+    "Secondary-source realized sales may support provisional EV but cannot unlock ROI.",
+    "Original marketplace verification is tracked at sale and contribution level.",
+    "A contribution may be marked original-marketplace verified only when its supporting record contains qualifying original evidence.",
+    "Source quality and sample-size quality are separate dimensions.",
+    "Market-value freshness is reported separately from source tier."
+  ]
+}
