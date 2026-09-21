@@ -42,6 +42,9 @@ const files=fs.existsSync(candidateDir)
 let historical=0;
 let unresolved=0;
 let mismatched=0;
+let researchAttempted=0;
+let researchUnavailable=0;
+let researchHistoricalUnresolved=0;
 const seenTaskIds=new Set();
 
 for(const name of files){
@@ -205,20 +208,24 @@ for(const name of files){
       }
     }
     if(candidate.research_attempts.length>0){
+      researchAttempted++;
       const latest=candidate.research_attempts.at(-1);
       if(candidate.last_research_attempt_at!==latest.attempted_at){
         failures.push(rel+" last_research_attempt_at must match latest attempt");
       }
+      const expectedResearchState="attempted-"+latest.outcome;
+      if(candidate.research_state!==expectedResearchState){
+        failures.push(
+          rel+" research_state must match latest attempt outcome: "+
+          expectedResearchState
+        );
+      }
+      if(latest.outcome==="original-source-unavailable"){
+        researchUnavailable++;
+      }else if(latest.outcome==="historical-event-unresolved"){
+        researchHistoricalUnresolved++;
+      }
     }
-  }
-
-  if(
-    candidate.research_state==="attempted-original-source-unavailable" &&
-    !candidate.research_attempts?.some(attempt=>
-      attempt.outcome==="original-source-unavailable"
-    )
-  ){
-    failures.push(rel+" unavailable research_state requires matching attempt");
   }
 
   if(!candidate.discovery_source?.url){
@@ -278,6 +285,9 @@ console.log(JSON.stringify({
   historical_sale_match_count:historical,
   identity_match_sale_unresolved_count:unresolved,
   identity_mismatch_count:mismatched,
+  research_attempted_candidate_count:researchAttempted,
+  research_original_source_unavailable_count:researchUnavailable,
+  research_historical_event_unresolved_count:researchHistoricalUnresolved,
   warning_count:warnings.length,
   failed_count:failures.length,
   failures,
