@@ -245,6 +245,7 @@ for (const module of [
   "marketEvidenceQuality.js",
   "marketRecordQuality.js",
   "marketRecordIssues.js",
+  "marketRecordCoordinator.js",
   "dataFreshness.js",
   "dataLoader.js",
   "errorModel.js",
@@ -315,6 +316,16 @@ pass(
   html.includes("BreakMetric could not start because required application modules failed to load.") &&
   html.includes("runtimeDependencyReport.missing.join")
 );
+pass(
+  "lazy market records are context-guarded",
+  html.includes("BreakMetricMarketRecordCoordinator.create()") &&
+  html.includes('productId: currentProduct?.id || ""') &&
+  html.includes('formatId: selectedFormat || ""') &&
+  html.includes('team: team.value || ""') &&
+  (html.match(/marketRecordCoordinator\.isCurrent\(/g) || []).length >= 2 &&
+  html.includes("marketRecordCoordinator.invalidate();")
+);
+
 pass(
   "manual product selection is continuation-guarded",
   html.includes("selectionCoordinator.begin(item.id)") &&
