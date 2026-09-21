@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 750,
+  "title": "Recover Enzo Fernández 66 Pink Refractor marketplace evidence",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 22,
+    "team": "Chelsea",
+    "card_id": "66-pink-refractor",
+    "player": "Enzo Fernández",
+    "parallel": "Pink Refractor",
+    "supporting_sale_count": 3
+  },
+  "result": {
+    "recovered_original_locator_count": 3,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 3
+  },
+  "source_drift": null,
+  "guarantees": [
+    "Every stored supporting sale has a recovered original eBay item ID.",
+    "Locator recovery alone does not promote a sale.",
+    "No realized sale price or EV contribution is changed."
+  ]
+}
