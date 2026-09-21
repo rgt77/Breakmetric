@@ -3,7 +3,7 @@
   "product_id": "2026-topps-chrome-premier-league",
   "format_id": "hobby",
   "analysis_unit": "12-box case",
-  "generated_at": "2026-09-20",
+  "generated_at": "2026-09-21",
   "source_model": "team-market-evidence-registry-v1",
   "rules": [
     "Every canonical team has exactly one registry entry.",
@@ -94,9 +94,9 @@
       "status": "audited-secondary-source",
       "audit_data": "data/market/2026-topps-chrome-premier-league/market-evidence-audit-v2.json",
       "ev_present": true,
-      "audited_contribution_count": 27,
+      "audited_contribution_count": 32,
       "original_marketplace_verified_contribution_count": 0,
-      "secondary_source_contribution_count": 27,
+      "secondary_source_contribution_count": 32,
       "market_evidence_status": "secondary-source-only",
       "verified_ev_available": false,
       "provisional_ev_available": true,
@@ -126,9 +126,14 @@
         "68-prism-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json",
         "68-purple-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-purple-refractor.json",
         "68-purple-wave-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-purple-wave-refractor.json",
+        "68-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-refractor.json",
         "68-teal-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-teal-refractor.json",
         "68-yellow-refractor|data/market/2026-topps-chrome-premier-league/68-estevao-willian-yellow-refractor.json",
-        "CA-EV-gold-refractor-auto|data/market/2026-topps-chrome-premier-league/CA-EV-gold-refractor-auto.json"
+        "AK-14-alive-and-kicking-base|data/market/2026-topps-chrome-premier-league/AK-14-estevao-willian-alive-and-kicking-base.json",
+        "AK-7-alive-and-kicking-base|data/market/2026-topps-chrome-premier-league/AK-7-reece-james-alive-and-kicking-base.json",
+        "CA-EV-gold-refractor-auto|data/market/2026-topps-chrome-premier-league/CA-EV-gold-refractor-auto.json",
+        "STH-4-stoppage-time-heartbreaker-base|data/market/2026-topps-chrome-premier-league/STH-4-cole-palmer-stoppage-time-heartbreaker-base.json",
+        "SWF-2-streets-wont-forget-base|data/market/2026-topps-chrome-premier-league/SWF-2-eidur-gudjohnsen-streets-wont-forget-base.json"
       ]
     },
     "Crystal Palace": {
