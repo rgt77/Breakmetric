@@ -257,7 +257,7 @@ assert(
 assert(sandbox.BreakMetricEvWorkQueue.nextTask(evWorkQueue,"Chelsea")?.priority===1,"Chelsea EV next task priority failed");
 const evQueueSummary=sandbox.BreakMetricEvWorkQueue.summary(evWorkQueue);
 assert(evQueueSummary.eligible_contributions===8896,"EV work queue eligible denominator failed");
-assert(evQueueSummary.valued_contributions===27,"EV work queue valued count failed");
+assert(evQueueSummary.valued_contributions===32,"EV work queue valued count failed");
 assert(evQueueSummary.not_applicable===1,"EV work queue not-applicable count failed");
 
 const contributionProvenance=JSON.parse(
@@ -269,8 +269,8 @@ const contributionProvenanceValidation=sandbox.BreakMetricEvContributionProvenan
 );
 assert(contributionProvenanceValidation.valid,"EV contribution provenance helper failed");
 const chelseaLineage=sandbox.BreakMetricEvContributionProvenance.teamSummary(contributionProvenance,"Chelsea");
-assert(chelseaLineage.contribution_count===27,"Chelsea EV lineage count failed");
-assert(chelseaLineage.derivation_linked_count===27,"Chelsea derivation linkage failed");
+assert(chelseaLineage.contribution_count===32,"Chelsea EV lineage count failed");
+assert(chelseaLineage.derivation_linked_count===32,"Chelsea derivation linkage failed");
 
 const verificationQueue=JSON.parse(
   fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/market-verification-queue-v1.json"),"utf8")
