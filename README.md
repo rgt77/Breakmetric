@@ -41,6 +41,8 @@ node scripts/validate-development-ledger.mjs
 node scripts/audit-source-modules.mjs
 node scripts/generate-ev-eligible-inventory.mjs --check
 node scripts/validate-ev-eligible-inventory.mjs
+node scripts/generate-chelsea-ev-completion-queue.mjs --check
+node scripts/validate-chelsea-ev-completion-queue.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
@@ -62,8 +64,14 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development chronology through step 825 is documented in `docs/architecture-review-steps-1-825.md` and `data/validation/development-ledger-v1.json`. Historical release ledgers such as v1.2/v1.3 remain immutable snapshots.
+The canonical development ledger now extends through step 826 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
+
+## Chelsea EV completion queue
+
+Step 826 expands the category-level EV work queue into a deterministic slot-level queue for Chelsea. All **611** currently unvalued Chelsea contribution slots are represented exactly once: **224 base parallels, 125 inserts and 262 autographs**. The queue is stored at `data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json`.
+
+Each task combines published-odds expected copies per case with a versioned median market anchor derived from the 27 already-valued Chelsea contributions. The resulting `economic_priority_proxy_usd` is only a research-order heuristic; it is not a predicted market value, EV contribution or ROI input. Actual EV remains locked until the slot receives its own market value and normal provenance.
 
 ## Source-module inventory
 

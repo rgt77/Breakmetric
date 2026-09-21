@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "team": {
+    "observation_count": 27,
+    "median_market_value_usd": 55
+  },
+  "generated_at": "2026-09-21",
+  "model": "chelsea-market-anchor-v1",
+  "source_provenance": "data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json",
+  "definition": "Median market-value observations from the 27 already-valued Chelsea EV contributions. These anchors exist only to prioritize research; they are not market values for unvalued slots.",
+  "rules": [
+    "Same-subject same-category medians are preferred.",
+    "If the subject has no same-category values, a same-subject cross-category median may be used with lower confidence.",
+    "A category-wide median is eligible as fallback only with at least three observed valued contributions.",
+    "Otherwise the Chelsea-wide median is the fallback.",
+    "For multi-subject cards, the highest available subject anchor is used for prioritization so a known high-value subject is not diluted by an unanchored co-subject.",
+    "Anchor values must be recomputed and validated against current derived EV source files before the queue can pass CI.",
+    "An anchor is a ranking proxy input, never a predicted market value."
+  ],
+  "minimum_category_observations_for_fallback": 3,
+  "categories": {
+    "base_parallels": {
+      "observation_count": 26,
+      "median_market_value_usd": 52.495,
+      "eligible_as_fallback": true
+    },
+    "autographs": {
+      "observation_count": 1,
+      "median_market_value_usd": 2400,
+      "eligible_as_fallback": false
+    },
+    "inserts": {
+      "observation_count": 0,
+      "median_market_value_usd": null,
+      "eligible_as_fallback": false
+    }
+  },
+  "subjects": {
+    "Estêvão Willian": {
+      "all": {
+        "observation_count": 16,
+        "median_market_value_usd": 102.5
+      },
+      "base_parallels": {
+        "observation_count": 15,
+        "median_market_value_usd": 100
+      },
+      "autographs": {
+        "observation_count": 1,
+        "median_market_value_usd": 2400
+      }
+    },
+    "Cole Palmer": {
+      "all": {
+        "observation_count": 5,
+        "median_market_value_usd": 19
+      },
+      "base_parallels": {
+        "observation_count": 5,
+        "median_market_value_usd": 19
+      }
+    },
+    "Enzo Fernández": {
+      "all": {
+        "observation_count": 2,
+        "median_market_value_usd": 5.995
+      },
+      "base_parallels": {
+        "observation_count": 2,
+        "median_market_value_usd": 5.995
+      }
+    },
+    "Moisés Caicedo": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 4.25
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 4.25
+      }
+    },
+    "Jorrel Hato": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 0.99
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 0.99
+      }
+    },
+    "João Pedro": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
+      }
+    },
+    "Shumaira Mheuka": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 2
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 2
+      }
+    }
+  }
+}

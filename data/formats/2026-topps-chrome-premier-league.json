@@ -25,7 +25,8 @@
         "sealed_supply_data": "data/live-odds/2026-topps-chrome-premier-league-sealed-supply.json",
         "production_estimate_data": "data/derived/2026-topps-chrome-premier-league-implied-hobby-production.json",
         "market_evidence_registry_data": "data/market/2026-topps-chrome-premier-league/market-evidence-registry-v1.json",
-        "player_derivation_manifest_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-derivation-manifest-v1.json"
+        "player_derivation_manifest_data": "data/derived/2026-topps-chrome-premier-league-hobby-player-derivation-manifest-v1.json",
+        "chelsea_ev_completion_queue_data": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json"
       },
       "break_allocation_policy": {
         "status": "protected",

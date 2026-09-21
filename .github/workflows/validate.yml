@@ -26,6 +26,10 @@ jobs:
         run: node scripts/generate-ev-eligible-inventory.mjs --check
       - name: Validate EV eligible inventory
         run: node scripts/validate-ev-eligible-inventory.mjs
+      - name: Check Chelsea EV completion queue
+        run: node scripts/generate-chelsea-ev-completion-queue.mjs --check
+      - name: Validate Chelsea EV completion queue
+        run: node scripts/validate-chelsea-ev-completion-queue.mjs
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
       - name: Check runtime data fingerprint

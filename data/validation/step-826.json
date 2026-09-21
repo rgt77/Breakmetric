@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 826,
+  "title": "Generate deterministic Chelsea EV completion queue",
+  "implemented": true,
+  "focus": "Phase 2 — Chelsea EV completion",
+  "inputs": {
+    "eligible_chelsea_contribution_count": 638,
+    "already_valued_contribution_count": 27,
+    "remaining_contribution_count": 611
+  },
+  "output": {
+    "queue_file": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json",
+    "market_anchor_file": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-market-anchor-v1.json",
+    "methodology_file": "data/methodology/chelsea-ev-completion-priority-v1.json",
+    "generator": "scripts/generate-chelsea-ev-completion-queue.mjs",
+    "validator": "scripts/validate-chelsea-ev-completion-queue.mjs"
+  },
+  "category_remaining_task_count": {
+    "base_parallels": 224,
+    "inserts": 125,
+    "autographs": 262
+  },
+  "anchor_basis_task_count": {
+    "same-subject-cross-category": 125,
+    "chelsea-team-median": 247,
+    "same-subject-same-category": 164,
+    "chelsea-category-median": 75
+  },
+  "priority_proxy": {
+    "formula": "expected_copies_per_case × transferred median market anchor",
+    "semantics": "research ordering only; not predicted market value, EV or ROI"
+  },
+  "top_10_snapshot": [
+    {
+      "rank": 1,
+      "set": "Alive and Kicking",
+      "card_number": "AK-14",
+      "subject": "Estêvão Willian",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 123
+    },
+    {
+      "rank": 2,
+      "set": "Alive and Kicking",
+      "card_number": "AK-7",
+      "subject": "Reece James",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 66
+    },
+    {
+      "rank": 3,
+      "set": "Golazo",
+      "card_number": "GZ-8",
+      "subject": "Gus Poyet",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 66
+    },
+    {
+      "rank": 4,
+      "set": "The Streets Won't Forget",
+      "card_number": "SWF-2",
+      "subject": "Eiður Guðjohnsen",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 66
+    },
+    {
+      "rank": 5,
+      "set": "Chrome Autograph Cards",
+      "card_number": "CA-EV",
+      "subject": "Estêvão Willian",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 36.58536
+    },
+    {
+      "rank": 6,
+      "set": "Base Cards",
+      "card_number": "68",
+      "subject": "Estêvão Willian",
+      "parallel": "Refractor",
+      "economic_priority_proxy_usd": 36
+    },
+    {
+      "rank": 7,
+      "set": "Chrome Autograph Cards",
+      "card_number": "CA-EV",
+      "subject": "Estêvão Willian",
+      "parallel": "Aqua Refractor",
+      "economic_priority_proxy_usd": 26.470584
+    },
+    {
+      "rank": 8,
+      "set": "Chrome Autograph Cards",
+      "card_number": "CA-EV",
+      "subject": "Estêvão Willian",
+      "parallel": "Blue Refractor",
+      "economic_priority_proxy_usd": 23.076912
+    },
+    {
+      "rank": 9,
+      "set": "Stoppage Time Heartbreaker",
+      "card_number": "STH-4",
+      "subject": "Cole Palmer",
+      "parallel": "Base",
+      "economic_priority_proxy_usd": 22.8
+    },
+    {
+      "rank": 10,
+      "set": "Chrome Autograph Cards",
+      "card_number": "CA-EV",
+      "subject": "Estêvão Willian",
+      "parallel": "Green Refractor",
+      "economic_priority_proxy_usd": 18.90756
+    }
+  ],
+  "guarantees": [
+    "Every one of Chelsea's 638 EV-eligible slots is either already valued or appears exactly once in the completion queue.",
+    "All 27 committed Chelsea EV contributions are excluded from the 611-task queue.",
+    "Published Hobby odds determine expected copies per case using the existing probability-model pool semantics.",
+    "Market anchors are versioned medians derived from current committed Chelsea EV market values and are reproducibility-gated.",
+    "The priority proxy cannot be used as actual EV, market value or ROI.",
+    "Queue generation is deterministic and CI fails when its inputs change without regeneration.",
+    "The canonical development ledger extends contiguously from step 825 to step 826."
+  ]
+}
