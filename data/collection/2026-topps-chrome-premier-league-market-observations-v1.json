@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "model": "market-observations-v1",
+  "product_id": "2026-topps-chrome-premier-league",
+  "currency": "USD",
+  "generated_at": null,
+  "sources": {
+    "sportscardspro-api": {
+      "evidence_kind": "provider-current-price",
+      "exact_identity_required": true
+    },
+    "sportscardspro-csv": {
+      "evidence_kind": "provider-current-price",
+      "exact_identity_required": true
+    }
+  },
+  "entries": {}
+}
