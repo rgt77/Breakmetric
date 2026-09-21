@@ -7,12 +7,12 @@
   "summary": {
     "task_count": 60,
     "complete_task_count": 0,
-    "partial_task_count": 2,
-    "not_started_task_count": 57,
+    "partial_task_count": 3,
+    "not_started_task_count": 56,
     "not_applicable_task_count": 1,
     "eligible_contribution_count": 8896,
-    "valued_contribution_count": 27,
-    "remaining_contribution_count": 8869,
+    "valued_contribution_count": 32,
+    "remaining_contribution_count": 8864,
     "teams_with_ev_progress": 1
   },
   "tasks": [
@@ -22,11 +22,23 @@
       "category": "base_parallels",
       "status": "partial",
       "eligible_contribution_count": 250,
-      "valued_contribution_count": 26,
-      "remaining_contribution_count": 224,
-      "coverage_percent": 10.4,
+      "valued_contribution_count": 27,
+      "remaining_contribution_count": 223,
+      "coverage_percent": 10.8,
       "priority": 1,
-      "next_action": "value remaining 224 of 250 eligible contribution slots"
+      "next_action": "value remaining 223 of 250 eligible contribution slots"
+    },
+    {
+      "id": "chelsea-inserts",
+      "team": "Chelsea",
+      "category": "inserts",
+      "status": "partial",
+      "eligible_contribution_count": 125,
+      "valued_contribution_count": 4,
+      "remaining_contribution_count": 121,
+      "coverage_percent": 3.2,
+      "priority": 1,
+      "next_action": "value remaining 121 of 125 eligible contribution slots"
     },
     {
       "id": "chelsea-autographs",
@@ -39,18 +51,6 @@
       "coverage_percent": 0.3802,
       "priority": 1,
       "next_action": "value remaining 262 of 263 eligible contribution slots"
-    },
-    {
-      "id": "chelsea-inserts",
-      "team": "Chelsea",
-      "category": "inserts",
-      "status": "not-started",
-      "eligible_contribution_count": 125,
-      "valued_contribution_count": 0,
-      "remaining_contribution_count": 125,
-      "coverage_percent": 0,
-      "priority": 2,
-      "next_action": "begin valuation of 125 eligible contribution slots"
     },
     {
       "id": "afc-bournemouth-base-parallels",

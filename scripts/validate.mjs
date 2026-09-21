@@ -257,6 +257,9 @@ for (const product of catalog.products || []) {
     const evWorkQueue = json(format.analysis_data.ev_work_queue_data);
     const evContributionProvenance = json(format.analysis_data.ev_contribution_provenance_data);
     const marketVerificationQueue = json(format.analysis_data.market_verification_queue_data);
+    const marketVerificationScope = json(
+      "data/market/"+product.id+"/market-verification-scope-v1.json"
+    );
     pass(
       `EV contribution provenance linked: ${product.id}/${format.id}`,
       evContributionProvenance.model === "ev-contribution-provenance-v1" &&
@@ -270,13 +273,17 @@ for (const product of catalog.products || []) {
       evWorkQueue.schema_version === 2 &&
       evWorkQueue.tasks?.length === (metadata.teams || []).length * 3 &&
       Number(evWorkQueue.summary?.eligible_contribution_count) === 8896 &&
-      Number(evWorkQueue.summary?.valued_contribution_count) === 27
+      Number(evWorkQueue.summary?.valued_contribution_count) ===
+        (evContributionProvenance.entries || []).length
     );
     pass(
       `market verification queue reconciles to EV contributions: ${product.id}/${format.id}`,
       marketVerificationQueue.model === "market-verification-queue-v1" &&
       marketVerificationQueue.items?.length ===
-        Object.values(evData.teams || {}).reduce((sum,row)=>sum+(row.contributions || []).length,0)
+        Number(marketVerificationScope.frozen_contribution_count) &&
+      marketVerificationQueue.items?.every(item=>
+        (marketVerificationScope.card_ids || []).includes(item.card_id)
+      )
     );
     pass(
       `market verification queue ranks sequentially: ${product.id}/${format.id}`,

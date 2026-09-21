@@ -1,0 +1,132 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "STH-4",
+  "player": "Cole Palmer",
+  "team": "Chelsea",
+  "set": "Stoppage Time Heartbreaker",
+  "parallel": "Base",
+  "serial_numbering": null,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-09-06",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-30",
+      "sale_price": 1,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-28",
+      "sale_price": 0.68,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-22",
+      "sale_price": 5.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-17",
+      "sale_price": 1.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-16",
+      "sale_price": 1,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-12",
+      "sale_price": 0.71,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-03",
+      "sale_price": 1,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-02",
+      "sale_price": 2.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-02",
+      "sale_price": 2.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 1,
+    "mean_usd": 1.712,
+    "min_usd": 0.68,
+    "max_usd": 5.99,
+    "sale_count": 10,
+    "confidence": "provisional",
+    "sample_size_confidence": "medium",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 10,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Phase-2 provisional valuation from the 10 most recent exact raw 2026 Topps Chrome Premier League Stoppage Time Heartbreaker #STH-4 Base realized sales. Not part of the frozen v1 verification sample."
+}

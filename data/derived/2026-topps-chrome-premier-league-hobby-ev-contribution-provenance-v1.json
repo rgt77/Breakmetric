@@ -2,7 +2,7 @@
   "schema_version": 1,
   "product_id": "2026-topps-chrome-premier-league",
   "format_id": "hobby",
-  "generated_at": "2026-09-20",
+  "generated_at": "2026-09-21",
   "model": "ev-contribution-provenance-v1",
   "formula": "EV contribution = expected copies per case × market value USD.",
   "rules": [
@@ -13,8 +13,8 @@
     "The market source file remains independently evidence-gated."
   ],
   "summary": {
-    "contribution_count": 27,
-    "derivation_linked_count": 27,
+    "contribution_count": 32,
+    "derivation_linked_count": 32,
     "missing_derivation_count": 0
   },
   "entries": [
@@ -339,6 +339,66 @@
       "ev_contribution_usd": 0.0462,
       "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-64-shumaira-mheuka-pink-refractor-ev.json",
       "market_source_file": "data/market/2026-topps-chrome-premier-league/64-shumaira-mheuka-pink-refractor.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "AK-14-alive-and-kicking-base",
+      "player": "Estêvão Willian",
+      "set": "Alive and Kicking",
+      "parallel": "Base",
+      "ev_contribution_usd": 1.188,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-AK-14-alive-and-kicking-base-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/AK-14-estevao-willian-alive-and-kicking-base.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "AK-7-alive-and-kicking-base",
+      "player": "Reece James",
+      "set": "Alive and Kicking",
+      "parallel": "Base",
+      "ev_contribution_usd": 2.388,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-AK-7-alive-and-kicking-base-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/AK-7-reece-james-alive-and-kicking-base.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "SWF-2-streets-wont-forget-base",
+      "player": "Eiður Guðjohnsen",
+      "set": "The Streets Won't Forget",
+      "parallel": "Base",
+      "ev_contribution_usd": 2.844,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-SWF-2-streets-wont-forget-base-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/SWF-2-eidur-gudjohnsen-streets-wont-forget-base.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "68-refractor",
+      "player": "Estêvão Willian",
+      "set": "Base Cards",
+      "parallel": "Refractor",
+      "ev_contribution_usd": 1.6902,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-68-refractor-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-refractor.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "STH-4-stoppage-time-heartbreaker-base",
+      "player": "Cole Palmer",
+      "set": "Stoppage Time Heartbreaker",
+      "parallel": "Base",
+      "ev_contribution_usd": 1.2,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-STH-4-stoppage-time-heartbreaker-base-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/STH-4-cole-palmer-stoppage-time-heartbreaker-base.json",
       "formula": "expected_copies_per_case × market_value_usd",
       "probability_metric": "calculation.expected_copies_per_case"
     }

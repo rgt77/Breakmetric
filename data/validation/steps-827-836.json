@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "chelsea-ev-valuation-steps-827-836",
+  "step_range": {
+    "start": 827,
+    "end": 836,
+    "count": 10
+  },
+  "steps": [
+    827,
+    828,
+    829,
+    830,
+    831,
+    832,
+    833,
+    834,
+    835,
+    836
+  ],
+  "attempted_task_count": 10,
+  "outcomes": {
+    "valued_secondary_realized_sales": 5,
+    "no_exact_realized_sales": 5
+  },
+  "ev_progress": {
+    "valued_before": 27,
+    "valued_after": 32,
+    "eligible": 638,
+    "remaining_after": 606,
+    "coverage_percent_after": 5.0157,
+    "partial_ev_before_usd": 42.7211,
+    "new_ev_usd": 9.3102,
+    "partial_ev_after_usd": 52.0313,
+    "category_after": {
+      "base_parallels": {
+        "valued": 27,
+        "eligible": 250,
+        "remaining": 223,
+        "coverage_percent": 10.8
+      },
+      "inserts": {
+        "valued": 4,
+        "eligible": 125,
+        "remaining": 121,
+        "coverage_percent": 3.2
+      },
+      "autographs": {
+        "valued": 1,
+        "eligible": 263,
+        "remaining": 262,
+        "coverage_percent": 0.3802
+      }
+    }
+  },
+  "market_verification_scope": {
+    "legacy_frozen_contribution_count": 27,
+    "legacy_frozen_supporting_sale_count": 72,
+    "phase2_new_market_records": 5,
+    "phase2_records_added_to_legacy_queue": 0
+  },
+  "queue_after": {
+    "remaining_task_count": 606,
+    "blocked_attempted_task_count": 5,
+    "untouched_task_count": 601,
+    "blocked_tasks_sort_after_untouched": true,
+    "next_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::autographs::Chrome Autograph Cards::CA-EV::Green Wave Refractor"
+  },
+  "guarantees": [
+    "The first ten step-826 queue tasks were all researched exactly once in steps 827-836.",
+    "Five tasks received exact-identity raw realized-sale median valuations and committed provisional EV.",
+    "Five tasks remain unvalued rather than inheriting queue proxies or adjacent-card values.",
+    "Chelsea now has 32 of 638 eligible slots valued.",
+    "The frozen v1 verification queue remains limited to its original 27 contributions and 72 supporting sales.",
+    "The completion queue and market anchors are progression-safe and regenerate from current committed EV state."
+  ]
+}

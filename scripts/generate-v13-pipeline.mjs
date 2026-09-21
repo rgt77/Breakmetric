@@ -55,6 +55,10 @@ const contributionOriginalVerified=marketSourceFile=>{
 };
 const scope=readJson("data/derived/"+product+"-hobby-team-ev-scope-v2.json");
 const ev=readJson("data/derived/"+product+"-team-ev-progress.json");
+const verificationScope=readJson(
+  "data/market/"+product+"/market-verification-scope-v1.json"
+);
+const frozenVerificationCardIds=new Set(verificationScope.card_ids||[]);
 const categories=["base_parallels","inserts","autographs"];
 
 const tasks=[];
@@ -114,6 +118,7 @@ const evQueue={
 const items=[];
 for(const [team,row] of Object.entries(ev.teams||{})){
   for(const item of row.contributions||[]){
+    if(!frozenVerificationCardIds.has(item.card_id)) continue;
     const originalVerified=
       contributionOriginalVerified(item.market_source_file);
     items.push({
@@ -129,6 +134,17 @@ for(const [team,row] of Object.entries(ev.teams||{})){
         ? "verified-original-marketplace"
         : "pending-original-verification"
     });
+  }
+}
+if(items.length!==Number(verificationScope.frozen_contribution_count)){
+  throw new Error(
+    "Frozen market verification scope mismatch: "+
+    items.length+" vs "+verificationScope.frozen_contribution_count
+  );
+}
+for(const cardId of frozenVerificationCardIds){
+  if(!items.some(item=>item.card_id===cardId)){
+    throw new Error("Frozen market verification contribution missing: "+cardId);
   }
 }
 items.sort((a,b)=>b.ev_contribution_usd-a.ev_contribution_usd || a.card_id.localeCompare(b.card_id));

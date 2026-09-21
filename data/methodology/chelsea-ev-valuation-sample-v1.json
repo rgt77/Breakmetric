@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": "chelsea-ev-valuation-sample-v1",
+  "generated_at": "2026-09-21",
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "team": "Chelsea",
+  "purpose": "Create provisional market values for Phase-2 EV expansion from exact-identity realized raw sales without using completion-queue proxy values as valuations.",
+  "rules": [
+    "Exact product family, set, card number and parallel must match before a sale can enter the valuation sample.",
+    "Only raw/ungraded realized sales are eligible.",
+    "Use at most the 10 most recent exact-identity realized sales visible in the discovery source at research time.",
+    "Exclude wrong product families, Sapphire, wrong parallels, numbered variants when Base is targeted, and graded copies.",
+    "Market value is the median of the retained exact realized sale prices.",
+    "Secondary-source realized sales produce provisional-only market values and EV contributions.",
+    "If zero exact realized sales remain after identity filtering, keep the slot unvalued and persist the blocker.",
+    "Do not infer an unvalued slot from its completion-queue market anchor, neighboring parallel, guide price, graded price or another product family.",
+    "Phase-2 provisional market records do not expand the frozen v1 27-contribution / 72-sale verification scope.",
+    "Future market-evidence-v2 may replace or qualify provisional values using a separate original-marketplace sample."
+  ],
+  "sample_size_confidence": {
+    "1-4": "low",
+    "5-10": "medium"
+  }
+}

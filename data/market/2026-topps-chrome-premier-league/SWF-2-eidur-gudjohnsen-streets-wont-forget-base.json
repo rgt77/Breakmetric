@@ -1,0 +1,72 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "SWF-2",
+  "player": "Eiður Guðjohnsen",
+  "team": "Chelsea",
+  "set": "The Streets Won't Forget",
+  "parallel": "Base",
+  "serial_numbering": null,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-06-18",
+      "sale_price": 1,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-02-26",
+      "sale_price": 2.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-02-26",
+      "sale_price": 2.49,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-02-12",
+      "sale_price": 4.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 2.37,
+    "mean_usd": 2.6825,
+    "min_usd": 1,
+    "max_usd": 4.99,
+    "sale_count": 4,
+    "confidence": "provisional",
+    "sample_size_confidence": "low",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 4,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Phase-2 provisional valuation from four exact raw 2026 Topps Chrome Premier League The Streets Won't Forget #SWF-2 Base realized sales. Not part of the frozen v1 verification sample."
+}

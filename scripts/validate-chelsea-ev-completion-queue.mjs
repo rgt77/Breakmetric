@@ -20,6 +20,7 @@ const inventory=j("data/derived/"+product+"-hobby-ev-eligible-inventory-v1.json"
 const provenance=j("data/derived/"+product+"-hobby-ev-contribution-provenance-v1.json");
 const insertMap=j("data/mappings/"+product+"-hobby-insert-odds-map.json");
 const method=j("data/methodology/chelsea-ev-completion-priority-v1.json");
+const research=j("data/market/"+product+"/ev-valuation-research-v1.json");
 
 const insertSets=new Set(
   (insertMap.mappings||[]).flatMap(x=>x.checklist_sections||[x.checklist_section]).filter(Boolean)
@@ -36,6 +37,7 @@ for(const card of (inventory.cards||[]).filter(x=>x.team==="Chelsea")){
 ok(eligible.size===638,"eligible != 638");
 
 const valued=new Set();
+const valuedCounts={base_parallels:0,inserts:0,autographs:0};
 const observations=[];
 for(const e of provenance.entries||[]){
   if(e.team!=="Chelsea") continue;
@@ -51,16 +53,17 @@ for(const e of provenance.entries||[]){
       category,team:e.team,set:e.set,
       card_number:matches[0].card_number,parallel:e.parallel
     }));
+    valuedCounts[category]=(valuedCounts[category]||0)+1;
   }
   const ev=j(e.derived_ev_file);
   observations.push({
     subject:e.player,category,value:Number(ev.market_value_usd)
   });
 }
-ok(valued.size===27,"valued != 27");
 
 const queued=new Set();
 const counts={base_parallels:0,inserts:0,autographs:0};
+let attemptedSeen=false;
 for(const [i,t] of (queue.tasks||[]).entries()){
   const k=key(t);
   ok(t.rank===i+1,"rank gap "+k);
@@ -76,20 +79,44 @@ for(const [i,t] of (queue.tasks||[]).entries()){
     "bad proxy "+k
   );
   ok(t.proxy_semantics?.includes("research ordering only"),"proxy warning "+k);
+  const attempted=t.valuation_research?.attempted===true;
+  if(attempted) attemptedSeen=true;
+  else ok(!attemptedSeen,"untouched task appears after attempted task "+k);
   counts[t.category]=(counts[t.category]||0)+1;
 }
-ok(queued.size===611,"queued != 611");
+ok(queued.size===eligible.size-valued.size,"queued count does not equal eligible - valued");
 for(const k of eligible) ok(valued.has(k)||queued.has(k),"missing "+k);
+for(const category of ["base_parallels","inserts","autographs"]){
+  const eligibleCount=Number(
+    inventory.teams?.Chelsea?.[category]?.eligible_contribution_count||0
+  );
+  ok(
+    Number(counts[category]||0)===
+      eligibleCount-Number(valuedCounts[category]||0),
+    "category count "+category
+  );
+}
 ok(
-  counts.base_parallels===224 && counts.inserts===125 && counts.autographs===262,
-  "category counts"
-);
-ok(
-  queue.summary?.eligible_chelsea_contribution_count===638 &&
-  queue.summary?.already_valued_contribution_count===27 &&
-  queue.summary?.remaining_task_count===611,
+  queue.summary?.eligible_chelsea_contribution_count===eligible.size &&
+  queue.summary?.already_valued_contribution_count===valued.size &&
+  queue.summary?.remaining_task_count===queued.size,
   "summary counts"
 );
+
+const queueByTaskId=new Map((queue.tasks||[]).map(task=>[task.task_id,task]));
+for(const attempt of research.attempts||[]){
+  const task=queueByTaskId.get(attempt.task_id);
+  if(attempt.outcome==="no-exact-realized-sales"){
+    ok(Boolean(task),"blocked research task must remain queued: "+attempt.task_id);
+    ok(
+      task?.valuation_research?.attempted===true &&
+      task?.valuation_research?.outcome===attempt.outcome,
+      "blocked research state mismatch: "+attempt.task_id
+    );
+  }else if(attempt.outcome==="valued-secondary-realized-sales"){
+    ok(!task,"valued research task must leave queue: "+attempt.task_id);
+  }
+}
 
 const teamValues=observations.map(x=>x.value);
 ok(rnd(med(teamValues))===Number(anchor.team?.median_market_value_usd),"team median");

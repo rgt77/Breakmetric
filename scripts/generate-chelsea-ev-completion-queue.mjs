@@ -20,6 +20,7 @@ const paths={
   inventory:"data/derived/"+product+"-hobby-ev-eligible-inventory-v1.json",
   provenance:"data/derived/"+product+"-hobby-ev-contribution-provenance-v1.json",
   anchor:"data/derived/"+product+"-hobby-chelsea-market-anchor-v1.json",
+  valuationResearch:"data/market/"+product+"/ev-valuation-research-v1.json",
   baseOdds:"data/odds/"+product+"-hobby-base.json",
   insertMap:"data/mappings/"+product+"-hobby-insert-odds-map.json",
   autoMap:"data/mappings/"+product+"-hobby-autograph-odds-map.json",
@@ -33,6 +34,7 @@ const paths={
 const inventory=readJson(paths.inventory);
 const provenance=readJson(paths.provenance);
 const anchor=readJson(paths.anchor);
+const valuationResearch=readJson(paths.valuationResearch);
 const baseOdds=readJson(paths.baseOdds);
 const insertMap=readJson(paths.insertMap);
 const autoMap=readJson(paths.autoMap);
@@ -73,6 +75,7 @@ const slotKey=({category,team,set,card_number,parallel})=>
   [category,team,set,String(card_number),parallel].join("|");
 
 const valuedKeys=new Set();
+const valuedByCategory={base_parallels:0,inserts:0,autographs:0};
 for(const entry of provenance.entries||[]){
   if(entry.team!==team) continue;
   const category=categoryForContribution(entry);
@@ -96,7 +99,12 @@ for(const entry of provenance.entries||[]){
     card_number:matches[0].card_number,
     parallel:entry.parallel
   }));
+  valuedByCategory[category]=(valuedByCategory[category]||0)+1;
 }
+
+const researchAttemptByTaskId=new Map(
+  (valuationResearch.attempts||[]).map(attempt=>[attempt.task_id,attempt])
+);
 
 function mappingForSet(mappings,set){
   return (mappings||[]).find(mapping=>
@@ -268,17 +276,20 @@ for(const card of (inventory.cards||[]).filter(row=>row.team===team)){
       odds.expected_copies_per_case*Number(marketAnchor.value)
     );
 
+    const taskId=[
+      product,
+      "hobby",
+      team,
+      card.category,
+      card.set,
+      String(card.card_number),
+      parallel
+    ].join("::");
+    const priorResearch=researchAttemptByTaskId.get(taskId)||null;
+
     tasks.push({
       rank:null,
-      task_id:[
-        product,
-        "hobby",
-        team,
-        card.category,
-        card.set,
-        String(card.card_number),
-        parallel
-      ].join("::"),
+      task_id:taskId,
       team,
       category:card.category,
       set:card.set,
@@ -298,7 +309,18 @@ for(const card of (inventory.cards||[]).filter(row=>row.team===team)){
       economic_priority_proxy_usd:proxy,
       proxy_semantics:
         "expected_copies_per_case × transferred median market anchor; research ordering only, not predicted market value or EV",
-      status:"unvalued"
+      status:"unvalued",
+      valuation_research:priorResearch ? {
+        attempted:true,
+        step:Number(priorResearch.step),
+        outcome:priorResearch.outcome,
+        blocker:priorResearch.blocker||null
+      } : {
+        attempted:false,
+        step:null,
+        outcome:null,
+        blocker:null
+      }
     });
   }
 }
@@ -311,6 +333,7 @@ const basisOrder={
 };
 
 tasks.sort((a,b)=>
+  Number(a.valuation_research?.attempted)-Number(b.valuation_research?.attempted) ||
   b.economic_priority_proxy_usd-a.economic_priority_proxy_usd ||
   (basisOrder[a.market_anchor.basis]??9)-
     (basisOrder[b.market_anchor.basis]??9) ||
@@ -338,11 +361,12 @@ const queue={
   generated_at:"2026-09-21",
   model:"chelsea-ev-completion-queue-v1",
   purpose:
-    "Prioritize the 611 remaining Chelsea EV-eligible contribution slots by a transparent economic-relevance research proxy.",
+    "Prioritize all remaining Chelsea EV-eligible contribution slots by a transparent economic-relevance research proxy, with untouched tasks ahead of previously blocked research.",
   source_files:{
     inventory:paths.inventory,
     provenance:paths.provenance,
     market_anchor:paths.anchor,
+    valuation_research:paths.valuationResearch,
     base_odds:paths.baseOdds,
     insert_odds_mapping:paths.insertMap,
     autograph_odds_mapping:paths.autoMap,
@@ -355,7 +379,8 @@ const queue={
     "The proxy is only a research-order heuristic. It is not a market value, expected value, ROI value or valuation substitute.",
     "Same-subject same-category anchors are preferred; cross-category and team/category fallbacks are explicitly lower-confidence.",
     "Actual EV can only be created after a slot receives its own market value and normal derivation provenance.",
-    "Queue order is deterministic and is regenerated whenever eligible inventory, committed EV contributions, odds, format dimensions or anchor inputs change."
+    "Previously attempted tasks with no exact realized sales remain in the queue but sort behind untouched tasks.",
+    "Queue order is deterministic and is regenerated whenever eligible inventory, committed EV contributions, valuation research, odds, format dimensions or anchor inputs change."
   ],
   summary:{
     eligible_chelsea_contribution_count:
@@ -373,18 +398,24 @@ const queue={
 if(queue.summary.eligible_chelsea_contribution_count!==638){
   throw new Error("Chelsea eligible denominator changed");
 }
-if(queue.summary.already_valued_contribution_count!==27){
-  throw new Error("Chelsea valued count changed");
-}
-if(queue.summary.remaining_task_count!==611){
-  throw new Error("Chelsea remaining task count changed");
-}
 if(
-  countsByCategory.base_parallels!==224 ||
-  countsByCategory.inserts!==125 ||
-  countsByCategory.autographs!==262
+  queue.summary.already_valued_contribution_count+
+  queue.summary.remaining_task_count!==
+  queue.summary.eligible_chelsea_contribution_count
 ){
-  throw new Error("Chelsea category remainder changed");
+  throw new Error("Chelsea valued + remaining does not equal denominator");
+}
+for(const category of ["base_parallels","inserts","autographs"]){
+  const eligible=Number(
+    inventory.teams?.Chelsea?.[category]?.eligible_contribution_count||0
+  );
+  const expectedRemaining=eligible-Number(valuedByCategory[category]||0);
+  if(Number(countsByCategory[category]||0)!==expectedRemaining){
+    throw new Error(
+      "Chelsea category remainder mismatch: "+category+
+      " / "+countsByCategory[category]+" vs "+expectedRemaining
+    );
+  }
 }
 
 const content=stable(queue);

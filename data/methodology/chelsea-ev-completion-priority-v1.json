@@ -35,7 +35,7 @@
     "category, set, card number and parallel deterministic tie-breakers"
   ],
   "completion_rule": "Every one of Chelsea's 638 eligible contribution slots must either have committed EV provenance or appear exactly once in the completion queue.",
-  "current_snapshot": {
+  "initial_snapshot_at_step_826": {
     "eligible_contribution_count": 638,
     "valued_contribution_count": 27,
     "remaining_contribution_count": 611,
