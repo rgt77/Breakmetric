@@ -29,7 +29,31 @@
     "evidence": "Historical sold-listing outbound link recovered eBay item 206405095935."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original eBay page independently confirms exact card identity and SOLD status, but shows C $8.00. The stored $5.70 USD value remains a secondary-source currency-normalized observation, so the sale event is not promoted.",
+  "research_note": "Original card identity was previously observed on eBay, but the historical event remains unresolved because the original listing currency does not match the stored canonical USD amount and no traceable FX provenance is available.",
   "source_sale_id": "206405095935",
-  "direct_marketplace_url": "https://www.ebay.com.au/itm/206405095935"
+  "direct_marketplace_url": "https://www.ebay.com.au/itm/206405095935",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-retry-step-760",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review"
+      ],
+      "outcome": "historical-event-unresolved",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "The candidate retains a prior original-marketplace observation of exact card identity and SOLD state at C $8.00, but the stored canonical sale is $5.70 USD and no traceable original-source FX conversion provenance exists. Direct retrieval is also inaccessible in the current retry.",
+      "source_notes": [
+        "SportsCardsPro still reports the 2026-07-17 sale as $5.70 USD for the exact #68 Prism Refractor.",
+        "Prior original eBay observation showed C $8.00 for item 206405095935.",
+        "Cross-currency promotion remains blocked without traceable conversion provenance."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21",
+  "research_state": "attempted-historical-event-unresolved"
 }
