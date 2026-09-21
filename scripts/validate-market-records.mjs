@@ -3,6 +3,9 @@ import path from "node:path";
 import {
   assessListingIdentity
 } from "./lib/market-card-identity.mjs";
+import {
+  utcDateFromOffsetTimestamp
+} from "./lib/market-verification-evidence.mjs";
 
 const root=process.cwd();
 const catalog=JSON.parse(
@@ -94,6 +97,24 @@ for(const file of files){
       });
       for(const error of identityAssessment.errors){
         failures.push(prefix+" original identity invalid: "+error);
+      }
+      if(sale.original_marketplace_ended_at){
+        if(
+          sale.original_marketplace_sale_date_basis!==
+            "utc-date-from-original-marketplace-timestamp"
+        ){
+          failures.push(prefix+" original timestamp has invalid sale-date basis");
+        }
+        const normalizedUtcDate=utcDateFromOffsetTimestamp(
+          sale.original_marketplace_ended_at
+        );
+        if(!normalizedUtcDate || normalizedUtcDate!==sale.sale_date){
+          failures.push(
+            prefix+" original timestamp does not normalize to stored sale date"
+          );
+        }
+      }else if(sale.original_marketplace_sale_date_basis){
+        failures.push(prefix+" original sale-date basis lacks marketplace timestamp");
       }
     }else if(sale.evidence_status==="secondary-source-realized-sale"){
       secondary++;
