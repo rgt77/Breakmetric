@@ -36,8 +36,8 @@
       "autographs": 262
     },
     "anchor_basis_task_count": {
-      "same-subject-same-category": 219,
       "chelsea-category-median": 120,
+      "same-subject-same-category": 219,
       "same-subject-cross-category": 86,
       "chelsea-team-median": 181
     }
