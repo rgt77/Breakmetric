@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step_start": 851,
+  "step_end": 853,
+  "title": "Runtime dataset browser/CDN cache hardening",
+  "implemented": true,
+  "trigger": "Mobile production UI reported Hobby runtime data contract failure while repository CI remained green.",
+  "root_cause": "Runtime fingerprints invalidated BreakMetric's in-memory cache but versioned dataset network requests reused stable JSON URLs, allowing browser or CDN HTTP caches to return a mixture of deployment generations.",
+  "changes": [
+    "Versioned dataset requests append the 64-character runtime fingerprint as a query parameter.",
+    "Versioned dataset network requests use no-store so browser HTTP cache cannot satisfy them with an older representation.",
+    "The version manifest continues to use no-store and stable-version before/after checks.",
+    "index.html explicitly requests dataLoader.js?v=4 so existing clients do not retain loader v3.",
+    "Regression tests assert URL fingerprinting, no-store dataset fetches, version transitions and loader script cache busting."
+  ],
+  "guarantees": [
+    "Clean dataset paths remain subject to the existing same-origin data/*.json guard.",
+    "The fingerprint query is generated internally and cannot bypass the path guard.",
+    "Same-fingerprint in-memory cache reuse remains enabled.",
+    "A fingerprint change produces a different network URL and clears the in-memory dataset cache.",
+    "Mid-load deployment changes still trigger a stable-version retry before data activation."
+  ]
+}
