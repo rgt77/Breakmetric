@@ -1062,6 +1062,7 @@
   <script src="src/fxCoordinator.js"></script>
   <script src="src/urlState.js"></script>
   <script src="src/selectionCoordinator.js"></script>
+  <script src="src/marketRecordCoordinator.js"></script>
   <script src="src/runtimeGuard.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
@@ -1173,7 +1174,8 @@
       "BreakMetricFxRate",
       "BreakMetricFxCoordinator",
       "BreakMetricUrlState",
-      "BreakMetricSelectionCoordinator"
+      "BreakMetricSelectionCoordinator",
+      "BreakMetricMarketRecordCoordinator"
     ]) || {
       valid: false,
       missing: ["BreakMetricRuntimeGuard"]
@@ -1298,6 +1300,8 @@
     let currentProduct = null;
     let currentTeamEntry = null;
     let currentEvUsd = null;
+    const marketRecordCoordinator =
+      BreakMetricMarketRecordCoordinator.create();
     let usdToSelectedRate = 1;
     let fxTransitionPending = false;
     const fxCoordinator = BreakMetricFxCoordinator.create();
@@ -1463,7 +1467,13 @@
     }
 
     async function loadSelectedTeamMarketRecordQuality() {
-      const teamAtStart = team.value;
+      const contextAtStart = {
+        productId: currentProduct?.id || "",
+        formatId: selectedFormat || "",
+        team: team.value || ""
+      };
+      const operation = marketRecordCoordinator.begin(contextAtStart);
+      const teamAtStart = contextAtStart.team;
       const sources = [...new Set(
         (marketVerificationQueueData?.items || [])
           .filter(item => item.team === teamAtStart)
@@ -1498,7 +1508,14 @@
         );
         const records = Object.values(recordMap);
         updateLoaderStatsUi();
-        if (team.value !== teamAtStart) return;
+
+        if (!marketRecordCoordinator.isCurrent(operation, {
+          productId: currentProduct?.id || "",
+          formatId: selectedFormat || "",
+          team: team.value || ""
+        })) {
+          return;
+        }
 
         const qualityRows = records.map(record =>
           BreakMetricMarketRecordQuality.evaluate(record, new Date())
@@ -1540,6 +1557,14 @@
               ? "Pass · " + issueAggregate.warning_count + " review warnings"
               : "Pass · no record issues";
       } catch (error) {
+        if (!marketRecordCoordinator.isCurrent(operation, {
+          productId: currentProduct?.id || "",
+          formatId: selectedFormat || "",
+          team: team.value || ""
+        })) {
+          return;
+        }
+
         marketRecordSample.textContent = "Record-quality load failed";
         marketLatestSale.textContent = "Unavailable";
         marketRecordFreshness.textContent = "Unavailable";
@@ -1549,6 +1574,7 @@
     }
 
     function resetMarketRecordQualityUi() {
+      marketRecordCoordinator.invalidate();
       marketRecordSample.textContent = "Open panel to load";
       marketLatestSale.textContent = "—";
       marketRecordFreshness.textContent = "—";
