@@ -41,6 +41,7 @@ for(const file of [
   "src/evContributionProvenance.js",
   "src/marketCoverage.js",
   "src/marketEvidenceQuality.js",
+  "src/marketVerificationTasks.js",
   "src/marketRecordQuality.js",
   "src/marketRecordIssues.js",
   "src/dataFreshness.js",
@@ -286,6 +287,43 @@ assert(qualityValidation.valid,"market evidence quality validation failed");
 const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
 assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
 assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+
+const verificationRecordsBySource=Object.fromEntries(
+  (verificationQueue.items||[]).map(item=>[
+    item.market_source_file,
+    JSON.parse(
+      fs.readFileSync(path.join(root,item.market_source_file),"utf8")
+    )
+  ])
+);
+const verificationTasks=
+  sandbox.BreakMetricMarketVerificationTasks.build(
+    verificationQueue,
+    verificationRecordsBySource
+  );
+const verificationTaskValidation=
+  sandbox.BreakMetricMarketVerificationTasks.validate(verificationTasks);
+assert(
+  verificationTaskValidation.valid,
+  "market verification task model invalid: "+
+    verificationTaskValidation.errors.join("; ")
+);
+const verificationTaskSummary=
+  sandbox.BreakMetricMarketVerificationTasks.summary(verificationTasks);
+const verificationSaleCount=Object.values(
+  verificationRecordsBySource
+).reduce((sum,record)=>sum+(record.sales||[]).length,0);
+assert(
+  verificationTaskSummary.task_count===verificationSaleCount,
+  "verification task count does not match supporting sales"
+);
+const nextVerificationTask=
+  sandbox.BreakMetricMarketVerificationTasks.next(verificationTasks);
+assert(
+  !nextVerificationTask ||
+  nextVerificationTask.verification_status==="pending-original-marketplace",
+  "next verification task is not pending"
+);
 
 const saleVerificationProgress=
   sandbox.BreakMetricMarketEvidenceQuality.saleVerificationProgress([
