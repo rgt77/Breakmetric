@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "model": "ev-coverage-v2",
+  "generated_at": "2026-09-21",
+  "denominator": {
+    "status": "enumerated",
+    "unit": "card × modeled odds variant contribution slot",
+    "source": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
+    "eligible_contribution_count": 8896
+  },
+  "rules": [
+    "EV slot coverage percentage may be displayed only from the enumerated eligible contribution denominator.",
+    "coverage_percent = valued_contribution_count / eligible_contribution_count × 100.",
+    "Slot coverage is count-based and is not an EV-weighted estimate of economic completeness.",
+    "Probability-entry coverage must not be reused as EV slot coverage.",
+    "Market-audit coverage and original-marketplace verification remain separate gates.",
+    "Multi-team and team-unresolved cards remain excluded under the active break-allocation policy.",
+    "A zero-denominator category is not-applicable rather than not-started.",
+    "coverage_complete may only be true when every eligible contribution slot is valued."
+  ],
+  "current_state": {
+    "percentage_allowed": true,
+    "percentage_semantics": "count-based-slot-coverage-not-ev-weighted",
+    "global_valued_contribution_count": 27,
+    "global_eligible_contribution_count": 8896,
+    "chelsea": {
+      "valued_contribution_count": 27,
+      "eligible_contribution_count": 638,
+      "coverage_percent": 4.232
+    }
+  }
+}
