@@ -1119,9 +1119,8 @@ pass(
   )
 );
 pass(
-  "six unresolved sales now have persisted research attempts",
-  researchBlock757761.cumulative_research_progress?.research_attempted_unresolved_count === 6 &&
-  read("README.md").includes("6 of the 70 unresolved supporting sales")
+  "steps 757-761 research progress remains recorded",
+  researchBlock757761.cumulative_research_progress?.research_attempted_unresolved_count === 6
 );
 pass(
   "research state tracks latest attempt outcome generically",
@@ -1130,10 +1129,48 @@ pass(
   )
 );
 pass(
-  "next unresolved research target advances to Prism sale index three",
+  "steps 757-761 next target was preserved and has now been researched",
   researchBlock757761.next_research_task_id === nextPrismResearch.task_id &&
-  !Array.isArray(nextPrismResearch.research_attempts) &&
+  Array.isArray(nextPrismResearch.research_attempts) &&
+  nextPrismResearch.research_attempts.length >= 1 &&
   nextPrismResearch.assessment_status === "identity-match-sale-unresolved"
+);
+
+const researchBlock762766 = json("data/validation/steps-762-766.json");
+const researchSteps762766 = [762,763,764,765,766].map(step=>
+  json(`data/validation/step-${step}.json`)
+);
+const nextPrismResearch8 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-8.json"
+);
+pass(
+  "steps 762-766 unresolved research block is complete",
+  researchBlock762766.step_count === 5 &&
+  researchBlock762766.steps?.join(",") === "762,763,764,765,766" &&
+  researchSteps762766.every(row=>row.implemented===true)
+);
+pass(
+  "steps 762-766 remain fail-closed with unavailable original pages",
+  researchBlock762766.outcomes?.original_source_unavailable === 5 &&
+  researchBlock762766.outcomes?.historical_event_unresolved === 0 &&
+  researchBlock762766.outcomes?.historical_sale_match === 0 &&
+  researchSteps762766.every(row=>
+    row.result?.evidence_promoted===false &&
+    row.result?.candidate_status==="identity-match-sale-unresolved" &&
+    row.result?.research_state==="attempted-original-source-unavailable"
+  )
+);
+pass(
+  "eleven unresolved sales now have persisted research attempts",
+  researchBlock762766.cumulative_research_progress?.research_attempted_unresolved_count === 11 &&
+  researchBlock762766.cumulative_research_progress?.research_unattempted_unresolved_count === 59 &&
+  read("README.md").includes("11 of the 70 unresolved supporting sales")
+);
+pass(
+  "next unresolved research target advances to Prism sale index eight",
+  researchBlock762766.next_research_task_id === nextPrismResearch8.task_id &&
+  !Array.isArray(nextPrismResearch8.research_attempts) &&
+  nextPrismResearch8.assessment_status === "identity-match-sale-unresolved"
 );
 
 console.log(JSON.stringify({
