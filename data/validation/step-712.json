@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 712,
+  "title": "Guard lazy market-record loads by full analysis context",
+  "implemented": true,
+  "context_keys": [
+    "product",
+    "format",
+    "team"
+  ],
+  "guarantees": [
+    "A stale market-record success cannot update a newer product/format/team context.",
+    "A stale market-record error cannot overwrite a newer context with an error state.",
+    "Resetting market-record UI invalidates the active lazy load."
+  ]
+}
