@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "model": "chelsea-ev-completion-priority-v1",
+  "generated_at": "2026-09-21",
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "team": "Chelsea",
+  "objective": "Order all remaining Chelsea EV-eligible slots for valuation research by economic relevance without pretending unvalued cards already have market values.",
+  "economic_priority_proxy": {
+    "formula": "expected_copies_per_case × transferred_median_market_anchor_usd",
+    "interpretation": "Research-order proxy only.",
+    "prohibited_interpretations": [
+      "Do not report the proxy as predicted card market value.",
+      "Do not report the proxy as EV contribution.",
+      "Do not sum proxy values into team EV.",
+      "Do not use the proxy to unlock ROI."
+    ]
+  },
+  "market_anchor_precedence": [
+    "same-subject same-category median",
+    "same-subject cross-category median",
+    "Chelsea category median when at least three observations exist",
+    "Chelsea-wide median"
+  ],
+  "confidence_policy": {
+    "high": "Same subject/category with at least three valued observations.",
+    "medium": "Same subject/category with one or two valued observations.",
+    "low": "Cross-category subject transfer or Chelsea category/team fallback."
+  },
+  "multi_subject_policy": "Use the highest available subject anchor for prioritization. This is intentionally conservative toward missing a star-driven research opportunity and is not a valuation rule.",
+  "ordering": [
+    "economic_priority_proxy_usd descending",
+    "stronger anchor basis before weaker basis when proxy ties",
+    "expected_copies_per_case descending",
+    "category, set, card number and parallel deterministic tie-breakers"
+  ],
+  "completion_rule": "Every one of Chelsea's 638 eligible contribution slots must either have committed EV provenance or appear exactly once in the completion queue.",
+  "current_snapshot": {
+    "eligible_contribution_count": 638,
+    "valued_contribution_count": 27,
+    "remaining_contribution_count": 611,
+    "base_parallels_remaining": 224,
+    "inserts_remaining": 125,
+    "autographs_remaining": 262
+  }
+}
