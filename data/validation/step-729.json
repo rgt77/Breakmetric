@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 729,
+  "title": "Persist recovered marketplace locators without false verification",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "recovered_candidate_count": 2,
+  "recovered_candidates": [
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::CA-EV-gold-refractor-auto::0",
+      "serial_copy": "14/50",
+      "marketplace": "eBay",
+      "source_sale_id": "366181936319",
+      "assessment_status": "identity-match-sale-unresolved"
+    },
+    {
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::CA-EV-gold-refractor-auto::1",
+      "serial_copy": "34/50",
+      "marketplace": "eBay",
+      "source_sale_id": "157681835833",
+      "assessment_status": "identity-match-sale-unresolved"
+    }
+  ],
+  "guarantees": [
+    "Recovered marketplace item IDs can be persisted as research candidates without changing sale verification state.",
+    "Secondary-source identity observations cannot make a candidate evidence-eligible.",
+    "Secondary-source sale-event observations cannot make a candidate evidence-eligible.",
+    "Persisted candidate status is recomputed in CI against the live queue, product identity and market record.",
+    "Candidate files cannot carry original-marketplace-verified state.",
+    "No market sale price, EV contribution or current verification flag is changed by this step."
+  ]
+}

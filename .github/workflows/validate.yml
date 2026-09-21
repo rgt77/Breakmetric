@@ -48,6 +48,8 @@ jobs:
           set -euo pipefail
           node scripts/test-market-verification-candidate.mjs
           node --check scripts/assess-market-verification-candidate.mjs
+      - name: Validate persisted market candidates
+        run: node scripts/validate-market-verification-candidates.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
       - name: Validate player derivation reproducibility

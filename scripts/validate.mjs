@@ -742,6 +742,47 @@ pass(
   read("README.md").includes("Assessing recovered marketplace candidates")
 );
 
+const step729 = json("data/validation/step-729.json");
+const candidate0 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/CA-EV-gold-refractor-auto-sale-0.json"
+);
+const candidate1 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/CA-EV-gold-refractor-auto-sale-1.json"
+);
+pass(
+  "step 729 recovered locator manifest",
+  step729.step === 729 &&
+  step729.implemented === true &&
+  step729.recovered_candidate_count === 2
+);
+pass(
+  "secondary-source candidate provenance cannot promote evidence",
+  candidateSource.includes("candidate card identity is not observed from original marketplace") &&
+  candidateSource.includes("candidate sale event is not observed from original marketplace")
+);
+pass(
+  "recovered CA-EV candidates remain unresolved",
+  [candidate0,candidate1].every(row =>
+    row.assessment_status === "identity-match-sale-unresolved" &&
+    row.identity_source_kind === "secondary-source" &&
+    row.observed_sale?.source_kind === "secondary-source" &&
+    row.original_marketplace_verified !== true &&
+    row.evidence_status !== "original-marketplace-verified"
+  )
+);
+pass(
+  "recovered eBay locator ids are persisted",
+  candidate0.source_sale_id === "366181936319" &&
+  candidate1.source_sale_id === "157681835833"
+);
+pass(
+  "persisted candidate validator is release-gated",
+  exists("scripts/validate-market-verification-candidates.mjs") &&
+  read(".github/workflows/validate.yml").includes(
+    "node scripts/validate-market-verification-candidates.mjs"
+  )
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
