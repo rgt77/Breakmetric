@@ -4,7 +4,6 @@
   "enabled": true,
   "product_id": "2026-topps-chrome-premier-league",
   "format_id": "hobby",
-  "queue_file": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json",
   "observation_file": "data/collection/2026-topps-chrome-premier-league-market-observations-v1.json",
   "automated_valuation_file": "data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json",
   "fast_lane": {
@@ -33,5 +32,22 @@
     "current_provider_price_is_realized_sale": false,
     "current_provider_price_is_original_marketplace_verified": false,
     "auto_promote_modeled_values_to_canonical_ev": false
+  },
+  "task_sources": {
+    "inventory": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
+    "provenance": "data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json",
+    "base_odds": "data/odds/2026-topps-chrome-premier-league-hobby-base.json",
+    "insert_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
+    "autograph_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json",
+    "insert_checklist": "data/checklists/2026-topps-chrome-premier-league-hobby-inserts.json",
+    "main_autographs": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+    "special_autographs": "data/checklists/2026-topps-chrome-premier-league-hobby-special-autographs.json",
+    "format": "data/formats/2026-topps-chrome-premier-league.json"
+  },
+  "scope": {
+    "mode": "full-release-unvalued-slots",
+    "eligible_slot_denominator": 8896,
+    "current_valued_slots_are_excluded": true,
+    "team_filter": null
   }
 }
