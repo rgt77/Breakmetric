@@ -1,0 +1,58 @@
+name: Continuous market collection
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: breakmetric-continuous-market-collection
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - name: Validate automation contract
+        run: node scripts/validate-market-automation-config.mjs
+      - name: Test collector core
+        run: node scripts/test-continuous-market-collector.mjs
+      - name: Collect rotating market batch
+        env:
+          SPORTSCARDSPRO_TOKEN: ${{ secrets.SPORTSCARDSPRO_TOKEN }}
+        run: node scripts/collect-market-data.mjs
+      - name: Generate automated valuation candidates
+        run: node scripts/generate-automated-valuation-candidates.mjs
+      - name: Refresh runtime data version
+        run: node scripts/generate-data-version.mjs
+      - name: Guard canonical EV invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/generate-chelsea-ev-completion-queue.mjs --check
+          node scripts/validate-chelsea-ev-completion-queue.mjs
+          node scripts/validate-ev-provenance.mjs
+      - name: Commit changed observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No market-data changes"
+            exit 0
+          fi
+          git config user.name "BreakMetric Market Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add             data/collection/2026-topps-chrome-premier-league-market-observations-v1.json             data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json             data/validation/runtime-data-version-v1.json
+          git commit -m "[market-data] continuous market sync"
+          git push origin HEAD:main
