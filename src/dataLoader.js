@@ -1,4 +1,4 @@
-// BreakMetric JSON data loader v3.
+// BreakMetric JSON data loader v4.
 // Same-origin JSON guard + versioned cache + in-flight dedupe + bounded retry + stable-version batch loading.
 (function(root){
   "use strict";
@@ -42,19 +42,29 @@
     return String(version||"unversioned")+"\0"+path;
   }
 
+  function versionedUrl(path,version){
+    const fingerprint=String(version||"").trim();
+    if(!/^[a-f0-9]{64}$/i.test(fingerprint)) return path;
+    return path+"?v="+encodeURIComponent(fingerprint);
+  }
+
   async function request(path,{
     timeoutMs=12000,
     maxBytes=5_000_000,
-    cacheMode="default"
+    cacheMode="default",
+    version=null
   }={}){
     assertPath(path);
     metrics.requests++;
     const controller=typeof AbortController!=="undefined" ? new AbortController() : null;
     const timer=controller ? setTimeout(()=>controller.abort(),timeoutMs) : null;
     try{
-      const fetchOptions={cache:cacheMode};
+      const requestUrl=versionedUrl(path,version);
+      const effectiveCacheMode=
+        requestUrl===path ? cacheMode : "no-store";
+      const fetchOptions={cache:effectiveCacheMode};
       if(controller) fetchOptions.signal=controller.signal;
-      const response=await fetch(path,fetchOptions);
+      const response=await fetch(requestUrl,fetchOptions);
       if(!response.ok){
         const error=new Error("Dataset request failed: "+response.status+" "+path);
         error.status=response.status;
@@ -116,7 +126,11 @@
       let attempt=0;
       while(true){
         try{
-          const data=await request(path,{timeoutMs,maxBytes});
+          const data=await request(path,{
+            timeoutMs,
+            maxBytes,
+            version
+          });
           if(useCache) cache.set(key,data);
           return data;
         }catch(error){
