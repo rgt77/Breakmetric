@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "24"
+      - name: Validate development ledger
+        run: node scripts/validate-development-ledger.mjs
       - name: Audit source-module inventory
         run: node scripts/audit-source-modules.mjs
       - name: Check EV eligible inventory outputs
