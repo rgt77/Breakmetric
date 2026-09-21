@@ -17,6 +17,42 @@ const writeOrCheck=(target,value,check)=>{
 };
 
 const product="2026-topps-chrome-premier-league";
+
+const hasOriginalLocator=sale=>{
+  const directUrl=
+    sale?.direct_marketplace_url ||
+    sale?.original_marketplace_url ||
+    null;
+  const stableSaleId=
+    sale?.source_sale_id ||
+    sale?.marketplace_sale_id ||
+    sale?.listing_id ||
+    null;
+  return (
+    typeof directUrl==="string" &&
+    /^https?:\/\//i.test(directUrl)
+  ) || (
+    typeof stableSaleId==="string" &&
+    stableSaleId.trim().length>0
+  );
+};
+
+const contributionOriginalVerified=marketSourceFile=>{
+  if(
+    typeof marketSourceFile!=="string" ||
+    !marketSourceFile ||
+    !fs.existsSync(path.join(root,marketSourceFile))
+  ){
+    return false;
+  }
+  const record=readJson(marketSourceFile);
+  const sales=Array.isArray(record.sales)?record.sales:[];
+  return sales.length>0 && sales.every(sale=>
+    sale.original_marketplace_verified===true &&
+    sale.evidence_status==="original-marketplace-verified" &&
+    hasOriginalLocator(sale)
+  );
+};
 const scope=readJson("data/derived/"+product+"-hobby-team-ev-scope-v2.json");
 const ev=readJson("data/derived/"+product+"-team-ev-progress.json");
 const categories=["base_parallels","inserts","autographs"];
@@ -78,6 +114,8 @@ const evQueue={
 const items=[];
 for(const [team,row] of Object.entries(ev.teams||{})){
   for(const item of row.contributions||[]){
+    const originalVerified=
+      contributionOriginalVerified(item.market_source_file);
     items.push({
       team,
       card_id:item.card_id,
@@ -86,8 +124,10 @@ for(const [team,row] of Object.entries(ev.teams||{})){
       parallel:item.parallel||null,
       ev_contribution_usd:Number(item.ev_contribution_usd||0),
       market_source_file:item.market_source_file,
-      original_marketplace_verified:item.original_marketplace_verified===true,
-      verification_status:item.original_marketplace_verified===true?"verified":"pending-original-verification"
+      original_marketplace_verified:originalVerified,
+      verification_status:originalVerified
+        ? "verified-original-marketplace"
+        : "pending-original-verification"
     });
   }
 }

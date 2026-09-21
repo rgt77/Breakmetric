@@ -49,6 +49,8 @@ pass(
 );
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
 const marketVerificationPolicy = json("data/methodology/market-verification-contract-v1.json");
+const marketVerificationIngestPolicy = json("data/methodology/market-verification-ingest-v1.json");
+const v13PipelineSource = read("scripts/generate-v13-pipeline.mjs");
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
 const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
 const playerDisclosurePolicy = json("data/methodology/player-disclosure-v1.json");
@@ -97,6 +99,23 @@ pass("team comparison remains descriptive", teamComparisonPolicy.default_order =
 pass("market record quality policy schema", marketRecordQualityPolicy.schema_version === 1);
 pass("market record spread review threshold", Number(marketRecordQualityPolicy.spread_alert?.ratio_threshold) === 4);
 pass("market verification contract schema", marketVerificationPolicy.schema_version === 1);
+pass("market verification ingest policy schema", marketVerificationIngestPolicy.schema_version === 1);
+pass(
+  "market verification ingest is dry-run by default",
+  marketVerificationIngestPolicy.fail_closed_rules?.some(
+    value => value.includes("Dry-run is the default")
+  ) === true
+);
+pass(
+  "market verification ingest keeps sale prices immutable",
+  marketVerificationIngestPolicy.immutable_fields?.includes("sale_price") === true
+);
+pass(
+  "market verification queue generation is sale-derived",
+  v13PipelineSource.includes("contributionOriginalVerified") &&
+  v13PipelineSource.includes('sale.evidence_status==="original-marketplace-verified"') &&
+  !v13PipelineSource.includes("original_marketplace_verified:item.original_marketplace_verified===true")
+);
 pass(
   "market verification requires all supporting sales",
   marketVerificationPolicy.contribution_rule?.original_marketplace_verified_when?.includes("every realized sale") === true
@@ -124,6 +143,11 @@ pass("steps 714-718 start at 714", evDenominatorBlock.steps?.[0]?.step === 714);
 pass("steps 714-718 end at 718", evDenominatorBlock.steps?.[4]?.step === 718);
 pass("steps 714-718 are sequential", evDenominatorBlock.steps?.every((row,index)=>row.step === 714 + index));
 pass("steps 714-718 implementation flags complete", evDenominatorBlock.steps?.every(row=>row.implemented === true));
+
+const step724 = json("data/validation/step-724.json");
+pass("step 724 manifest schema", step724.schema_version === 1);
+pass("step 724 id", step724.step === 724);
+pass("step 724 implementation complete", step724.implemented === true);
 
 const verificationTaskBlock = json("data/validation/steps-721-723.json");
 pass("steps 721-723 count is exactly three", verificationTaskBlock.step_count === 3 && verificationTaskBlock.steps?.length === 3);

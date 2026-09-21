@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 724,
+  "title": "Add fail-closed original-marketplace evidence ingest",
+  "implemented": true,
+  "guarantees": [
+    "Evidence application is dry-run by default and rejects any mismatch in task identity, sale date, price, marketplace or serial.",
+    "A direct marketplace URL must match the stored marketplace host, or a stable original sale identifier must be supplied.",
+    "Rejected evidence leaves the market record unchanged and successful verification never changes realized sale prices.",
+    "The generated market-verification queue derives contribution verification directly from supporting market-record sales."
+  ]
+}

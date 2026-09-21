@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "model": "market-verification-ingest-v1",
+  "generated_at": "2026-09-21",
+  "purpose": "Safely apply recovered original-marketplace evidence to an existing realized sale without changing the sale sample.",
+  "evidence_required_fields": [
+    "schema_version",
+    "task_id",
+    "market_source_file",
+    "sale_index",
+    "card_id",
+    "player",
+    "set",
+    "parallel",
+    "sale_date",
+    "sale_price_usd",
+    "marketplace",
+    "verified_at"
+  ],
+  "original_locator_rule": "At least one qualifying original marketplace locator is required: a direct marketplace URL whose host matches the stored marketplace, or a stable original marketplace sale identifier.",
+  "identity_match_rules": [
+    "task_id must resolve to the current verification queue",
+    "market_source_file must match the task",
+    "sale_index must resolve to the stored realized sale",
+    "card/player/set/parallel must match the task",
+    "sale date and sale price must exactly match the stored sample",
+    "marketplace must match case-insensitively",
+    "serial_copy must match when the stored sale has one"
+  ],
+  "immutable_fields": [
+    "sale_date",
+    "sale_price",
+    "marketplace",
+    "serial_copy"
+  ],
+  "mutations_on_success": [
+    "store direct_marketplace_url when supplied",
+    "store source_sale_id when supplied",
+    "set original_marketplace_verified true",
+    "set evidence_status original-marketplace-verified",
+    "store original_marketplace_verified_at",
+    "recalculate evidence_summary",
+    "promote calculated_market_value status only when evidence state warrants it"
+  ],
+  "fail_closed_rules": [
+    "Dry-run is the default CLI behavior.",
+    "Any identity, date, price, marketplace, serial or locator mismatch rejects the evidence.",
+    "Rejected evidence must leave the market record unchanged.",
+    "Verification must never change realized sale prices.",
+    "Contribution verification is derived from all supporting market-record sales, not from a contribution-level boolean."
+  ],
+  "cli": {
+    "command": "node scripts/apply-market-verification-evidence.mjs --evidence <file.json> [--write]",
+    "after_write": [
+      "node scripts/generate-v13-pipeline.mjs",
+      "node scripts/generate-data-version.mjs",
+      "node scripts/validate-market-records.mjs",
+      "node scripts/validate-market-verification-contract.mjs",
+      "node scripts/validate-market-verification-tasks.mjs"
+    ]
+  }
+}
