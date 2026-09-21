@@ -143,6 +143,7 @@ console.log(JSON.stringify({
     "dataset network URL is fingerprint cache-busted",
     "versioned datasets bypass browser HTTP cache",
     "mid-load deployment change restarts load",
-    "stable final fingerprint required before activation"
+    "stable final fingerprint required before activation",
+    "HTML cache-busts the data loader runtime"
   ]
 },null,2));
