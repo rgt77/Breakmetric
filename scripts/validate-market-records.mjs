@@ -53,7 +53,7 @@ for(const file of files){
         sale.listing_id ||
         null;
       const hasOriginalLocator=
-        (typeof directUrl==="string" && /^https?:\\/\\//i.test(directUrl)) ||
+        (typeof directUrl==="string" && /^https?:\/\//i.test(directUrl)) ||
         (typeof stableSaleId==="string" && stableSaleId.trim().length>0);
       if(
         sale.direct_marketplace_url_recovered!==true &&
