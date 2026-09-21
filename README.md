@@ -21,6 +21,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - Browser persistence uses a resilient local-storage abstraction with a session fallback.
 - FX transitions use a last-write-wins operation coordinator so stale async responses cannot overwrite newer currency choices.
 - Runtime dependencies are checked before application startup; partial script loads fail closed with a visible error.
+- Product-selection continuations are last-write-wins so stale async handlers cannot start analysis for a newer product context.
 
 ## Validation
 
@@ -34,6 +35,7 @@ node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
 node scripts/test-runtime-races.mjs
+node scripts/test-selection-race.mjs
 node scripts/validate.mjs
 node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
