@@ -95,6 +95,13 @@ const task={
   task_id:evidence.task_id,
   contribution_priority_rank:Number(contribution.priority_rank),
   sale_index:saleIndex,
+  product_id:queue.product_id,
+  card_number:record.card_number,
+  serial_numbering:
+    record.serial_numbering===null ||
+    record.serial_numbering===undefined
+      ? null
+      : Number(record.serial_numbering),
   team:contribution.team,
   card_id:contribution.card_id,
   player:contribution.player,
