@@ -148,7 +148,7 @@ assert.deepEqual(
 const stableIdOnly={
   ...valid,
   direct_marketplace_url:undefined,
-  source_sale_id:"236989109655"
+  source_sale_id:"123456789012"
 };
 assert.equal(
   validateEvidence({
@@ -243,8 +243,8 @@ for(const [name,patch,expected] of [
     "eBay URL and stable id mismatch",
     {
       direct_marketplace_url:
-        "https://www.ebay.com/itm/236989109655",
-      source_sale_id:"188934418234"
+        "https://www.ebay.com/itm/123456789012",
+      source_sale_id:"123456789012"
     },
     "URL and stable sale id disagree"
   ]
@@ -269,7 +269,7 @@ const secondEvidence={
   sale_date:"2026-02-15",
   sale_price_usd:2800,
   serial_copy:"34/50",
-  direct_marketplace_url:"https://www.ebay.com/itm/987654321"
+  direct_marketplace_url:"https://www.ebay.com/itm/987654321012"
 };
 const afterFirst=applied.record;
 const afterSecond=applyEvidence({
