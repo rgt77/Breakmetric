@@ -31,7 +31,7 @@ function marketplaceHostMatches(marketplace,url){
   if(!host) return false;
   const key=text(marketplace).toLowerCase();
   const aliases={
-    ebay:["ebay.com","ebay.co.uk","ebay.de","ebay.fr","ebay.it","ebay.es","ebay.ca","ebay.com.au"],
+    ebay:["ebay.com","ebay.co.uk","ebay.de","ebay.fr","ebay.it","ebay.es","ebay.ca","ebay.com.au","ebay.com.sg"],
     goldin:["goldin.co"],
     pwcc:["pwccmarketplace.com"],
     comc:["comc.com"]
