@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "model": "continuous-market-collector-config-v1",
+  "enabled": true,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "observation_file": "data/collection/2026-topps-chrome-premier-league-market-observations-v1.json",
+  "automated_valuation_file": "data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json",
+  "fast_lane": {
+    "provider": "sportscardspro-api",
+    "cadence_minutes": 15,
+    "batch_size": 20,
+    "min_request_interval_ms": 1100,
+    "rotating_shards": true,
+    "max_tasks_per_subject_per_batch": 2,
+    "credential_env": "SPORTSCARDSPRO_TOKEN"
+  },
+  "bulk_lane": {
+    "provider": "sportscardspro-csv",
+    "cadence_hours": 24,
+    "csv_url_env": "SPORTSCARDSPRO_CSV_URL",
+    "credential_note": "Use the subscriber-specific Download Price List URL. The URL must be stored as a GitHub Actions secret."
+  },
+  "persistence": {
+    "write_only_when_observation_changes": true,
+    "retain_first_seen": true,
+    "retain_provider_product_id": true
+  },
+  "safety": {
+    "exact_identity_required": true,
+    "allow_cross_series_match": false,
+    "current_provider_price_is_realized_sale": false,
+    "current_provider_price_is_original_marketplace_verified": false,
+    "auto_promote_modeled_values_to_canonical_ev": false
+  },
+  "task_sources": {
+    "inventory": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
+    "provenance": "data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json",
+    "base_odds": "data/odds/2026-topps-chrome-premier-league-hobby-base.json",
+    "insert_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
+    "autograph_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json",
+    "insert_checklist": "data/checklists/2026-topps-chrome-premier-league-hobby-inserts.json",
+    "main_autographs": "data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json",
+    "special_autographs": "data/checklists/2026-topps-chrome-premier-league-hobby-special-autographs.json",
+    "format": "data/formats/2026-topps-chrome-premier-league.json"
+  },
+  "scope": {
+    "mode": "full-release-unvalued-slots",
+    "eligible_slot_denominator": 8896,
+    "current_valued_slots_are_excluded": true,
+    "team_filter": null
+  }
+}

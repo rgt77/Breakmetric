@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step_start": 839,
+  "step_end": 850,
+  "title": "Automated continuous market collection and valuation candidate pipeline",
+  "implemented": true,
+  "scope": "Full 2026 Topps Chrome Premier League Hobby EV-eligible inventory",
+  "features": [
+    "A-E valuation evidence hierarchy with modeled values separated from canonical EV.",
+    "Full-release unvalued-slot expansion from checklist, odds and provenance data.",
+    "Fail-closed exact provider identity matching with cross-series rejection.",
+    "Breadth-aware player rotation to prevent single-player research concentration.",
+    "Official SportsCardsPro API collector with provider rate-limit guard.",
+    "Idempotent market observation store that writes only changed data.",
+    "Automated valuation candidate generation across direct and modeled evidence tiers.",
+    "15-minute scheduled fast-lane GitHub Actions collector.",
+    "Daily subscriber CSV bulk-import path.",
+    "CI validation for automation policy, identity matching, breadth ordering and full-release generation."
+  ],
+  "guarantees": [
+    "Current provider prices are never represented as realized sales.",
+    "Provider observations never count as original-marketplace verification.",
+    "Modeled C/D values cannot silently mutate canonical EV.",
+    "Cross-series matches fail closed.",
+    "Missing provider credentials do not fabricate market data.",
+    "The existing frozen 27-contribution / 72-sale verification scope remains unchanged."
+  ]
+}

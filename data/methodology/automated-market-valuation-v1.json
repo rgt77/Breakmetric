@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "model": "automated-market-valuation-v1",
+  "product_scope": "all BreakMetric releases with normalized product identity, checklist and odds data",
+  "objective": "Separate high-frequency market collection from canonical EV evidence so BreakMetric can scale across thousands of card variants without one manual development step per card.",
+  "evidence_tiers": [
+    {
+      "tier": "A",
+      "id": "exact-realized-sales",
+      "description": "Exact product/card/parallel realized-sale sample with normal market-record provenance.",
+      "valuation_use": "canonical-provisional-or-verified-ev",
+      "confidence": "highest"
+    },
+    {
+      "tier": "B",
+      "id": "exact-provider-current-price",
+      "description": "Exact product/card/parallel current ungraded value from an approved market-data provider.",
+      "valuation_use": "automated-ev-candidate",
+      "confidence": "medium",
+      "canonical_ev_eligible": false
+    },
+    {
+      "tier": "C",
+      "id": "same-subject-same-category-model",
+      "description": "Modeled estimate from exact observations for the same subject and card category.",
+      "valuation_use": "model-only",
+      "confidence": "low",
+      "canonical_ev_eligible": false
+    },
+    {
+      "tier": "D",
+      "id": "team-category-model",
+      "description": "Modeled estimate from category or team medians when exact subject evidence is absent.",
+      "valuation_use": "model-only",
+      "confidence": "very-low",
+      "canonical_ev_eligible": false
+    },
+    {
+      "tier": "E",
+      "id": "unknown",
+      "description": "No defensible market evidence or model basis is available.",
+      "valuation_use": "none",
+      "confidence": "none",
+      "canonical_ev_eligible": false
+    }
+  ],
+  "rules": [
+    "Exact product identity is fail-closed. Topps Chrome Premier League, Topps Chrome Sapphire Premier League and Topps Premier League are distinct products.",
+    "Provider current prices are not represented as realized sales and never count as original-marketplace verification.",
+    "Modeled C/D estimates are visibly separated from direct market evidence and cannot silently enter canonical EV.",
+    "Collector batches use breadth-aware player rotation before economic-priority depth so one player cannot dominate automated research.",
+    "Repeated collection is idempotent: unchanged provider data does not rewrite repository data.",
+    "Collection failures or missing credentials must not mutate canonical EV or fabricate values.",
+    "High-impact cards and ambiguous identities remain eligible for manual exception review."
+  ]
+}

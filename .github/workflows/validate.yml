@@ -36,6 +36,25 @@ jobs:
         run: node scripts/validate-ev-valuation-research.mjs
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
+      - name: Validate market automation contract
+        run: node scripts/validate-market-automation-config.mjs
+      - name: Test continuous market collector
+        run: node scripts/test-continuous-market-collector.mjs
+      - name: Smoke-generate full-release valuation candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/generate-automated-valuation-candidates.mjs --output /tmp/automated-valuation-candidates.json
+          node -e 'const fs=require("fs"); const x=JSON.parse(fs.readFileSync("/tmp/automated-valuation-candidates.json","utf8")); if(x.summary.eligible_slot_count!==8896) process.exit(1);'
+      - name: Syntax-check market automation scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check scripts/collect-market-data.mjs
+          node --check scripts/import-sportscardspro-csv.mjs
+          node --check scripts/generate-automated-valuation-candidates.mjs
+          node --check scripts/lib/market-automation.mjs
+          node --check scripts/lib/ev-slot-inventory.mjs
       - name: Check runtime data fingerprint
         run: node scripts/generate-data-version.mjs --check
       - name: Validate market records
