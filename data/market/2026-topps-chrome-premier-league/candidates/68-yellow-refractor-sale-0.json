@@ -29,5 +29,27 @@
     "evidence": "Historical sale row remains visible, but the source currently suppresses its outbound marketplace link; no safe item ID is assigned."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "No safe original marketplace locator recovered. A newer seller-feedback item cannot be safely mapped to this stored 2026-03-03 $75 sale."
+  "research_note": "First-pass original-source research found no safe marketplace locator or independently readable matching historical event. Keep unresolved without guessing an item ID.",
+  "research_state": "attempted-original-source-unavailable",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-first-pass-step-797",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-series-card-parallel-date-price-search",
+        "discovery-source-sale-row-review",
+        "marketplace-locator-recovery-search"
+      ],
+      "outcome": "original-source-unavailable",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "No safe original marketplace locator is available for the frozen Yellow Refractor sale, and exact product/card/parallel/date/price research returned no independently readable original-source sale event.",
+      "source_notes": [
+        "Frozen sale remains 2026-03-03 at $75 USD.",
+        "No item ID is assigned; a different sale or feedback item must not be substituted."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }
