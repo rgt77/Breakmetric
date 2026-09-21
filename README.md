@@ -12,7 +12,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - EV and ROI remain beta until coverage and original-marketplace verification gates pass.
 - Multi-team cards remain excluded from team EV until an explicit break-allocation rule exists.
 - EV work is now tracked across 20 teams × base parallels, inserts and autographs.
-- The Hobby EV denominator is now fully enumerated as 8,896 card × modeled-variant contribution slots; Chelsea currently has 32/638 valued slots (5.0157% count-based slot coverage).
+- The Hobby EV denominator is now fully enumerated as 8,896 card × modeled-variant contribution slots; Chelsea currently has 33/638 valued slots (5.1724% count-based slot coverage).
 - EV slot coverage is explicitly count-based and is not an EV-weighted estimate of economic completeness.
 - Current EV contributions have deterministic derivation provenance and a priority queue for original-marketplace verification.
 - Market verification has now recovered original marketplace locators for 71 of the 72 stored supporting sales; 5 of 72 sales are fully original-marketplace verified. All 72 frozen supporting sales now have exactly one persisted candidate record. Locator recovery alone does not imply sale verification.
@@ -66,18 +66,18 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 837 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 838 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
 
-Step 826 expands the category-level EV work queue into a deterministic slot-level queue for Chelsea. Step 826 started with **611** unvalued Chelsea contribution slots. After steps 827–837, **606** remain: **223 base parallels, 121 inserts and 262 autographs**. The queue is stored at `data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json`.
+Step 826 expands the category-level EV work queue into a deterministic slot-level queue for Chelsea. Step 826 started with **611** unvalued Chelsea contribution slots. After steps 827–838, **605** remain: **222 base parallels, 121 inserts and 262 autographs**. The queue is stored at `data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json`.
 
 Each task combines published-odds expected copies per case with a dynamically regenerated median market anchor derived from the currently valued Chelsea contributions. The resulting `economic_priority_proxy_usd` is only a research-order heuristic; it is not a predicted market value, EV contribution or ROI input. Actual EV remains locked until the slot receives its own exact-identity market sample and normal provenance. Previously researched tasks with no exact realized sales are retained but moved behind untouched work.
 
 ## Phase-2 valuation progress
 
-Steps 827–837 researched the first eleven Chelsea completion tasks. Five produced exact-identity provisional raw-sale valuations and six remained unvalued because no exact realized-sale sample was available. Chelsea therefore advances to **32 / 638 valued slots (5.0157%)**, with partial EV **$52.0313 per Hobby case**. The legacy v1 market-verification population remains frozen at 27 contributions / 72 supporting sales; Phase-2 records do not silently expand that audit.
+Steps 827–838 researched the first twelve Chelsea completion tasks. Six produced exact-identity provisional raw-sale valuations and six remained unvalued because no exact realized-sale sample was available. Step 838 begins the broader-player pass with Liam Delap #62 Refractor. Chelsea therefore advances to **33 / 638 valued slots (5.1724%)**, with partial EV **$53.1077 per Hobby case**. The legacy v1 market-verification population remains frozen at 27 contributions / 72 supporting sales; Phase-2 records do not silently expand that audit.
 
 ## Source-module inventory
 
