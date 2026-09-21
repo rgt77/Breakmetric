@@ -70,9 +70,19 @@ All `src/*.js` files are explicitly classified in `data/validation/source-module
 CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
 
 
+## Preparing original-marketplace evidence
+
+Generate the next deterministic pending-sale evidence template instead of transcribing task identity by hand:
+
+```bash
+node scripts/create-market-verification-evidence-template.mjs --output evidence/next-sale.json
+```
+
+You can scope to a team with `--team "Chelsea"` or select an exact pending `--task-id`. The generator derives task identity, sale index, date, price, marketplace and serial from the current verification queue and market record. Original-marketplace locator fields and `verified_at` are intentionally blank, so an untouched template cannot pass ingest validation.
+
 ## Applying original-marketplace evidence
 
-Prepare an evidence JSON object following `data/methodology/market-verification-ingest-v1.json`, then dry-run it first:
+Complete the generated template with a qualifying `direct_marketplace_url` or `source_sale_id` and `verified_at`. You can also prepare an evidence JSON object directly following `data/methodology/market-verification-ingest-v1.json`. Then dry-run it first:
 
 ```bash
 node scripts/apply-market-verification-evidence.mjs --evidence path/to/evidence.json
