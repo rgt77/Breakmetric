@@ -30,5 +30,6 @@
       "title": "Add runtime race regression gates",
       "implemented": true
     }
-  ]
+  ],
+  "ci_branch": "step-706-710-runtime-races"
 }
