@@ -783,6 +783,43 @@ pass(
   )
 );
 
+const step730 = json("data/validation/step-730.json");
+const goldCandidate0 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-gold-refractor-sale-0.json"
+);
+const goldCandidate1 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-gold-refractor-sale-1.json"
+);
+pass(
+  "step 730 Gold Refractor recovery manifest",
+  step730.step === 730 &&
+  step730.implemented === true &&
+  step730.contribution?.card_id === "68-gold-refractor" &&
+  step730.recovered_candidates?.length === 2
+);
+pass(
+  "Gold Refractor eBay locator ids are persisted",
+  goldCandidate0.source_sale_id === "177989347985" &&
+  goldCandidate1.source_sale_id === "177847689668"
+);
+pass(
+  "Gold Refractor candidates remain unresolved secondary observations",
+  [goldCandidate0,goldCandidate1].every(row =>
+    row.assessment_status === "identity-match-sale-unresolved" &&
+    row.identity_source_kind === "secondary-source" &&
+    row.observed_sale?.source_kind === "secondary-source" &&
+    row.original_marketplace_verified !== true &&
+    row.evidence_status !== "original-marketplace-verified"
+  )
+);
+pass(
+  "observed serial can be retained without mutating stored sale",
+  goldCandidate0.observed_sale?.serial_copy === "10/50" &&
+  candidateSource.includes(
+    'text(sale.serial_copy)\n        ? text(observed.serial_copy)===text(sale.serial_copy)\n        : true'
+  )
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,

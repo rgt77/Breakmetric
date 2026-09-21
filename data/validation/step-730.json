@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 730,
+  "title": "Recover original eBay locators for Estevao #68 Gold Refractor",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "team": "Chelsea",
+    "card_id": "68-gold-refractor",
+    "player": "Estêvão Willian",
+    "set": "Base Cards",
+    "parallel": "Gold Refractor",
+    "priority_rank": 2,
+    "ev_contribution_usd": 4.124
+  },
+  "recovered_candidates": [
+    {
+      "sale_index": 0,
+      "sale_date": "2026-04-01",
+      "sale_price_usd": 834,
+      "observed_serial_copy": "10/50",
+      "marketplace": "eBay",
+      "source_sale_id": "177989347985",
+      "assessment_status": "identity-match-sale-unresolved"
+    },
+    {
+      "sale_index": 1,
+      "sale_date": "2026-02-10",
+      "sale_price_usd": 685,
+      "observed_serial_copy": null,
+      "marketplace": "eBay",
+      "source_sale_id": "177847689668",
+      "assessment_status": "identity-match-sale-unresolved"
+    }
+  ],
+  "guarantees": [
+    "Both original eBay item locators are persisted without changing original-marketplace verification state.",
+    "The observed 10/50 serial may be preserved in candidate research even though the stored sale lacks serial_copy.",
+    "Observed candidate serial does not backfill or mutate the stored realized sale.",
+    "Both candidates remain unresolved because card identity and sale-event observations are secondary-source derived.",
+    "No market sale price, EV contribution or verification flag is changed."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-gold-refractor.json",
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "secondary-source",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "68",
+    "parallel": "Gold Refractor",
+    "print_run": 50,
+    "player": "Estêvão Willian",
+    "team": "Chelsea"
+  },
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-gold-refractor-68",
+    "evidence": "Outbound sold-listing link resolved to eBay item 177847689668. SportsCardsPro title identifies the exact Chrome #68 True Gold Refractor; date and price remain secondary-source observations."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "Recovered original eBay item locator from the SportsCardsPro outbound sold-listing link. Do not promote until card identity and the historical sale event are observed from original-marketplace or equivalent original-source evidence.",
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-gold-refractor::1",
+  "sale_index": 1,
+  "direct_marketplace_url": "https://www.ebay.com/itm/177847689668",
+  "source_sale_id": "177847689668",
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-02-10",
+    "sale_price_usd": 685,
+    "marketplace": "eBay",
+    "serial_copy": null
+  }
+}

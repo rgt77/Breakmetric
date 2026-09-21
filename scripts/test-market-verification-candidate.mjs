@@ -224,6 +224,31 @@ assert.equal(
   "https://www.ebay.com/itm/123456789012"
 );
 
+const recordWithoutStoredSerial={
+  ...record,
+  sales:[
+    {
+      ...record.sales[0],
+      serial_copy:undefined
+    }
+  ]
+};
+const observedSerialWithoutStoredSerial={
+  ...base,
+  observed_sale:{
+    ...base.observed_sale,
+    serial_copy:"10/50"
+  }
+};
+const observedSerialAssessment=assessVerificationCandidate({
+  task,
+  record:recordWithoutStoredSerial,
+  product,
+  candidate:observedSerialWithoutStoredSerial
+});
+assert.equal(observedSerialAssessment.valid,true);
+assert.equal(observedSerialAssessment.event_checks.serial_copy,true);
+
 const badLocator={
   ...base,
   direct_marketplace_url:"https://www.ebay.com/sch/i.html?_nkw=estevao"
@@ -251,6 +276,7 @@ console.log(JSON.stringify({
     "later active relisting stays unresolved even for the exact physical card",
     "secondary-source-only identity and sale observations stay unresolved",
     "different historical sale event stays unresolved",
+    "observed serial may be retained when stored sale has no serial copy",
     "only exact historical-sale-match can be promoted to evidence",
     "candidate assessment never mutates the market record"
   ]
