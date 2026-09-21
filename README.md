@@ -46,6 +46,7 @@ node scripts/validate-market-verification-tasks.mjs
 node scripts/test-market-verification-evidence.mjs
 node scripts/test-market-verification-template.mjs
 node scripts/test-market-verification-candidate.mjs
+node scripts/validate-market-verification-candidates.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
@@ -80,7 +81,7 @@ A marketplace search hit is not evidence by itself. Assess it first:
 node scripts/assess-market-verification-candidate.mjs --candidate path/to/candidate.json
 ```
 
-Candidate recovery is deliberately two-stage. First, the exact product/card identity must match the target product family, card number, parallel, print run and player. Second, the marketplace page must prove the exact stored historical sale event: a sold listing with matching date, price, marketplace and serial copy. An active relisting of the exact physical card therefore remains `identity-match-sale-unresolved`.
+Candidate recovery is deliberately two-stage. First, the exact product/card identity must match the target product family, card number, parallel, print run and player. Second, the marketplace page must prove the exact stored historical sale event: a sold listing with matching date, price, marketplace and serial copy. Both the card identity and the sale-event observations must come from the original marketplace (or an equivalent original-source record); a secondary-source report plus a recovered marketplace item ID is still unresolved. An active relisting of the exact physical card therefore remains `identity-match-sale-unresolved`.
 
 Only a `historical-sale-match` candidate can be promoted to evidence:
 
