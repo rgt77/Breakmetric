@@ -47,6 +47,46 @@
     };
   };
 
+  api.saleVerificationProgress=function(records=[]){
+    let saleCount=0;
+    let verified=0;
+
+    for(const record of records||[]){
+      for(const sale of record?.sales||[]){
+        saleCount++;
+        const directUrl=
+          sale.direct_marketplace_url ||
+          sale.original_marketplace_url ||
+          null;
+        const stableSaleId=
+          sale.source_sale_id ||
+          sale.marketplace_sale_id ||
+          sale.listing_id ||
+          null;
+        const hasOriginalLocator=
+          (typeof directUrl==="string" && /^https?:\/\//i.test(directUrl)) ||
+          (typeof stableSaleId==="string" && stableSaleId.trim().length>0);
+
+        if(
+          sale.original_marketplace_verified===true &&
+          sale.evidence_status==="original-marketplace-verified" &&
+          hasOriginalLocator
+        ){
+          verified++;
+        }
+      }
+    }
+
+    const pending=Math.max(0,saleCount-verified);
+    return {
+      sale_count:saleCount,
+      original_verified_sale_count:verified,
+      pending_original_sale_count:pending,
+      verification_share:saleCount>0?verified/saleCount:null,
+      complete:saleCount>0 && verified===saleCount
+    };
+  };
+
   api.qualityLabel=function({market=null,queue=null}={}){
     const tier=api.sourceTier(market||{});
     const gap=api.verificationGap(market||{});

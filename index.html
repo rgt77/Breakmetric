@@ -720,6 +720,22 @@
             <strong id="marketVerificationEvGap">Pending</strong>
           </div>
           <div class="player-data-row">
+            <div>Supporting realized sales<small>Sale-level verification progress; loaded lazily with market records.</small></div>
+            <strong id="marketSupportingSales">Open panel to load</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Original sales verified</div>
+            <strong id="marketVerifiedSales">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Pending original sales</div>
+            <strong id="marketPendingSales">—</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Sale verification share<small>Original-verified sales / supporting realized sales.</small></div>
+            <strong id="marketSaleVerificationShare">—</strong>
+          </div>
+          <div class="player-data-row">
             <div>Stored sale sample<small>Loaded lazily when this panel is opened.</small></div>
             <strong id="marketRecordSample">Open panel to load</strong>
           </div>
@@ -1114,6 +1130,11 @@
     const marketVerificationShare = document.getElementById("marketVerificationShare");
     const marketSourceTier = document.getElementById("marketSourceTier");
     const marketVerificationEvGap = document.getElementById("marketVerificationEvGap");
+    const marketSupportingSales = document.getElementById("marketSupportingSales");
+    const marketVerifiedSales = document.getElementById("marketVerifiedSales");
+    const marketPendingSales = document.getElementById("marketPendingSales");
+    const marketSaleVerificationShare =
+      document.getElementById("marketSaleVerificationShare");
     const marketRecordSample = document.getElementById("marketRecordSample");
     const marketLatestSale = document.getElementById("marketLatestSale");
     const marketRecordFreshness = document.getElementById("marketRecordFreshness");
@@ -1467,6 +1488,10 @@
       )];
 
       if (!sources.length) {
+        marketSupportingSales.textContent = "0";
+        marketVerifiedSales.textContent = "0";
+        marketPendingSales.textContent = "0";
+        marketSaleVerificationShare.textContent = "—";
         marketRecordSample.textContent = "No market records";
         marketLatestSale.textContent = "—";
         marketRecordFreshness.textContent = "No records";
@@ -1474,6 +1499,10 @@
         return;
       }
 
+      marketSupportingSales.textContent = "Loading…";
+      marketVerifiedSales.textContent = "Loading…";
+      marketPendingSales.textContent = "Loading…";
+      marketSaleVerificationShare.textContent = "Loading…";
       marketRecordSample.textContent = "Loading " + sources.length + " records…";
       marketLatestSale.textContent = "Loading…";
       marketRecordFreshness.textContent = "Loading…";
@@ -1517,6 +1546,20 @@
           BreakMetricMarketRecordIssues.aggregate(issueRows);
 
         const aggregate = BreakMetricMarketRecordQuality.aggregate(qualityRows);
+        const saleProgress =
+          BreakMetricMarketEvidenceQuality.saleVerificationProgress(records);
+
+        marketSupportingSales.textContent =
+          String(saleProgress.sale_count);
+        marketVerifiedSales.textContent =
+          String(saleProgress.original_verified_sale_count);
+        marketPendingSales.textContent =
+          String(saleProgress.pending_original_sale_count);
+        marketSaleVerificationShare.textContent =
+          saleProgress.verification_share === null
+            ? "—"
+            : (saleProgress.verification_share * 100).toFixed(1) + "%";
+
         marketRecordSample.textContent =
           aggregate.record_count + " records · " +
           aggregate.sale_count + " stored sales";
@@ -1550,6 +1593,10 @@
           return;
         }
 
+        marketSupportingSales.textContent = "Unavailable";
+        marketVerifiedSales.textContent = "Unavailable";
+        marketPendingSales.textContent = "Unavailable";
+        marketSaleVerificationShare.textContent = "Unavailable";
         marketRecordSample.textContent = "Record-quality load failed";
         marketLatestSale.textContent = "Unavailable";
         marketRecordFreshness.textContent = "Unavailable";
@@ -1560,6 +1607,10 @@
 
     function resetMarketRecordQualityUi() {
       marketRecordCoordinator.invalidate();
+      marketSupportingSales.textContent = "Open panel to load";
+      marketVerifiedSales.textContent = "—";
+      marketPendingSales.textContent = "—";
+      marketSaleVerificationShare.textContent = "—";
       marketRecordSample.textContent = "Open panel to load";
       marketLatestSale.textContent = "—";
       marketRecordFreshness.textContent = "—";

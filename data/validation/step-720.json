@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 720,
+  "title": "Expose sale-level market verification progress",
+  "implemented": true,
+  "guarantees": [
+    "Market evidence UI shows supporting realized sales, original-verified sales, pending original sales and sale verification share.",
+    "Sale verification progress uses the same fail-closed original-evidence rules as the step-719 verification contract.",
+    "Verification progress is derived from lazily loaded market records for the active product, format and team context.",
+    "Reset and load-error states clear or withhold sale-level verification progress rather than displaying stale values."
+  ]
+}

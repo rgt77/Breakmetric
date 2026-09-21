@@ -125,6 +125,11 @@ pass("steps 714-718 end at 718", evDenominatorBlock.steps?.[4]?.step === 718);
 pass("steps 714-718 are sequential", evDenominatorBlock.steps?.every((row,index)=>row.step === 714 + index));
 pass("steps 714-718 implementation flags complete", evDenominatorBlock.steps?.every(row=>row.implemented === true));
 
+const step720 = json("data/validation/step-720.json");
+pass("step 720 manifest schema", step720.schema_version === 1);
+pass("step 720 id", step720.step === 720);
+pass("step 720 implementation complete", step720.implemented === true);
+
 const step719 = json("data/validation/step-719.json");
 pass("step 719 manifest schema", step719.schema_version === 1);
 pass("step 719 id", step719.step === 719);
@@ -500,6 +505,24 @@ pass("EV work queue present", html.includes('id="evWorkPanel"'));
 pass("EV derivation lineage visible", html.includes('id="evDerivationLineage"'));
 pass("market source tier visible", html.includes('id="marketSourceTier"'));
 pass("market verification EV gap visible", html.includes('id="marketVerificationEvGap"'));
+pass("market supporting sales visible", html.includes('id="marketSupportingSales"'));
+pass("market verified sales visible", html.includes('id="marketVerifiedSales"'));
+pass("market pending sales visible", html.includes('id="marketPendingSales"'));
+pass("market sale verification share visible", html.includes('id="marketSaleVerificationShare"'));
+pass(
+  "sale verification UI uses fail-closed progress model",
+  html.includes("BreakMetricMarketEvidenceQuality.saleVerificationProgress(records)") &&
+  html.includes("saleProgress.original_verified_sale_count") &&
+  html.includes("saleProgress.pending_original_sale_count") &&
+  html.includes("saleProgress.verification_share")
+);
+pass(
+  "sale verification UI resets stale values",
+  html.includes('marketSupportingSales.textContent = "Open panel to load"') &&
+  html.includes('marketVerifiedSales.textContent = "—"') &&
+  html.includes('marketPendingSales.textContent = "—"') &&
+  html.includes('marketSaleVerificationShare.textContent = "—"')
+);
 pass("market record sample visible", html.includes('id="marketRecordSample"'));
 pass("market record freshness visible", html.includes('id="marketRecordFreshness"'));
 pass("market spread alert visible", html.includes('id="marketSpreadAlert"'));

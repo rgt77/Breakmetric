@@ -286,6 +286,77 @@ assert(qualityValidation.valid,"market evidence quality validation failed");
 const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
 assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
 assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+
+const saleVerificationProgress=
+  sandbox.BreakMetricMarketEvidenceQuality.saleVerificationProgress([
+    {
+      sales:[
+        {
+          original_marketplace_verified:true,
+          evidence_status:"original-marketplace-verified",
+          direct_marketplace_url:"https://example.com/sale/1"
+        },
+        {
+          original_marketplace_verified:true,
+          evidence_status:"original-marketplace-verified",
+          source_sale_id:"sale-2"
+        },
+        {
+          original_marketplace_verified:true,
+          evidence_status:"original-marketplace-verified"
+        },
+        {
+          original_marketplace_verified:false,
+          evidence_status:"secondary-source-realized-sale",
+          source_reference:"https://example.com/discovery"
+        }
+      ]
+    }
+  ]);
+assert(
+  saleVerificationProgress.sale_count===4,
+  "sale verification progress sale count failed"
+);
+assert(
+  saleVerificationProgress.original_verified_sale_count===2,
+  "sale verification progress accepted invalid original evidence"
+);
+assert(
+  saleVerificationProgress.pending_original_sale_count===2,
+  "sale verification pending count failed"
+);
+assert(
+  Math.abs(saleVerificationProgress.verification_share-0.5)<1e-12,
+  "sale verification share failed"
+);
+assert(
+  saleVerificationProgress.complete===false,
+  "incomplete sale verification marked complete"
+);
+
+const currentVerificationRecords=(verificationQueue.items||[]).map(item=>
+  JSON.parse(
+    fs.readFileSync(path.join(root,item.market_source_file),"utf8")
+  )
+);
+const currentSaleProgress=
+  sandbox.BreakMetricMarketEvidenceQuality.saleVerificationProgress(
+    currentVerificationRecords
+  );
+assert(
+  currentVerificationRecords.length===verificationQueue.items.length,
+  "market verification records do not resolve one-per-contribution"
+);
+assert(
+  currentSaleProgress.sale_count>0,
+  "current market verification sample has no realized sales"
+);
+assert(
+  currentSaleProgress.original_verified_sale_count +
+    currentSaleProgress.pending_original_sale_count ===
+    currentSaleProgress.sale_count,
+  "current sale verification progress does not reconcile"
+);
 const inconsistentVerificationQueue={
   items:[{
     ev_contribution_usd:10,
