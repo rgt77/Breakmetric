@@ -42,7 +42,8 @@ const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json")
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
 const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
 const playerDisclosurePolicy = json("data/methodology/player-disclosure-v1.json");
-const dataLoaderPolicy = json("data/methodology/data-loader-v2.json");
+const dataLoaderPolicy = json("data/methodology/data-loader-v3.json");
+const runtimeDataVersion = json("data/validation/runtime-data-version-v1.json");
 const storagePolicy = json("data/methodology/storage-v1.json");
 const safeDomPolicy = json("data/methodology/safe-dom-rendering-v1.json");
 pass("safe DOM rendering policy schema", safeDomPolicy.schema_version === 1);
@@ -52,9 +53,33 @@ pass(
 );
 pass("storage policy schema", storagePolicy.schema_version === 1);
 pass("storage policy defines session fallback", storagePolicy.persistence_order?.length === 2);
-pass("data loader v2 policy schema", dataLoaderPolicy.schema_version === 2);
+pass("data loader v3 policy schema", dataLoaderPolicy.schema_version === 3);
 pass("analysis loader concurrency capped at six", Number(dataLoaderPolicy.request_policy?.application_concurrency) === 6);
 pass("data loader max payload is bounded", Number(dataLoaderPolicy.request_policy?.default_max_bytes) === 5000000);
+pass(
+  "data loader version manifest configured",
+  dataLoaderPolicy.cache_policy?.version_manifest ===
+    "data/validation/runtime-data-version-v1.json"
+);
+pass(
+  "data loader invalidates on fingerprint change",
+  dataLoaderPolicy.cache_policy?.invalidate_on_fingerprint_change === true
+);
+pass(
+  "data loader verifies top-level load version twice",
+  dataLoaderPolicy.cache_policy?.verify_version_before_and_after_top_level_load === true
+);
+pass("runtime data version schema", runtimeDataVersion.schema_version === 1);
+pass(
+  "runtime data fingerprint is sha256",
+  /^[a-f0-9]{64}$/.test(runtimeDataVersion.fingerprint || "")
+);
+pass(
+  "runtime data version excludes itself",
+  runtimeDataVersion.excluded?.includes(
+    "data/validation/runtime-data-version-v1.json"
+  )
+);
 pass("player disclosure policy schema", playerDisclosurePolicy.schema_version === 1);
 pass("player disclosure has four collapsed detail groups", playerDisclosurePolicy.collapsed_by_default?.length === 4);
 pass("team comparison policy schema", teamComparisonPolicy.schema_version === 1);
@@ -71,6 +96,11 @@ pass("n100 starts at step 397", n100.steps?.[0]?.step === 397);
 pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
+
+const step713 = json("data/validation/step-713.json");
+pass("step 713 manifest schema", step713.schema_version === 1);
+pass("step 713 id", step713.step === 713);
+pass("step 713 implementation complete", step713.implemented === true);
 
 const step712 = json("data/validation/step-712.json");
 pass("step 712 manifest schema", step712.schema_version === 1);
@@ -390,7 +420,29 @@ pass("inline app has no direct localStorage calls", !inline.includes("localStora
 pass("inline app has no dynamic innerHTML", !inline.includes(".innerHTML"));
 pass("safe empty-state renderer present", html.includes("function setEmptyMessage("));
 pass("container resets use replaceChildren", html.includes("replaceChildren()"));
-pass("bundle loading uses bounded loadMany", html.includes("BreakMetricDataLoader.loadMany(paths") && html.includes("concurrency: 6"));
+pass(
+  "bundle loading uses bounded versioned loadMany",
+  html.includes("BreakMetricDataLoader.loadManyVersioned(paths") &&
+  html.includes("concurrency: 6")
+);
+pass(
+  "top-level product and format loads are versioned",
+  (html.match(/BreakMetricDataLoader\.loadJsonVersioned\(/g) || []).length >= 2
+);
+pass(
+  "lazy market records use versioned batch loading",
+  html.includes("BreakMetricDataLoader.loadManyVersioned(")
+);
+pass(
+  "legacy unversioned top-level loader calls removed",
+  !html.includes("BreakMetricDataLoader.loadJson(") &&
+  !html.includes("BreakMetricDataLoader.loadMany(")
+);
+pass(
+  "loader diagnostics expose data version",
+  html.includes('stats.version.slice(0, 8)') &&
+  html.includes("stats.cache_invalidations")
+);
 pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
 pass("webmanifest linked", html.includes('rel="manifest" href="site.webmanifest"'));
