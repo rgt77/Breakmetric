@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 756,
+  "title": "Add persistent unresolved-sale research state",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::CA-EV-gold-refractor-auto::0",
+  "target_sale": {
+    "player": "Estêvão Willian",
+    "card_number": "CA-EV",
+    "parallel": "Gold Refractor",
+    "serial_copy": "14/50",
+    "sale_date": "2026-02-07",
+    "sale_price_usd": 2000,
+    "marketplace": "eBay",
+    "source_sale_id": "366181936319"
+  },
+  "research_result": {
+    "outcome": "original-source-unavailable",
+    "evidence_promoted": false,
+    "candidate_status": "identity-match-sale-unresolved"
+  },
+  "next_research_policy": {
+    "expected_next_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::CA-EV-gold-refractor-auto::1",
+    "reason": "sale 0 now has a persisted research attempt while sale 1 at the same contribution rank has not yet been researched through the original-source recovery pass"
+  },
+  "guarantees": [
+    "A failed original-source research attempt is persisted without changing market-record verification state.",
+    "Research attempt metadata is structurally validated in CI.",
+    "Never-researched unresolved candidates are selected before already-attempted unresolved candidates.",
+    "Verified sales and identity mismatches are excluded from the unresolved research queue.",
+    "No sale price, EV contribution, original-marketplace verification flag or candidate assessment status is changed by a failed research attempt."
+  ]
+}
