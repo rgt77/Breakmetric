@@ -64,6 +64,7 @@ const base={
   sale_index:0,
   marketplace:"eBay",
   listing_state:"sold",
+  identity_source_kind:"original-marketplace",
   direct_marketplace_url:"https://www.ebay.com/itm/123456789012",
   checked_at:"2026-09-21",
   listing_identity:{
@@ -75,6 +76,7 @@ const base={
     team:"Chelsea"
   },
   observed_sale:{
+    source_kind:"original-marketplace",
     sale_date:"2026-02-07",
     sale_price_usd:2000,
     marketplace:"eBay",
@@ -116,6 +118,36 @@ assert.equal(wrongSeriesAssessment.eligible_for_evidence,false);
 assert.ok(
   wrongSeriesAssessment.blockers.some(error=>
     error.includes("series does not match target product family")
+  )
+);
+
+const secondaryOnly={
+  ...base,
+  identity_source_kind:"secondary-source",
+  observed_sale:{
+    ...base.observed_sale,
+    source_kind:"secondary-source"
+  }
+};
+const secondaryAssessment=assessVerificationCandidate({
+  task,
+  record,
+  product,
+  candidate:secondaryOnly
+});
+assert.equal(
+  secondaryAssessment.status,
+  "identity-match-sale-unresolved"
+);
+assert.equal(secondaryAssessment.eligible_for_evidence,false);
+assert.ok(
+  secondaryAssessment.blockers.some(error=>
+    error.includes("card identity is not observed from original marketplace")
+  )
+);
+assert.ok(
+  secondaryAssessment.blockers.some(error=>
+    error.includes("sale event is not observed from original marketplace")
   )
 );
 
@@ -217,6 +249,7 @@ console.log(JSON.stringify({
     "exact product identity plus exact sold event becomes historical-sale-match",
     "wrong Topps product family is rejected before sale matching",
     "later active relisting stays unresolved even for the exact physical card",
+    "secondary-source-only identity and sale observations stay unresolved",
     "different historical sale event stays unresolved",
     "only exact historical-sale-match can be promoted to evidence",
     "candidate assessment never mutates the market record"
