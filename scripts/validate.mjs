@@ -48,6 +48,7 @@ pass(
   Number(evPolicy.denominator?.eligible_contribution_count) === 8896
 );
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
+const marketVerificationPolicy = json("data/methodology/market-verification-contract-v1.json");
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
 const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
 const playerDisclosurePolicy = json("data/methodology/player-disclosure-v1.json");
@@ -95,6 +96,17 @@ pass("team comparison policy schema", teamComparisonPolicy.schema_version === 1)
 pass("team comparison remains descriptive", teamComparisonPolicy.default_order === "canonical-checklist-order");
 pass("market record quality policy schema", marketRecordQualityPolicy.schema_version === 1);
 pass("market record spread review threshold", Number(marketRecordQualityPolicy.spread_alert?.ratio_threshold) === 4);
+pass("market verification contract schema", marketVerificationPolicy.schema_version === 1);
+pass(
+  "market verification requires all supporting sales",
+  marketVerificationPolicy.contribution_rule?.original_marketplace_verified_when?.includes("every realized sale") === true
+);
+pass(
+  "market verification requires original locator",
+  marketVerificationPolicy.sale_rule?.qualifying_original_evidence?.some(
+    value => value.includes("direct original marketplace URL") || value.includes("stable original marketplace sale identifier")
+  ) === true
+);
 pass("market source policy schema", marketSourcePolicy.schema_version === 1);
 pass("market source policy has three tiers", Array.isArray(marketSourcePolicy.source_tiers) && marketSourcePolicy.source_tiers.length === 3);
 pass("secondary market evidence remains provisional", marketSourcePolicy.source_tiers?.find(x => x.id === "secondary-source-realized-sale")?.roi_capability === "provisional-only");
@@ -112,6 +124,11 @@ pass("steps 714-718 start at 714", evDenominatorBlock.steps?.[0]?.step === 714);
 pass("steps 714-718 end at 718", evDenominatorBlock.steps?.[4]?.step === 718);
 pass("steps 714-718 are sequential", evDenominatorBlock.steps?.every((row,index)=>row.step === 714 + index));
 pass("steps 714-718 implementation flags complete", evDenominatorBlock.steps?.every(row=>row.implemented === true));
+
+const step719 = json("data/validation/step-719.json");
+pass("step 719 manifest schema", step719.schema_version === 1);
+pass("step 719 id", step719.step === 719);
+pass("step 719 implementation complete", step719.implemented === true);
 
 const step713 = json("data/validation/step-713.json");
 pass("step 713 manifest schema", step713.schema_version === 1);
@@ -425,6 +442,12 @@ pass(
   html.includes("BreakMetric could not start because required application modules failed to load.") &&
   html.includes("runtimeDependencyReport.missing.join")
 );
+pass(
+  "market verification runtime fails closed",
+  html.includes("BreakMetricMarketEvidenceQuality") &&
+  read("src/marketEvidenceQuality.js").includes('verification_status==="verified-original-marketplace"')
+);
+
 pass(
   "lazy market records are context-guarded",
   html.includes("BreakMetricMarketRecordCoordinator.create()") &&

@@ -43,7 +43,27 @@ for(const file of files){
     }
     if(sale.original_marketplace_verified===true){
       original++;
-      if(sale.direct_marketplace_url_recovered!==true) failures.push(prefix+" original verification lacks recovered URL");
+      const directUrl=
+        sale.direct_marketplace_url ||
+        sale.original_marketplace_url ||
+        null;
+      const stableSaleId=
+        sale.source_sale_id ||
+        sale.marketplace_sale_id ||
+        sale.listing_id ||
+        null;
+      const hasOriginalLocator=
+        (typeof directUrl==="string" && /^https?:\/\//i.test(directUrl)) ||
+        (typeof stableSaleId==="string" && stableSaleId.trim().length>0);
+      if(
+        sale.direct_marketplace_url_recovered!==true &&
+        !hasOriginalLocator
+      ){
+        failures.push(prefix+" original verification lacks recovered original locator");
+      }
+      if(!hasOriginalLocator){
+        failures.push(prefix+" original verification lacks direct URL or stable sale id");
+      }
       if(sale.evidence_status!=="original-marketplace-verified") failures.push(prefix+" original verification status mismatch");
     }else if(sale.evidence_status==="secondary-source-realized-sale"){
       secondary++;

@@ -11,8 +11,10 @@
   api.verificationImpact=function(queue={}){
     const rows=queue.items||[];
     const total=rows.reduce((sum,row)=>sum+n(row.ev_contribution_usd),0);
-    const verified=rows.filter(row=>row.original_marketplace_verified)
-      .reduce((sum,row)=>sum+n(row.ev_contribution_usd),0);
+    const verified=rows.filter(row=>
+      row.original_marketplace_verified===true &&
+      row.verification_status==="verified-original-marketplace"
+    ).reduce((sum,row)=>sum+n(row.ev_contribution_usd),0);
     const pending=Math.max(0,total-verified);
     return {
       contribution_count:rows.length,
@@ -61,6 +63,20 @@
     const gap=api.verificationGap(market||{});
     const impact=api.verificationImpact(queue||{});
     if(gap.original>gap.audited) errors.push("original verified contributions exceed audited contributions");
+    for(const row of queue?.items||[]){
+      if(
+        row.original_marketplace_verified===true &&
+        row.verification_status!=="verified-original-marketplace"
+      ){
+        errors.push("verified contribution has non-verified queue status");
+      }
+      if(
+        row.original_marketplace_verified!==true &&
+        row.verification_status==="verified-original-marketplace"
+      ){
+        errors.push("verified queue status lacks verified contribution flag");
+      }
+    }
     if(impact.original_verified_ev_usd>impact.total_ev_usd+0.0001) errors.push("verified EV impact exceeds total EV impact");
     if(impact.verified_ev_share!==null && (impact.verified_ev_share<0 || impact.verified_ev_share>1)) errors.push("verified EV share invalid");
     return {valid:errors.length===0,errors};

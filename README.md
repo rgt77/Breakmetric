@@ -16,6 +16,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - EV slot coverage is explicitly count-based and is not an EV-weighted estimate of economic completeness.
 - Current EV contributions have deterministic derivation provenance and a priority queue for original-marketplace verification.
 - Market records are audited for schema, median/sample consistency, evidence integrity and duplicate warnings.
+- Original-marketplace verification is sale-derived and fail-closed: every realized sale used by a contribution's stored market-value sample must have qualifying original evidence before that contribution can count as original verified.
 - Market evidence exposes source tier, verification EV gap, sample size, recency and price-spread review flags.
 - Team comparison is descriptive and retains canonical team order; it does not rank spots by value.
 - Player detail uses progressive disclosure so core probability metrics stay prominent.
@@ -37,6 +38,7 @@ node scripts/validate-ev-eligible-inventory.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
+node scripts/validate-market-verification-contract.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs

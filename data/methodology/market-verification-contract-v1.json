@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "model": "market-verification-contract-v1",
+  "generated_at": "2026-09-21",
+  "applies_to": {
+    "queue": "data/market/2026-topps-chrome-premier-league/market-verification-queue-v1.json",
+    "market_record_schema_version": 2
+  },
+  "contribution_rule": {
+    "original_marketplace_verified_when": "every realized sale included in the stored market-value sample has qualifying original marketplace evidence",
+    "pending_when": "one or more supporting realized sales remain secondary-source-only or discovery-only",
+    "roi_effect": "a pending contribution cannot satisfy the original-marketplace verification gate"
+  },
+  "sale_rule": {
+    "qualifying_original_evidence": [
+      "original_marketplace_verified is true",
+      "evidence_status is original-marketplace-verified",
+      "a direct original marketplace URL or stable original marketplace sale identifier is stored",
+      "the stored original evidence matches the sale identity, price and date used by the market record"
+    ],
+    "secondary_source_requirements": [
+      "named discovery source",
+      "named marketplace",
+      "source reference"
+    ]
+  },
+  "fail_closed_rules": [
+    "A contribution-level boolean cannot override sale-level evidence.",
+    "A secondary-source realized sale cannot be counted as original marketplace verified.",
+    "Queue summary counts must reconcile with sale-derived contribution state.",
+    "Verification priority ranks must be unique and contiguous.",
+    "Market source identity must match queue team, player, set and parallel."
+  ]
+}
