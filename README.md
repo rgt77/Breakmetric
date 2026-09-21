@@ -27,6 +27,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - Player detail uses progressive disclosure so core probability metrics stay prominent.
 - Static analysis data uses same-origin path guards, payload limits, bounded concurrency, cache metrics and in-flight deduplication.
 - Runtime JSON caching is fingerprint-versioned; cache is invalidated when deployed data changes, and top-level loads must observe a stable fingerprint before activation.
+- Versioned runtime JSON requests also carry the fingerprint in the network URL and bypass browser HTTP cache, preventing mixed deployment generations on CDN/mobile clients.
 - Browser persistence uses a resilient local-storage abstraction with a session fallback.
 - FX transitions use a last-write-wins operation coordinator so stale async responses cannot overwrite newer currency choices.
 - Runtime dependencies are checked before application startup; partial script loads fail closed with a visible error.
