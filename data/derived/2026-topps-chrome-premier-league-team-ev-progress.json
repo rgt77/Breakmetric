@@ -6,8 +6,8 @@
   "note": "Current team EV is indicative and partial. Chelsea now includes Phase-2 provisional exact-identity realized-sale valuations; the legacy 27-contribution / 72-sale original-marketplace audit remains frozen separately.",
   "teams": {
     "Chelsea": {
-      "partial_ev_usd": 52.03,
-      "valued_card_count": 32,
+      "partial_ev_usd": 53.11,
+      "valued_card_count": 33,
       "coverage_complete": false,
       "contributions": [
         {
@@ -361,20 +361,31 @@
           "original_marketplace_verified": false,
           "ev_use": "provisional-only",
           "market_source_file": "data/market/2026-topps-chrome-premier-league/STH-4-cole-palmer-stoppage-time-heartbreaker-base.json"
+        },
+        {
+          "card_id": "62-refractor",
+          "player": "Liam Delap",
+          "set": "Base Cards",
+          "parallel": "Refractor",
+          "ev_contribution_usd": 1.0764,
+          "market_evidence_status": "secondary-source-realized-sale",
+          "original_marketplace_verified": false,
+          "ev_use": "provisional-only",
+          "market_source_file": "data/market/2026-topps-chrome-premier-league/62-liam-delap-refractor.json"
         }
       ],
       "ev_status": "indicative-provisional",
       "market_evidence": {
         "status": "secondary-source-only",
-        "audited_contribution_count": 32,
+        "audited_contribution_count": 33,
         "original_marketplace_verified_contribution_count": 0,
-        "secondary_source_contribution_count": 32,
+        "secondary_source_contribution_count": 33,
         "verified_ev_available": false,
         "provisional_ev_available": true,
         "roi_eligible": false,
         "roi_block_reason": "Original-marketplace verification is incomplete."
       },
-      "partial_ev_sum_check_usd": 52.0313
+      "partial_ev_sum_check_usd": 53.1077
     }
   },
   "generated_from_card_level_ev": true,
