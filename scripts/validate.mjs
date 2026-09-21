@@ -1035,6 +1035,65 @@ pass(
   read("README.md").includes("All 27 current Chelsea contribution priority ranks")
 );
 
+const step756 = json("data/validation/step-756.json");
+const researchCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/CA-EV-gold-refractor-auto-sale-0.json"
+);
+const nextCaEvCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/CA-EV-gold-refractor-auto-sale-1.json"
+);
+pass(
+  "step 756 unresolved research-state manifest",
+  step756.step === 756 &&
+  step756.implemented === true &&
+  step756.research_result?.outcome === "original-source-unavailable" &&
+  step756.research_result?.evidence_promoted === false
+);
+pass(
+  "highest-priority failed original-source attempt is persisted",
+  researchCandidate.source_sale_id === "366181936319" &&
+  researchCandidate.research_state === "attempted-original-source-unavailable" &&
+  researchCandidate.last_research_attempt_at === "2026-09-21" &&
+  researchCandidate.research_attempts?.length === 1 &&
+  researchCandidate.research_attempts?.[0]?.outcome ===
+    "original-source-unavailable" &&
+  researchCandidate.assessment_status === "identity-match-sale-unresolved"
+);
+pass(
+  "research attempt cannot masquerade as evidence",
+  researchCandidate.original_marketplace_verified !== true &&
+  researchCandidate.evidence_status !== "original-marketplace-verified" &&
+  researchCandidate.research_attempts?.[0]?.evidence_found === false
+);
+pass(
+  "unresolved research queue implementation is release-gated",
+  exists("scripts/lib/market-verification-research.mjs") &&
+  exists("scripts/test-market-verification-research.mjs") &&
+  exists("scripts/next-market-verification-research-task.mjs") &&
+  read(".github/workflows/validate.yml").includes(
+    "node scripts/test-market-verification-research.mjs"
+  ) &&
+  read(".github/workflows/validate.yml").includes(
+    "node scripts/next-market-verification-research-task.mjs"
+  )
+);
+pass(
+  "next untouched CA-EV sale remains eligible after sale zero attempt",
+  !Array.isArray(nextCaEvCandidate.research_attempts) &&
+  nextCaEvCandidate.assessment_status === "identity-match-sale-unresolved" &&
+  step756.next_research_policy?.expected_next_task_id ===
+    nextCaEvCandidate.task_id
+);
+pass(
+  "candidate validator checks research attempt provenance",
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "last_research_attempt_at must match latest attempt"
+  ) &&
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "unavailable research_state requires matching attempt"
+  )
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
