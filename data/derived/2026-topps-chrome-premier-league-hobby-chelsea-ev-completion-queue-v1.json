@@ -10,11 +10,11 @@
     "inventory": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
     "provenance": "data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json",
     "market_anchor": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-market-anchor-v1.json",
+    "valuation_research": "data/market/2026-topps-chrome-premier-league/ev-valuation-research-v1.json",
     "base_odds": "data/odds/2026-topps-chrome-premier-league-hobby-base.json",
     "insert_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-insert-odds-map.json",
     "autograph_odds_mapping": "data/mappings/2026-topps-chrome-premier-league-hobby-autograph-odds-map.json",
-    "format": "data/formats/2026-topps-chrome-premier-league.json",
-    "valuation_research": "data/market/2026-topps-chrome-premier-league/ev-valuation-research-v1.json"
+    "format": "data/formats/2026-topps-chrome-premier-league.json"
   },
   "rules": [
     "The queue contains every Chelsea eligible slot not already represented by committed EV contribution provenance.",
