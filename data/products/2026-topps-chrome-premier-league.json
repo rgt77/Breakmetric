@@ -102,5 +102,16 @@
   "display_name": "Topps Chrome Soccer · Premier League · 2026",
   "brand": "Topps Chrome Soccer",
   "competition": "Premier League",
-  "year": "2026"
+  "year": "2026",
+  "market_identity": {
+    "canonical_series": "2026 Topps Chrome Premier League",
+    "accepted_series_aliases": [
+      "2026 Topps Chrome Premier League",
+      "2025-26 Topps Chrome Premier League",
+      "2025/26 Topps Chrome Premier League"
+    ],
+    "manufacturer": "Topps",
+    "competition": "Premier League",
+    "policy": "Exact product family must match before card/player/parallel/serial evidence can qualify. Plain Topps Premier League is a different product family from Topps Chrome Premier League."
+  }
 }
