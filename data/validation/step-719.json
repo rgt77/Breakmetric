@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 719,
+  "title": "Make original-marketplace verification sale-derived and fail-closed",
+  "implemented": true,
+  "guarantees": [
+    "Contribution verification is derived from every realized sale used by its stored market-value sample.",
+    "Original verification requires a direct marketplace URL or stable original sale identifier.",
+    "Runtime verified-EV impact ignores boolean-only claims whose verification status is not verified-original-marketplace.",
+    "CI reconciles all verification queue items against their market records."
+  ]
+}
