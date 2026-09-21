@@ -490,14 +490,22 @@
   api.validateEvScope=function(data={}, productId, formatId, canonicalTeams=[], evData={}){
     const errors=[],warnings=[];
     const requiredCategories=["base_parallels","inserts","autographs"];
-    const allowedStatuses=new Set(["not-started","partial","complete"]);
+    const allowedStatuses=new Set(["not-started","partial","complete","not-applicable"]);
+    const expectedPercent=(valued,eligible)=>
+      eligible>0 ? Math.round((valued/eligible*100)*10000)/10000 : null;
 
-    if(data.schema_version!==1) errors.push("EV scope schema_version mismatch");
+    if(data.schema_version!==2) errors.push("EV scope schema_version mismatch");
     if(data.product_id!==productId) errors.push("EV scope product_id mismatch");
     if(formatId && data.format_id!==formatId) errors.push("EV scope format_id mismatch");
-    if(data.model!=="team-ev-scope-v1") errors.push("EV scope model mismatch");
+    if(data.model!=="team-ev-scope-v2") errors.push("EV scope model mismatch");
     if(typeof data.scope_definition!=="string" || !data.scope_definition) {
       errors.push("EV scope definition missing");
+    }
+    if(typeof data.denominator_source!=="string" || !data.denominator_source){
+      errors.push("EV scope denominator source missing");
+    }
+    if(data.percentage_semantics!=="Count-based slot coverage only; not EV-weighted economic completeness."){
+      errors.push("EV scope percentage semantics mismatch");
     }
 
     if(!Array.isArray(data.required_categories) ||
@@ -520,12 +528,16 @@
 
     let completeTeams=0;
     let partialTeams=0;
+    let totalEligible=0;
+    let totalValued=0;
 
     for(const team of canonical){
       const row=data.teams?.[team];
       if(!row) continue;
 
+      let eligibleCount=0;
       let valuedCount=0;
+      let remainingCount=0;
       let allComplete=true;
       let anyProgress=false;
 
@@ -539,16 +551,68 @@
         if(!allowedStatuses.has(item.status)){
           errors.push("EV scope category status invalid: "+team+" / "+category);
         }
+        if(!nonNegative(item.eligible_contribution_count)){
+          errors.push("EV scope eligible count invalid: "+team+" / "+category);
+        }
         if(!nonNegative(item.valued_contribution_count)){
-          errors.push("EV scope contribution count invalid: "+team+" / "+category);
+          errors.push("EV scope valued count invalid: "+team+" / "+category);
         }
-        const count=Number(item.valued_contribution_count||0);
-        valuedCount+=count;
-        if(item.status!=="complete") allComplete=false;
-        if(item.status!=="not-started" || count>0) anyProgress=true;
-        if(item.status==="not-started" && count!==0){
-          errors.push("EV scope not-started category has valued contributions: "+team+" / "+category);
+        if(!nonNegative(item.remaining_contribution_count)){
+          errors.push("EV scope remaining count invalid: "+team+" / "+category);
         }
+
+        const eligible=Number(item.eligible_contribution_count||0);
+        const valued=Number(item.valued_contribution_count||0);
+        const remaining=Number(item.remaining_contribution_count||0);
+        if(valued>eligible){
+          errors.push("EV scope valued count exceeds denominator: "+team+" / "+category);
+        }
+        if(remaining!==eligible-valued){
+          errors.push("EV scope remaining count mismatch: "+team+" / "+category);
+        }
+
+        const expectedStatus=
+          eligible===0 ? "not-applicable" :
+          valued===0 ? "not-started" :
+          valued===eligible ? "complete" :
+          "partial";
+        if(item.status!==expectedStatus){
+          errors.push("EV scope category status/denominator mismatch: "+team+" / "+category);
+        }
+
+        const expected=expectedPercent(valued,eligible);
+        if(expected===null){
+          if(item.coverage_percent!==null){
+            errors.push("EV scope zero-denominator percentage must be null: "+team+" / "+category);
+          }
+        }else if(Math.abs(Number(item.coverage_percent)-expected)>0.0001){
+          errors.push("EV scope category percentage mismatch: "+team+" / "+category);
+        }
+
+        eligibleCount+=eligible;
+        valuedCount+=valued;
+        remainingCount+=remaining;
+        if(!["complete","not-applicable"].includes(item.status)) allComplete=false;
+        if(valued>0) anyProgress=true;
+      }
+
+      if(row.denominator_status!=="enumerated"){
+        errors.push("EV scope denominator status mismatch: "+team);
+      }
+      if(Number(row.eligible_contribution_count)!==eligibleCount){
+        errors.push("EV scope team eligible count mismatch: "+team);
+      }
+      if(Number(row.valued_contribution_count)!==valuedCount){
+        errors.push("EV scope team valued count mismatch: "+team);
+      }
+      if(Number(row.remaining_contribution_count)!==remainingCount){
+        errors.push("EV scope team remaining count mismatch: "+team);
+      }
+      const teamPercent=expectedPercent(valuedCount,eligibleCount);
+      if(teamPercent===null){
+        if(row.coverage_percent!==null) errors.push("EV scope team percentage must be null: "+team);
+      }else if(Math.abs(Number(row.coverage_percent)-teamPercent)>0.0001){
+        errors.push("EV scope team percentage mismatch: "+team);
       }
 
       if(Boolean(row.coverage_complete)!==allComplete){
@@ -565,21 +629,33 @@
       if(Boolean(row.coverage_complete)!==Boolean(evRow?.coverage_complete)){
         errors.push("EV scope / team EV completion mismatch: "+team);
       }
+
+      totalEligible+=eligibleCount;
+      totalValued+=valuedCount;
+    }
+
+    if(Number(data.summary?.eligible_contribution_count)!==totalEligible){
+      errors.push("EV scope summary eligible count mismatch");
+    }
+    if(Number(data.summary?.valued_contribution_count)!==totalValued){
+      errors.push("EV scope summary valued count mismatch");
     }
 
     return result(errors,warnings,{
       ev_scope_team_count:actual.length,
       ev_scope_partial_team_count:partialTeams,
-      ev_scope_complete_team_count:completeTeams
+      ev_scope_complete_team_count:completeTeams,
+      ev_scope_eligible_contribution_count:totalEligible,
+      ev_scope_valued_contribution_count:totalValued
     });
   };
 
   api.validateEvWorkQueue=function(data={}, productId, formatId, canonicalTeams=[], evScope={}){
     const errors=[],warnings=[];
-    if(data.schema_version!==1) errors.push("EV work queue schema_version mismatch");
+    if(data.schema_version!==2) errors.push("EV work queue schema_version mismatch");
     if(data.product_id!==productId) errors.push("EV work queue product_id mismatch");
     if(formatId && data.format_id!==formatId) errors.push("EV work queue format_id mismatch");
-    if(data.model!=="ev-work-queue-v1") errors.push("EV work queue model mismatch");
+    if(data.model!=="ev-work-queue-v2") errors.push("EV work queue model mismatch");
     if(!Array.isArray(data.tasks)) {
       errors.push("EV work queue tasks missing");
       return result(errors,warnings);
@@ -587,10 +663,11 @@
 
     const canonical=new Set(canonicalTeams);
     const allowedCategories=new Set(["base_parallels","inserts","autographs"]);
-    const allowedStatuses=new Set(["not-started","partial","complete"]);
+    const allowedStatuses=new Set(["not-started","partial","complete","not-applicable"]);
     const ids=[];
     const keys=[];
-    let partial=0, complete=0, notStarted=0;
+    let partial=0, complete=0, notStarted=0, notApplicable=0;
+    let totalEligible=0, totalValued=0, totalRemaining=0;
 
     for(const task of data.tasks){
       if(typeof task?.id!=="string" || !task.id) errors.push("EV work queue task id missing");
@@ -601,11 +678,24 @@
       if(!Number.isInteger(Number(task?.priority)) || Number(task.priority)<1 || Number(task.priority)>9){
         errors.push("EV work queue invalid priority: "+task?.id);
       }
+      if(!nonNegative(task?.eligible_contribution_count)){
+        errors.push("EV work queue eligible count invalid: "+task?.id);
+      }
       if(!nonNegative(task?.valued_contribution_count)){
         errors.push("EV work queue valued count invalid: "+task?.id);
       }
-      if(task?.status!=="complete" &&
-         (typeof task?.next_action!=="string" || !task.next_action)){
+      if(!nonNegative(task?.remaining_contribution_count)){
+        errors.push("EV work queue remaining count invalid: "+task?.id);
+      }
+
+      const eligible=Number(task?.eligible_contribution_count||0);
+      const valued=Number(task?.valued_contribution_count||0);
+      const remaining=Number(task?.remaining_contribution_count||0);
+      if(valued>eligible) errors.push("EV work queue valued count exceeds denominator: "+task?.id);
+      if(remaining!==eligible-valued) errors.push("EV work queue remaining count mismatch: "+task?.id);
+      if(["complete","not-applicable"].includes(task?.status)){
+        if(task?.next_action!=="none") errors.push("EV work queue closed task action mismatch: "+task?.id);
+      }else if(typeof task?.next_action!=="string" || !task.next_action){
         errors.push("EV work queue next_action missing: "+task?.id);
       }
 
@@ -615,17 +705,27 @@
       if(!scope){
         errors.push("EV work queue scope category missing: "+key);
       }else{
-        if(scope.status!==task.status){
-          errors.push("EV work queue status differs from EV scope: "+key);
-        }
-        if(Number(scope.valued_contribution_count)!==Number(task.valued_contribution_count)){
-          errors.push("EV work queue valued count differs from EV scope: "+key);
+        for(const field of [
+          "status",
+          "eligible_contribution_count",
+          "valued_contribution_count",
+          "remaining_contribution_count",
+          "coverage_percent"
+        ]){
+          const a=scope[field], b=task[field];
+          const same=(a===null&&b===null) ||
+            (field==="status" ? a===b : Number(a)===Number(b));
+          if(!same) errors.push("EV work queue "+field+" differs from EV scope: "+key);
         }
       }
 
       if(task.status==="partial") partial++;
       if(task.status==="complete") complete++;
       if(task.status==="not-started") notStarted++;
+      if(task.status==="not-applicable") notApplicable++;
+      totalEligible+=eligible;
+      totalValued+=valued;
+      totalRemaining+=remaining;
     }
 
     if(!uniqueStrings(ids)) errors.push("EV work queue ids not unique");
@@ -633,23 +733,20 @@
     if(data.tasks.length!==canonicalTeams.length*3){
       errors.push("EV work queue task count mismatch");
     }
-    if(Number(data.summary?.task_count)!==data.tasks.length){
-      errors.push("EV work queue summary task_count mismatch");
-    }
-    if(Number(data.summary?.partial_task_count)!==partial){
-      errors.push("EV work queue summary partial count mismatch");
-    }
-    if(Number(data.summary?.complete_task_count)!==complete){
-      errors.push("EV work queue summary complete count mismatch");
-    }
-    if(Number(data.summary?.not_started_task_count)!==notStarted){
-      errors.push("EV work queue summary not-started count mismatch");
-    }
+    if(Number(data.summary?.task_count)!==data.tasks.length) errors.push("EV work queue summary task_count mismatch");
+    if(Number(data.summary?.partial_task_count)!==partial) errors.push("EV work queue summary partial count mismatch");
+    if(Number(data.summary?.complete_task_count)!==complete) errors.push("EV work queue summary complete count mismatch");
+    if(Number(data.summary?.not_started_task_count)!==notStarted) errors.push("EV work queue summary not-started count mismatch");
+    if(Number(data.summary?.not_applicable_task_count)!==notApplicable) errors.push("EV work queue summary not-applicable count mismatch");
+    if(Number(data.summary?.eligible_contribution_count)!==totalEligible) errors.push("EV work queue summary eligible count mismatch");
+    if(Number(data.summary?.valued_contribution_count)!==totalValued) errors.push("EV work queue summary valued count mismatch");
+    if(Number(data.summary?.remaining_contribution_count)!==totalRemaining) errors.push("EV work queue summary remaining count mismatch");
 
     return result(errors,warnings,{
       ev_work_queue_task_count:data.tasks.length,
       ev_work_queue_partial_count:partial,
-      ev_work_queue_complete_count:complete
+      ev_work_queue_complete_count:complete,
+      ev_work_queue_not_applicable_count:notApplicable
     });
   };
 

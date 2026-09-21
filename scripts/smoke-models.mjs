@@ -99,6 +99,13 @@ assert(quality.roi.eligible===false,"ROI should remain gated");
 
 const ev=sandbox.BreakMetricEvCoverage.build({
   teamEv:{coverage_complete:false,valued_card_count:27},
+  scope:{
+    coverage_complete:false,
+    denominator_status:"enumerated",
+    eligible_contribution_count:638,
+    valued_contribution_count:27,
+    remaining_contribution_count:611
+  },
   market:{
     status:"audited-secondary-source",
     audited_contribution_count:27,
@@ -107,7 +114,9 @@ const ev=sandbox.BreakMetricEvCoverage.build({
   }
 });
 assert(sandbox.BreakMetricEvCoverage.validate(ev).valid,"EV coverage model invalid");
-assert(ev.percentage===null,"EV coverage invented a percentage");
+assert(Math.abs(ev.percentage-4.232)<0.0001,"EV slot coverage percentage mismatch");
+assert(ev.eligible_contribution_count===638,"EV eligible denominator smoke failed");
+assert(ev.percentage_semantics==="count-based-slot-coverage-not-ev-weighted","EV coverage semantics missing");
 assert(ev.blockers.length>0,"EV coverage blockers missing");
 
 const market=sandbox.BreakMetricMarketCoverage.build({
@@ -220,7 +229,7 @@ assert(provenance.ev.coverage_complete===false,"analysis provenance EV coverage 
 assert(sandbox.BreakMetricProvenance.summaryLines(provenance).length===5,"analysis provenance summary failed");
 
 const evScope=JSON.parse(
-  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-ev-scope-v1.json"),"utf8")
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-ev-scope-v2.json"),"utf8")
 );
 const evScopeContract=sandbox.BreakMetricContracts.validateEvScope(
   evScope,
@@ -232,15 +241,23 @@ const evScopeContract=sandbox.BreakMetricContracts.validateEvScope(
 assert(evScopeContract.valid,"EV scope contract failed: "+evScopeContract.errors.join("; "));
 assert(evScopeContract.metrics.ev_scope_partial_team_count===1,"EV scope partial-team smoke failed");
 assert(evScopeContract.metrics.ev_scope_complete_team_count===0,"EV scope complete-team smoke failed");
+assert(evScopeContract.metrics.ev_scope_eligible_contribution_count===8896,"EV scope eligible denominator smoke failed");
+assert(evScope.teams.Chelsea.eligible_contribution_count===638,"Chelsea EV denominator smoke failed");
+assert(Math.abs(evScope.teams.Chelsea.coverage_percent-4.232)<0.0001,"Chelsea EV coverage percent smoke failed");
+assert(evScope.teams["AFC Bournemouth"].categories.autographs.status==="not-applicable","zero-denominator category status failed");
 
 const evWorkQueue=JSON.parse(
-  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-work-queue-v1.json"),"utf8")
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-work-queue-v2.json"),"utf8")
 );
 assert(
   sandbox.BreakMetricEvWorkQueue.validate(evWorkQueue,metadata.teams.map(row=>row.name)).valid,
   "EV work queue helper validation failed"
 );
 assert(sandbox.BreakMetricEvWorkQueue.nextTask(evWorkQueue,"Chelsea")?.priority===1,"Chelsea EV next task priority failed");
+const evQueueSummary=sandbox.BreakMetricEvWorkQueue.summary(evWorkQueue);
+assert(evQueueSummary.eligible_contributions===8896,"EV work queue eligible denominator failed");
+assert(evQueueSummary.valued_contributions===27,"EV work queue valued count failed");
+assert(evQueueSummary.not_applicable===1,"EV work queue not-applicable count failed");
 
 const contributionProvenance=JSON.parse(
   fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-ev-contribution-provenance-v1.json"),"utf8")

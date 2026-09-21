@@ -36,8 +36,17 @@ pass("all data JSON parses", !failures.some(x => x.startsWith("JSON parse failed
 const methodology = json("data/methodology/v1.2.json");
 pass("v1.2 methodology schema", methodology.schema_version === 1);
 pass("v1.2 methodology principles present", Array.isArray(methodology.principles) && methodology.principles.length >= 7);
-const evPolicy = json("data/methodology/ev-coverage-v1.json");
-pass("EV coverage policy forbids unsupported percentage", evPolicy.current_state?.percentage_allowed === false);
+const evPolicy = json("data/methodology/ev-coverage-v2.json");
+pass("EV coverage v2 policy schema", evPolicy.schema_version === 2);
+pass("EV coverage percentage allowed from enumerated denominator", evPolicy.current_state?.percentage_allowed === true);
+pass(
+  "EV coverage percentage semantics are count-based",
+  evPolicy.current_state?.percentage_semantics === "count-based-slot-coverage-not-ev-weighted"
+);
+pass(
+  "EV coverage global denominator documented",
+  Number(evPolicy.denominator?.eligible_contribution_count) === 8896
+);
 const marketSourcePolicy = json("data/methodology/market-source-policy-v1.json");
 const marketRecordQualityPolicy = json("data/methodology/market-record-quality-v1.json");
 const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
@@ -96,6 +105,13 @@ pass("n100 starts at step 397", n100.steps?.[0]?.step === 397);
 pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
+
+const evDenominatorBlock = json("data/validation/steps-714-718.json");
+pass("steps 714-718 count is exactly five", evDenominatorBlock.step_count === 5 && evDenominatorBlock.steps?.length === 5);
+pass("steps 714-718 start at 714", evDenominatorBlock.steps?.[0]?.step === 714);
+pass("steps 714-718 end at 718", evDenominatorBlock.steps?.[4]?.step === 718);
+pass("steps 714-718 are sequential", evDenominatorBlock.steps?.every((row,index)=>row.step === 714 + index));
+pass("steps 714-718 implementation flags complete", evDenominatorBlock.steps?.every(row=>row.implemented === true));
 
 const step713 = json("data/validation/step-713.json");
 pass("step 713 manifest schema", step713.schema_version === 1);
@@ -184,6 +200,7 @@ for (const product of catalog.products || []) {
 
     const evData = json(format.analysis_data.ev_data);
     const evScope = json(format.analysis_data.ev_scope_data);
+    const evInventory = json(evScope.denominator_source);
     const evWorkQueue = json(format.analysis_data.ev_work_queue_data);
     const evContributionProvenance = json(format.analysis_data.ev_contribution_provenance_data);
     const marketVerificationQueue = json(format.analysis_data.market_verification_queue_data);
@@ -196,8 +213,11 @@ for (const product of catalog.products || []) {
     );
     pass(
       `EV work queue task count: ${product.id}/${format.id}`,
-      evWorkQueue.model === "ev-work-queue-v1" &&
-      evWorkQueue.tasks?.length === (metadata.teams || []).length * 3
+      evWorkQueue.model === "ev-work-queue-v2" &&
+      evWorkQueue.schema_version === 2 &&
+      evWorkQueue.tasks?.length === (metadata.teams || []).length * 3 &&
+      Number(evWorkQueue.summary?.eligible_contribution_count) === 8896 &&
+      Number(evWorkQueue.summary?.valued_contribution_count) === 27
     );
     pass(
       `market verification queue reconciles to EV contributions: ${product.id}/${format.id}`,
@@ -213,11 +233,36 @@ for (const product of catalog.products || []) {
       `EV scope validates: ${product.id}/${format.id}`,
       evScope.product_id === product.id &&
       evScope.format_id === format.id &&
-      evScope.model === "team-ev-scope-v1"
+      evScope.model === "team-ev-scope-v2" &&
+      evScope.schema_version === 2 &&
+      evScope.denominator_status !== "not-established"
     );
     pass(
       `EV scope canonical team count: ${product.id}/${format.id}`,
       Object.keys(evScope.teams || {}).length === (metadata.teams || []).length
+    );
+    pass(
+      `EV eligible inventory model: ${product.id}/${format.id}`,
+      evInventory.model === "ev-eligible-inventory-v1" &&
+      evInventory.schema_version === 1
+    );
+    pass(
+      `EV eligible denominator total: ${product.id}/${format.id}`,
+      Number(evInventory.summary?.eligible_contribution_count) === 8896 &&
+      Number(evScope.summary?.eligible_contribution_count) === 8896
+    );
+    pass(
+      `EV eligible category denominator totals: ${product.id}/${format.id}`,
+      Number(evInventory.summary?.category_eligible_contribution_count?.base_parallels) === 5005 &&
+      Number(evInventory.summary?.category_eligible_contribution_count?.inserts) === 1480 &&
+      Number(evInventory.summary?.category_eligible_contribution_count?.autographs) === 2411
+    );
+    pass(
+      `EV inventory exclusions remain protected: ${product.id}/${format.id}`,
+      Number(evInventory.summary?.excluded_card_count) === 12 &&
+      (evInventory.excluded || []).every(row =>
+        ["multi-team","team-unresolved"].includes(row.reason)
+      )
     );
     for (const team of (metadata.teams || []).map(row => row.name)) {
       const scopeRow = evScope.teams?.[team];
@@ -227,6 +272,14 @@ for (const product of catalog.products || []) {
         (sum,key) => sum + Number(scopeRow?.categories?.[key]?.valued_contribution_count || 0),
         0
       );
+      const eligibleScope = categories.reduce(
+        (sum,key) => sum + Number(scopeRow?.categories?.[key]?.eligible_contribution_count || 0),
+        0
+      );
+      const remainingScope = categories.reduce(
+        (sum,key) => sum + Number(scopeRow?.categories?.[key]?.remaining_contribution_count || 0),
+        0
+      );
       pass(
         `EV scope categories present: ${product.id}/${format.id}/${team}`,
         categories.every(key => scopeRow?.categories?.[key])
@@ -234,6 +287,26 @@ for (const product of catalog.products || []) {
       pass(
         `EV scope contribution count matches EV: ${product.id}/${format.id}/${team}`,
         valuedScope === Number(evRow?.valued_card_count || 0)
+      );
+      pass(
+        `EV scope denominator sums: ${product.id}/${format.id}/${team}`,
+        eligibleScope === Number(scopeRow?.eligible_contribution_count || 0) &&
+        remainingScope === Number(scopeRow?.remaining_contribution_count || 0) &&
+        remainingScope === eligibleScope - valuedScope
+      );
+      pass(
+        `EV scope category statuses match denominator: ${product.id}/${format.id}/${team}`,
+        categories.every(key => {
+          const item=scopeRow?.categories?.[key] || {};
+          const eligible=Number(item.eligible_contribution_count || 0);
+          const valued=Number(item.valued_contribution_count || 0);
+          const expected=
+            eligible===0 ? "not-applicable" :
+            valued===0 ? "not-started" :
+            valued===eligible ? "complete" :
+            "partial";
+          return item.status===expected;
+        })
       );
       pass(
         `EV scope completion matches EV: ${product.id}/${format.id}/${team}`,
@@ -390,6 +463,16 @@ pass("combined probability approximation disclosed", html.includes("independence
 pass("skip link present", html.includes('class="skip-link"'));
 pass("analysis quality UI present", html.includes('class="quality-grid"'));
 pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
+pass(
+  "EV coverage UI discloses slot semantics",
+  html.includes("Count-based eligible-slot coverage") &&
+  html.includes("not an EV-weighted estimate of economic completeness")
+);
+pass(
+  "EV coverage UI displays eligible denominator",
+  html.includes("eligible slots") &&
+  html.includes("slot coverage")
+);
 pass("EV work queue present", html.includes('id="evWorkPanel"'));
 pass("EV derivation lineage visible", html.includes('id="evDerivationLineage"'));
 pass("market source tier visible", html.includes('id="marketSourceTier"'));

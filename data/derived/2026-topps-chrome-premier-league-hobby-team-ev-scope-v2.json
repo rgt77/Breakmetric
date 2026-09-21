@@ -1,0 +1,716 @@
+{
+  "schema_version": 2,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "analysis_unit": "12-box case",
+  "generated_at": "2026-09-21",
+  "model": "team-ev-scope-v2",
+  "denominator_source": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
+  "denominator_unit": "card × modeled odds variant contribution slot",
+  "percentage_semantics": "Count-based slot coverage only; not EV-weighted economic completeness.",
+  "scope_definition": "All single-team Hobby EV-eligible base parallels, inserts and autographs with modeled published odds. Multi-team and team-unresolved cards remain excluded.",
+  "required_categories": [
+    "base_parallels",
+    "inserts",
+    "autographs"
+  ],
+  "rules": [
+    "Category status describes valuation progress, not probability coverage.",
+    "eligible_contribution_count is enumerated from checklist cards × mapped published Hobby odds variants.",
+    "valued_contribution_count must reconcile to committed EV contribution rows.",
+    "coverage_percent = valued_contribution_count / eligible_contribution_count × 100.",
+    "coverage_percent is count-based and must not be interpreted as percentage of total economic EV captured.",
+    "A zero-denominator category is not-applicable.",
+    "Team coverage_complete can be true only when every required category is complete or not-applicable.",
+    "Multi-team cards remain excluded under the active break-allocation policy."
+  ],
+  "summary": {
+    "team_count": 20,
+    "eligible_contribution_count": 8896,
+    "valued_contribution_count": 27,
+    "teams_with_progress": 1,
+    "complete_team_count": 0
+  },
+  "teams": {
+    "AFC Bournemouth": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 275,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 275,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 5,
+          "eligible_contribution_count": 25,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 25,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-applicable",
+          "eligible_card_count": 0,
+          "eligible_contribution_count": 0,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 0,
+          "coverage_percent": null
+        }
+      }
+    },
+    "Arsenal": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 755,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 755,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 11,
+          "eligible_contribution_count": 255,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 255,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 37,
+          "eligible_contribution_count": 189,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 189,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 28,
+          "eligible_contribution_count": 311,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 311,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Aston Villa": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 403,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 403,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 9,
+          "eligible_contribution_count": 45,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 45,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 9,
+          "eligible_contribution_count": 108,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 108,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Brentford": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 283,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 283,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 4,
+          "eligible_contribution_count": 17,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 17,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 1,
+          "eligible_contribution_count": 16,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 16,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Brighton & Hove Albion": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 363,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 363,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 49,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 49,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 4,
+          "eligible_contribution_count": 64,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 64,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Burnley FC": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 279,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 279,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 3,
+          "eligible_contribution_count": 13,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 13,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 1,
+          "eligible_contribution_count": 16,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 16,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Chelsea": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 638,
+      "valued_contribution_count": 27,
+      "remaining_contribution_count": 611,
+      "coverage_percent": 4.232,
+      "categories": {
+        "base_parallels": {
+          "status": "partial",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 26,
+          "remaining_contribution_count": 224,
+          "coverage_percent": 10.4
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 27,
+          "eligible_contribution_count": 125,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 125,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "partial",
+          "eligible_card_count": 22,
+          "eligible_contribution_count": 263,
+          "valued_contribution_count": 1,
+          "remaining_contribution_count": 262,
+          "coverage_percent": 0.3802
+        }
+      }
+    },
+    "Crystal Palace": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 345,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 345,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 8,
+          "eligible_contribution_count": 41,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 41,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 4,
+          "eligible_contribution_count": 54,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 54,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Everton": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 405,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 405,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 57,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 57,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 8,
+          "eligible_contribution_count": 98,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 98,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Fulham": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 349,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 349,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 61,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 61,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 3,
+          "eligible_contribution_count": 38,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 38,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Leeds United": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 339,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 339,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 7,
+          "eligible_contribution_count": 41,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 41,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 3,
+          "eligible_contribution_count": 48,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 48,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Liverpool FC": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 708,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 708,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 39,
+          "eligible_contribution_count": 195,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 195,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 21,
+          "eligible_contribution_count": 263,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 263,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Manchester City": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 552,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 552,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 29,
+          "eligible_contribution_count": 145,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 145,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 13,
+          "eligible_contribution_count": 157,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 157,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Manchester United": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 798,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 798,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 34,
+          "eligible_contribution_count": 175,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 175,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 32,
+          "eligible_contribution_count": 373,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 373,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Newcastle United": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 487,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 487,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 14,
+          "eligible_contribution_count": 77,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 77,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 12,
+          "eligible_contribution_count": 160,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 160,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Nottingham Forest": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 356,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 356,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 8,
+          "eligible_contribution_count": 37,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 37,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 5,
+          "eligible_contribution_count": 69,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 69,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Sunderland": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 323,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 323,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 7,
+          "eligible_contribution_count": 37,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 37,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 3,
+          "eligible_contribution_count": 36,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 36,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Tottenham Hotspur": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 556,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 556,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 17,
+          "eligible_contribution_count": 97,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 97,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 17,
+          "eligible_contribution_count": 209,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 209,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "West Ham United": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 379,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 379,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 6,
+          "eligible_contribution_count": 21,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 21,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 8,
+          "eligible_contribution_count": 108,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 108,
+          "coverage_percent": 0
+        }
+      }
+    },
+    "Wolverhampton Wanderers": {
+      "coverage_complete": false,
+      "denominator_status": "enumerated",
+      "eligible_contribution_count": 303,
+      "valued_contribution_count": 0,
+      "remaining_contribution_count": 303,
+      "coverage_percent": 0,
+      "categories": {
+        "base_parallels": {
+          "status": "not-started",
+          "eligible_card_count": 10,
+          "eligible_contribution_count": 250,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 250,
+          "coverage_percent": 0
+        },
+        "inserts": {
+          "status": "not-started",
+          "eligible_card_count": 6,
+          "eligible_contribution_count": 33,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 33,
+          "coverage_percent": 0
+        },
+        "autographs": {
+          "status": "not-started",
+          "eligible_card_count": 2,
+          "eligible_contribution_count": 20,
+          "valued_contribution_count": 0,
+          "remaining_contribution_count": 20,
+          "coverage_percent": 0
+        }
+      }
+    }
+  }
+}

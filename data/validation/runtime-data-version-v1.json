@@ -2,8 +2,8 @@
   "schema_version": 1,
   "model": "runtime-data-version-v1",
   "algorithm": "sha256(sorted path + NUL + git-blob-sha1)",
-  "file_count": 156,
-  "fingerprint": "1952f813e5198b2c0260327a1bc4802575871d0a034be958972b46cc8cce18e4",
+  "file_count": 161,
+  "fingerprint": "d1913f0288e2bb8156ca6188d08edb624bd685e3bc60e69d46bb1d3798cb008d",
   "excluded": [
     "data/validation/runtime-data-version-v1.json"
   ]

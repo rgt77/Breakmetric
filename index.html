@@ -858,7 +858,7 @@
         <summary>EV coverage detail</summary>
         <div class="player-card-list">
           <div class="player-data-row">
-            <div>Coverage basis<small>BreakMetric does not invent an EV coverage percentage without a defensible denominator.</small></div>
+            <div>Coverage basis<small>Count-based eligible-slot coverage. This is not an EV-weighted estimate of economic completeness.</small></div>
             <strong id="evCoverageBasis">Pending</strong>
           </div>
           <div class="player-data-row">
@@ -1828,16 +1828,22 @@
       dataFormatIntegrity.className =
         integrityPassed ? "status-good" : "";
 
-      if (!currentTeamEntry) {
-        dataMarketCoverage.textContent = "No valued cards yet";
+      const selectedEvScope = evScopeData?.teams?.[team.value] || null;
+      if (!selectedEvScope) {
+        dataMarketCoverage.textContent = "EV denominator unavailable";
         dataMarketCoverage.className = "status-warn";
-      } else if (currentTeamEntry.coverage_complete) {
-        dataMarketCoverage.textContent = "Complete";
+      } else if (selectedEvScope.coverage_complete) {
+        dataMarketCoverage.textContent =
+          "Complete · " +
+          selectedEvScope.valued_contribution_count + "/" +
+          selectedEvScope.eligible_contribution_count + " slots";
         dataMarketCoverage.className = "status-good";
       } else {
-        const count = Number(currentTeamEntry.valued_card_count || 0);
         dataMarketCoverage.textContent =
-          "Partial · " + count + " valued card" + (count === 1 ? "" : "s");
+          Number(selectedEvScope.coverage_percent || 0).toFixed(1) +
+          "% · " +
+          selectedEvScope.valued_contribution_count + "/" +
+          selectedEvScope.eligible_contribution_count + " slots valued";
         dataMarketCoverage.className = "status-warn";
       }
 
@@ -3997,13 +4003,20 @@
             inserts: "Inserts",
             autographs: "Autos"
           }[task.category] || task.category;
-          return label + ": " + task.status;
+          if (task.status === "not-applicable") {
+            return label + ": not applicable";
+          }
+          return label + ": " + task.status + " · " +
+            Number(task.valued_contribution_count || 0) + "/" +
+            Number(task.eligible_contribution_count || 0);
         })
         .join(" · ");
       evGlobalQueue.textContent =
-        summary.complete + "/" + summary.total + " complete · " +
+        summary.valued_contributions + "/" +
+        summary.eligible_contributions + " slots valued · " +
         summary.partial + " partial · " +
-        summary.not_started + " not started";
+        summary.not_started + " not started · " +
+        summary.not_applicable + " not applicable";
 
       const verification = (marketVerificationQueueData?.items || [])
         .find(item => !item.original_marketplace_verified);
@@ -4016,9 +4029,11 @@
     }
 
     function updateEvCoverageUi() {
+      const scopeRow = evScopeData?.teams?.[team.value] || null;
       const model = BreakMetricEvCoverage.build({
         teamEv: currentTeamEntry,
-        market: selectedTeamMarketEvidence()
+        market: selectedTeamMarketEvidence(),
+        scope: scopeRow
       });
       const validation = BreakMetricEvCoverage.validate(model);
 
@@ -4031,16 +4046,23 @@
         return;
       }
 
-      const scopeRow = evScopeData?.teams?.[team.value] || null;
       if (scopeRow) {
         const categoryLabel = (label, key) => {
           const item = scopeRow.categories?.[key] || {};
           const status =
             item.status === "not-started"
               ? "not started"
-              : item.status || "unknown";
-          const count = Number(item.valued_contribution_count || 0);
-          return label + ": " + status + (count ? " (" + count + ")" : "");
+              : item.status === "not-applicable"
+                ? "not applicable"
+                : item.status || "unknown";
+          if (item.status === "not-applicable") {
+            return label + ": not applicable";
+          }
+          const valued = Number(item.valued_contribution_count || 0);
+          const eligible = Number(item.eligible_contribution_count || 0);
+          const coverage = Number(item.coverage_percent || 0).toFixed(1);
+          return label + ": " + status + " · " +
+            valued + "/" + eligible + " (" + coverage + "%)";
         };
         evCategoryScope.textContent = [
           categoryLabel("Base", "base_parallels"),
@@ -4064,11 +4086,11 @@
           : "No EV contributions";
 
       evCoverageBasis.textContent =
-        model.status === "complete"
-          ? "Complete scope definition"
-          : model.status === "partial"
-            ? model.valued_card_count + " valued cards · denominator not established"
-            : "No valued cards";
+        model.denominator_status === "enumerated"
+          ? model.valued_contribution_count + "/" +
+            model.eligible_contribution_count + " eligible slots · " +
+            Number(model.percentage || 0).toFixed(1) + "% valued"
+          : "Eligible-slot denominator unavailable";
 
       evSourceCoverage.textContent = BreakMetricEvCoverage.sourceLabel(model);
       evCoverageBlockers.textContent =
@@ -4083,8 +4105,15 @@
         currentEvUsd = null;
         resultEvLabel.textContent = "Team EV";
         resultEvSummary.textContent = "Not ready";
-        evCoverage.textContent = "No valued cards yet";
+        const scope = evScopeData?.teams?.[team.value] || null;
+        evCoverage.textContent = scope
+          ? Number(scope.coverage_percent || 0).toFixed(1) +
+            "% slot coverage · " +
+            Number(scope.valued_contribution_count || 0) + "/" +
+            Number(scope.eligible_contribution_count || 0) + " valued"
+          : "EV denominator unavailable";
         updateEvCoverageUi();
+        updateEvWorkQueueUi();
         updateDataStatusUi();
         return;
       }
@@ -4101,11 +4130,17 @@
           entry.ev_status === "indicative-provisional"
             ? "Indicative partial team EV"
             : "Partial team EV";
-        const count = Number(entry.valued_card_count || 0);
+        const scope = evScopeData?.teams?.[team.value] || null;
+        const slotCoverage = scope
+          ? Number(scope.coverage_percent || 0).toFixed(1) +
+            "% slot coverage · " +
+            Number(scope.valued_contribution_count || 0) + "/" +
+            Number(scope.eligible_contribution_count || 0) + " valued"
+          : "EV denominator unavailable";
         evCoverage.textContent =
           (entry.ev_status === "indicative-provisional" ? "Indicative partial " : "Partial ") +
           team.value + " EV · " +
-          count + " valued card" + (count === 1 ? "" : "s") +
+          slotCoverage +
           (entry.market_evidence?.status === "secondary-source-only"
             ? " · secondary-source market comps"
             : "");

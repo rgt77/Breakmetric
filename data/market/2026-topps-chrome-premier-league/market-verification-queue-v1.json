@@ -2,7 +2,7 @@
   "schema_version": 1,
   "product_id": "2026-topps-chrome-premier-league",
   "format_id": "hobby",
-  "generated_at": "2026-09-20",
+  "generated_at": "2026-09-21",
   "model": "market-verification-queue-v1",
   "prioritization": "Highest current EV contribution first; no market value is modified by this queue.",
   "summary": {

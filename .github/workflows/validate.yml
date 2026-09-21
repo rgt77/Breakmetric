@@ -18,12 +18,16 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "24"
-      - name: Check runtime data fingerprint
-        run: node scripts/generate-data-version.mjs --check
       - name: Audit source-module inventory
         run: node scripts/audit-source-modules.mjs
+      - name: Check EV eligible inventory outputs
+        run: node scripts/generate-ev-eligible-inventory.mjs --check
+      - name: Validate EV eligible inventory
+        run: node scripts/validate-ev-eligible-inventory.mjs
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
+      - name: Check runtime data fingerprint
+        run: node scripts/generate-data-version.mjs --check
       - name: Validate market records
         run: node scripts/validate-market-records.mjs
       - name: Validate EV derivation provenance
