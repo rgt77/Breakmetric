@@ -920,6 +920,58 @@ pass(
   read("README.md").includes("1 of 72 sales is fully original-marketplace verified")
 );
 
+const marketBlock741745 = json("data/validation/steps-741-745.json");
+const marketSteps741745 = [741,742,743,744,745].map(step=>
+  json(`data/validation/step-${step}.json`)
+);
+const tealMarketRecord = json(
+  "data/market/2026-topps-chrome-premier-league/68-estevao-willian-teal-refractor.json"
+);
+const tealVerifiedCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-teal-refractor-sale-1.json"
+);
+pass(
+  "steps 741-745 market verification block is complete",
+  marketBlock741745.step_count === 5 &&
+  marketBlock741745.steps?.join(",") === "741,742,743,744,745" &&
+  marketSteps741745.every(row=>row.implemented===true)
+);
+pass(
+  "steps 741-745 recovered all seven locators",
+  marketBlock741745.supporting_sale_count === 7 &&
+  marketBlock741745.recovered_original_locator_count === 7 &&
+  marketSteps741745.reduce(
+    (sum,row)=>sum+Number(row.result?.recovered_original_locator_count||0),
+    0
+  ) === 7
+);
+pass(
+  "Teal 185 of 299 is second original-verified supporting sale",
+  tealMarketRecord.sales?.[1]?.source_sale_id === "236738825291" &&
+  tealMarketRecord.sales?.[1]?.original_marketplace_verified === true &&
+  tealMarketRecord.sales?.[1]?.evidence_status ===
+    "original-marketplace-verified" &&
+  tealMarketRecord.evidence_summary?.original_marketplace_verified_sale_count === 1 &&
+  tealVerifiedCandidate.assessment_status === "historical-sale-match" &&
+  tealVerifiedCandidate.observed_sale?.serial_copy === "185/299"
+);
+pass(
+  "canonical eBay Singapore host is accepted",
+  marketEvidenceIngestSource.includes('"ebay.com.sg"')
+);
+pass(
+  "original 72-sale verification scope is frozen",
+  json("data/methodology/market-verification-candidate-v1.json")
+    .safety_rules?.some(value=>value.includes("scope-frozen")) === true &&
+  marketBlock741745.source_drift?.current_discovery_source_sale_count === 4 &&
+  marketBlock741745.source_drift?.stored_supporting_sale_count === 1
+);
+pass(
+  "README reports updated market verification progress",
+  read("README.md").includes("56 of the 72 stored supporting sales") &&
+  read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
