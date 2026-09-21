@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 747,
+  "title": "Recover Cole Palmer 63 Blue Refractor marketplace evidence",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 19,
+    "team": "Chelsea",
+    "card_id": "63-blue-refractor",
+    "player": "Cole Palmer",
+    "parallel": "Blue Refractor",
+    "supporting_sale_count": 2
+  },
+  "result": {
+    "recovered_original_locator_count": 2,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 2
+  },
+  "source_drift": null,
+  "guarantees": [
+    "Every stored supporting sale has a recovered original eBay item ID.",
+    "Locator recovery alone does not promote a sale.",
+    "No realized sale price or EV contribution is changed.",
+    "Sale index 0 is explicitly kept unresolved because the recovered original eBay item currently renders as an active listing, not a completed historical sale event."
+  ]
+}
