@@ -90,6 +90,16 @@
         "median_market_value_usd": 2400
       }
     },
+    "João Pedro": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 6
+      }
+    },
     "Jorrel Hato": {
       "all": {
         "observation_count": 1,
@@ -100,14 +110,14 @@
         "median_market_value_usd": 0.99
       }
     },
-    "João Pedro": {
+    "Liam Delap": {
       "all": {
         "observation_count": 1,
-        "median_market_value_usd": 6
+        "median_market_value_usd": 2.99
       },
       "base_parallels": {
         "observation_count": 1,
-        "median_market_value_usd": 6
+        "median_market_value_usd": 2.99
       }
     },
     "Moisés Caicedo": {
@@ -138,16 +148,6 @@
       "base_parallels": {
         "observation_count": 1,
         "median_market_value_usd": 2
-      }
-    },
-    "Liam Delap": {
-      "all": {
-        "observation_count": 1,
-        "median_market_value_usd": 2.99
-      },
-      "base_parallels": {
-        "observation_count": 1,
-        "median_market_value_usd": 2.99
       }
     }
   }
