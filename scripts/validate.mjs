@@ -668,6 +668,36 @@ pass(
   marketEvidenceIngestSource.includes("direct marketplace URL and stable sale id disagree")
 );
 
+const step727 = json("data/validation/step-727.json");
+const activeProductIdentity = json(
+  "data/products/2026-topps-chrome-premier-league.json"
+).market_identity || {};
+pass(
+  "step 727 exact product identity manifest",
+  step727.step === 727 &&
+  step727.implemented === true &&
+  step727.title === "Require exact product identity for market verification"
+);
+pass(
+  "active product defines strict market identity aliases",
+  activeProductIdentity.canonical_series === "2026 Topps Chrome Premier League" &&
+  Array.isArray(activeProductIdentity.accepted_series_aliases) &&
+  activeProductIdentity.accepted_series_aliases.includes("2025-26 Topps Chrome Premier League") &&
+  !activeProductIdentity.accepted_series_aliases.includes("2025-26 Topps Premier League")
+);
+pass(
+  "market evidence requires listing product identity",
+  marketEvidenceIngestSource.includes("listing identity series does not match target product family") &&
+  marketEvidenceIngestSource.includes("listing identity card_number does not match market record") &&
+  marketEvidenceIngestSource.includes("listing identity parallel does not match market record") &&
+  marketEvidenceIngestSource.includes("listing identity print_run does not match market record")
+);
+pass(
+  "market record audit rechecks stored original identity",
+  read("scripts/validate-market-records.mjs").includes("original identity series mismatch") &&
+  read("scripts/validate-market-records.mjs").includes("original identity card number mismatch")
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
