@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 726,
+  "title": "Harden original-marketplace sale locators",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "guarantees": [
+    "An eBay domain URL alone is insufficient; direct evidence must identify an eBay /itm/ listing with a plausible item number.",
+    "A standalone eBay stable sale identifier must use a plausible numeric item-number format.",
+    "When both an eBay listing URL and stable sale identifier are supplied, their item numbers must agree.",
+    "Malformed or non-listing marketplace locators fail closed and leave market records unchanged.",
+    "A later active re-listing of the same serial-numbered card is not treated as proof of an earlier realized sale."
+  ]
+}
