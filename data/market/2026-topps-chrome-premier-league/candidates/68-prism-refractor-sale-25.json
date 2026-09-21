@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::25",
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json",
+  "sale_index": 25,
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "secondary-source",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "68",
+    "parallel": "Prism Refractor",
+    "print_run": null,
+    "player": "Estêvão Willian",
+    "team": "Chelsea"
+  },
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-03-16",
+    "sale_price_usd": 20,
+    "marketplace": "eBay",
+    "serial_copy": null
+  },
+  "source_sale_id": "327042474610",
+  "direct_marketplace_url": "https://www.ebay.com.au/itm/327042474610",
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-prism-refractor-68",
+    "evidence": "Historical sold-listing outbound link recovered eBay item 327042474610."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "Original marketplace locator recovered, but card identity and historical sale-event details remain secondary-source observations; keep unresolved."
+}
