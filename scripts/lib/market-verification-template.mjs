@@ -51,7 +51,11 @@ export function buildVerificationTasks({
         sale_index:saleIndex,
         product_id:queue.product_id||record.product_id||null,
         card_number:record.card_number||null,
-        serial_numbering:Number(record.serial_numbering),
+        serial_numbering:
+          record.serial_numbering===null ||
+          record.serial_numbering===undefined
+            ? null
+            : Number(record.serial_numbering),
         team:contribution.team||null,
         card_id:contribution.card_id||null,
         player:contribution.player||null,
@@ -115,7 +119,11 @@ export function createEvidenceTemplate(task={},{
     expected_identity:{
       card_number:task.card_number||null,
       parallel:task.parallel||null,
-      print_run:Number(task.serial_numbering),
+      print_run:
+        task.serial_numbering===null ||
+        task.serial_numbering===undefined
+          ? null
+          : Number(task.serial_numbering),
       player:task.player||null,
       team:task.team||null
     },
