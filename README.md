@@ -15,8 +15,8 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - The Hobby EV denominator is now fully enumerated as 8,896 card × modeled-variant contribution slots; Chelsea currently has 27/638 valued slots (4.2% count-based slot coverage).
 - EV slot coverage is explicitly count-based and is not an EV-weighted estimate of economic completeness.
 - Current EV contributions have deterministic derivation provenance and a priority queue for original-marketplace verification.
-- Market verification has now recovered original marketplace locators for 49 of the 72 stored supporting sales; 1 of 72 sales is fully original-marketplace verified. Locator recovery alone does not imply sale verification.
-- Priority ranks 3–12 have been processed: 45 of their 46 supporting-sale locators were recovered, with the 2026-09-03 Estêvão #68 Prism Refractor sale as the first directly original-verified sale.
+- Market verification has now recovered original marketplace locators for 56 of the 72 stored supporting sales; 2 of 72 sales are fully original-marketplace verified. Locator recovery alone does not imply sale verification.
+- Priority ranks 3–17 have been processed. The 2026-09-03 Estêvão #68 Prism Refractor sale and the 2026-04-13 Estêvão #68 Teal Refractor 185/299 sale are directly original-verified.
 - Market records are audited for schema, median/sample consistency, evidence integrity and duplicate warnings.
 - Original-marketplace verification is sale-derived and fail-closed: every realized sale used by a contribution's stored market-value sample must have qualifying original evidence before that contribution can count as original verified.
 - Sale-level original-marketplace verification progress is visible in the Market evidence panel, including supporting sales, verified sales, pending sales and verification share.
@@ -93,7 +93,7 @@ node scripts/assess-market-verification-candidate.mjs \
   --emit-evidence evidence/verified-sale.json
 ```
 
-Candidate assessment never mutates market records, sale prices, EV or verification flags. The emitted evidence must still pass the normal fail-closed evidence validator before it can be written.
+Candidate assessment never mutates market records, sale prices, EV or verification flags. The emitted evidence must still pass the normal fail-closed evidence validator before it can be written. The original 72 supporting-sale scope is frozen during this verification pass; later sales discovered at the source are tracked as source drift rather than silently changing the sample.
 
 ## Preparing original-marketplace evidence
 
