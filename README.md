@@ -19,6 +19,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - Original-marketplace verification is sale-derived and fail-closed: every realized sale used by a contribution's stored market-value sample must have qualifying original evidence before that contribution can count as original verified.
 - Sale-level original-marketplace verification progress is visible in the Market evidence panel, including supporting sales, verified sales, pending sales and verification share.
 - Sale verification tasks are derived deterministically from the verification queue plus market records, ordered by contribution priority and stored sale order; the active team's next pending task is shown in the Market evidence panel.
+- Original-marketplace evidence can be dry-run before writing. Evidence must match task identity, sale date, price, marketplace and serial, and verification never changes the realized-sale sample.
 - Market evidence exposes source tier, verification EV gap, sample size, recency and price-spread review flags.
 - Team comparison is descriptive and retains canonical team order; it does not rank spots by value.
 - Player detail uses progressive disclosure so core probability metrics stay prominent.
@@ -42,6 +43,7 @@ node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-market-verification-contract.mjs
 node scripts/validate-market-verification-tasks.mjs
+node scripts/test-market-verification-evidence.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
@@ -66,3 +68,22 @@ All `src/*.js` files are explicitly classified in `data/validation/source-module
 - **Offline model library:** retained model/research utilities that are not part of the current browser runtime or mandatory CI path.
 
 CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
+
+
+## Applying original-marketplace evidence
+
+Prepare an evidence JSON object following `data/methodology/market-verification-ingest-v1.json`, then dry-run it first:
+
+```bash
+node scripts/apply-market-verification-evidence.mjs --evidence path/to/evidence.json
+```
+
+Only after the dry-run passes, apply the record change:
+
+```bash
+node scripts/apply-market-verification-evidence.mjs --evidence path/to/evidence.json --write
+node scripts/generate-v13-pipeline.mjs
+node scripts/generate-data-version.mjs
+```
+
+The ingest command rejects mismatched task identity, date, price, marketplace, serial or original-marketplace locator. The generated verification queue derives status from the supporting sales rather than a contribution-level boolean.
