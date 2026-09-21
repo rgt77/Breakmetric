@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 725,
+  "title": "Generate deterministic pending-sale evidence templates",
+  "implemented": true,
+  "guarantees": [
+    "Evidence template identity is derived from the current verification queue and supporting market record instead of manual transcription.",
+    "The default task is the next pending original-marketplace sale in deterministic contribution-priority and stored-sale order.",
+    "Already verified sales are excluded from pending task selection.",
+    "Original marketplace locator fields and verified_at are blank by default, so an untouched template cannot pass evidence ingest validation.",
+    "Template generation does not mutate market records, realized sale samples, EV values or verification state."
+  ]
+}
