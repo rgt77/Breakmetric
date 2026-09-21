@@ -1058,6 +1058,7 @@
   <script src="src/errorModel.js"></script>
   <script src="src/storage.js"></script>
   <script src="src/spotCurrency.js"></script>
+  <script src="src/fxRate.js"></script>
   <script src="src/urlState.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
@@ -1179,6 +1180,12 @@
     let fxRateReady = savedSpotState?.currency === "USD";
 
     function persistSpotState() {
+      if (price.value === "") {
+        canonicalSpotUsd = null;
+        BreakMetricStorage.remove("breakmetric_spot_state");
+        return;
+      }
+
       const amount = Number(price.value);
       const state = BreakMetricSpotCurrency.persistedState(
         amount,
@@ -2869,20 +2876,27 @@
       }).format(value);
     }
 
+    function selectedCurrencyValueFromUsd(value) {
+      const usdValue = Number(value);
+      if (!Number.isFinite(usdValue)) return null;
+      if (!BreakMetricSpotCurrency.canPresentUsdValue(
+        currency.value,
+        fxRateReady
+      )) {
+        return null;
+      }
+      return usdValue * (currency.value === "USD" ? 1 : usdToSelectedRate);
+    }
+
+    function formatUsdValue(value, fallback = "FX unavailable") {
+      const converted = selectedCurrencyValueFromUsd(value);
+      return converted === null ? fallback : money(converted);
+    }
+
     async function fetchFxRate(from, to) {
-      if (from === to) {
-        return { rate: 1, date: null };
-      }
-      const response = await fetch(
-        `https://api.frankfurter.dev/v2/rate/${from.toLowerCase()}/${to.toLowerCase()}`
-      );
-      if (!response.ok) throw new Error("Exchange-rate request failed");
-      const data = await response.json();
-      const rate = Number(data.rate);
-      if (!Number.isFinite(rate) || !(rate > 0)) {
-        throw new Error("Invalid exchange rate");
-      }
-      return { rate, date: data.date || null };
+      return BreakMetricFxRate.fetchRate(from, to, {
+        timeoutMs: 8000
+      });
     }
 
     async function convertInputs(from, to) {
@@ -2905,48 +2919,32 @@
           to === "USD" ? Promise.resolve({ rate: 1, date: null }) : fetchFxRate("USD", to)
         ]);
 
-        const nextCanonicalUsd =
-          originalAmount === null
-            ? null
-            : Number.isFinite(Number(canonicalSpotUsd))
-              ? Number(canonicalSpotUsd)
-              : BreakMetricSpotCurrency.canonicalUsdFromDisplay(
-                  originalAmount,
-                  from,
-                  usdFrom.rate
-                );
+        const plan = BreakMetricSpotCurrency.conversionPlan({
+          displayAmount: originalAmount,
+          fromCurrency: from,
+          toCurrency: to,
+          canonicalUsd: canonicalSpotUsd,
+          usdToFrom: usdFrom.rate,
+          usdToTarget: usdTarget.rate
+        });
+        if (!plan) throw new Error("Invalid exchange-rate plan");
 
-        const convertedAmount =
-          nextCanonicalUsd === null
-            ? null
-            : BreakMetricSpotCurrency.displayFromCanonicalUsd(
-                nextCanonicalUsd,
-                to,
-                usdTarget.rate
-              );
-
-        const directRate = BreakMetricSpotCurrency.directRateFromUsdRates(
-          usdFrom.rate,
-          usdTarget.rate
-        );
-        if (!(directRate > 0)) throw new Error("Invalid exchange-rate plan");
-
-        canonicalSpotUsd = nextCanonicalUsd;
+        canonicalSpotUsd = plan.canonical_usd;
         usdToSelectedRate = usdTarget.rate;
         fxRateReady = true;
 
-        if (convertedAmount !== null) {
-          price.value = convertedAmount.toFixed(2);
+        if (plan.display_amount !== null) {
+          price.value = plan.display_amount.toFixed(2);
         }
 
         if (currentEvUsd !== null) {
-          resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
+          resultEvSummary.textContent = formatUsdValue(currentEvUsd);
         }
         updatePlayerDetail();
 
         const rateDate = usdTarget.date || usdFrom.date;
         fxStatus.textContent =
-          `Rate updated: 1 ${from} = ${directRate.toFixed(4)} ${to}` +
+          `Rate updated: 1 ${from} = ${plan.direct_rate.toFixed(4)} ${to}` +
           (rateDate ? ` · ${rateDate}` : "");
 
         persistSpotState();
@@ -3383,7 +3381,7 @@
       }
 
       playerEv.textContent = contributions.length
-        ? money(playerEvUsd * usdToSelectedRate)
+        ? formatUsdValue(playerEvUsd)
         : "Not valued yet";
       playerValuedCards.textContent = String(contributions.length);
       playerTrackedSerials.textContent = String(observedSerials);
@@ -3559,8 +3557,8 @@
           left.appendChild(sub);
 
           const right = document.createElement("strong");
-          right.textContent = money(
-            Number(item.ev_contribution_usd || 0) * usdToSelectedRate
+          right.textContent = formatUsdValue(
+            Number(item.ev_contribution_usd || 0)
           );
 
           row.appendChild(left);
@@ -3591,15 +3589,8 @@
       }
 
       try {
-        const response = await fetch(
-          `https://api.frankfurter.dev/v2/rate/usd/${currency.value.toLowerCase()}`
-        );
-        if (!response.ok) throw new Error("Initial FX request failed");
-        const data = await response.json();
+        const data = await fetchFxRate("USD", currency.value);
         const rate = Number(data.rate);
-        if (!Number.isFinite(rate) || !(rate > 0)) {
-          throw new Error("Invalid initial FX rate");
-        }
         usdToSelectedRate = rate;
         fxRateReady = true;
 
@@ -3612,7 +3603,8 @@
         }
 
         fxStatus.textContent =
-          `Rate loaded: 1 USD = ${rate.toFixed(4)} ${currency.value} · ${data.date}`;
+          `Rate loaded: 1 USD = ${rate.toFixed(4)} ${currency.value}` +
+          (data.date ? ` · ${data.date}` : "");
         persistSpotState();
         updateTeamEv();
         updatePlayerDetail();
@@ -3620,7 +3612,12 @@
       } catch (error) {
         fxRateReady = false;
         fxStatus.textContent =
-          "Could not load the initial exchange rate. USD values may be shown until currency is changed.";
+          error?.name === "AbortError"
+            ? "Exchange-rate request timed out. Non-USD EV and ROI are withheld."
+            : "Could not load the exchange rate. Non-USD EV and ROI are withheld.";
+        updateTeamEv();
+        updatePlayerDetail();
+        updateResults();
       }
     }
 
@@ -3941,7 +3938,7 @@
 
       currentTeamEntry = entry;
       currentEvUsd = Number(entry.partial_ev_usd);
-      resultEvSummary.textContent = money(currentEvUsd * usdToSelectedRate);
+      resultEvSummary.textContent = formatUsdValue(currentEvUsd);
 
       if (entry.coverage_complete) {
         resultEvLabel.textContent = "Team EV";
@@ -4090,6 +4087,7 @@
       searchQuery = "";
       browseSearch.value = "";
       price.value = "";
+      updateCanonicalSpotFromDisplay();
       persistSpotState();
       clearPlayerSelection();
       renderTeams();
@@ -4141,6 +4139,19 @@
         return;
       }
 
+      if (!BreakMetricSpotCurrency.canPresentUsdValue(
+        currency.value,
+        fxRateReady
+      )) {
+        updateDataStatusUi();
+        resultNet.textContent = "FX unavailable";
+        resultRatio.textContent = "—";
+        resultRoi.textContent = "—";
+        resultNet.className = "";
+        resultRoi.className = "";
+        return;
+      }
+
       if (selectedTeamMarketEvidence()?.roi_eligible !== true) {
         updateDataStatusUi();
         resultNet.textContent = "Waiting for verified market sources";
@@ -4151,7 +4162,7 @@
         return;
       }
 
-      const expectedValue = currentEvUsd * usdToSelectedRate;
+      const expectedValue = selectedCurrencyValueFromUsd(currentEvUsd);
       const net = expectedValue - spotPrice;
       const ratio = expectedValue / spotPrice;
       const roi = ((expectedValue - spotPrice) / spotPrice) * 100;
