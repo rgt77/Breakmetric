@@ -37,6 +37,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 Every pull request and every push to supported release/step branches runs the release gates.
 
 ```bash
+node scripts/validate-development-ledger.mjs
 node scripts/audit-source-modules.mjs
 node scripts/generate-ev-eligible-inventory.mjs --check
 node scripts/validate-ev-eligible-inventory.mjs
@@ -61,7 +62,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The v1.3 development ledger is documented in `docs/v1.3-n200.md` and `data/validation/v13-n200.json`.
+The canonical development chronology through step 825 is documented in `docs/architecture-review-steps-1-825.md` and `data/validation/development-ledger-v1.json`. Historical release ledgers such as v1.2/v1.3 remain immutable snapshots.
 
 
 ## Source-module inventory

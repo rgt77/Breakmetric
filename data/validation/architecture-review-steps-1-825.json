@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "model": "architecture-review-steps-1-825",
+  "reviewed_at": "2026-09-21",
+  "reviewed_step_range": {
+    "start": 1,
+    "end": 825,
+    "count": 825
+  },
+  "result": "pass-with-structural-actions",
+  "findings": {
+    "core_analysis_architecture": "keep",
+    "product_format_routing": "keep",
+    "probability_derivation": "keep",
+    "ev_pipeline": "keep-and-expand-data",
+    "market_verification": "first-pass-complete-needs-v2-sample-policy",
+    "development_ledger": "normalized",
+    "validation_architecture": "policy-normalized-refactor-pending",
+    "browser_monolith": "refactor-later",
+    "offline_model_library": "classify-before-delete"
+  },
+  "detected_history_issues": [
+    {
+      "id": "duplicate-v10-v11-range",
+      "description": "v1.0 and v1.1 historical manifests both declare steps 356-365.",
+      "action": "canonical ledger maps v1.1 to 366-375 while preserving both historical snapshots unchanged."
+    },
+    {
+      "id": "legacy-ledger-gaps",
+      "description": "Early and bridge ranges predate exact machine-readable step manifests.",
+      "ranges": [
+        "1-169",
+        "175-187",
+        "228-235",
+        "376-395"
+      ],
+      "action": "canonical range coverage is reconstructed from chronology without fabricating per-step titles."
+    }
+  ],
+  "maintainability_metrics": {
+    "index_html_lines": 4478,
+    "index_html_chars": 161266,
+    "validate_mjs_lines": 1347,
+    "validate_mjs_chars": 62048,
+    "source_module_count": 52,
+    "runtime_module_count": 24,
+    "offline_model_library_count": 27
+  },
+  "data_readiness": {
+    "ev_eligible_slots": 8896,
+    "valued_ev_slots": 27,
+    "chelsea_eligible_slots": 638,
+    "chelsea_valued_slots": 27,
+    "chelsea_remaining_slots": 611,
+    "frozen_supporting_sales": 72,
+    "recovered_original_locators": 71,
+    "original_verified_sales": 5,
+    "unresolved_sales": 67,
+    "fully_original_verified_contributions": 0,
+    "untouched_unresolved_sales": 0
+  },
+  "revised_priorities": [
+    "complete Chelsea EV coverage before broad team expansion",
+    "design market-evidence v2 with a qualified original-marketplace sample separate from the frozen legacy audit sample",
+    "make Chelsea the first end-to-end ROI-ready team",
+    "expand team coverage after methodology proves out",
+    "split index.html after the next data milestone",
+    "split scripts/validate.mjs into current-state, historical-ledger and regression responsibilities",
+    "add browser E2E, axe and performance budget after stable UI boundaries exist"
+  ]
+}

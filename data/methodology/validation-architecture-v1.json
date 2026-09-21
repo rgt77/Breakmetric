@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "model": "validation-architecture-v1",
+  "generated_at": "2026-09-21",
+  "principles": [
+    "Historical validation manifests are immutable snapshots, not mutable current-state specifications.",
+    "Current-state validators must derive aggregate counts from current source data whenever possible.",
+    "A later verified sale must not make an earlier step snapshot fail merely because an aggregate count increased.",
+    "Historical step gates should verify persistence of the evidence introduced by that step, not freeze all later aggregate state.",
+    "Release workflow should separate generated-output checks, domain validators, regression tests, and development-ledger validation.",
+    "New step blocks must extend the canonical development ledger without gaps or overlaps.",
+    "Known historical numbering errors are resolved through explicit aliases, never silent rewrites."
+  ],
+  "validator_roles": {
+    "generators": "Reproducibility checks for derived outputs and fingerprints.",
+    "domain_validators": "Current truth for product, EV, market, provenance and candidate contracts.",
+    "regression_tests": "Behavioral tests for previously fixed bugs and edge cases.",
+    "historical_manifests": "Immutable implementation snapshots used for traceability.",
+    "development_ledger": "Canonical chronology and numbering map."
+  },
+  "refactor_targets": [
+    {
+      "file": "scripts/validate.mjs",
+      "current_lines": 1347,
+      "status": "refactor-recommended",
+      "target": "Keep orchestration/current cross-domain invariants here; move historical block assertions to dedicated validators or ledger checks."
+    },
+    {
+      "file": "index.html",
+      "current_lines": 4478,
+      "status": "refactor-recommended-after-data-priority",
+      "target": "Split CSS, application controller, and large render/state sections while preserving static deployment simplicity."
+    },
+    {
+      "area": "src/offline_model_library",
+      "current_module_count": 27,
+      "status": "review-before-delete",
+      "target": "Mark each retained research model as active-roadmap, archived-reference or removable; do not activate implicitly."
+    }
+  ]
+}
