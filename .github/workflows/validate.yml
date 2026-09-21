@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "24"
+      - name: Audit source-module inventory
+        run: node scripts/audit-source-modules.mjs
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
       - name: Validate market records
