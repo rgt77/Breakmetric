@@ -669,6 +669,8 @@ pass(
 );
 
 const step727 = json("data/validation/step-727.json");
+const marketIdentitySource =
+  read("scripts/lib/market-card-identity.mjs");
 const activeProductIdentity = json(
   "data/products/2026-topps-chrome-premier-league.json"
 ).market_identity || {};
@@ -687,15 +689,57 @@ pass(
 );
 pass(
   "market evidence requires listing product identity",
-  marketEvidenceIngestSource.includes("listing identity series does not match target product family") &&
-  marketEvidenceIngestSource.includes("listing identity card_number does not match market record") &&
-  marketEvidenceIngestSource.includes("listing identity parallel does not match market record") &&
-  marketEvidenceIngestSource.includes("listing identity print_run does not match market record")
+  marketEvidenceIngestSource.includes("assessListingIdentity") &&
+  marketIdentitySource.includes("listing identity series does not match target product family") &&
+  marketIdentitySource.includes("listing identity card_number does not match market record") &&
+  marketIdentitySource.includes("listing identity parallel does not match market record") &&
+  marketIdentitySource.includes("listing identity print_run does not match market record")
 );
 pass(
   "market record audit rechecks stored original identity",
-  read("scripts/validate-market-records.mjs").includes("original identity series mismatch") &&
-  read("scripts/validate-market-records.mjs").includes("original identity card number mismatch")
+  read("scripts/validate-market-records.mjs").includes("assessListingIdentity") &&
+  read("scripts/validate-market-records.mjs").includes("original identity invalid")
+);
+
+const step728 = json("data/validation/step-728.json");
+const candidateSource =
+  read("scripts/lib/market-verification-candidate.mjs");
+const templateSource =
+  read("scripts/lib/market-verification-template.mjs");
+const marketRecordAuditSource =
+  read("scripts/validate-market-records.mjs");
+pass(
+  "step 728 candidate recovery manifest",
+  step728.step === 728 &&
+  step728.implemented === true &&
+  step728.title === "Add fail-closed market candidate recovery gate"
+);
+pass(
+  "candidate recovery separates identity from historical sale",
+  candidateSource.includes('"identity-mismatch"') &&
+  candidateSource.includes('"identity-match-sale-unresolved"') &&
+  candidateSource.includes('"historical-sale-match"') &&
+  candidateSource.includes("candidate listing is not confirmed as a sold listing")
+);
+pass(
+  "only historical sale candidates can become evidence",
+  candidateSource.includes("eligible_for_evidence:eventMatched") &&
+  candidateSource.includes("validateEvidence")
+);
+pass(
+  "market identity logic is centralized",
+  marketEvidenceIngestSource.includes('from "./market-card-identity.mjs"') &&
+  templateSource.includes('from "./market-card-identity.mjs"') &&
+  marketRecordAuditSource.includes('from "./lib/market-card-identity.mjs"') &&
+  !marketEvidenceIngestSource.includes("function identityText(") &&
+  !marketRecordAuditSource.includes("const identityText=")
+);
+pass(
+  "candidate recovery CLI and methodology present",
+  exists("scripts/assess-market-verification-candidate.mjs") &&
+  exists("scripts/test-market-verification-candidate.mjs") &&
+  exists("data/methodology/market-verification-candidate-v1.json") &&
+  read("README.md").includes("Assessing recovered marketplace candidates")
 );
 
 console.log(JSON.stringify({

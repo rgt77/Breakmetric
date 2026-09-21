@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 728,
+  "title": "Add fail-closed market candidate recovery gate",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "guarantees": [
+    "Marketplace search hits are classified before they can become sale evidence.",
+    "Exact card identity and exact historical sale-event matching are separate gates.",
+    "A later active relisting of the exact serial-numbered card cannot verify an earlier sale.",
+    "Only historical-sale-match candidates may be converted into evidence schema v2.",
+    "Candidate assessment cannot mutate market records, realized sale prices, EV values or verification flags.",
+    "Product/card identity matching is centralized in one shared module used by evidence ingest, task generation and market-record audit."
+  ]
+}

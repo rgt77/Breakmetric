@@ -42,6 +42,12 @@ jobs:
           set -euo pipefail
           node scripts/test-market-verification-template.mjs
           node --check scripts/create-market-verification-evidence-template.mjs
+      - name: Test market verification candidate recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/test-market-verification-candidate.mjs
+          node --check scripts/assess-market-verification-candidate.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
       - name: Validate player derivation reproducibility
