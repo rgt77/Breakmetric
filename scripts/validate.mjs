@@ -864,10 +864,12 @@ pass(
     "original-marketplace-verified" &&
   prismMarketRecord.sales?.[0]?.original_marketplace_identity?.print_run ===
     null &&
-  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count ===
+  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count >=
     1 &&
-  prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count ===
-    29 &&
+  (
+    Number(prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count||0) +
+    Number(prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count||0)
+  ) === 30 &&
   prismMarketRecord.calculated_market_value?.status ===
     "provisional-mixed-source"
 );
@@ -917,7 +919,7 @@ pass(
 pass(
   "README reports current market verification progress",
   read("README.md").includes("71 of the 72 stored supporting sales") &&
-  read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
+  read("README.md").includes("3 of 72 sales are fully original-marketplace verified")
 );
 
 const marketBlock741745 = json("data/validation/steps-741-745.json");
@@ -969,7 +971,7 @@ pass(
 pass(
   "README reports updated market verification progress",
   read("README.md").includes("71 of the 72 stored supporting sales") &&
-  read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
+  read("README.md").includes("3 of 72 sales are fully original-marketplace verified")
 );
 
 const marketBlock746755 = json("data/validation/steps-746-755.json");
@@ -1161,16 +1163,100 @@ pass(
   )
 );
 pass(
-  "eleven unresolved sales now have persisted research attempts",
+  "steps 762-766 research progress remains recorded",
   researchBlock762766.cumulative_research_progress?.research_attempted_unresolved_count === 11 &&
-  researchBlock762766.cumulative_research_progress?.research_unattempted_unresolved_count === 59 &&
-  read("README.md").includes("11 of the 70 unresolved supporting sales")
+  researchBlock762766.cumulative_research_progress?.research_unattempted_unresolved_count === 59
 );
 pass(
-  "next unresolved research target advances to Prism sale index eight",
+  "steps 762-766 next target was preserved and has now been researched",
   researchBlock762766.next_research_task_id === nextPrismResearch8.task_id &&
-  !Array.isArray(nextPrismResearch8.research_attempts) &&
-  nextPrismResearch8.assessment_status === "identity-match-sale-unresolved"
+  Array.isArray(nextPrismResearch8.research_attempts) &&
+  nextPrismResearch8.research_attempts.length >= 1
+);
+
+const researchBlock767776 = json("data/validation/steps-767-776.json");
+const researchSteps767776 = Array.from(
+  {length:10},
+  (_,index)=>json(`data/validation/step-${767+index}.json`)
+);
+const verifiedPrismCandidate14 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-14.json"
+);
+const nextPrismResearch18 = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-18.json"
+);
+pass(
+  "steps 767-776 Prism research block is complete",
+  researchBlock767776.step_count === 10 &&
+  researchBlock767776.steps?.every((step,index)=>step===767+index) &&
+  researchSteps767776.every(row=>row.implemented===true)
+);
+pass(
+  "steps 767-776 produce one historical match and nine unavailable outcomes",
+  researchBlock767776.outcomes?.historical_sale_match === 1 &&
+  researchBlock767776.outcomes?.original_source_unavailable === 9 &&
+  researchBlock767776.outcomes?.historical_event_unresolved === 0
+);
+pass(
+  "Prism sale index fourteen is original-marketplace verified",
+  verifiedPrismCandidate14.assessment_status === "historical-sale-match" &&
+  verifiedPrismCandidate14.identity_source_kind === "original-marketplace" &&
+  verifiedPrismCandidate14.observed_sale?.source_kind ===
+    "original-marketplace" &&
+  verifiedPrismCandidate14.observed_sale?.original_marketplace_ended_at ===
+    "2026-05-05T17:33:00-07:00" &&
+  verifiedPrismCandidate14.observed_sale?.sale_date_basis ===
+    "utc-date-from-original-marketplace-timestamp" &&
+  prismMarketRecord.sales?.[14]?.source_sale_id === "127838378858" &&
+  prismMarketRecord.sales?.[14]?.original_marketplace_verified === true &&
+  prismMarketRecord.sales?.[14]?.original_marketplace_identity?.print_run === null &&
+  prismMarketRecord.sales?.[14]?.original_marketplace_ended_at ===
+    "2026-05-05T17:33:00-07:00" &&
+  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count === 2 &&
+  prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count === 28
+);
+pass(
+  "market timestamp provenance is UTC-normalized and release-gated",
+  marketEvidenceIngestSource.includes("utcDateFromOffsetTimestamp") &&
+  candidateSource.includes("utcDateFromOffsetTimestamp") &&
+  json("data/methodology/market-verification-candidate-v1.json")
+    .safety_rules?.some(value=>
+      value.includes("offset-bearing original marketplace timestamp")
+    ) === true &&
+  read("scripts/validate-market-records.mjs").includes(
+    "original timestamp does not normalize to stored sale date"
+  )
+);
+pass(
+  "Prism candidate promotion preserves null print run",
+  !candidateSource.includes(
+    "print_run:Number(candidate.listing_identity?.print_run)"
+  ) &&
+  candidateSource.includes(
+    "candidate.listing_identity?.print_run===null"
+  )
+);
+pass(
+  "research progress distinguishes touched promoted unresolved and untouched",
+  researchBlock767776.cumulative_research_progress?.original_unresolved_pool === 70 &&
+  researchBlock767776.cumulative_research_progress?.research_touched_original_unresolved_count === 21 &&
+  researchBlock767776.cumulative_research_progress?.research_promoted_count === 1 &&
+  researchBlock767776.cumulative_research_progress?.current_unresolved_sales_total === 69 &&
+  researchBlock767776.cumulative_research_progress?.research_attempted_unresolved_count === 20 &&
+  researchBlock767776.cumulative_research_progress?.research_unattempted_unresolved_count === 49 &&
+  researchBlock767776.cumulative_research_progress?.original_verified_sale_count === 3
+);
+pass(
+  "README reports third verified sale and current research progress",
+  read("README.md").includes("3 of 72 sales are fully original-marketplace verified") &&
+  read("README.md").includes("21 of the original 70 unresolved supporting sales") &&
+  read("README.md").includes("49 untouched")
+);
+pass(
+  "next unresolved research target advances to Prism sale index eighteen",
+  researchBlock767776.next_research_task_id === nextPrismResearch18.task_id &&
+  !Array.isArray(nextPrismResearch18.research_attempts) &&
+  nextPrismResearch18.assessment_status === "identity-match-sale-unresolved"
 );
 
 console.log(JSON.stringify({
