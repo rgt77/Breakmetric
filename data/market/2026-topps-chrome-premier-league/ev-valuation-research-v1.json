@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "team": "Chelsea",
+  "generated_at": "2026-09-21",
+  "model": "ev-valuation-research-v1",
+  "methodology": "data/methodology/chelsea-ev-valuation-sample-v1.json",
+  "attempts": [
+    {
+      "step": 827,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Alive and Kicking::AK-14::Base",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 10,
+      "market_value_usd": 0.99,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14"
+    },
+    {
+      "step": 828,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Alive and Kicking::AK-7::Base",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 8,
+      "market_value_usd": 1.99,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/reece-james-ak-7",
+      "exclusions": [
+        "2026 Topps Chrome Sapphire sale",
+        "Alive and Kicking Refractor /75 sale"
+      ]
+    },
+    {
+      "step": 829,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Golazo::GZ-8::Base",
+      "outcome": "no-exact-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 0,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-golazo/gus-poyet-gz-8",
+      "blocker": "Exact base card page currently reports zero ungraded sold listings."
+    },
+    {
+      "step": 830,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::The Streets Won't Forget::SWF-2::Base",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 4,
+      "market_value_usd": 2.37,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2"
+    },
+    {
+      "step": 831,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::autographs::Chrome Autograph Cards::CA-EV::Base",
+      "outcome": "no-exact-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 0,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-ca-ev",
+      "blocker": "The page currently labels three ungraded sales, but all three are identity-contaminated: two are Topps Chrome Sapphire and one is a numbered /50 autograph rather than Base. No exact Base realized sale is retained."
+    },
+    {
+      "step": 832,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::base_parallels::Base Cards::68::Refractor",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 10,
+      "market_value_usd": 4.695,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-refractor-68"
+    },
+    {
+      "step": 833,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::autographs::Chrome Autograph Cards::CA-EV::Aqua Refractor",
+      "outcome": "no-exact-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 0,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-aqua-refractor-ca-ev",
+      "blocker": "Exact Aqua Refractor /199 page currently reports no raw sold listings."
+    },
+    {
+      "step": 834,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::autographs::Chrome Autograph Cards::CA-EV::Blue Refractor",
+      "outcome": "no-exact-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 0,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-blue-refractor-ca-ev",
+      "blocker": "Exact Blue Refractor /150 page currently reports no raw sold listings."
+    },
+    {
+      "step": 835,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Stoppage Time Heartbreaker::STH-4::Base",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 10,
+      "market_value_usd": 1,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4"
+    },
+    {
+      "step": 836,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::autographs::Chrome Autograph Cards::CA-EV::Green Refractor",
+      "outcome": "no-exact-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 0,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-green-refractor-ca-ev",
+      "blocker": "Exact Green Refractor /99 page currently reports no raw sold listings."
+    }
+  ]
+}
