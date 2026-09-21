@@ -305,7 +305,12 @@ export function applyEvidence({task={},record={},product={},evidence={}}={}){
     series:text(evidence.listing_identity?.series),
     card_number:text(evidence.listing_identity?.card_number),
     parallel:text(evidence.listing_identity?.parallel),
-    print_run:Number(evidence.listing_identity?.print_run),
+    print_run:
+      evidence.listing_identity?.print_run===null ||
+      evidence.listing_identity?.print_run===undefined ||
+      evidence.listing_identity?.print_run===""
+        ? null
+        : Number(evidence.listing_identity.print_run),
     player:text(evidence.listing_identity?.player),
     team:text(evidence.listing_identity?.team)||null
   };
