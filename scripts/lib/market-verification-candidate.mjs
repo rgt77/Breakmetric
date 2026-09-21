@@ -211,6 +211,8 @@ export function evidenceFromCandidate({
 
   const sale=record.sales[Number(task.sale_index)];
   const observed=candidate.observed_sale||{};
+  const endedAt=text(observed.original_marketplace_ended_at);
+  const saleDateBasis=text(observed.sale_date_basis);
   const evidence={
     schema_version:2,
     task_id:task.task_id,
