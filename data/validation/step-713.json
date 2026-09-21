@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 713,
+  "title": "Version and invalidate the in-memory runtime data cache",
+  "implemented": true,
+  "guarantees": [
+    "Cached JSON is namespaced by a deterministic runtime-data fingerprint.",
+    "A changed fingerprint invalidates the in-memory cache.",
+    "Top-level product, format, analysis and market-record loads verify the fingerprint before and after loading.",
+    "A fingerprint change during loading restarts once and never activates a mixed-version bundle."
+  ]
+}

@@ -18,6 +18,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - Team comparison is descriptive and retains canonical team order; it does not rank spots by value.
 - Player detail uses progressive disclosure so core probability metrics stay prominent.
 - Static analysis data uses same-origin path guards, payload limits, bounded concurrency, cache metrics and in-flight deduplication.
+- Runtime JSON caching is fingerprint-versioned; cache is invalidated when deployed data changes, and top-level loads must observe a stable fingerprint before activation.
 - Browser persistence uses a resilient local-storage abstraction with a session fallback.
 - FX transitions use a last-write-wins operation coordinator so stale async responses cannot overwrite newer currency choices.
 - Runtime dependencies are checked before application startup; partial script loads fail closed with a visible error.
@@ -28,6 +29,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 Every pull request and every push to supported release/step branches runs the release gates.
 
 ```bash
+node scripts/generate-data-version.mjs --check
 node scripts/audit-source-modules.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/validate-market-records.mjs
@@ -36,6 +38,8 @@ node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
 node scripts/test-runtime-races.mjs
 node scripts/test-selection-race.mjs
+node scripts/test-market-record-race.mjs
+node scripts/test-data-cache-version.mjs
 node scripts/validate.mjs
 node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
