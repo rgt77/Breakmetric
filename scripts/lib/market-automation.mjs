@@ -117,7 +117,8 @@ export function breadthAwareOrder(tasks=[]){
   }
   for(const rows of groups.values()){
     rows.sort((a,b)=>
-      Number(b.economic_priority_proxy_usd||0)-Number(a.economic_priority_proxy_usd||0) ||
+      Number(b.collection_priority_score??b.economic_priority_proxy_usd??0)-
+      Number(a.collection_priority_score??a.economic_priority_proxy_usd??0) ||
       String(a.task_id).localeCompare(String(b.task_id))
     );
   }
@@ -127,8 +128,16 @@ export function breadthAwareOrder(tasks=[]){
     const subjects=[...groups.keys()]
       .filter(subject=>groups.get(subject).length)
       .sort((a,b)=>{
-        const av=Number(groups.get(a)[0]?.economic_priority_proxy_usd||0);
-        const bv=Number(groups.get(b)[0]?.economic_priority_proxy_usd||0);
+        const av=Number(
+          groups.get(a)[0]?.collection_priority_score ??
+          groups.get(a)[0]?.economic_priority_proxy_usd ??
+          0
+        );
+        const bv=Number(
+          groups.get(b)[0]?.collection_priority_score ??
+          groups.get(b)[0]?.economic_priority_proxy_usd ??
+          0
+        );
         return bv-av || a.localeCompare(b);
       });
     for(const subject of subjects){
