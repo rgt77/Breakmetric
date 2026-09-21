@@ -124,14 +124,26 @@
       "raw_realized_sale_count": 0,
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-green-wave-refractor-ca-ev",
       "blocker": "Exact Green Wave Refractor /99 page currently reports no raw sold listings."
+    },
+    {
+      "step": 838,
+      "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::base_parallels::Base Cards::62::Refractor",
+      "outcome": "valued-secondary-realized-sales",
+      "exact_series_identity": true,
+      "raw_realized_sale_count": 1,
+      "market_value_usd": 2.99,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/liam-delap-refractor-62",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/62-liam-delap-refractor.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-62-liam-delap-refractor-ev.json",
+      "ev_contribution_usd": 1.0764
     }
   ],
   "summary": {
-    "attempted_task_count": 11,
-    "valued_task_count": 5,
+    "attempted_task_count": 12,
+    "valued_task_count": 6,
     "blocked_no_exact_realized_sales_count": 6,
-    "new_ev_contribution_usd": 9.3102,
-    "chelsea_valued_contribution_count": 32,
-    "chelsea_remaining_contribution_count": 606
+    "new_ev_contribution_usd": 10.3866,
+    "chelsea_valued_contribution_count": 33,
+    "chelsea_remaining_contribution_count": 605
   }
 }

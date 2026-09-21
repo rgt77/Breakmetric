@@ -13,8 +13,8 @@
     "The market source file remains independently evidence-gated."
   ],
   "summary": {
-    "contribution_count": 32,
-    "derivation_linked_count": 32,
+    "contribution_count": 33,
+    "derivation_linked_count": 33,
     "missing_derivation_count": 0
   },
   "entries": [
@@ -399,6 +399,18 @@
       "ev_contribution_usd": 1.2,
       "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-STH-4-stoppage-time-heartbreaker-base-ev.json",
       "market_source_file": "data/market/2026-topps-chrome-premier-league/STH-4-cole-palmer-stoppage-time-heartbreaker-base.json",
+      "formula": "expected_copies_per_case × market_value_usd",
+      "probability_metric": "calculation.expected_copies_per_case"
+    },
+    {
+      "team": "Chelsea",
+      "card_id": "62-refractor",
+      "player": "Liam Delap",
+      "set": "Base Cards",
+      "parallel": "Refractor",
+      "ev_contribution_usd": 1.0764,
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-62-liam-delap-refractor-ev.json",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/62-liam-delap-refractor.json",
       "formula": "expected_copies_per_case × market_value_usd",
       "probability_metric": "calculation.expected_copies_per_case"
     }

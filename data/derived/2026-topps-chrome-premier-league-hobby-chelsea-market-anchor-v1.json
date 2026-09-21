@@ -3,8 +3,8 @@
   "product_id": "2026-topps-chrome-premier-league",
   "format_id": "hobby",
   "team": {
-    "observation_count": 32,
-    "median_market_value_usd": 27
+    "observation_count": 33,
+    "median_market_value_usd": 20
   },
   "generated_at": "2026-09-21",
   "model": "chelsea-market-anchor-v1",
@@ -22,8 +22,8 @@
   "minimum_category_observations_for_fallback": 3,
   "categories": {
     "base_parallels": {
-      "observation_count": 27,
-      "median_market_value_usd": 49.99,
+      "observation_count": 28,
+      "median_market_value_usd": 41.995,
       "eligible_as_fallback": true
     },
     "autographs": {
@@ -108,6 +108,16 @@
       "base_parallels": {
         "observation_count": 1,
         "median_market_value_usd": 6
+      }
+    },
+    "Liam Delap": {
+      "all": {
+        "observation_count": 1,
+        "median_market_value_usd": 2.99
+      },
+      "base_parallels": {
+        "observation_count": 1,
+        "median_market_value_usd": 2.99
       }
     },
     "Moisés Caicedo": {

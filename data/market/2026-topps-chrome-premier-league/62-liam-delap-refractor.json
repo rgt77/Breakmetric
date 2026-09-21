@@ -1,0 +1,42 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "62",
+  "player": "Liam Delap",
+  "team": "Chelsea",
+  "set": "Base Cards",
+  "parallel": "Refractor",
+  "serial_numbering": null,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-03-07",
+      "sale_price": 2.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/liam-delap-refractor-62",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 2.99,
+    "mean_usd": 2.99,
+    "min_usd": 2.99,
+    "max_usd": 2.99,
+    "sale_count": 1,
+    "confidence": "provisional",
+    "sample_size_confidence": "low",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 1,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Phase-2 provisional valuation from the one currently reported exact raw 2026 Topps Chrome Premier League #62 Refractor realized sale. The linked historical eBay listing is no longer retrievable, so this remains secondary-source evidence and is not part of the frozen v1 verification sample."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 838,
+  "title": "Research Chelsea EV completion task: Liam Delap — Base Cards #62 Refractor",
+  "implemented": true,
+  "focus": "Phase 2 — Chelsea EV completion",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::base_parallels::Base Cards::62::Refractor",
+  "result": {
+    "outcome": "valued-secondary-realized-sales",
+    "valued": true,
+    "market_value_usd": 2.99,
+    "realized_sale_count": 1,
+    "ev_contribution_usd": 1.0764,
+    "chelsea_valued_contribution_count": 33,
+    "chelsea_remaining_contribution_count": 605
+  },
+  "guarantees": [
+    "Exact 2026 Topps Chrome Premier League product identity is required before valuation.",
+    "Queue proxy values are not used as market values.",
+    "EV is derived only from the exact raw realized-sale sample retained for this card.",
+    "The valuation remains provisional secondary-source evidence because the historical eBay listing is no longer retrievable.",
+    "The frozen v1 27-contribution / 72-sale market verification scope is not expanded."
+  ]
+}
