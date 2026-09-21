@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "model": "continuous-market-collector-config-v1",
+  "enabled": true,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "queue_file": "data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json",
+  "observation_file": "data/collection/2026-topps-chrome-premier-league-market-observations-v1.json",
+  "automated_valuation_file": "data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json",
+  "fast_lane": {
+    "provider": "sportscardspro-api",
+    "cadence_minutes": 15,
+    "batch_size": 20,
+    "min_request_interval_ms": 1100,
+    "rotating_shards": true,
+    "max_tasks_per_subject_per_batch": 2,
+    "credential_env": "SPORTSCARDSPRO_TOKEN"
+  },
+  "bulk_lane": {
+    "provider": "sportscardspro-csv",
+    "cadence_hours": 24,
+    "csv_url_env": "SPORTSCARDSPRO_CSV_URL",
+    "credential_note": "Use the subscriber-specific Download Price List URL. The URL must be stored as a GitHub Actions secret."
+  },
+  "persistence": {
+    "write_only_when_observation_changes": true,
+    "retain_first_seen": true,
+    "retain_provider_product_id": true
+  },
+  "safety": {
+    "exact_identity_required": true,
+    "allow_cross_series_match": false,
+    "current_provider_price_is_realized_sale": false,
+    "current_provider_price_is_original_marketplace_verified": false,
+    "auto_promote_modeled_values_to_canonical_ev": false
+  }
+}
