@@ -68,6 +68,16 @@ export function assessVerificationCandidate({
     };
   }
 
+  if(errors.length){
+    return {
+      valid:false,
+      status:"invalid-candidate",
+      eligible_for_evidence:false,
+      errors,
+      blockers
+    };
+  }
+
   const identity=assessListingIdentity({
     record,
     product,
