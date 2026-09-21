@@ -626,6 +626,24 @@ pass("Open Graph website type present", html.includes('property="og:type" conten
 pass("dark color scheme declared", html.includes('name="color-scheme" content="dark"'));
 pass("version is v1.3.0", html.includes("BreakMetric v1.3.0"));
 
+const step725 = json("data/validation/step-725.json");
+pass(
+  "step 725 evidence template manifest",
+  step725.step === 725 &&
+  step725.implemented === true &&
+  step725.title === "Generate deterministic pending-sale evidence templates"
+);
+pass(
+  "evidence template CLI documented",
+  read("README.md").includes("create-market-verification-evidence-template.mjs")
+);
+pass(
+  "evidence template generator present",
+  exists("scripts/create-market-verification-evidence-template.mjs") &&
+  exists("scripts/lib/market-verification-template.mjs") &&
+  exists("scripts/test-market-verification-template.mjs")
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,
