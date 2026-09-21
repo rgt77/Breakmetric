@@ -26,14 +26,18 @@
     "team when supplied"
   ],
   "historical_sale_gate": [
-    "listing must be confirmed sold, not active",
+    "card identity must be observed from the original marketplace or an equivalent original-source record",
+    "listing must be confirmed sold, not merely reported sold by a secondary source",
     "sale date must match the stored realized sale",
     "sale price must match the stored realized sale",
     "marketplace must match",
     "serial copy must match when the stored sale has one",
+    "sale-event details must be observed from the original marketplace or an equivalent original-source record",
     "candidate must carry a qualifying original marketplace locator"
   ],
   "safety_rules": [
+    "A recovered marketplace item ID discovered through a secondary source is a useful locator candidate, not verified sale evidence by itself.",
+    "Secondary-source card identity or sale-event observations cannot make a candidate evidence-eligible.",
     "An active relisting of the exact physical serial-numbered card remains unresolved.",
     "A different sale of the exact same card remains unresolved.",
     "A visually similar card from another product family is an identity mismatch.",
