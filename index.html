@@ -1307,21 +1307,6 @@
     const fxCoordinator = BreakMetricFxCoordinator.create();
     const fxStatus = document.getElementById("fxStatus");
 
-    async function fetchJsonForProduct(path, token) {
-      const data = await BreakMetricDataLoader.loadJson(path, {
-        timeoutMs: 12000,
-        retries: 1
-      });
-
-      if (token !== productLoadToken) {
-        const staleError = new Error("Stale product load");
-        staleError.name = "StaleProductLoad";
-        throw staleError;
-      }
-
-      return data;
-    }
-
     function selectionStorageKey(field, productId = selectedProductId) {
       return "breakmetric_selection__" + productId + "__" + field;
     }
@@ -1496,7 +1481,7 @@
       marketRecordIntegrity.textContent = "Loading…";
 
       try {
-        const recordMap = await BreakMetricDataLoader.loadMany(
+        const recordMap = await BreakMetricDataLoader.loadManyVersioned(
           Object.fromEntries(sources.map((path,index) => ["record" + index,path])),
           {
             concurrency: 6,
@@ -1807,11 +1792,21 @@
       dataLoaderStatus.className =
         stats.failures > 0 ? "status-warn" : stats.in_flight === 0 ? "status-good" : "";
 
+      const versionLabel =
+        stats.version && stats.version !== "unversioned"
+          ? stats.version.slice(0, 8)
+          : "unversioned";
+
       dataLoaderMetrics.textContent =
         stats.cached + " cached · " +
         stats.requests + " network · " +
         stats.cache_hits + " cache hits · " +
-        stats.retries + " retries";
+        stats.retries + " retries · data " +
+        versionLabel +
+        (stats.cache_invalidations
+          ? " · " + stats.cache_invalidations + " cache invalidation" +
+            (stats.cache_invalidations === 1 ? "" : "s")
+          : "");
       dataLoaderMetrics.className = stats.failures > 0 ? "status-warn" : "";
     }
 
@@ -2133,7 +2128,7 @@
           marketVerificationQueue: formatPath("market_verification_queue_data")
         };
 
-        const loaded = await BreakMetricDataLoader.loadMany(paths, {
+        const loaded = await BreakMetricDataLoader.loadManyVersioned(paths, {
           concurrency: 6,
           timeoutMs: 12000,
           retries: 1,
@@ -2478,7 +2473,7 @@
       formatStatus.textContent = "Loading box formats…";
 
       try {
-        const nextFormatCatalog = await BreakMetricDataLoader.loadJson(
+        const nextFormatCatalog = await BreakMetricDataLoader.loadJsonVersioned(
           formatPathAtStart,
           { timeoutMs: 12000, retries: 1 }
         );
@@ -3882,7 +3877,7 @@
 
     async function loadProducts() {
       try {
-        const nextProductCatalog = await BreakMetricDataLoader.loadJson(
+        const nextProductCatalog = await BreakMetricDataLoader.loadJsonVersioned(
           "data/products/catalog.json",
           { timeoutMs: 12000, retries: 1 }
         );
