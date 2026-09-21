@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 758,
+  "title": "Research unresolved marketplace sale 2026-topps-chrome-premier-league::hobby::Chelsea::68-gold-refractor::0",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-gold-refractor::0",
+  "source_sale_id": "177989347985",
+  "result": {
+    "outcome": "original-source-unavailable",
+    "evidence_promoted": false,
+    "candidate_status": "identity-match-sale-unresolved",
+    "research_state": "attempted-original-source-unavailable"
+  },
+  "guarantees": [
+    "The research attempt is persisted on the exact frozen supporting-sale candidate.",
+    "No evidence is promoted without an independently observed matching historical sale event.",
+    "Candidate assessment status remains fail-closed unresolved.",
+    "No market sale price, EV contribution or verification flag is changed."
+  ]
+}
