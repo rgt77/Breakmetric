@@ -44,6 +44,8 @@ node scripts/validate-market-records.mjs
 node scripts/validate-market-verification-contract.mjs
 node scripts/validate-market-verification-tasks.mjs
 node scripts/test-market-verification-evidence.mjs
+node scripts/test-market-verification-template.mjs
+node scripts/test-market-verification-candidate.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
@@ -69,6 +71,26 @@ All `src/*.js` files are explicitly classified in `data/validation/source-module
 
 CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
 
+
+## Assessing recovered marketplace candidates
+
+A marketplace search hit is not evidence by itself. Assess it first:
+
+```bash
+node scripts/assess-market-verification-candidate.mjs --candidate path/to/candidate.json
+```
+
+Candidate recovery is deliberately two-stage. First, the exact product/card identity must match the target product family, card number, parallel, print run and player. Second, the marketplace page must prove the exact stored historical sale event: a sold listing with matching date, price, marketplace and serial copy. An active relisting of the exact physical card therefore remains `identity-match-sale-unresolved`.
+
+Only a `historical-sale-match` candidate can be promoted to evidence:
+
+```bash
+node scripts/assess-market-verification-candidate.mjs \
+  --candidate path/to/candidate.json \
+  --emit-evidence evidence/verified-sale.json
+```
+
+Candidate assessment never mutates market records, sale prices, EV or verification flags. The emitted evidence must still pass the normal fail-closed evidence validator before it can be written.
 
 ## Preparing original-marketplace evidence
 
