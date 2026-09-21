@@ -261,6 +261,20 @@ for(const [name,patch,expected] of [
   assert.deepEqual(rejected.record,record);
 }
 
+const singaporeEbay={
+  ...valid,
+  direct_marketplace_url:"https://www.ebay.com.sg/itm/123456789012"
+};
+assert.equal(
+  validateEvidence({
+    task,
+    record,
+    product,
+    evidence:singaporeEbay
+  }).valid,
+  true
+);
+
 const spanishEbay={
   ...valid,
   direct_marketplace_url:"https://www.ebay.es/itm/123456789012"
@@ -342,6 +356,7 @@ console.log(JSON.stringify({
     "wrong card number is rejected even for same player",
     "wrong parallel is rejected even within Chrome",
     "valid original marketplace sale URL accepted",
+    "canonical eBay Singapore listing host accepted",
     "canonical eBay Spain listing host accepted",
     "unnumbered verified identity preserves null print run",
     "marketplace-shaped stable original sale id accepted",
