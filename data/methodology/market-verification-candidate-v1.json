@@ -50,5 +50,26 @@
   "cli": {
     "assess": "node scripts/assess-market-verification-candidate.mjs --candidate <file.json>",
     "promote_to_evidence": "node scripts/assess-market-verification-candidate.mjs --candidate <file.json> --emit-evidence <evidence.json>"
+  },
+  "research_attempt_model": {
+    "purpose": "Persist original-source research attempts separately from evidence eligibility so unresolved sales can be worked systematically without repeating the same dead-end discovery.",
+    "allowed_outcomes": [
+      "original-source-unavailable",
+      "historical-event-unresolved",
+      "identity-mismatch",
+      "historical-sale-match"
+    ],
+    "required_fields": [
+      "attempt_id",
+      "attempted_at",
+      "methods",
+      "outcome"
+    ],
+    "ordering_policy": [
+      "verified sales and identity mismatches are excluded from unresolved research",
+      "never-researched unresolved candidates are worked before already-attempted candidates",
+      "within the same research state, lower contribution priority rank then lower sale index wins",
+      "when all eligible candidates have attempts, the oldest last_research_attempt_at is retried first"
+    ]
   }
 }
