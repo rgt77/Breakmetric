@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 791,
+  "title": "Complete first-pass original-source research for frozen sale step 791",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "candidate_file": "data/market/2026-topps-chrome-premier-league/candidates/68-pink-refractor-sale-0.json",
+  "result": {
+    "outcome": "original-source-unavailable",
+    "evidence_promoted": false,
+    "research_state": "attempted-original-source-unavailable"
+  },
+  "guarantees": [
+    "This frozen supporting sale received a first-pass original-source research attempt.",
+    "No unsupported evidence is promoted; the sale remains unresolved.",
+    "No realized sale price or EV contribution is changed."
+  ]
+}
