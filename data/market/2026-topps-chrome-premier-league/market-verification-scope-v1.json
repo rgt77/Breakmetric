@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "generated_at": "2026-09-21",
+  "model": "market-verification-scope-v1",
+  "purpose": "Freeze the legacy 27-contribution / 72-sale verification sample so Phase-2 EV expansion cannot silently mutate the historical audit population.",
+  "frozen_contribution_count": 27,
+  "card_ids": [
+    "CA-EV-gold-refractor-auto",
+    "68-gold-refractor",
+    "68-prism-refractor",
+    "68-gold-wave-refractor",
+    "68-pink-refractor",
+    "68-purple-wave-refractor",
+    "68-purple-refractor",
+    "68-yellow-refractor",
+    "68-orange-wave-refractor",
+    "68-orange-refractor",
+    "68-green-wave-refractor",
+    "68-aqua-wave-refractor",
+    "68-green-refractor",
+    "68-aqua-refractor",
+    "68-blue-wave-refractor",
+    "68-teal-refractor",
+    "63-aqua-refractor",
+    "63-gold-wave-refractor",
+    "63-blue-refractor",
+    "63-purple-wave-refractor",
+    "66-aqua-refractor",
+    "66-pink-refractor",
+    "67-pink-refractor",
+    "61-blue-refractor",
+    "63-gold-refractor",
+    "64-pink-refractor",
+    "65-aqua-refractor"
+  ],
+  "guarantees": [
+    "The v1 market verification queue may contain only these contribution ids.",
+    "New Phase-2 EV contributions remain provisional and are not automatically appended to the frozen 72-sale audit.",
+    "A future market-evidence-v2 policy may define a separate qualified original-source sample."
+  ]
+}
