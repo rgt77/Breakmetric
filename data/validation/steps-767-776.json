@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "market-verification-research-steps-767-776",
+  "step_count": 10,
+  "steps": [
+    767,
+    768,
+    769,
+    770,
+    771,
+    772,
+    773,
+    774,
+    775,
+    776
+  ],
+  "attempted_sale_count": 10,
+  "outcomes": {
+    "original_source_unavailable": 9,
+    "historical_event_unresolved": 0,
+    "historical_sale_match": 1
+  },
+  "cumulative_research_progress": {
+    "original_unresolved_pool": 70,
+    "research_touched_original_unresolved_count": 21,
+    "research_promoted_count": 1,
+    "current_unresolved_sales_total": 69,
+    "research_attempted_unresolved_count": 20,
+    "research_unattempted_unresolved_count": 49,
+    "original_verified_sale_count": 3
+  },
+  "verified_sale": {
+    "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::14",
+    "source_sale_id": "127838378858",
+    "sale_price_usd": 12.5,
+    "canonical_sale_date": "2026-05-06",
+    "original_marketplace_ended_at": "2026-05-05T17:33:00-07:00",
+    "sale_date_basis": "utc-date-from-original-marketplace-timestamp"
+  },
+  "next_research_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::18"
+}

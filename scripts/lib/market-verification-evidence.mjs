@@ -12,6 +12,18 @@ function validDate(value){
     !Number.isNaN(new Date(value+"T00:00:00Z").getTime());
 }
 
+export function utcDateFromOffsetTimestamp(value){
+  const raw=typeof value==="string" ? value.trim() : "";
+  if(
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(raw)
+  ){
+    return null;
+  }
+  const timestamp=Date.parse(raw);
+  if(Number.isNaN(timestamp)) return null;
+  return new Date(timestamp).toISOString().slice(0,10);
+}
+
 function text(value){
   return typeof value==="string" ? value.trim() : "";
 }
@@ -177,6 +189,22 @@ export function validateEvidence({task={},record={},product={},evidence={}}={}){
     errors.push("evidence sale_date does not match stored realized sale");
   }
 
+  const endedAt=text(evidence.original_marketplace_ended_at);
+  const dateBasis=text(evidence.sale_date_basis);
+  if(endedAt){
+    if(dateBasis!=="utc-date-from-original-marketplace-timestamp"){
+      errors.push("original marketplace timestamp requires UTC sale-date basis");
+    }
+    const utcDate=utcDateFromOffsetTimestamp(endedAt);
+    if(!utcDate || utcDate!==evidence.sale_date){
+      errors.push(
+        "original marketplace timestamp does not normalize to evidence sale_date"
+      );
+    }
+  }else if(dateBasis){
+    errors.push("sale_date_basis requires original marketplace timestamp");
+  }
+
   const evidencePrice=money(evidence.sale_price_usd);
   const storedPrice=money(sale.sale_price);
   if(
@@ -318,6 +346,12 @@ export function applyEvidence({task={},record={},product={},evidence={}}={}){
   sale.evidence_status="original-marketplace-verified";
   sale.original_marketplace_verified=true;
   sale.original_marketplace_verified_at=evidence.verified_at;
+  if(text(evidence.original_marketplace_ended_at)){
+    sale.original_marketplace_ended_at=
+      text(evidence.original_marketplace_ended_at);
+    sale.original_marketplace_sale_date_basis=
+      text(evidence.sale_date_basis);
+  }
   if(text(evidence.verification_note)){
     sale.original_marketplace_verification_note=
       text(evidence.verification_note);

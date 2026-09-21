@@ -96,6 +96,46 @@ assert.equal(exact.status,"historical-sale-match");
 assert.equal(exact.eligible_for_evidence,true);
 assert.deepEqual(exact.blockers,[]);
 
+const offsetTimestampCandidate={
+  ...base,
+  observed_sale:{
+    ...base.observed_sale,
+    original_marketplace_ended_at:"2026-02-06T17:00:00-07:00",
+    sale_date_basis:"utc-date-from-original-marketplace-timestamp"
+  }
+};
+const offsetTimestampAssessment=assessVerificationCandidate({
+  task,
+  record,
+  product,
+  candidate:offsetTimestampCandidate
+});
+assert.equal(offsetTimestampAssessment.status,"historical-sale-match");
+assert.equal(offsetTimestampAssessment.event_checks.sale_date,true);
+
+const wrongOffsetTimestampCandidate={
+  ...offsetTimestampCandidate,
+  observed_sale:{
+    ...offsetTimestampCandidate.observed_sale,
+    original_marketplace_ended_at:"2026-02-07T17:00:00-07:00"
+  }
+};
+const wrongOffsetTimestampAssessment=assessVerificationCandidate({
+  task,
+  record,
+  product,
+  candidate:wrongOffsetTimestampCandidate
+});
+assert.equal(
+  wrongOffsetTimestampAssessment.status,
+  "identity-match-sale-unresolved"
+);
+assert.ok(
+  wrongOffsetTimestampAssessment.blockers.some(error=>
+    error.includes("timestamp does not normalize")
+  )
+);
+
 const wrongSeries={
   ...base,
   listing_identity:{
@@ -274,6 +314,15 @@ assert.equal(unnumberedAssessment.valid,true);
 assert.equal(unnumberedAssessment.identity.checks.print_run,true);
 assert.equal(unnumberedAssessment.identity.normalized.print_run,null);
 
+const unnumberedPromoted=evidenceFromCandidate({
+  task:unnumberedTask,
+  record:unnumberedRecord,
+  product,
+  candidate:unnumberedCandidate
+});
+assert.equal(unnumberedPromoted.created,true);
+assert.equal(unnumberedPromoted.evidence.listing_identity.print_run,null);
+
 const badLocator={
   ...base,
   direct_marketplace_url:"https://www.ebay.com/sch/i.html?_nkw=estevao"
@@ -297,12 +346,15 @@ console.log(JSON.stringify({
   result:"pass",
   checks:[
     "exact product identity plus exact sold event becomes historical-sale-match",
+    "offset-bearing original marketplace timestamp may normalize to stored UTC sale date",
+    "timestamp that normalizes to a different UTC date remains unresolved",
     "wrong Topps product family is rejected before sale matching",
     "later active relisting stays unresolved even for the exact physical card",
     "secondary-source-only identity and sale observations stay unresolved",
     "different historical sale event stays unresolved",
     "observed serial may be retained when stored sale has no serial copy",
     "unnumbered card identity preserves null print run instead of coercing to zero",
+    "unnumbered candidate promotion preserves null print run in emitted evidence",
     "only exact historical-sale-match can be promoted to evidence",
     "candidate assessment never mutates the market record"
   ]

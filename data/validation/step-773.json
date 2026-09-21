@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 773,
+  "title": "Research unresolved Prism sale index 14",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::14",
+  "target_sale": {
+    "player": "Estêvão Willian",
+    "card_number": "68",
+    "parallel": "Prism Refractor",
+    "sale_index": 14,
+    "sale_date": "2026-05-06",
+    "sale_price_usd": 12.5,
+    "marketplace": "eBay",
+    "source_sale_id": "127838378858"
+  },
+  "result": {
+    "outcome": "historical-sale-match",
+    "evidence_promoted": true,
+    "candidate_status": "historical-sale-match",
+    "research_state": "attempted-historical-sale-match"
+  },
+  "original_marketplace_timestamp": {
+    "ended_at": "2026-05-05T17:33:00-07:00",
+    "basis": "utc-date-from-original-marketplace-timestamp",
+    "normalized_utc_date": "2026-05-06"
+  },
+  "guarantees": [
+    "Original eBay page directly proves sold state, exact card identity and USD sale price.",
+    "The original marketplace local ended timestamp is persisted with its UTC normalization basis.",
+    "The stored canonical sale date is accepted only because the offset-bearing original timestamp normalizes to that UTC date.",
+    "No realized sale price or EV contribution changes during verification."
+  ]
+}

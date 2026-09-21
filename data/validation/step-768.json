@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 768,
+  "title": "Research unresolved Prism sale index 9",
+  "implemented": true,
+  "focus": "Priority 1 — market verification event recovery",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::9",
+  "target_sale": {
+    "player": "Estêvão Willian",
+    "card_number": "68",
+    "parallel": "Prism Refractor",
+    "sale_index": 9,
+    "sale_date": "2026-05-28",
+    "sale_price_usd": 17.5,
+    "marketplace": "eBay",
+    "source_sale_id": "377203478965"
+  },
+  "result": {
+    "outcome": "original-source-unavailable",
+    "evidence_promoted": false,
+    "candidate_status": "identity-match-sale-unresolved",
+    "research_state": "attempted-original-source-unavailable"
+  },
+  "guarantees": [
+    "Exact eBay URL, item-ID search and card-title search were attempted for the recovered locator.",
+    "No original historical sale page was independently readable.",
+    "The candidate remains fail-closed unresolved.",
+    "No sale price, EV contribution or verification flag is changed."
+  ]
+}

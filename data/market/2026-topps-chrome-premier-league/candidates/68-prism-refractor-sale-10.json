@@ -29,7 +29,31 @@
     "evidence": "Historical sold-listing outbound link recovered eBay item 127861160196."
   },
   "assessment_status": "identity-match-sale-unresolved",
-  "research_note": "Original marketplace locator recovered, but card identity and historical sale-event details remain secondary-source observations; keep unresolved.",
+  "research_note": "Original marketplace locator is retained, but a dedicated exact-item original-source retry could not independently observe the stored historical sale event. Keep unresolved and advance the research queue.",
   "source_sale_id": "127861160196",
-  "direct_marketplace_url": "https://www.ebay.com.au/itm/127861160196"
+  "direct_marketplace_url": "https://www.ebay.com.au/itm/127861160196",
+  "research_state": "attempted-original-source-unavailable",
+  "research_attempts": [
+    {
+      "attempt_id": "2026-09-21-original-source-retry-step-769",
+      "attempted_at": "2026-09-21",
+      "methods": [
+        "exact-ebay-item-url",
+        "exact-ebay-item-id-search",
+        "exact-card-title-search",
+        "discovery-source-sale-row-review"
+      ],
+      "outcome": "original-source-unavailable",
+      "original_marketplace_page_accessible": false,
+      "historical_sale_event_observed": false,
+      "evidence_found": false,
+      "blocker": "Recovered eBay item 127861160196 is not accessible as a historical original-marketplace page, and exact item-ID/title searches returned no independently readable original-source copy.",
+      "source_notes": [
+        "Frozen BreakMetric sale is 2026-05-18 at $7.5 USD for exact 2026 Topps Chrome Premier League #68 Prism Refractor.",
+        "Recovered locator remains eBay item 127861160196.",
+        "Direct historical eBay retrieval and exact item-ID search did not yield a readable original-source event in this attempt."
+      ]
+    }
+  ],
+  "last_research_attempt_at": "2026-09-21"
 }
