@@ -49,7 +49,7 @@ const record={
       sale_price:100,
       marketplace:"eBay",
       serial_copy:"01/50",
-      direct_marketplace_url:"https://www.ebay.com/itm/188934418234",
+      direct_marketplace_url:"https://www.ebay.com/itm/123456789012",
       evidence_status:"original-marketplace-verified",
       original_marketplace_verified:true,
       original_marketplace_identity:{
@@ -141,7 +141,7 @@ const completed={
     player:"Player One",
     team:"Chelsea"
   },
-  direct_marketplace_url:"https://www.ebay.com/itm/188934418234",
+  direct_marketplace_url:"https://www.ebay.com/itm/123456789012",
   verified_at:"2026-09-21"
 };
 assert.equal(
