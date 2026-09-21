@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-21",
+  "model": "source-module-inventory-v1",
+  "summary": {
+    "source_module_count": 47,
+    "runtime_module_count": 19,
+    "ci_generator_count": 1,
+    "offline_model_library_count": 27,
+    "unclassified_count": 0
+  },
+  "roles": {
+    "runtime": {
+      "description": "Loaded directly by index.html and part of the production browser application.",
+      "files": [
+        "analysisProvenance.js",
+        "analysisQuality.js",
+        "dataFreshness.js",
+        "dataLoader.js",
+        "errorModel.js",
+        "evContributionProvenance.js",
+        "evCoverage.js",
+        "evWorkQueue.js",
+        "fxRate.js",
+        "marketCoverage.js",
+        "marketEvidenceQuality.js",
+        "marketRecordIssues.js",
+        "marketRecordQuality.js",
+        "runtimeContracts.js",
+        "spotCurrency.js",
+        "storage.js",
+        "teamComparison.js",
+        "teamReadiness.js",
+        "urlState.js"
+      ]
+    },
+    "ci_generator": {
+      "description": "Not browser-loaded; executed by validation/reproducibility tooling and treated as source-of-truth model logic.",
+      "files": [
+        "playerDerivation.js"
+      ]
+    },
+    "offline_model_library": {
+      "description": "Retained model/research utilities that are not part of the current browser runtime or mandatory CI execution path. Review explicitly before activation or deletion.",
+      "files": [
+        "autographProbability.js",
+        "baseParallelProbability.js",
+        "cardEV.js",
+        "insertProbability.js",
+        "liveOdds.js",
+        "liveOddsConfidence.js",
+        "liveOddsGate.js",
+        "marketAudit.js",
+        "marketEvidence.js",
+        "marketRecord.js",
+        "marketRegistry.js",
+        "marketValue.js",
+        "openingVelocity.js",
+        "playerCoverage.js",
+        "playerIndex.js",
+        "playerProbability.js",
+        "probability.js",
+        "productContext.js",
+        "productionEstimator.js",
+        "sealedEvidence.js",
+        "sealedSupply.js",
+        "sealedTimeSeries.js",
+        "serialIngest.js",
+        "serialTracker.js",
+        "spotValue.js",
+        "teamEV.js",
+        "teamProbability.js"
+      ]
+    }
+  },
+  "domain_groups": {
+    "probability_models": [
+      "autographProbability.js",
+      "baseParallelProbability.js",
+      "insertProbability.js",
+      "playerCoverage.js",
+      "playerIndex.js",
+      "playerProbability.js",
+      "probability.js",
+      "teamProbability.js"
+    ],
+    "ev_and_market_models": [
+      "cardEV.js",
+      "marketAudit.js",
+      "marketEvidence.js",
+      "marketRecord.js",
+      "marketRegistry.js",
+      "marketValue.js",
+      "spotValue.js",
+      "teamEV.js"
+    ],
+    "supply_and_tracking_models": [
+      "liveOdds.js",
+      "liveOddsConfidence.js",
+      "liveOddsGate.js",
+      "openingVelocity.js",
+      "productionEstimator.js",
+      "sealedEvidence.js",
+      "sealedSupply.js",
+      "sealedTimeSeries.js",
+      "serialIngest.js",
+      "serialTracker.js"
+    ],
+    "context_models": [
+      "productContext.js"
+    ]
+  },
+  "rules": [
+    "Every src/*.js file must be classified exactly once.",
+    "The runtime file set must exactly match script files loaded by index.html.",
+    "CI-generator modules must not be loaded by index.html.",
+    "Offline model-library modules must not be loaded by index.html.",
+    "Adding a source module without updating this inventory fails CI.",
+    "Deleting or renaming a classified module without updating this inventory fails CI."
+  ]
+}
