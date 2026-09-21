@@ -2,6 +2,17 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root=process.cwd();
+const catalog=JSON.parse(
+  fs.readFileSync(path.join(root,"data/products/catalog.json"),"utf8")
+);
+const productById=new Map();
+for(const entry of catalog.products||[]){
+  if(!entry.product_data) continue;
+  const product=JSON.parse(
+    fs.readFileSync(path.join(root,entry.product_data),"utf8")
+  );
+  productById.set(product.id,product);
+}
 const marketDir=path.join(root,"data/market/2026-topps-chrome-premier-league");
 const files=fs.readdirSync(marketDir)
   .filter(name=>name.endsWith(".json"))
@@ -19,6 +30,14 @@ const median=values=>{
 const validDate=value=>typeof value==="string" &&
   /^\d{4}-\d{2}-\d{2}$/.test(value) &&
   !Number.isNaN(new Date(value+"T00:00:00Z").getTime());
+const identityText=value=>String(value??"")
+  .trim()
+  .normalize("NFKD")
+  .replace(/[\u0300-\u036f]/g,"")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g," ")
+  .trim()
+  .replace(/\s+/g," ");
 
 let recordCount=0;
 let saleCount=0;
@@ -26,6 +45,13 @@ for(const file of files){
   const record=JSON.parse(fs.readFileSync(path.join(root,file),"utf8"));
   if(record.schema_version!==2 || !Array.isArray(record.sales)) continue;
   recordCount++;
+  const product=productById.get(record.product_id);
+  if(!product){
+    failures.push(file+" product metadata not found");
+  }
+  const acceptedSeries=(product?.market_identity?.accepted_series_aliases||[])
+    .map(identityText)
+    .filter(Boolean);
   const prices=[];
   let original=0,secondary=0,discovery=0;
   const seen=new Set();
@@ -65,6 +91,35 @@ for(const file of files){
         failures.push(prefix+" original verification lacks direct URL or stable sale id");
       }
       if(sale.evidence_status!=="original-marketplace-verified") failures.push(prefix+" original verification status mismatch");
+
+      const identity=sale.original_marketplace_identity||{};
+      if(identity.product_id!==record.product_id){
+        failures.push(prefix+" original identity product mismatch");
+      }
+      if(
+        !identityText(identity.series) ||
+        !acceptedSeries.includes(identityText(identity.series))
+      ){
+        failures.push(prefix+" original identity series mismatch");
+      }
+      if(identityText(identity.card_number)!==identityText(record.card_number)){
+        failures.push(prefix+" original identity card number mismatch");
+      }
+      if(identityText(identity.parallel)!==identityText(record.parallel)){
+        failures.push(prefix+" original identity parallel mismatch");
+      }
+      if(Number(identity.print_run)!==Number(record.serial_numbering)){
+        failures.push(prefix+" original identity print run mismatch");
+      }
+      if(identityText(identity.player)!==identityText(record.player)){
+        failures.push(prefix+" original identity player mismatch");
+      }
+      if(
+        identity.team &&
+        identityText(identity.team)!==identityText(record.team)
+      ){
+        failures.push(prefix+" original identity team mismatch");
+      }
     }else if(sale.evidence_status==="secondary-source-realized-sale"){
       secondary++;
       if(!sale.discovery_source || !sale.marketplace || !sale.source_reference){

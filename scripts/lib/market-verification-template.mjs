@@ -6,11 +6,26 @@ function text(value){
   return typeof value==="string" ? value.trim() : "";
 }
 
-export function saleVerified(sale={}){
+function storedIdentityMatches(record={},sale={},productId=""){
+  const identity=sale.original_marketplace_identity||{};
+  return (
+    identity.product_id===productId &&
+    text(identity.card_number).toLowerCase()===
+      text(record.card_number).toLowerCase() &&
+    text(identity.parallel).toLowerCase()===
+      text(record.parallel).toLowerCase() &&
+    Number(identity.print_run)===Number(record.serial_numbering) &&
+    text(identity.player).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase()===
+      text(record.player).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase()
+  );
+}
+
+export function saleVerified(sale={},record={},productId=""){
   return (
     sale.original_marketplace_verified===true &&
     sale.evidence_status==="original-marketplace-verified" &&
-    hasOriginalLocator(sale,sale.marketplace||"")
+    hasOriginalLocator(sale,sale.marketplace||"") &&
+    storedIdentityMatches(record,sale,productId)
   );
 }
 
@@ -29,7 +44,11 @@ export function buildVerificationTasks({
     if(!record) continue;
 
     for(const [saleIndex,sale] of (record.sales||[]).entries()){
-      const verified=saleVerified(sale);
+      const verified=saleVerified(
+        sale,
+        record,
+        queue.product_id||record.product_id||""
+      );
       tasks.push({
         task_id:[
           queue.product_id||"",
@@ -40,6 +59,9 @@ export function buildVerificationTasks({
         ].join("::"),
         contribution_priority_rank:Number(contribution.priority_rank),
         sale_index:saleIndex,
+        product_id:queue.product_id||record.product_id||null,
+        card_number:record.card_number||null,
+        serial_numbering:Number(record.serial_numbering),
         team:contribution.team||null,
         card_id:contribution.card_id||null,
         player:contribution.player||null,
@@ -87,8 +109,9 @@ export function createEvidenceTemplate(task={},{
   }
 
   const template={
-    schema_version:1,
+    schema_version:2,
     task_id:task.task_id,
+    product_id:task.product_id,
     market_source_file:task.market_source_file,
     sale_index:Number(task.sale_index),
     card_id:task.card_id,
@@ -99,6 +122,21 @@ export function createEvidenceTemplate(task={},{
     sale_price_usd:Number(task.sale_price_usd),
     marketplace:task.marketplace,
     serial_copy:task.serial_copy||null,
+    expected_identity:{
+      card_number:task.card_number||null,
+      parallel:task.parallel||null,
+      print_run:Number(task.serial_numbering),
+      player:task.player||null,
+      team:task.team||null
+    },
+    listing_identity:{
+      series:"",
+      card_number:"",
+      parallel:"",
+      print_run:null,
+      player:"",
+      team:""
+    },
     direct_marketplace_url:"",
     source_sale_id:"",
     verified_at:text(verifiedAt),

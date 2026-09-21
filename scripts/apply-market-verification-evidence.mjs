@@ -73,6 +73,23 @@ if(!source || !fs.existsSync(path.join(root,source))){
 const record=JSON.parse(
   fs.readFileSync(path.join(root,source),"utf8")
 );
+
+const productCatalog=JSON.parse(
+  fs.readFileSync(path.join(root,"data/products/catalog.json"),"utf8")
+);
+const productEntry=(productCatalog.products||[])
+  .find(item=>item.id===record.product_id);
+if(!productEntry?.product_data){
+  console.error(JSON.stringify({
+    result:"fail",
+    reason:"market record product identity is not routed in product catalog",
+    product_id:record.product_id||null
+  },null,2));
+  process.exit(1);
+}
+const product=JSON.parse(
+  fs.readFileSync(path.join(root,productEntry.product_data),"utf8")
+);
 const sale=record.sales?.[saleIndex];
 const task={
   task_id:evidence.task_id,
@@ -92,7 +109,7 @@ const task={
 };
 
 const beforePrices=(record.sales||[]).map(row=>Number(row.sale_price));
-const result=applyEvidence({task,record,evidence});
+const result=applyEvidence({task,record,product,evidence});
 const afterPrices=(result.record?.sales||[]).map(row=>Number(row.sale_price));
 
 if(JSON.stringify(beforePrices)!==JSON.stringify(afterPrices)){
