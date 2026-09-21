@@ -36,6 +36,7 @@
     "candidate must carry a qualifying original marketplace locator"
   ],
   "safety_rules": [
+    "Verification of the original 72 supporting sales is scope-frozen: newly discovered later sales may be documented as source drift but must not be silently inserted into the stored verification sample.",
     "If the original marketplace listing currency differs from the stored canonical sale currency, price matching requires explicit traceable currency-conversion provenance; matching a secondary-source converted amount is not sufficient.",
     "A recovered marketplace item ID discovered through a secondary source is a useful locator candidate, not verified sale evidence by itself.",
     "Secondary-source card identity or sale-event observations cannot make a candidate evidence-eligible.",

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 741,
+  "title": "Recover Estêvão Willian 68 Green Refractor marketplace evidence",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 13,
+    "team": "Chelsea",
+    "card_id": "68-green-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Green Refractor",
+    "supporting_sale_count": 1
+  },
+  "result": {
+    "recovered_original_locator_count": 1,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 1
+  },
+  "guarantees": [
+    "Each recovered locator is tied to the exact stored sale index and exact Topps Chrome card identity.",
+    "Locator recovery does not by itself promote a sale.",
+    "Realized sale prices and EV contribution values remain immutable."
+  ]
+}

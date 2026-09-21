@@ -24,10 +24,23 @@
       "sale_price": 34,
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
-      "direct_marketplace_url_recovered": false,
-      "evidence_status": "secondary-source-realized-sale",
-      "original_marketplace_verified": false,
-      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-teal-refractor-68"
+      "direct_marketplace_url_recovered": true,
+      "evidence_status": "original-marketplace-verified",
+      "original_marketplace_verified": true,
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-teal-refractor-68",
+      "direct_marketplace_url": "https://www.ebay.com.sg/itm/236738825291",
+      "source_sale_id": "236738825291",
+      "original_marketplace_verified_at": "2026-09-21",
+      "original_marketplace_identity": {
+        "product_id": "2026-topps-chrome-premier-league",
+        "series": "2026 Topps Chrome Premier League",
+        "card_number": "68",
+        "parallel": "Teal Refractor",
+        "print_run": 299,
+        "player": "Estêvão Willian",
+        "team": "Chelsea"
+      },
+      "original_marketplace_verification_note": "Original eBay item 236738825291 directly confirms sold state, US $34.00, 2026-04-13 marketplace date, card #68, Teal Refractor 185/299, Chelsea and Estevao Willian."
     },
     {
       "sale_date": "2026-03-18",
@@ -49,14 +62,14 @@
     "sale_count": 3,
     "confidence": "provisional",
     "sample_size_confidence": "low",
-    "status": "provisional-secondary-source"
+    "status": "provisional-mixed-source"
   },
   "schema_version": 2,
   "evidence_summary": {
-    "status": "secondary-source-only",
-    "original_marketplace_verified_sale_count": 0,
-    "secondary_source_realized_sale_count": 3,
+    "status": "mixed-original-secondary",
+    "original_marketplace_verified_sale_count": 1,
+    "secondary_source_realized_sale_count": 2,
     "discovery_only_sale_count": 0
   },
-  "note": "Original marketplace sale pages have not been recovered in the stored record; use as provisional secondary-source market evidence."
+  "note": "One of three supporting sales is original-marketplace verified (eBay item 236738825291). The other two remain secondary-source-only; market value remains provisional mixed-source."
 }

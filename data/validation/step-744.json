@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 744,
+  "title": "Recover Estêvão Willian 68 Teal Refractor marketplace evidence",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 16,
+    "team": "Chelsea",
+    "card_id": "68-teal-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Teal Refractor",
+    "supporting_sale_count": 3
+  },
+  "result": {
+    "recovered_original_locator_count": 3,
+    "original_verified_sale_count": 1,
+    "unresolved_sale_count": 2
+  },
+  "guarantees": [
+    "Each recovered locator is tied to the exact stored sale index and exact Topps Chrome card identity.",
+    "Locator recovery does not by itself promote a sale.",
+    "Realized sale prices and EV contribution values remain immutable.",
+    "Teal sale index 1 is promoted only because original eBay evidence directly confirms sold state, US $34.00, exact card identity and the stored sale date.",
+    "Teal sale indexes 0 and 2 remain unresolved."
+  ]
+}

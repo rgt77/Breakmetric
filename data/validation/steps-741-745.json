@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "market-verification-steps-741-745",
+  "step_count": 5,
+  "steps": [
+    741,
+    742,
+    743,
+    744,
+    745
+  ],
+  "priority_ranks": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "supporting_sale_count": 7,
+  "recovered_original_locator_count": 7,
+  "original_verified_sale_count": 1,
+  "unresolved_sale_count": 6,
+  "overall_market_progress_after_block": {
+    "total_supporting_sales": 72,
+    "recovered_original_locator_count": 56,
+    "original_verified_sale_count": 2
+  },
+  "source_drift": {
+    "contribution": "63-aqua-refractor",
+    "stored_supporting_sale_count": 1,
+    "current_discovery_source_sale_count": 4,
+    "action": "do-not-mutate-original-72-sale-scope"
+  }
+}
