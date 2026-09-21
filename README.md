@@ -46,6 +46,9 @@ node scripts/generate-chelsea-ev-completion-queue.mjs --check
 node scripts/validate-chelsea-ev-completion-queue.mjs
 node scripts/validate-ev-valuation-research.mjs
 node scripts/generate-v13-pipeline.mjs --check
+node scripts/validate-market-automation-config.mjs
+node scripts/test-continuous-market-collector.mjs
+node scripts/generate-automated-valuation-candidates.mjs --output /tmp/automated-valuation-candidates.json
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-market-verification-contract.mjs
@@ -66,7 +69,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 838 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 850 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -78,6 +81,30 @@ Each task combines published-odds expected copies per case with a dynamically re
 ## Phase-2 valuation progress
 
 Steps 827–838 researched the first twelve Chelsea completion tasks. Six produced exact-identity provisional raw-sale valuations and six remained unvalued because no exact realized-sale sample was available. Step 838 begins the broader-player pass with Liam Delap #62 Refractor. Chelsea therefore advances to **33 / 638 valued slots (5.1724%)**, with partial EV **$53.1077 per Hobby case**. The legacy v1 market-verification population remains frozen at 27 contributions / 72 supporting sales; Phase-2 records do not silently expand that audit.
+
+
+## Continuous market collection
+
+Steps 839–850 replace the one-manual-step-per-card approach with a reusable market-data pipeline. The collector expands the complete EV-eligible release inventory directly from normalized checklists, odds and committed provenance, so collection is no longer limited to Chelsea or to a hand-maintained research queue.
+
+Two scheduled lanes are installed:
+
+- **Fast lane:** GitHub Actions runs every 15 minutes and rotates through a breadth-aware batch of unvalued slots. Player rotation is applied before depth so one subject cannot monopolize collection.
+- **Bulk lane:** a daily SportsCardsPro CSV import can refresh the full release in one pass when a subscriber-specific Download Price List URL is configured.
+
+The official SportsCardsPro API is rate-limited to one request per second, so the fast lane enforces a minimum 1100 ms request interval. The provider also recommends CSV downloads for large datasets and states that those files are refreshed once per day. Live collection therefore uses the API for frequent priority sampling and CSV for broad daily coverage.
+
+The collector is installed fail-closed. To activate live provider data, configure these GitHub Actions repository secrets:
+
+- `SPORTSCARDSPRO_TOKEN` — paid SportsCardsPro API token.
+- `SPORTSCARDSPRO_CSV_URL` — optional subscriber-specific CSV download URL for daily bulk sync.
+
+Missing credentials do not fabricate values or mutate canonical EV. The scheduled job exits cleanly until credentials are present.
+
+Collected current-price observations are stored separately from realized-sale market records. Automated valuation candidates use the following hierarchy: **A** exact realized sales, **B** exact provider current price, **C** same-subject/same-category model, **D** team/product category model, **E** unknown. B/C/D values remain candidate/model data and do not silently enter canonical EV or original-marketplace verification.
+
+The scheduled collectors only commit when observations actually change. Unchanged provider responses are idempotent and do not generate repository churn.
+
 
 ## Source-module inventory
 
