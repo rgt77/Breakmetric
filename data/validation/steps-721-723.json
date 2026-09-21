@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "block": "steps 721-723",
+  "step_count": 3,
+  "steps": [
+    {
+      "step": 721,
+      "title": "Derive deterministic sale-level verification tasks",
+      "implemented": true
+    },
+    {
+      "step": 722,
+      "title": "Expose next pending sale verification task in runtime",
+      "implemented": true
+    },
+    {
+      "step": 723,
+      "title": "Gate sale-task reproducibility and source resolution in CI",
+      "implemented": true
+    }
+  ],
+  "ordering_rule": "Contribution priority_rank ascending, then stored sale_index ascending.",
+  "source_of_truth": [
+    "market-verification-queue-v1.json",
+    "referenced schema-v2 market records"
+  ],
+  "result": "pass"
+}
