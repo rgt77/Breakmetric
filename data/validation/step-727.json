@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 727,
+  "title": "Require exact product identity for market verification",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "guarantees": [
+    "Marketplace evidence cannot verify a sale until the listing's product series matches an accepted alias for the target BreakMetric product.",
+    "Topps Premier League and Topps Chrome Premier League are treated as distinct product families.",
+    "Listing card number, parallel, print run and player must match the market record before original-marketplace verification can pass.",
+    "Evidence templates keep observed listing identity blank so the operator must explicitly confirm it from the marketplace source.",
+    "Verified market records are re-audited for stored product identity during CI.",
+    "A visually similar card with the same player and serial copy cannot cross-verify another product series."
+  ]
+}
