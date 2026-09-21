@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::63-blue-refractor::0",
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/63-cole-palmer-blue-refractor.json",
+  "sale_index": 0,
+  "marketplace": "eBay",
+  "listing_state": "active",
+  "identity_source_kind": "original-marketplace",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "63",
+    "parallel": "Blue Refractor",
+    "print_run": 150,
+    "player": "Cole Palmer",
+    "team": "Chelsea"
+  },
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-04-19",
+    "sale_price_usd": 19.99,
+    "marketplace": "eBay",
+    "serial_copy": null
+  },
+  "source_sale_id": "137207071795",
+  "direct_marketplace_url": "https://www.ebay.com/itm/137207071795",
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/cole-palmer-blue-refractor-63",
+    "evidence": "Historical sold-listing outbound link recovered eBay item 137207071795."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "Original eBay item is directly readable and confirms exact card identity and US $19.99, but currently renders as an active Buy It Now listing rather than a historical sold event. It cannot verify the stored 2026-04-19 sale."
+}
