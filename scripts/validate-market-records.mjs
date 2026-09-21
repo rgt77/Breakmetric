@@ -1,5 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import {
+  assessListingIdentity
+} from "./lib/market-card-identity.mjs";
 
 const root=process.cwd();
 const catalog=JSON.parse(
@@ -30,15 +33,6 @@ const median=values=>{
 const validDate=value=>typeof value==="string" &&
   /^\d{4}-\d{2}-\d{2}$/.test(value) &&
   !Number.isNaN(new Date(value+"T00:00:00Z").getTime());
-const identityText=value=>String(value??"")
-  .trim()
-  .normalize("NFKD")
-  .replace(/[\u0300-\u036f]/g,"")
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g," ")
-  .trim()
-  .replace(/\s+/g," ");
-
 let recordCount=0;
 let saleCount=0;
 for(const file of files){
@@ -49,9 +43,6 @@ for(const file of files){
   if(!product){
     failures.push(file+" product metadata not found");
   }
-  const acceptedSeries=(product?.market_identity?.accepted_series_aliases||[])
-    .map(identityText)
-    .filter(Boolean);
   const prices=[];
   let original=0,secondary=0,discovery=0;
   const seen=new Set();
@@ -96,29 +87,13 @@ for(const file of files){
       if(identity.product_id!==record.product_id){
         failures.push(prefix+" original identity product mismatch");
       }
-      if(
-        !identityText(identity.series) ||
-        !acceptedSeries.includes(identityText(identity.series))
-      ){
-        failures.push(prefix+" original identity series mismatch");
-      }
-      if(identityText(identity.card_number)!==identityText(record.card_number)){
-        failures.push(prefix+" original identity card number mismatch");
-      }
-      if(identityText(identity.parallel)!==identityText(record.parallel)){
-        failures.push(prefix+" original identity parallel mismatch");
-      }
-      if(Number(identity.print_run)!==Number(record.serial_numbering)){
-        failures.push(prefix+" original identity print run mismatch");
-      }
-      if(identityText(identity.player)!==identityText(record.player)){
-        failures.push(prefix+" original identity player mismatch");
-      }
-      if(
-        identity.team &&
-        identityText(identity.team)!==identityText(record.team)
-      ){
-        failures.push(prefix+" original identity team mismatch");
+      const identityAssessment=assessListingIdentity({
+        record,
+        product,
+        listing:identity
+      });
+      for(const error of identityAssessment.errors){
+        failures.push(prefix+" original identity invalid: "+error);
       }
     }else if(sale.evidence_status==="secondary-source-realized-sale"){
       secondary++;
