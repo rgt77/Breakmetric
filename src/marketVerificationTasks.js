@@ -102,6 +102,19 @@
     ) || null;
   };
 
+  api.label=function(task=null){
+    if(!task) return "No pending original-sale verification";
+    const serial=task.serial_copy ? " · "+task.serial_copy : "";
+    const date=task.sale_date ? " · "+task.sale_date : "";
+    const marketplace=task.marketplace ? task.marketplace+" · " : "";
+    return (
+      "#"+task.contribution_priority_rank+" "+
+      task.player+" · "+task.parallel+" · "+
+      marketplace+"$"+Number(task.sale_price_usd).toFixed(2)+
+      serial+date
+    );
+  };
+
   api.summary=function(tasks=[]){
     const rows=tasks||[];
     const verified=rows.filter(
