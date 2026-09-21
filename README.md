@@ -15,6 +15,8 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - The Hobby EV denominator is now fully enumerated as 8,896 card × modeled-variant contribution slots; Chelsea currently has 27/638 valued slots (4.2% count-based slot coverage).
 - EV slot coverage is explicitly count-based and is not an EV-weighted estimate of economic completeness.
 - Current EV contributions have deterministic derivation provenance and a priority queue for original-marketplace verification.
+- Market verification has now recovered original marketplace locators for 49 of the 72 stored supporting sales; 1 of 72 sales is fully original-marketplace verified. Locator recovery alone does not imply sale verification.
+- Priority ranks 3–12 have been processed: 45 of their 46 supporting-sale locators were recovered, with the 2026-09-03 Estêvão #68 Prism Refractor sale as the first directly original-verified sale.
 - Market records are audited for schema, median/sample consistency, evidence integrity and duplicate warnings.
 - Original-marketplace verification is sale-derived and fail-closed: every realized sale used by a contribution's stored market-value sample must have qualifying original evidence before that contribution can count as original verified.
 - Sale-level original-marketplace verification progress is visible in the Market evidence panel, including supporting sales, verified sales, pending sales and verification share.
@@ -81,7 +83,7 @@ A marketplace search hit is not evidence by itself. Assess it first:
 node scripts/assess-market-verification-candidate.mjs --candidate path/to/candidate.json
 ```
 
-Candidate recovery is deliberately two-stage. First, the exact product/card identity must match the target product family, card number, parallel, print run and player. Second, the marketplace page must prove the exact stored historical sale event: a sold listing with matching date, price, marketplace and serial copy. Both the card identity and the sale-event observations must come from the original marketplace (or an equivalent original-source record); a secondary-source report plus a recovered marketplace item ID is still unresolved. An active relisting of the exact physical card therefore remains `identity-match-sale-unresolved`.
+Candidate recovery is deliberately two-stage. First, the exact product/card identity must match the target product family, card number, parallel, print run and player. Second, the marketplace page must prove the exact stored historical sale event: a sold listing with matching date, price, marketplace and serial copy. Both the card identity and the sale-event observations must come from the original marketplace (or an equivalent original-source record); a secondary-source report plus a recovered marketplace item ID is still unresolved. An active relisting of the exact physical card therefore remains `identity-match-sale-unresolved`. If an original listing is denominated in a different currency from the stored canonical sale value, promotion also requires explicit traceable FX/conversion provenance; a secondary-source converted USD amount is not sufficient.
 
 Only a `historical-sale-match` candidate can be promoted to evidence:
 
