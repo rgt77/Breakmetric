@@ -78,7 +78,8 @@ const tasks=buildVerificationTasks({
   queue,
   recordsBySource:{
     "data/market/example.json":record
-  }
+  },
+  product
 });
 
 assert.equal(tasks.length,2);
