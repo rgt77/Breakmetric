@@ -7,6 +7,7 @@ import {
   selectRotatingBatch,
   apiPriceUsd
 } from "./lib/market-automation.mjs";
+import {buildUnvaluedCollectionTasks} from "./lib/ev-slot-inventory.mjs";
 
 const root=process.cwd();
 const args=process.argv.slice(2);
@@ -24,8 +25,20 @@ if(Number.isNaN(now.getTime())) throw new Error("Invalid --now timestamp");
 const readJson=file=>JSON.parse(fs.readFileSync(path.join(root,file),"utf8"));
 const stable=value=>JSON.stringify(value,null,2)+"\n";
 const config=readJson(configPath);
-const queue=readJson(config.queue_file);
 const store=readJson(config.observation_file);
+const sources=config.task_sources||{};
+const taskState=buildUnvaluedCollectionTasks({
+  product:config.product_id,
+  inventory:readJson(sources.inventory),
+  provenance:readJson(sources.provenance),
+  baseOdds:readJson(sources.base_odds),
+  insertMap:readJson(sources.insert_odds_mapping),
+  autoMap:readJson(sources.autograph_odds_mapping),
+  inserts:readJson(sources.insert_checklist),
+  mainAutos:readJson(sources.main_autographs),
+  specialAutos:readJson(sources.special_autographs),
+  format:readJson(sources.format)
+});
 const cadence=Number(config.fast_lane?.cadence_minutes||15);
 const batchSize=Number(valueAfter("--batch-size")||config.fast_lane?.batch_size||20);
 const minDelay=Number(config.fast_lane?.min_request_interval_ms||1100);
@@ -81,7 +94,7 @@ if(!fixture && !token){
   process.exit(0);
 }
 
-const tasks=(queue.tasks||[]).filter(task=>task.status==="unvalued");
+const tasks=(taskState.tasks||[]).filter(task=>task.status==="unvalued");
 const selection=selectRotatingBatch(tasks,{
   nowMs:now.getTime(),
   cadenceMinutes:cadence,
@@ -175,6 +188,9 @@ console.log(JSON.stringify({
     ? "provider-failure"
     : "pass",
   product_id:config.product_id,
+  eligible_slot_count:taskState.eligible_slot_count,
+  valued_slot_count:taskState.valued_slot_count,
+  unvalued_slot_count:taskState.unvalued_slot_count,
   selected_task_count:selection.batch.length,
   shard_index:selection.shard_index,
   shard_count:selection.shard_count,
