@@ -41,8 +41,10 @@ node scripts/validate-development-ledger.mjs
 node scripts/audit-source-modules.mjs
 node scripts/generate-ev-eligible-inventory.mjs --check
 node scripts/validate-ev-eligible-inventory.mjs
+node scripts/generate-chelsea-market-anchor.mjs --check
 node scripts/generate-chelsea-ev-completion-queue.mjs --check
 node scripts/validate-chelsea-ev-completion-queue.mjs
+node scripts/validate-ev-valuation-research.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
@@ -69,9 +71,13 @@ The canonical development ledger now extends through step 826 in `data/validatio
 
 ## Chelsea EV completion queue
 
-Step 826 expands the category-level EV work queue into a deterministic slot-level queue for Chelsea. All **611** currently unvalued Chelsea contribution slots are represented exactly once: **224 base parallels, 125 inserts and 262 autographs**. The queue is stored at `data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json`.
+Step 826 expands the category-level EV work queue into a deterministic slot-level queue for Chelsea. Step 826 started with **611** unvalued Chelsea contribution slots. After steps 827–836, **606** remain: **223 base parallels, 121 inserts and 262 autographs**. The queue is stored at `data/derived/2026-topps-chrome-premier-league-hobby-chelsea-ev-completion-queue-v1.json`.
 
-Each task combines published-odds expected copies per case with a versioned median market anchor derived from the 27 already-valued Chelsea contributions. The resulting `economic_priority_proxy_usd` is only a research-order heuristic; it is not a predicted market value, EV contribution or ROI input. Actual EV remains locked until the slot receives its own market value and normal provenance.
+Each task combines published-odds expected copies per case with a dynamically regenerated median market anchor derived from the currently valued Chelsea contributions. The resulting `economic_priority_proxy_usd` is only a research-order heuristic; it is not a predicted market value, EV contribution or ROI input. Actual EV remains locked until the slot receives its own exact-identity market sample and normal provenance. Previously researched tasks with no exact realized sales are retained but moved behind untouched work.
+
+## Phase-2 valuation progress
+
+Steps 827–836 researched the first ten Chelsea completion tasks. Five produced exact-identity provisional raw-sale valuations and five remained unvalued because no exact realized-sale sample was available. Chelsea therefore advances to **32 / 638 valued slots (5.0157%)**, with partial EV **$52.0313 per Hobby case**. The legacy v1 market-verification population remains frozen at 27 contributions / 72 supporting sales; Phase-2 records do not silently expand that audit.
 
 ## Source-module inventory
 
