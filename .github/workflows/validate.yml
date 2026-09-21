@@ -50,6 +50,13 @@ jobs:
           node --check scripts/assess-market-verification-candidate.mjs
       - name: Validate persisted market candidates
         run: node scripts/validate-market-verification-candidates.mjs
+      - name: Test unresolved market research queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/test-market-verification-research.mjs
+          node scripts/next-market-verification-research-task.mjs
+          node --check scripts/next-market-verification-research-task.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
       - name: Validate player derivation reproducibility

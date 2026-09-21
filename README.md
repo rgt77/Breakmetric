@@ -95,6 +95,8 @@ node scripts/assess-market-verification-candidate.mjs \
 
 Candidate assessment never mutates market records, sale prices, EV or verification flags. The emitted evidence must still pass the normal fail-closed evidence validator before it can be written. The original 72 supporting-sale scope is frozen during this verification pass; later sales discovered at the source are tracked as source drift rather than silently changing the sample. CI now requires one and only one persisted candidate task for every frozen supporting sale.
 
+Unresolved candidates also carry persistent research state. Failed original-source recovery attempts are recorded on the candidate instead of being discarded, and `node scripts/next-market-verification-research-task.mjs` deterministically selects the next unresolved sale. Never-researched candidates are prioritized ahead of previously attempted candidates at the same contribution priority, preventing repeated dead-end work while preserving fail-closed verification.
+
 ## Preparing original-marketplace evidence
 
 Generate the next deterministic pending-sale evidence template instead of transcribing task identity by hand:

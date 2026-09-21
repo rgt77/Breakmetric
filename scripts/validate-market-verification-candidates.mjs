@@ -168,6 +168,59 @@ for(const name of files){
     );
   }
 
+  if(Array.isArray(candidate.research_attempts)){
+    for(const [attemptIndex,attempt] of candidate.research_attempts.entries()){
+      const prefix=rel+" research_attempts["+attemptIndex+"]";
+      if(
+        typeof attempt.attempt_id!=="string" ||
+        !attempt.attempt_id.trim()
+      ){
+        failures.push(prefix+" requires attempt_id");
+      }
+      if(
+        typeof attempt.attempted_at!=="string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(attempt.attempted_at)
+      ){
+        failures.push(prefix+" requires YYYY-MM-DD attempted_at");
+      }
+      if(
+        !Array.isArray(attempt.methods) ||
+        attempt.methods.length===0 ||
+        attempt.methods.some(method=>
+          typeof method!=="string" || !method.trim()
+        )
+      ){
+        failures.push(prefix+" requires non-empty methods");
+      }
+      if(![
+        "original-source-unavailable",
+        "historical-event-unresolved",
+        "identity-mismatch",
+        "historical-sale-match"
+      ].includes(attempt.outcome)){
+        failures.push(prefix+" has unsupported outcome");
+      }
+      if(attempt.evidence_found===true && attempt.outcome!=="historical-sale-match"){
+        failures.push(prefix+" evidence_found requires historical-sale-match");
+      }
+    }
+    if(candidate.research_attempts.length>0){
+      const latest=candidate.research_attempts.at(-1);
+      if(candidate.last_research_attempt_at!==latest.attempted_at){
+        failures.push(rel+" last_research_attempt_at must match latest attempt");
+      }
+    }
+  }
+
+  if(
+    candidate.research_state==="attempted-original-source-unavailable" &&
+    !candidate.research_attempts?.some(attempt=>
+      attempt.outcome==="original-source-unavailable"
+    )
+  ){
+    failures.push(rel+" unavailable research_state requires matching attempt");
+  }
+
   if(!candidate.discovery_source?.url){
     warnings.push(rel+" has no discovery source URL");
   }
