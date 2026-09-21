@@ -1,0 +1,132 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "AK-14",
+  "player": "Estêvão Willian",
+  "team": "Chelsea",
+  "set": "Alive and Kicking",
+  "parallel": "Base",
+  "serial_numbering": null,
+  "grading_state": "raw",
+  "currency": "USD",
+  "sales": [
+    {
+      "sale_date": "2026-08-05",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-07-16",
+      "sale_price": 1.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-07-07",
+      "sale_price": 1.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-24",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-24",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-24",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-18",
+      "sale_price": 0.89,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-15",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-15",
+      "sale_price": 0.99,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    },
+    {
+      "sale_date": "2026-06-11",
+      "sale_price": 2.25,
+      "marketplace": "eBay",
+      "discovery_source": "SportsCardsPro",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "direct_marketplace_url_recovered": false,
+      "evidence_status": "secondary-source-realized-sale",
+      "original_marketplace_verified": false
+    }
+  ],
+  "calculated_market_value": {
+    "primary_metric": "median",
+    "median_usd": 0.99,
+    "mean_usd": 1.158,
+    "min_usd": 0.89,
+    "max_usd": 2.25,
+    "sale_count": 10,
+    "confidence": "provisional",
+    "sample_size_confidence": "medium",
+    "status": "provisional-secondary-source"
+  },
+  "schema_version": 2,
+  "evidence_summary": {
+    "status": "secondary-source-only",
+    "original_marketplace_verified_sale_count": 0,
+    "secondary_source_realized_sale_count": 10,
+    "discovery_only_sale_count": 0
+  },
+  "note": "Phase-2 provisional valuation from the 10 most recent exact raw 2026 Topps Chrome Premier League Alive and Kicking #AK-14 Base realized sales. Not part of the frozen v1 verification sample."
+}
