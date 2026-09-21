@@ -1,3 +1,5 @@
+import { assessListingIdentity } from "./market-card-identity.mjs";
+
 const money=value=>Number(value);
 
 function clone(value){
@@ -12,16 +14,6 @@ function validDate(value){
 
 function text(value){
   return typeof value==="string" ? value.trim() : "";
-}
-
-function identityText(value){
-  return text(value)
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g," ")
-    .trim()
-    .replace(/\s+/g," ");
 }
 
 function urlHost(value){
@@ -107,55 +99,16 @@ export function hasOriginalLocator(evidence={},marketplace=""){
 
 function validateListingIdentity({task={},record={},product={},evidence={}}={}){
   const errors=[];
-  const listing=evidence.listing_identity||{};
-  const policy=product.market_identity||{};
-  const accepted=(policy.accepted_series_aliases||[])
-    .map(identityText)
-    .filter(Boolean);
-  const observedSeries=identityText(listing.series);
-
   if(!text(evidence.product_id) || evidence.product_id!==record.product_id){
     errors.push("evidence product_id does not match market record product");
   }
-  if(!product?.id || product.id!==record.product_id){
-    errors.push("product identity metadata does not match market record product");
-  }
-  if(!observedSeries){
-    errors.push("listing identity series is required");
-  }else if(!accepted.includes(observedSeries)){
-    errors.push("listing identity series does not match target product family");
-  }
 
-  if(
-    identityText(listing.card_number)!==
-    identityText(record.card_number)
-  ){
-    errors.push("listing identity card_number does not match market record");
-  }
-  if(
-    identityText(listing.parallel)!==
-    identityText(record.parallel)
-  ){
-    errors.push("listing identity parallel does not match market record");
-  }
-  if(
-    !Number.isInteger(Number(listing.print_run)) ||
-    Number(listing.print_run)!==Number(record.serial_numbering)
-  ){
-    errors.push("listing identity print_run does not match market record");
-  }
-  if(
-    identityText(listing.player)!==
-    identityText(record.player)
-  ){
-    errors.push("listing identity player does not match market record");
-  }
-  if(
-    text(listing.team) &&
-    identityText(listing.team)!==identityText(record.team)
-  ){
-    errors.push("listing identity team does not match market record");
-  }
+  const identity=assessListingIdentity({
+    record,
+    product,
+    listing:evidence.listing_identity||{}
+  });
+  errors.push(...identity.errors);
 
   if(text(task.player)!==text(record.player)){
     errors.push("verification task player does not match market record");
