@@ -15,9 +15,22 @@
       "marketplace": "eBay",
       "discovery_source": "SportsCardsPro",
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-prism-refractor-68",
-      "direct_marketplace_url_recovered": false,
-      "evidence_status": "secondary-source-realized-sale",
-      "original_marketplace_verified": false
+      "direct_marketplace_url_recovered": true,
+      "evidence_status": "original-marketplace-verified",
+      "original_marketplace_verified": true,
+      "direct_marketplace_url": "https://www.ebay.com.au/itm/158227124444",
+      "source_sale_id": "158227124444",
+      "original_marketplace_verified_at": "2026-09-21",
+      "original_marketplace_identity": {
+        "product_id": "2026-topps-chrome-premier-league",
+        "series": "2026 Topps Chrome Premier League",
+        "card_number": "68",
+        "parallel": "Prism Refractor",
+        "print_run": null,
+        "player": "Estêvão Willian",
+        "team": "Chelsea"
+      },
+      "original_marketplace_verification_note": "Original eBay item 158227124444 directly confirmed SOLD, 2026-09-03, US $8.50 and exact 2026 Topps Chrome Premier League #68 Prism Refractor identity."
     },
     {
       "sale_date": "2026-07-17",
@@ -319,14 +332,14 @@
     "sale_count": 30,
     "confidence": "provisional",
     "sample_size_confidence": "high",
-    "status": "provisional-secondary-source"
+    "status": "provisional-mixed-source"
   },
   "schema_version": 2,
   "evidence_summary": {
-    "status": "secondary-source-only",
-    "original_marketplace_verified_sale_count": 0,
-    "secondary_source_realized_sale_count": 30,
+    "status": "mixed-original-secondary",
+    "original_marketplace_verified_sale_count": 1,
+    "secondary_source_realized_sale_count": 29,
     "discovery_only_sale_count": 0
   },
-  "note": "Original marketplace sale pages have not been recovered in the stored record; use as provisional secondary-source market evidence."
+  "note": "One of 30 supporting sales is original-marketplace verified (eBay item 158227124444). Remaining sales require original-source sale-event verification; market value remains provisional mixed-source."
 }
