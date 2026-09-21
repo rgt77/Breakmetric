@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 736,
+  "title": "Recover Estevao #68 Yellow Refractor marketplace locators",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 8,
+    "team": "Chelsea",
+    "card_id": "68-yellow-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Yellow Refractor",
+    "supporting_sale_count": 1
+  },
+  "result": {
+    "recovered_original_locator_count": 0,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 1
+  },
+  "guarantees": [
+    "Candidate identity is exact to 2026 Topps Chrome Premier League #68 and the named parallel.",
+    "Recovered item IDs remain unresolved because the original sale event is not independently readable.",
+    "No EV contribution or realized sale price is changed.",
+    "No item ID is assigned to the stored 2026-03-03 $75 Yellow Refractor sale because the current source does not expose its outbound link and newer eBay feedback cannot be safely mapped to that sale."
+  ]
+}

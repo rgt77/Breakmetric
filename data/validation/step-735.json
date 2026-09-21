@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 735,
+  "title": "Recover Estevao #68 Purple Refractor marketplace locators",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 7,
+    "team": "Chelsea",
+    "card_id": "68-purple-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Purple Refractor",
+    "supporting_sale_count": 2
+  },
+  "result": {
+    "recovered_original_locator_count": 2,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 2
+  },
+  "guarantees": [
+    "Candidate identity is exact to 2026 Topps Chrome Premier League #68 and the named parallel.",
+    "Recovered item IDs remain unresolved because the original sale event is not independently readable.",
+    "No EV contribution or realized sale price is changed."
+  ]
+}

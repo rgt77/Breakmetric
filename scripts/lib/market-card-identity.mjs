@@ -68,9 +68,24 @@ export function assessListingIdentity({
     checks.parallel=true;
   }
 
+  const expectedPrintRun=
+    record.serial_numbering===null ||
+    record.serial_numbering===undefined
+      ? null
+      : Number(record.serial_numbering);
+  const observedPrintRun=
+    listing.print_run===null ||
+    listing.print_run===undefined ||
+    listing.print_run===""
+      ? null
+      : Number(listing.print_run);
   if(
-    !Number.isInteger(Number(listing.print_run)) ||
-    Number(listing.print_run)!==Number(record.serial_numbering)
+    expectedPrintRun===null
+      ? observedPrintRun!==null
+      : (
+          !Number.isInteger(observedPrintRun) ||
+          observedPrintRun!==expectedPrintRun
+        )
   ){
     errors.push("listing identity print_run does not match market record");
   }else{
@@ -103,9 +118,7 @@ export function assessListingIdentity({
       series:observedSeries||null,
       card_number:normalizeIdentityText(listing.card_number)||null,
       parallel:normalizeIdentityText(listing.parallel)||null,
-      print_run:Number.isFinite(Number(listing.print_run))
-        ? Number(listing.print_run)
-        : null,
+      print_run:observedPrintRun,
       player:normalizeIdentityText(listing.player)||null,
       team:normalizeIdentityText(listing.team)||null
     }

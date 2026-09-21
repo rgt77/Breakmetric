@@ -155,6 +155,29 @@ assert.equal(
   true
 );
 
+const unnumberedRecord={
+  ...record,
+  serial_numbering:null,
+  sales:[record.sales[1]]
+};
+const unnumberedQueue={
+  ...queue,
+  items:[{
+    ...queue.items[0],
+    card_id:"card-unnumbered"
+  }]
+};
+const unnumberedTasks=buildVerificationTasks({
+  queue:unnumberedQueue,
+  recordsBySource:{
+    "data/market/example.json":unnumberedRecord
+  },
+  product
+});
+assert.equal(unnumberedTasks[0].serial_numbering,null);
+const unnumberedTemplate=createEvidenceTemplate(unnumberedTasks[0]);
+assert.equal(unnumberedTemplate.expected_identity.print_run,null);
+
 assert.equal(
   nextPendingTask(tasks,"product::hobby::Chelsea::card-1::0"),
   null
@@ -174,6 +197,7 @@ console.log(JSON.stringify({
     "verified_at is blank by default",
     "untouched template cannot pass evidence ingest",
     "completed original evidence passes ingest validation",
-    "verified task ids cannot be selected as pending"
+    "verified task ids cannot be selected as pending",
+    "unnumbered cards preserve null print run in task and evidence template"
   ]
 },null,2));

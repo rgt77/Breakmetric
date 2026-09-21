@@ -261,6 +261,47 @@ for(const [name,patch,expected] of [
   assert.deepEqual(rejected.record,record);
 }
 
+const spanishEbay={
+  ...valid,
+  direct_marketplace_url:"https://www.ebay.es/itm/123456789012"
+};
+assert.equal(
+  validateEvidence({
+    task,
+    record,
+    product,
+    evidence:spanishEbay
+  }).valid,
+  true
+);
+
+const unnumberedTask={
+  ...task,
+  serial_numbering:null
+};
+const unnumberedRecord={
+  ...record,
+  serial_numbering:null
+};
+const unnumberedEvidence={
+  ...valid,
+  listing_identity:{
+    ...valid.listing_identity,
+    print_run:null
+  }
+};
+const unnumberedApplied=applyEvidence({
+  task:unnumberedTask,
+  record:unnumberedRecord,
+  product,
+  evidence:unnumberedEvidence
+});
+assert.equal(unnumberedApplied.applied,true);
+assert.equal(
+  unnumberedApplied.record.sales[0].original_marketplace_identity.print_run,
+  null
+);
+
 const secondTask={...task,sale_index:1,sale_date:"2026-02-15",sale_price_usd:2800,serial_copy:"34/50",task_id:"product::hobby::Chelsea::CA-EV-gold-refractor-auto::1"};
 const secondEvidence={
   ...valid,
@@ -301,6 +342,8 @@ console.log(JSON.stringify({
     "wrong card number is rejected even for same player",
     "wrong parallel is rejected even within Chrome",
     "valid original marketplace sale URL accepted",
+    "canonical eBay Spain listing host accepted",
+    "unnumbered verified identity preserves null print run",
     "marketplace-shaped stable original sale id accepted",
     "same-host non-listing URL rejected",
     "malformed marketplace sale id rejected",

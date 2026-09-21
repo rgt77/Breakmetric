@@ -820,6 +820,106 @@ pass(
   )
 );
 
+const marketBlock731740 = json("data/validation/steps-731-740.json");
+const marketSteps731740 = Array.from(
+  {length:10},
+  (_,index)=>json(`data/validation/step-${731+index}.json`)
+);
+const prismMarketRecord = json(
+  "data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json"
+);
+const prismVerifiedCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-0.json"
+);
+const prismCadCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-prism-refractor-sale-1.json"
+);
+const yellowCandidate = json(
+  "data/market/2026-topps-chrome-premier-league/candidates/68-yellow-refractor-sale-0.json"
+);
+pass(
+  "steps 731-740 market verification block is sequential",
+  marketBlock731740.step_count === 10 &&
+  marketBlock731740.steps?.every((step,index)=>step===731+index) &&
+  marketSteps731740.every((row,index)=>
+    row.step===731+index && row.implemented===true
+  )
+);
+pass(
+  "steps 731-740 recovered 45 of 46 marketplace locators",
+  marketBlock731740.supporting_sale_count === 46 &&
+  marketBlock731740.recovered_original_locator_count === 45 &&
+  marketBlock731740.persisted_candidate_count === 46 &&
+  marketSteps731740.reduce(
+    (sum,row)=>sum+Number(row.result?.recovered_original_locator_count||0),
+    0
+  ) === 45
+);
+pass(
+  "steps 731-740 produce first original-verified supporting sale",
+  marketBlock731740.original_verified_sale_count === 1 &&
+  prismMarketRecord.sales?.[0]?.source_sale_id === "158227124444" &&
+  prismMarketRecord.sales?.[0]?.original_marketplace_verified === true &&
+  prismMarketRecord.sales?.[0]?.evidence_status ===
+    "original-marketplace-verified" &&
+  prismMarketRecord.sales?.[0]?.original_marketplace_identity?.print_run ===
+    null &&
+  prismMarketRecord.evidence_summary?.original_marketplace_verified_sale_count ===
+    1 &&
+  prismMarketRecord.evidence_summary?.secondary_source_realized_sale_count ===
+    29 &&
+  prismMarketRecord.calculated_market_value?.status ===
+    "provisional-mixed-source"
+);
+pass(
+  "Prism original candidate is exact historical sale match",
+  prismVerifiedCandidate.assessment_status === "historical-sale-match" &&
+  prismVerifiedCandidate.identity_source_kind === "original-marketplace" &&
+  prismVerifiedCandidate.observed_sale?.source_kind ===
+    "original-marketplace" &&
+  prismVerifiedCandidate.source_sale_id === "158227124444"
+);
+pass(
+  "cross-currency Prism sale remains unresolved",
+  prismCadCandidate.assessment_status === "identity-match-sale-unresolved" &&
+  prismCadCandidate.identity_source_kind === "original-marketplace" &&
+  prismCadCandidate.observed_sale?.source_kind === "secondary-source" &&
+  prismMarketRecord.sales?.[1]?.original_marketplace_verified === false
+);
+pass(
+  "Yellow sale has no guessed marketplace locator",
+  yellowCandidate.assessment_status === "identity-match-sale-unresolved" &&
+  !yellowCandidate.source_sale_id &&
+  !yellowCandidate.direct_marketplace_url
+);
+pass(
+  "unnumbered market identity remains null-safe",
+  marketIdentitySource.includes("expectedPrintRun") &&
+  marketIdentitySource.includes("observedPrintRun") &&
+  read("scripts/lib/market-verification-template.mjs").includes(
+    "record.serial_numbering===null"
+  ) &&
+  read("scripts/validate-market-verification-candidates.mjs").includes(
+    "record.serial_numbering===null"
+  )
+);
+pass(
+  "canonical eBay Spain host is accepted",
+  marketEvidenceIngestSource.includes('"ebay.es"')
+);
+pass(
+  "cross-currency original-sale matching requires provenance",
+  json("data/methodology/market-verification-candidate-v1.json")
+    .safety_rules?.some(value=>
+      value.includes("currency-conversion provenance")
+    ) === true
+);
+pass(
+  "README reports current market verification progress",
+  read("README.md").includes("49 of the 72 stored supporting sales") &&
+  read("README.md").includes("1 of 72 sales is fully original-marketplace verified")
+);
+
 console.log(JSON.stringify({
   result: failures.length ? "fail" : "pass",
   check_count: checks.length,

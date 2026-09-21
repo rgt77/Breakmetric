@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::0",
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json",
+  "sale_index": 0,
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "original-marketplace",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "68",
+    "parallel": "Prism Refractor",
+    "print_run": null,
+    "player": "Estêvão Willian",
+    "team": "Chelsea"
+  },
+  "observed_sale": {
+    "source_kind": "original-marketplace",
+    "sale_date": "2026-09-03",
+    "sale_price_usd": 8.5,
+    "marketplace": "eBay",
+    "serial_copy": null
+  },
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-prism-refractor-68",
+    "evidence": "Historical sold-listing outbound link recovered eBay item 158227124444."
+  },
+  "assessment_status": "historical-sale-match",
+  "research_note": "Original eBay page is directly readable and independently confirms SOLD status, 2026-09-03, US $8.50, Topps Chrome Premier League, card #68, Prism Refractor, Estevao Willian and Chelsea.",
+  "source_sale_id": "158227124444",
+  "direct_marketplace_url": "https://www.ebay.com.au/itm/158227124444"
+}

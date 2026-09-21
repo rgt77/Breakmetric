@@ -102,7 +102,11 @@ const task={
   sale_index:saleIndex,
   product_id:queue.product_id,
   card_number:record.card_number,
-  serial_numbering:Number(record.serial_numbering),
+  serial_numbering:
+    record.serial_numbering===null ||
+    record.serial_numbering===undefined
+      ? null
+      : Number(record.serial_numbering),
   team:contribution.team,
   card_id:contribution.card_id,
   player:contribution.player,

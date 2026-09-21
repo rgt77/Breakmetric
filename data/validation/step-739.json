@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 739,
+  "title": "Recover Estevao #68 Green Wave Refractor marketplace locators",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 11,
+    "team": "Chelsea",
+    "card_id": "68-green-wave-refractor",
+    "player": "Estêvão Willian",
+    "parallel": "Green Wave Refractor",
+    "supporting_sale_count": 1
+  },
+  "result": {
+    "recovered_original_locator_count": 1,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 1
+  },
+  "guarantees": [
+    "Candidate identity is exact to 2026 Topps Chrome Premier League #68 and the named parallel.",
+    "Recovered item IDs remain unresolved because the original sale event is not independently readable.",
+    "No EV contribution or realized sale price is changed."
+  ]
+}

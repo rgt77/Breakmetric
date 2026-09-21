@@ -249,6 +249,31 @@ const observedSerialAssessment=assessVerificationCandidate({
 assert.equal(observedSerialAssessment.valid,true);
 assert.equal(observedSerialAssessment.event_checks.serial_copy,true);
 
+const unnumberedRecord={
+  ...record,
+  serial_numbering:null
+};
+const unnumberedTask={
+  ...task,
+  serial_numbering:null
+};
+const unnumberedCandidate={
+  ...base,
+  listing_identity:{
+    ...base.listing_identity,
+    print_run:null
+  }
+};
+const unnumberedAssessment=assessVerificationCandidate({
+  task:unnumberedTask,
+  record:unnumberedRecord,
+  product,
+  candidate:unnumberedCandidate
+});
+assert.equal(unnumberedAssessment.valid,true);
+assert.equal(unnumberedAssessment.identity.checks.print_run,true);
+assert.equal(unnumberedAssessment.identity.normalized.print_run,null);
+
 const badLocator={
   ...base,
   direct_marketplace_url:"https://www.ebay.com/sch/i.html?_nkw=estevao"
@@ -277,6 +302,7 @@ console.log(JSON.stringify({
     "secondary-source-only identity and sale observations stay unresolved",
     "different historical sale event stays unresolved",
     "observed serial may be retained when stored sale has no serial copy",
+    "unnumbered card identity preserves null print run instead of coercing to zero",
     "only exact historical-sale-match can be promoted to evidence",
     "candidate assessment never mutates the market record"
   ]
