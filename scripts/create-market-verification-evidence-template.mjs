@@ -28,6 +28,20 @@ if(!fs.existsSync(absoluteQueue)){
 }
 
 const queue=JSON.parse(fs.readFileSync(absoluteQueue,"utf8"));
+
+const catalog=JSON.parse(
+  fs.readFileSync(path.join(root,"data/products/catalog.json"),"utf8")
+);
+const productEntry=(catalog.products||[])
+  .find(item=>item.id===queue.product_id);
+if(!productEntry?.product_data){
+  console.error("Product metadata route not found for queue product: "+queue.product_id);
+  process.exit(2);
+}
+const product=JSON.parse(
+  fs.readFileSync(path.join(root,productEntry.product_data),"utf8")
+);
+
 const recordsBySource={};
 for(const contribution of queue.items||[]){
   if(team && contribution.team!==team) continue;
@@ -46,6 +60,7 @@ for(const contribution of queue.items||[]){
 const tasks=buildVerificationTasks({
   queue,
   recordsBySource,
+  product,
   team:team||null
 });
 const task=nextPendingTask(tasks,taskId||null);
