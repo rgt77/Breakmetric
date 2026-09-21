@@ -1,11 +1,13 @@
-// BreakMetric JSON data loader v2.
-// Same-origin static JSON guard + cache + in-flight deduplication + bounded retry + concurrency-limited batch loading.
+// BreakMetric JSON data loader v3.
+// Same-origin JSON guard + versioned cache + in-flight dedupe + bounded retry + stable-version batch loading.
 (function(root){
   "use strict";
 
   const api={};
   const cache=new Map();
   const inFlight=new Map();
+  const DEFAULT_VERSION_PATH="data/validation/runtime-data-version-v1.json";
+  let currentVersion="unversioned";
   const metrics={
     requests:0,
     cache_hits:0,
@@ -13,7 +15,11 @@
     inflight_hits:0,
     retries:0,
     failures:0,
-    parsed_bytes:0
+    parsed_bytes:0,
+    version_checks:0,
+    version_changes:0,
+    cache_invalidations:0,
+    version_restarts:0
   };
 
   function transientStatus(status){
@@ -32,13 +38,23 @@
     }
   }
 
-  async function request(path,{timeoutMs=12000,maxBytes=5_000_000}={}){
+  function cacheKey(path,version=currentVersion){
+    return String(version||"unversioned")+"\0"+path;
+  }
+
+  async function request(path,{
+    timeoutMs=12000,
+    maxBytes=5_000_000,
+    cacheMode="default"
+  }={}){
     assertPath(path);
     metrics.requests++;
     const controller=typeof AbortController!=="undefined" ? new AbortController() : null;
     const timer=controller ? setTimeout(()=>controller.abort(),timeoutMs) : null;
     try{
-      const response=await fetch(path,controller ? {signal:controller.signal} : undefined);
+      const fetchOptions={cache:cacheMode};
+      if(controller) fetchOptions.signal=controller.signal;
+      const response=await fetch(path,fetchOptions);
       if(!response.ok){
         const error=new Error("Dataset request failed: "+response.status+" "+path);
         error.status=response.status;
@@ -80,17 +96,19 @@
     timeoutMs=12000,
     retries=1,
     useCache=true,
-    maxBytes=5_000_000
+    maxBytes=5_000_000,
+    version=currentVersion
   }={}){
     assertPath(path);
+    const key=cacheKey(path,version);
 
-    if(useCache && cache.has(path)){
+    if(useCache && cache.has(key)){
       metrics.cache_hits++;
-      return cache.get(path);
+      return cache.get(key);
     }
-    if(inFlight.has(path)){
+    if(inFlight.has(key)){
       metrics.inflight_hits++;
-      return inFlight.get(path);
+      return inFlight.get(key);
     }
     metrics.cache_misses++;
 
@@ -99,7 +117,7 @@
       while(true){
         try{
           const data=await request(path,{timeoutMs,maxBytes});
-          if(useCache) cache.set(path,data);
+          if(useCache) cache.set(key,data);
           return data;
         }catch(error){
           const aborted=error?.name==="AbortError";
@@ -114,11 +132,11 @@
       }
     })();
 
-    inFlight.set(path,task);
+    inFlight.set(key,task);
     try{
       return await task;
     }finally{
-      inFlight.delete(path);
+      inFlight.delete(key);
     }
   };
 
@@ -136,13 +154,20 @@
     for(const [,path] of rows) assertPath(path);
     const limit=Math.max(1,Math.min(12,Math.floor(Number(concurrency)||6)));
     const output={};
+    const versionAtStart=currentVersion;
     let cursor=0;
 
     async function worker(){
       while(cursor<rows.length){
         const index=cursor++;
         const [key,path]=rows[index];
-        output[key]=await api.loadJson(path,{timeoutMs,retries,useCache,maxBytes});
+        output[key]=await api.loadJson(path,{
+          timeoutMs,
+          retries,
+          useCache,
+          maxBytes,
+          version:versionAtStart
+        });
       }
     }
 
@@ -150,6 +175,110 @@
       Array.from({length:Math.min(limit,rows.length)},()=>worker())
     );
     return output;
+  };
+
+  api.syncVersion=async function(
+    versionPath=DEFAULT_VERSION_PATH,
+    {timeoutMs=5000}={}
+  ){
+    assertPath(versionPath);
+    metrics.version_checks++;
+    const manifest=await request(versionPath,{
+      timeoutMs,
+      maxBytes:100_000,
+      cacheMode:"no-store"
+    });
+    const fingerprint=String(manifest?.fingerprint||"").trim();
+    if(!/^[a-f0-9]{64}$/i.test(fingerprint)){
+      const error=new Error("Invalid runtime data fingerprint");
+      error.transient=false;
+      throw error;
+    }
+
+    if(currentVersion!==fingerprint){
+      currentVersion=fingerprint;
+      cache.clear();
+      metrics.version_changes++;
+      metrics.cache_invalidations++;
+    }
+    return manifest;
+  };
+
+  async function stableVersionLoad(loader,{
+    versionPath=DEFAULT_VERSION_PATH,
+    versionTimeoutMs=5000,
+    versionRetries=1
+  }={}){
+    let attempt=0;
+    while(true){
+      const before=await api.syncVersion(versionPath,{
+        timeoutMs:versionTimeoutMs
+      });
+      const fingerprint=before.fingerprint;
+      const data=await loader(fingerprint);
+      const after=await api.syncVersion(versionPath,{
+        timeoutMs:versionTimeoutMs
+      });
+      if(after.fingerprint===fingerprint) return data;
+
+      metrics.version_restarts++;
+      if(attempt>=versionRetries){
+        const error=new Error("Runtime data version changed during load");
+        error.name="DataVersionChanged";
+        error.transient=true;
+        throw error;
+      }
+      attempt++;
+    }
+  }
+
+  api.loadJsonVersioned=async function(path,options={}){
+    assertPath(path);
+    return stableVersionLoad(
+      version=>api.loadJson(path,{...options,version}),
+      options
+    );
+  };
+
+  api.loadManyVersioned=async function(entries,options={}){
+    return stableVersionLoad(
+      async version=>{
+        const rows=Object.entries(entries||{});
+        if(!entries || Array.isArray(entries) || typeof entries!=="object"){
+          throw new Error("loadManyVersioned requires a key/path object");
+        }
+        for(const [,path] of rows) assertPath(path);
+        const concurrency=Math.max(
+          1,
+          Math.min(12,Math.floor(Number(options.concurrency)||6))
+        );
+        const output={};
+        let cursor=0;
+
+        async function worker(){
+          while(cursor<rows.length){
+            const index=cursor++;
+            const [key,path]=rows[index];
+            output[key]=await api.loadJson(path,{
+              timeoutMs:options.timeoutMs,
+              retries:options.retries,
+              useCache:options.useCache,
+              maxBytes:options.maxBytes,
+              version
+            });
+          }
+        }
+
+        await Promise.all(
+          Array.from(
+            {length:Math.min(concurrency,rows.length)},
+            ()=>worker()
+          )
+        );
+        return output;
+      },
+      options
+    );
   };
 
   api.prefetch=async function(paths=[],options={}){
@@ -164,12 +293,22 @@
   };
 
   api.has=function(path){
-    return cache.has(path);
+    return cache.has(cacheKey(path));
   };
 
   api.clear=function(path=null){
-    if(path) cache.delete(path);
-    else cache.clear();
+    if(!path){
+      cache.clear();
+      return;
+    }
+    const suffix="\0"+path;
+    for(const key of [...cache.keys()]){
+      if(key.endsWith(suffix)) cache.delete(key);
+    }
+  };
+
+  api.version=function(){
+    return currentVersion;
   };
 
   api.resetStats=function(){
@@ -180,6 +319,7 @@
     return {
       cached:cache.size,
       in_flight:inFlight.size,
+      version:currentVersion,
       ...metrics
     };
   };
