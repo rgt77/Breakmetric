@@ -44,6 +44,12 @@ const teamComparisonPolicy = json("data/methodology/team-comparison-v1.json");
 const playerDisclosurePolicy = json("data/methodology/player-disclosure-v1.json");
 const dataLoaderPolicy = json("data/methodology/data-loader-v2.json");
 const storagePolicy = json("data/methodology/storage-v1.json");
+const safeDomPolicy = json("data/methodology/safe-dom-rendering-v1.json");
+pass("safe DOM rendering policy schema", safeDomPolicy.schema_version === 1);
+pass(
+  "safe DOM policy prohibits dynamic innerHTML",
+  safeDomPolicy.prohibited_patterns?.some(value => value.includes("innerHTML"))
+);
 pass("storage policy schema", storagePolicy.schema_version === 1);
 pass("storage policy defines session fallback", storagePolicy.persistence_order?.length === 2);
 pass("data loader v2 policy schema", dataLoaderPolicy.schema_version === 2);
@@ -283,6 +289,9 @@ pass("dataset loader metrics visible", html.includes('id="dataLoaderMetrics"'));
 pass("browser storage mode visible", html.includes('id="dataStorageStatus"'));
 pass("storage abstraction loaded", html.includes('src/storage.js'));
 pass("inline app has no direct localStorage calls", !inline.includes("localStorage."));
+pass("inline app has no dynamic innerHTML", !inline.includes(".innerHTML"));
+pass("safe empty-state renderer present", html.includes("function setEmptyMessage("));
+pass("container resets use replaceChildren", html.includes("replaceChildren()"));
 pass("bundle loading uses bounded loadMany", html.includes("BreakMetricDataLoader.loadMany(paths") && html.includes("concurrency: 6"));
 pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
