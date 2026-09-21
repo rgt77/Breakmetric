@@ -434,8 +434,8 @@ assert(recordQuality.sale_count===30,"market record sample-size smoke failed");
 assert(recordQuality.sample_size_confidence==="high","market record sample band failed");
 assert(recordQuality.source_status==="mixed-original-secondary","market record source status failed");
 assert(
-  marketRecord.evidence_summary?.original_marketplace_verified_sale_count===2 &&
-  marketRecord.evidence_summary?.secondary_source_realized_sale_count===28,
+  marketRecord.evidence_summary?.original_marketplace_verified_sale_count===4 &&
+  marketRecord.evidence_summary?.secondary_source_realized_sale_count===26,
   "mixed-source Prism evidence counts failed"
 );
 assert(
@@ -446,7 +446,11 @@ assert(
   marketRecord.sales?.[14]?.original_marketplace_ended_at===
     "2026-05-05T17:33:00-07:00" &&
   marketRecord.sales?.[14]?.original_marketplace_sale_date_basis===
-    "utc-date-from-original-marketplace-timestamp",
+    "utc-date-from-original-marketplace-timestamp" &&
+  marketRecord.sales?.[19]?.source_sale_id==="127802994632" &&
+  marketRecord.sales?.[19]?.original_marketplace_verified===true &&
+  marketRecord.sales?.[21]?.source_sale_id==="127787552517" &&
+  marketRecord.sales?.[21]?.original_marketplace_verified===true,
   "original Prism sale identity smoke failed"
 );
 assert(["fresh","current","aging","stale"].includes(recordQuality.recency_status),"market record recency band failed");
