@@ -32,6 +32,8 @@ jobs:
         run: node scripts/test-spot-fx.mjs
       - name: Test runtime races and dependency guard
         run: node scripts/test-runtime-races.mjs
+      - name: Test product selection race
+        run: node scripts/test-selection-race.mjs
       - name: Validate data contracts and UI invariants
         run: node scripts/validate.mjs
       - name: Smoke-test analysis models

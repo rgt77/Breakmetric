@@ -72,6 +72,11 @@ pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
 
+const step711 = json("data/validation/step-711.json");
+pass("step 711 manifest schema", step711.schema_version === 1);
+pass("step 711 id", step711.step === 711);
+pass("step 711 implementation complete", step711.implemented === true);
+
 const runtimeRaceBlock = json("data/validation/steps-706-710.json");
 pass("steps 706-710 count is exactly five", runtimeRaceBlock.step_count === 5 && runtimeRaceBlock.steps?.length === 5);
 pass("steps 706-710 start at 706", runtimeRaceBlock.steps?.[0]?.step === 706);
@@ -248,6 +253,7 @@ for (const module of [
   "fxRate.js",
   "fxCoordinator.js",
   "runtimeGuard.js",
+  "selectionCoordinator.js",
   "teamReadiness.js",
   "analysisProvenance.js",
   "urlState.js"
@@ -308,6 +314,21 @@ pass(
   html.includes("runtimeDependencyReport") &&
   html.includes("BreakMetric could not start because required application modules failed to load.") &&
   html.includes("runtimeDependencyReport.missing.join")
+);
+pass(
+  "manual product selection is continuation-guarded",
+  html.includes("selectionCoordinator.begin(item.id)") &&
+  html.includes("selectionOperation") &&
+  html.includes("selectionCoordinator.isCurrent")
+);
+pass(
+  "initial product bootstrap is continuation-guarded",
+  html.includes("selectionCoordinator.begin(currentProduct.id)") &&
+  (html.match(/selectionCoordinator\.isCurrent\(/g) || []).length >= 2
+);
+pass(
+  "selection coordinator is runtime-required",
+  html.includes('"BreakMetricSelectionCoordinator"')
 );
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
 pass(

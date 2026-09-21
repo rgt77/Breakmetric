@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 711,
+  "title": "Guard product selection async continuations",
+  "implemented": true,
+  "summary": [
+    "Adds a product-selection coordinator with monotonic operation tokens.",
+    "Manual product selection and initial bootstrap are both guarded after await loadFormats().",
+    "Only the latest product selection may continue into analysis dataset loading.",
+    "Adds a behavioral race regression test and CI/static validation."
+  ]
+}
