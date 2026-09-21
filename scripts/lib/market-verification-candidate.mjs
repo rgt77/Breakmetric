@@ -127,7 +127,7 @@ export function assessVerificationCandidate({
     serial_copy:
       text(sale.serial_copy)
         ? text(observed.serial_copy)===text(sale.serial_copy)
-        : !text(observed.serial_copy),
+        : true,
     sale_event_original_source:
       eventSourceKind==="original-marketplace"
   };
