@@ -204,6 +204,8 @@ for (const product of catalog.products || []) {
 }
 
 const html = read("index.html");
+const spotCurrencySource = read("src/spotCurrency.js");
+const fxRateSource = read("src/fxRate.js");
 const headers = read("_headers");
 const webmanifest = json("site.webmanifest");
 pass("webmanifest name is BreakMetric", webmanifest.name === "BreakMetric");
@@ -250,7 +252,12 @@ for (const module of [
 pass("atomic spot state enabled", html.includes("breakmetric_spot_state"));
 pass("canonical spot USD state enabled", html.includes("canonicalSpotUsd"));
 pass("spot state schema v2 persisted", html.includes("BreakMetricSpotCurrency.persistedState"));
-pass("FX conversion uses USD canonical basis", html.includes("displayFromCanonicalUsd") && html.includes("canonicalUsdFromDisplay"));
+pass(
+  "FX conversion uses USD canonical basis",
+  html.includes("BreakMetricSpotCurrency.conversionPlan") &&
+  spotCurrencySource.includes("canonicalUsdFromDisplay") &&
+  spotCurrencySource.includes("displayFromCanonicalUsd")
+);
 pass("price edits refresh canonical spot basis", html.includes("price.addEventListener(\"input\"") && html.includes("updateCanonicalSpotFromDisplay"));
 pass(
   "clearing price clears canonical spot basis",
@@ -258,7 +265,12 @@ pass(
   html.includes("updateCanonicalSpotFromDisplay();") &&
   html.includes('BreakMetricStorage.remove("breakmetric_spot_state")')
 );
-pass("FX requests have an explicit timeout", html.includes("timeoutMs: 8000"));
+pass(
+  "FX requests have an explicit timeout",
+  html.includes("timeoutMs: 8000") &&
+  fxRateSource.includes("AbortController") &&
+  fxRateSource.includes("controller.abort()")
+);
 pass(
   "non-USD EV is gated on FX readiness",
   html.includes("canPresentUsdValue") &&
