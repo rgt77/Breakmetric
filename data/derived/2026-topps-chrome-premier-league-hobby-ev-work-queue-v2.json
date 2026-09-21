@@ -11,8 +11,8 @@
     "not_started_task_count": 56,
     "not_applicable_task_count": 1,
     "eligible_contribution_count": 8896,
-    "valued_contribution_count": 32,
-    "remaining_contribution_count": 8864,
+    "valued_contribution_count": 33,
+    "remaining_contribution_count": 8863,
     "teams_with_ev_progress": 1
   },
   "tasks": [
@@ -22,11 +22,11 @@
       "category": "base_parallels",
       "status": "partial",
       "eligible_contribution_count": 250,
-      "valued_contribution_count": 27,
-      "remaining_contribution_count": 223,
-      "coverage_percent": 10.8,
+      "valued_contribution_count": 28,
+      "remaining_contribution_count": 222,
+      "coverage_percent": 11.2,
       "priority": 1,
-      "next_action": "value remaining 223 of 250 eligible contribution slots"
+      "next_action": "value remaining 222 of 250 eligible contribution slots"
     },
     {
       "id": "chelsea-inserts",
