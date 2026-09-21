@@ -32,6 +32,8 @@ jobs:
         run: node scripts/validate-market-records.mjs
       - name: Validate market verification contract
         run: node scripts/validate-market-verification-contract.mjs
+      - name: Validate market verification tasks
+        run: node scripts/validate-market-verification-tasks.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
       - name: Validate player derivation reproducibility

@@ -125,6 +125,13 @@ pass("steps 714-718 end at 718", evDenominatorBlock.steps?.[4]?.step === 718);
 pass("steps 714-718 are sequential", evDenominatorBlock.steps?.every((row,index)=>row.step === 714 + index));
 pass("steps 714-718 implementation flags complete", evDenominatorBlock.steps?.every(row=>row.implemented === true));
 
+const verificationTaskBlock = json("data/validation/steps-721-723.json");
+pass("steps 721-723 count is exactly three", verificationTaskBlock.step_count === 3 && verificationTaskBlock.steps?.length === 3);
+pass("steps 721-723 start at 721", verificationTaskBlock.steps?.[0]?.step === 721);
+pass("steps 721-723 end at 723", verificationTaskBlock.steps?.[2]?.step === 723);
+pass("steps 721-723 are sequential", verificationTaskBlock.steps?.every((row,index)=>row.step === 721 + index));
+pass("steps 721-723 implementation flags complete", verificationTaskBlock.steps?.every(row=>row.implemented === true));
+
 const step720 = json("data/validation/step-720.json");
 pass("step 720 manifest schema", step720.schema_version === 1);
 pass("step 720 id", step720.step === 720);
@@ -374,6 +381,7 @@ for (const module of [
   "evContributionProvenance.js",
   "marketCoverage.js",
   "marketEvidenceQuality.js",
+  "marketVerificationTasks.js",
   "marketRecordQuality.js",
   "marketRecordIssues.js",
   "marketRecordCoordinator.js",
@@ -509,6 +517,19 @@ pass("market supporting sales visible", html.includes('id="marketSupportingSales
 pass("market verified sales visible", html.includes('id="marketVerifiedSales"'));
 pass("market pending sales visible", html.includes('id="marketPendingSales"'));
 pass("market sale verification share visible", html.includes('id="marketSaleVerificationShare"'));
+pass("next sale verification task visible", html.includes('id="marketNextSaleVerification"'));
+pass("sale verification task queue visible", html.includes('id="marketSaleTaskQueue"'));
+pass(
+  "sale verification task UI uses deterministic task model",
+  html.includes("BreakMetricMarketVerificationTasks.build(") &&
+  html.includes("BreakMetricMarketVerificationTasks.validate(") &&
+  html.includes("BreakMetricMarketVerificationTasks.next(") &&
+  html.includes("BreakMetricMarketVerificationTasks.label(")
+);
+pass(
+  "sale verification task ordering disclosed",
+  html.includes("Contribution priority first, then stored sale order")
+);
 pass(
   "sale verification UI uses fail-closed progress model",
   html.includes("BreakMetricMarketEvidenceQuality.saleVerificationProgress(records)") &&

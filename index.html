@@ -736,6 +736,14 @@
             <strong id="marketSaleVerificationShare">—</strong>
           </div>
           <div class="player-data-row">
+            <div>Next original-sale task<small>Contribution priority first, then stored sale order.</small></div>
+            <strong id="marketNextSaleVerification">Open panel to load</strong>
+          </div>
+          <div class="player-data-row">
+            <div>Sale task queue</div>
+            <strong id="marketSaleTaskQueue">—</strong>
+          </div>
+          <div class="player-data-row">
             <div>Stored sale sample<small>Loaded lazily when this panel is opened.</small></div>
             <strong id="marketRecordSample">Open panel to load</strong>
           </div>
@@ -1067,6 +1075,7 @@
   <script src="src/evContributionProvenance.js"></script>
   <script src="src/marketCoverage.js"></script>
   <script src="src/marketEvidenceQuality.js"></script>
+  <script src="src/marketVerificationTasks.js"></script>
   <script src="src/marketRecordQuality.js"></script>
   <script src="src/marketRecordIssues.js"></script>
   <script src="src/dataFreshness.js"></script>
@@ -1135,6 +1144,10 @@
     const marketPendingSales = document.getElementById("marketPendingSales");
     const marketSaleVerificationShare =
       document.getElementById("marketSaleVerificationShare");
+    const marketNextSaleVerification =
+      document.getElementById("marketNextSaleVerification");
+    const marketSaleTaskQueue =
+      document.getElementById("marketSaleTaskQueue");
     const marketRecordSample = document.getElementById("marketRecordSample");
     const marketLatestSale = document.getElementById("marketLatestSale");
     const marketRecordFreshness = document.getElementById("marketRecordFreshness");
@@ -1185,6 +1198,7 @@
       "BreakMetricEvContributionProvenance",
       "BreakMetricMarketCoverage",
       "BreakMetricMarketEvidenceQuality",
+      "BreakMetricMarketVerificationTasks",
       "BreakMetricMarketRecordQuality",
       "BreakMetricMarketRecordIssues",
       "BreakMetricFreshness",
@@ -1492,6 +1506,9 @@
         marketVerifiedSales.textContent = "0";
         marketPendingSales.textContent = "0";
         marketSaleVerificationShare.textContent = "—";
+        marketNextSaleVerification.textContent =
+          "No pending original-sale verification";
+        marketSaleTaskQueue.textContent = "0 pending · 0 total";
         marketRecordSample.textContent = "No market records";
         marketLatestSale.textContent = "—";
         marketRecordFreshness.textContent = "No records";
@@ -1503,6 +1520,8 @@
       marketVerifiedSales.textContent = "Loading…";
       marketPendingSales.textContent = "Loading…";
       marketSaleVerificationShare.textContent = "Loading…";
+      marketNextSaleVerification.textContent = "Loading…";
+      marketSaleTaskQueue.textContent = "Loading…";
       marketRecordSample.textContent = "Loading " + sources.length + " records…";
       marketLatestSale.textContent = "Loading…";
       marketRecordFreshness.textContent = "Loading…";
@@ -1521,6 +1540,9 @@
           }
         );
         const records = Object.values(recordMap);
+        const recordsBySource = Object.fromEntries(
+          sources.map((source,index) => [source,records[index]])
+        );
         updateLoaderStatsUi();
 
         if (!marketRecordCoordinator.isCurrent(operation, {
@@ -1548,6 +1570,25 @@
         const aggregate = BreakMetricMarketRecordQuality.aggregate(qualityRows);
         const saleProgress =
           BreakMetricMarketEvidenceQuality.saleVerificationProgress(records);
+        const teamVerificationQueue = {
+          product_id: marketVerificationQueueData?.product_id || "",
+          format_id: marketVerificationQueueData?.format_id || "",
+          items: (marketVerificationQueueData?.items || [])
+            .filter(item => item.team === teamAtStart)
+        };
+        const saleTasks = BreakMetricMarketVerificationTasks.build(
+          teamVerificationQueue,
+          recordsBySource
+        );
+        const taskValidation =
+          BreakMetricMarketVerificationTasks.validate(saleTasks);
+        if (!taskValidation.valid) {
+          throw new Error(taskValidation.errors.join(" · "));
+        }
+        const taskSummary =
+          BreakMetricMarketVerificationTasks.summary(saleTasks);
+        const nextSaleTask =
+          BreakMetricMarketVerificationTasks.next(saleTasks,teamAtStart);
 
         marketSupportingSales.textContent =
           String(saleProgress.sale_count);
@@ -1559,6 +1600,11 @@
           saleProgress.verification_share === null
             ? "—"
             : (saleProgress.verification_share * 100).toFixed(1) + "%";
+        marketNextSaleVerification.textContent =
+          BreakMetricMarketVerificationTasks.label(nextSaleTask);
+        marketSaleTaskQueue.textContent =
+          taskSummary.pending_task_count + " pending · " +
+          taskSummary.task_count + " total";
 
         marketRecordSample.textContent =
           aggregate.record_count + " records · " +
@@ -1597,6 +1643,8 @@
         marketVerifiedSales.textContent = "Unavailable";
         marketPendingSales.textContent = "Unavailable";
         marketSaleVerificationShare.textContent = "Unavailable";
+        marketNextSaleVerification.textContent = "Unavailable";
+        marketSaleTaskQueue.textContent = "Unavailable";
         marketRecordSample.textContent = "Record-quality load failed";
         marketLatestSale.textContent = "Unavailable";
         marketRecordFreshness.textContent = "Unavailable";
@@ -1611,6 +1659,8 @@
       marketVerifiedSales.textContent = "—";
       marketPendingSales.textContent = "—";
       marketSaleVerificationShare.textContent = "—";
+      marketNextSaleVerification.textContent = "Open panel to load";
+      marketSaleTaskQueue.textContent = "—";
       marketRecordSample.textContent = "Open panel to load";
       marketLatestSale.textContent = "—";
       marketRecordFreshness.textContent = "—";

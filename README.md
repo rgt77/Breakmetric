@@ -18,6 +18,7 @@ BreakMetric is a sports-card case-break analysis platform built around published
 - Market records are audited for schema, median/sample consistency, evidence integrity and duplicate warnings.
 - Original-marketplace verification is sale-derived and fail-closed: every realized sale used by a contribution's stored market-value sample must have qualifying original evidence before that contribution can count as original verified.
 - Sale-level original-marketplace verification progress is visible in the Market evidence panel, including supporting sales, verified sales, pending sales and verification share.
+- Sale verification tasks are derived deterministically from the verification queue plus market records, ordered by contribution priority and stored sale order; the active team's next pending task is shown in the Market evidence panel.
 - Market evidence exposes source tier, verification EV gap, sample size, recency and price-spread review flags.
 - Team comparison is descriptive and retains canonical team order; it does not rank spots by value.
 - Player detail uses progressive disclosure so core probability metrics stay prominent.
@@ -40,6 +41,7 @@ node scripts/generate-v13-pipeline.mjs --check
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-market-verification-contract.mjs
+node scripts/validate-market-verification-tasks.mjs
 node scripts/validate-ev-provenance.mjs
 node scripts/validate-player-derivation.mjs
 node scripts/test-spot-fx.mjs
