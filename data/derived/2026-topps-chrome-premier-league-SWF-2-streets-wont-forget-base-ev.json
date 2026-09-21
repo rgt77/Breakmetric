@@ -1,0 +1,21 @@
+{
+  "product_id": "2026-topps-chrome-premier-league",
+  "card_number": "SWF-2",
+  "player": "Eiður Guðjohnsen",
+  "team": "Chelsea",
+  "set": "The Streets Won't Forget",
+  "parallel": "Base",
+  "market_value_usd": 2.37,
+  "hobby": {
+    "odds": "10 per box across pooled 100-card insert group",
+    "odds_pool_size": 100,
+    "boxes_per_case": 12,
+    "packs_per_case": 240
+  },
+  "assumption": "The published pooled insert odds are distributed uniformly across the mapped 100-card pool.",
+  "calculation": {
+    "expected_copies_per_case": 1.2,
+    "probability_at_least_one_in_case": 0.7006196086876687,
+    "ev_contribution_usd": 2.844
+  }
+}
