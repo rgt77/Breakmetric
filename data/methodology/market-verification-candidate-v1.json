@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "model": "market-verification-candidate-v1",
+  "generated_at": "2026-09-21",
+  "purpose": "Classify marketplace recovery hits before they can become original-sale evidence.",
+  "states": [
+    {
+      "status": "identity-mismatch",
+      "meaning": "The marketplace hit is not the exact target card identity and must never be promoted."
+    },
+    {
+      "status": "identity-match-sale-unresolved",
+      "meaning": "The exact card identity matches, but the marketplace hit has not been proven to be the stored historical sale event."
+    },
+    {
+      "status": "historical-sale-match",
+      "meaning": "The exact product/card identity and the exact stored realized sale event both match. The candidate may be converted to evidence, but it still does not mutate the market record by itself."
+    }
+  ],
+  "identity_gate": [
+    "product family / accepted series alias",
+    "card number",
+    "parallel",
+    "print run",
+    "player",
+    "team when supplied"
+  ],
+  "historical_sale_gate": [
+    "listing must be confirmed sold, not active",
+    "sale date must match the stored realized sale",
+    "sale price must match the stored realized sale",
+    "marketplace must match",
+    "serial copy must match when the stored sale has one",
+    "candidate must carry a qualifying original marketplace locator"
+  ],
+  "safety_rules": [
+    "An active relisting of the exact physical serial-numbered card remains unresolved.",
+    "A different sale of the exact same card remains unresolved.",
+    "A visually similar card from another product family is an identity mismatch.",
+    "Candidate assessment never changes sale price, EV, verification flags or market records.",
+    "Only historical-sale-match candidates may be converted into evidence schema v2.",
+    "Final evidence still passes the normal fail-closed evidence validator before it can be applied."
+  ],
+  "cli": {
+    "assess": "node scripts/assess-market-verification-candidate.mjs --candidate <file.json>",
+    "promote_to_evidence": "node scripts/assess-market-verification-candidate.mjs --candidate <file.json> --emit-evidence <evidence.json>"
+  }
+}
