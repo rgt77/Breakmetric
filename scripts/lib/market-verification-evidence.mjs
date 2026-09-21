@@ -43,6 +43,41 @@ function marketplaceHostMatches(marketplace,url){
     host.replace(/[^a-z0-9.]/g,"").includes(token);
 }
 
+function ebayItemIdFromUrl(value){
+  try{
+    const url=new URL(value);
+    const match=url.pathname.match(
+      /\/itm\/(?:[^/]+\/)?(\d{9,15})(?:\/|$)/
+    );
+    return match?.[1]||null;
+  }catch{
+    return null;
+  }
+}
+
+function stableSaleIdMatchesMarketplace(marketplace,value){
+  const id=text(value);
+  if(!id) return false;
+  const key=text(marketplace).toLowerCase();
+
+  if(key==="ebay"){
+    return /^\d{9,15}$/.test(id);
+  }
+
+  return false;
+}
+
+function directMarketplaceLocatorValid(marketplace,url){
+  if(!marketplaceHostMatches(marketplace,url)) return false;
+  const key=text(marketplace).toLowerCase();
+
+  if(key==="ebay"){
+    return Boolean(ebayItemIdFromUrl(url));
+  }
+
+  return true;
+}
+
 export function hasOriginalLocator(evidence={},marketplace=""){
   const directUrl=text(
     evidence.direct_marketplace_url ||
@@ -54,8 +89,9 @@ export function hasOriginalLocator(evidence={},marketplace=""){
     evidence.listing_id
   );
   return Boolean(
-    stableSaleId ||
-    (directUrl && marketplaceHostMatches(marketplace,directUrl))
+    (stableSaleId &&
+      stableSaleIdMatchesMarketplace(marketplace,stableSaleId)) ||
+    (directUrl && directMarketplaceLocatorValid(marketplace,directUrl))
   );
 }
 
@@ -148,6 +184,24 @@ export function validateEvidence({task={},record={},evidence={}}={}){
   }
   if(directUrl && !marketplaceHostMatches(sale.marketplace,directUrl)){
     errors.push("direct marketplace URL host does not match stored marketplace");
+  }else if(
+    directUrl &&
+    !directMarketplaceLocatorValid(sale.marketplace,directUrl)
+  ){
+    errors.push("direct marketplace URL is not a qualifying sale listing");
+  }
+  if(
+    stableSaleId &&
+    !stableSaleIdMatchesMarketplace(sale.marketplace,stableSaleId)
+  ){
+    errors.push("stable sale id format is not valid for stored marketplace");
+  }
+  if(directUrl && stableSaleId){
+    const key=text(sale.marketplace).toLowerCase();
+    const urlSaleId=key==="ebay" ? ebayItemIdFromUrl(directUrl) : null;
+    if(urlSaleId && urlSaleId!==stableSaleId){
+      errors.push("direct marketplace URL and stable sale id disagree");
+    }
   }
   if(!hasOriginalLocator(evidence,sale.marketplace)){
     errors.push("evidence has no qualifying original marketplace locator");

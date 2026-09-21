@@ -96,4 +96,4 @@ node scripts/generate-v13-pipeline.mjs
 node scripts/generate-data-version.mjs
 ```
 
-The ingest command rejects mismatched task identity, date, price, marketplace, serial or original-marketplace locator. The generated verification queue derives status from the supporting sales rather than a contribution-level boolean.
+The ingest command rejects mismatched task identity, date, price, marketplace, serial or original-marketplace locator. For eBay, direct evidence must identify an actual `/itm/` listing and standalone stable IDs must use a plausible numeric item-number format; if both URL and ID are supplied, they must agree. A later active re-listing of the same serial-numbered card is research evidence only and does not by itself verify an earlier sale event. The generated verification queue derives status from the supporting sales rather than a contribution-level boolean.

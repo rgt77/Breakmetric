@@ -121,7 +121,7 @@ assert.deepEqual(
 const stableIdOnly={
   ...valid,
   direct_marketplace_url:undefined,
-  source_sale_id:"123456789"
+  source_sale_id:"236989109655"
 };
 assert.equal(
   validateEvidence({
@@ -160,6 +160,31 @@ for(const [name,patch,expected] of [
         "https://www.sportscardspro.com/example"
     },
     "URL host does not match"
+  ],
+  [
+    "eBay category URL is not a sale locator",
+    {
+      direct_marketplace_url:
+        "https://www.ebay.com/sch/i.html?_nkw=estevao"
+    },
+    "not a qualifying sale listing"
+  ],
+  [
+    "malformed eBay stable sale id",
+    {
+      direct_marketplace_url:undefined,
+      source_sale_id:"not-an-ebay-item"
+    },
+    "stable sale id format is not valid"
+  ],
+  [
+    "eBay URL and stable id mismatch",
+    {
+      direct_marketplace_url:
+        "https://www.ebay.com/itm/236989109655",
+      source_sale_id:"188934418234"
+    },
+    "URL and stable sale id disagree"
   ]
 ]){
   const evidence={...valid,...patch};
@@ -208,8 +233,11 @@ assert.deepEqual(
 console.log(JSON.stringify({
   result:"pass",
   checks:[
-    "valid original marketplace URL accepted",
-    "stable original sale id accepted",
+    "valid original marketplace sale URL accepted",
+    "marketplace-shaped stable original sale id accepted",
+    "same-host non-listing URL rejected",
+    "malformed marketplace sale id rejected",
+    "direct URL and stable sale id must agree",
     "price mismatch rejected",
     "date mismatch rejected",
     "serial mismatch rejected",
