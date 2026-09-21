@@ -104,7 +104,7 @@ const valid={
     player:"Estêvão Willian",
     team:"Chelsea"
   },
-  direct_marketplace_url:"https://www.ebay.com/itm/123456789",
+  direct_marketplace_url:"https://www.ebay.com/itm/123456789012",
   verified_at:"2026-09-21",
   verification_note:"Recovered original marketplace sale."
 };
@@ -244,7 +244,7 @@ for(const [name,patch,expected] of [
     {
       direct_marketplace_url:
         "https://www.ebay.com/itm/123456789012",
-      source_sale_id:"123456789012"
+      source_sale_id:"123456789013"
     },
     "URL and stable sale id disagree"
   ]
