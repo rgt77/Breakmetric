@@ -16,19 +16,19 @@ const frozen=j("data/market/"+product+"/market-verification-scope-v1.json");
 const legacyQueue=j("data/market/"+product+"/market-verification-queue-v1.json");
 
 const attempts=research.attempts||[];
-ok(attempts.length===10,"valuation research block must contain 10 attempts");
-ok(new Set(attempts.map(x=>x.step)).size===10,"valuation research steps must be unique");
+ok(attempts.length>=10,"valuation research must preserve the initial 10-attempt block");
+ok(new Set(attempts.map(x=>x.step)).size===attempts.length,"valuation research steps must be unique");
 ok(
   attempts.every((x,index)=>x.step===827+index),
-  "valuation research steps must be contiguous 827-836"
+  "valuation research steps must be contiguous from 827"
 );
 ok(new Set(attempts.map(x=>x.task_id)).size===attempts.length,"valuation task ids must be unique");
 ok(attempts.every(x=>x.exact_series_identity===true),"every attempt must enforce exact series identity");
 
 const valued=attempts.filter(x=>x.outcome==="valued-secondary-realized-sales");
 const blocked=attempts.filter(x=>x.outcome==="no-exact-realized-sales");
-ok(valued.length===5,"exactly five tasks should be valued");
-ok(blocked.length===5,"exactly five tasks should remain blocked");
+ok(valued.length===Number(research.summary?.valued_task_count),"valued task summary mismatch");
+ok(blocked.length===Number(research.summary?.blocked_no_exact_realized_sales_count),"blocked task summary mismatch");
 
 const provByCardId=new Map((provenance.entries||[]).map(x=>[x.card_id,x]));
 const queueByTaskId=new Map((queue.tasks||[]).map(x=>[x.task_id,x]));
@@ -54,13 +54,13 @@ for(const attempt of blocked){
   ok(task?.valuation_research?.attempted===true,"blocked queue task lacks research state: "+attempt.task_id);
 }
 
-ok(Math.abs(evSum-9.3102)<0.0001,"new EV sum mismatch");
-ok(Number(research.summary?.chelsea_valued_contribution_count)===32,"research summary valued count mismatch");
-ok(Number(research.summary?.chelsea_remaining_contribution_count)===606,"research summary remaining count mismatch");
-ok(Number(teamEv.teams?.Chelsea?.valued_card_count)===32,"team EV valued count mismatch");
+ok(Math.abs(evSum-Number(research.summary?.new_ev_contribution_usd||0))<0.0001,"new EV sum mismatch");
+ok(Number(research.summary?.chelsea_valued_contribution_count)===Number(teamEv.teams?.Chelsea?.valued_card_count),"research summary valued count mismatch");
+ok(Number(research.summary?.chelsea_remaining_contribution_count)===Number(queue.summary?.remaining_task_count),"research summary remaining count mismatch");
+ok(Number(teamEv.teams?.Chelsea?.valued_card_count)===Number(queue.summary?.already_valued_contribution_count),"team EV valued count mismatch");
 ok(Math.abs(Number(teamEv.teams?.Chelsea?.partial_ev_sum_check_usd)-52.0313)<0.0001,"team EV partial sum mismatch");
-ok(Number(queue.summary?.already_valued_contribution_count)===32,"completion queue valued count mismatch");
-ok(Number(queue.summary?.remaining_task_count)===606,"completion queue remaining count mismatch");
+ok(Number(queue.summary?.already_valued_contribution_count)+Number(queue.summary?.remaining_task_count)===638,"completion queue denominator mismatch");
+ok(Number(queue.summary?.remaining_task_count)===638-Number(queue.summary?.already_valued_contribution_count),"completion queue remaining count mismatch");
 
 ok(Number(frozen.frozen_contribution_count)===27,"frozen market verification scope count changed");
 ok((frozen.card_ids||[]).length===27,"frozen market verification id count changed");

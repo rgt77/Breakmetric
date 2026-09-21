@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 836,
+  "canonical_step_end": 837,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -396,6 +396,15 @@
       "title": "Research and value the first ten Chelsea EV completion tasks",
       "source_kind": "block-summary",
       "source": "data/validation/steps-827-836.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 837,
+      "end": 837,
+      "id": "chelsea-ev-step-837",
+      "title": "Research Estêvão Willian CA-EV Green Wave Refractor for Chelsea EV completion",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-837.json",
       "coverage_quality": "exact-manifest"
     }
   ],
