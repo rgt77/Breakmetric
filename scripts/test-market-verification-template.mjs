@@ -36,7 +36,7 @@ const record={
       sale_price:100,
       marketplace:"eBay",
       serial_copy:"01/50",
-      direct_marketplace_url:"https://www.ebay.com/itm/111",
+      direct_marketplace_url:"https://www.ebay.com/itm/188934418234",
       evidence_status:"original-marketplace-verified",
       original_marketplace_verified:true
     },
@@ -101,7 +101,7 @@ assert.ok(
 
 const completed={
   ...template,
-  direct_marketplace_url:"https://www.ebay.com/itm/222",
+  direct_marketplace_url:"https://www.ebay.com/itm/236989109655",
   verified_at:"2026-09-21"
 };
 assert.equal(
