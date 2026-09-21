@@ -28,7 +28,9 @@ if(classified.length!==actual.length){
 }
 
 const html=read("index.html");
-const runtime=[...html.matchAll(/<script\s+src="src\/([^"]+\.js)"/g)]
+const runtime=[...html.matchAll(
+  /<script\s+src="src\/([^"?]+\.js)(?:\?[^"]*)?"/g
+)]
   .map(match=>match[1])
   .sort();
 const expectedRuntime=[...(inventory.roles?.runtime?.files||[])].sort();
