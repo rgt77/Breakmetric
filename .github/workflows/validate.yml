@@ -37,7 +37,11 @@ jobs:
       - name: Test market verification evidence ingest
         run: node scripts/test-market-verification-evidence.mjs
       - name: Test market verification evidence template
-        run: node scripts/test-market-verification-template.mjs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/test-market-verification-template.mjs
+          node --check scripts/create-market-verification-evidence-template.mjs
       - name: Validate EV derivation provenance
         run: node scripts/validate-ev-provenance.mjs
       - name: Validate player derivation reproducibility
