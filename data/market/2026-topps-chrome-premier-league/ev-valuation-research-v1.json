@@ -14,7 +14,10 @@
       "exact_series_identity": true,
       "raw_realized_sale_count": 10,
       "market_value_usd": 0.99,
-      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14"
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-alive-and-kicking/estevao-willian-ak-14",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/AK-14-estevao-willian-alive-and-kicking-base.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-AK-14-alive-and-kicking-base-ev.json",
+      "ev_contribution_usd": 1.188
     },
     {
       "step": 828,
@@ -27,7 +30,10 @@
       "exclusions": [
         "2026 Topps Chrome Sapphire sale",
         "Alive and Kicking Refractor /75 sale"
-      ]
+      ],
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/AK-7-reece-james-alive-and-kicking-base.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-AK-7-alive-and-kicking-base-ev.json",
+      "ev_contribution_usd": 2.388
     },
     {
       "step": 829,
@@ -45,7 +51,10 @@
       "exact_series_identity": true,
       "raw_realized_sale_count": 4,
       "market_value_usd": 2.37,
-      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2"
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-the-streets-won%E2%80%99t-forget/eidur-gudjohnsen-swf-2",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/SWF-2-eidur-gudjohnsen-streets-wont-forget-base.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-SWF-2-streets-wont-forget-base-ev.json",
+      "ev_contribution_usd": 2.844
     },
     {
       "step": 831,
@@ -63,7 +72,10 @@
       "exact_series_identity": true,
       "raw_realized_sale_count": 10,
       "market_value_usd": 4.695,
-      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-refractor-68"
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-refractor-68",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/68-estevao-willian-refractor.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-68-refractor-ev.json",
+      "ev_contribution_usd": 1.6902
     },
     {
       "step": 833,
@@ -90,7 +102,10 @@
       "exact_series_identity": true,
       "raw_realized_sale_count": 10,
       "market_value_usd": 1,
-      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4"
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-stoppage-time-heartbreaker/cole-palmer-sth-4",
+      "market_source_file": "data/market/2026-topps-chrome-premier-league/STH-4-cole-palmer-stoppage-time-heartbreaker-base.json",
+      "derived_ev_file": "data/derived/2026-topps-chrome-premier-league-STH-4-stoppage-time-heartbreaker-base-ev.json",
+      "ev_contribution_usd": 1.2
     },
     {
       "step": 836,
@@ -101,5 +116,13 @@
       "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-green-refractor-ca-ev",
       "blocker": "Exact Green Refractor /99 page currently reports no raw sold listings."
     }
-  ]
+  ],
+  "summary": {
+    "attempted_task_count": 10,
+    "valued_task_count": 5,
+    "blocked_no_exact_realized_sales_count": 5,
+    "new_ev_contribution_usd": 9.3102,
+    "chelsea_valued_contribution_count": 32,
+    "chelsea_remaining_contribution_count": 606
+  }
 }
