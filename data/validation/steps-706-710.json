@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "block": "steps 706-710",
+  "step_count": 5,
+  "result": "pending-ci",
+  "steps": [
+    {
+      "step": 706,
+      "title": "Add monotonic FX operation coordinator",
+      "implemented": true
+    },
+    {
+      "step": 707,
+      "title": "Make currency transitions last-write-wins",
+      "implemented": true
+    },
+    {
+      "step": 708,
+      "title": "Protect initial FX load and withhold values while FX is pending",
+      "implemented": true
+    },
+    {
+      "step": 709,
+      "title": "Fail closed on missing runtime dependencies",
+      "implemented": true
+    },
+    {
+      "step": 710,
+      "title": "Add runtime race regression gates",
+      "implemented": true
+    }
+  ],
+  "ci_branch": "step-706-710-runtime-races"
+}

@@ -1059,7 +1059,9 @@
   <script src="src/storage.js"></script>
   <script src="src/spotCurrency.js"></script>
   <script src="src/fxRate.js"></script>
+  <script src="src/fxCoordinator.js"></script>
   <script src="src/urlState.js"></script>
+  <script src="src/runtimeGuard.js"></script>
   <script>
     const flowProduct = document.getElementById("flowProduct");
     const flowFormat = document.getElementById("flowFormat");
@@ -1148,6 +1150,46 @@
     const playerChecklistDetail = document.getElementById("playerChecklistDetail");
     const playerSerialDetail = document.getElementById("playerSerialDetail");
     const playerCardList = document.getElementById("playerCardList");
+
+    const runtimeDependencyReport = globalThis.BreakMetricRuntimeGuard?.check([
+      "BreakMetricContracts",
+      "BreakMetricTeamReadiness",
+      "BreakMetricTeamComparison",
+      "BreakMetricProvenance",
+      "BreakMetricAnalysisQuality",
+      "BreakMetricEvCoverage",
+      "BreakMetricEvWorkQueue",
+      "BreakMetricEvContributionProvenance",
+      "BreakMetricMarketCoverage",
+      "BreakMetricMarketEvidenceQuality",
+      "BreakMetricMarketRecordQuality",
+      "BreakMetricMarketRecordIssues",
+      "BreakMetricFreshness",
+      "BreakMetricDataLoader",
+      "BreakMetricErrors",
+      "BreakMetricStorage",
+      "BreakMetricSpotCurrency",
+      "BreakMetricFxRate",
+      "BreakMetricFxCoordinator",
+      "BreakMetricUrlState"
+    ]) || {
+      valid: false,
+      missing: ["BreakMetricRuntimeGuard"]
+    };
+
+    if (!runtimeDependencyReport.valid) {
+      analysisLoadStatus.hidden = false;
+      analysisLoadStatus.textContent =
+        "BreakMetric could not start because required application modules failed to load.";
+      analysisErrorDetail.hidden = false;
+      analysisErrorDetailText.textContent =
+        globalThis.BreakMetricRuntimeGuard?.message(runtimeDependencyReport) ||
+        "Required application module failed to load: BreakMetricRuntimeGuard";
+      throw new Error(
+        "BreakMetric runtime dependency failure: " +
+        runtimeDependencyReport.missing.join(", ")
+      );
+    }
 
     const initialUrlState = BreakMetricUrlState.read(location.search);
     const savedCurrency = BreakMetricStorage.get("breakmetric_currency");
@@ -1254,6 +1296,8 @@
     let currentTeamEntry = null;
     let currentEvUsd = null;
     let usdToSelectedRate = 1;
+    let fxTransitionPending = false;
+    const fxCoordinator = BreakMetricFxCoordinator.create();
     const fxStatus = document.getElementById("fxStatus");
 
     async function fetchJsonForProduct(path, token) {
@@ -2879,10 +2923,13 @@
     function selectedCurrencyValueFromUsd(value) {
       const usdValue = Number(value);
       if (!Number.isFinite(usdValue)) return null;
-      if (!BreakMetricSpotCurrency.canPresentUsdValue(
-        currency.value,
-        fxRateReady
-      )) {
+      if (
+        fxTransitionPending ||
+        !BreakMetricSpotCurrency.canPresentUsdValue(
+          currency.value,
+          fxRateReady
+        )
+      ) {
         return null;
       }
       return usdValue * (currency.value === "USD" ? 1 : usdToSelectedRate);
@@ -2899,8 +2946,9 @@
       });
     }
 
-    async function convertInputs(from, to) {
+    async function convertInputs(from, to, operation, previousFxState) {
       if (from === to) {
+        if (!fxCoordinator.isCurrent(operation, to)) return false;
         updateCanonicalSpotFromDisplay();
         persistSpotState();
         return true;
@@ -2919,6 +2967,10 @@
           to === "USD" ? Promise.resolve({ rate: 1, date: null }) : fetchFxRate("USD", to)
         ]);
 
+        if (!fxCoordinator.isCurrent(operation, currency.value)) {
+          return false;
+        }
+
         const plan = BreakMetricSpotCurrency.conversionPlan({
           displayAmount: originalAmount,
           fromCurrency: from,
@@ -2932,6 +2984,7 @@
         canonicalSpotUsd = plan.canonical_usd;
         usdToSelectedRate = usdTarget.rate;
         fxRateReady = true;
+        fxTransitionPending = false;
 
         if (plan.display_amount !== null) {
           price.value = plan.display_amount.toFixed(2);
@@ -2951,9 +3004,21 @@
         updateResults();
         return true;
       } catch (error) {
+        if (!fxCoordinator.isCurrent(operation, currency.value)) {
+          return false;
+        }
+
         currency.value = from;
+        usdToSelectedRate = previousFxState.rate;
+        fxRateReady = previousFxState.ready;
+        fxTransitionPending = false;
         fxStatus.textContent =
-          "Could not update the exchange rate. Price and previous currency were retained.";
+          error?.name === "AbortError"
+            ? "Exchange-rate request timed out. Price and previous currency were retained."
+            : "Could not update the exchange rate. Price and previous currency were retained.";
+        updateTeamEv();
+        updatePlayerDetail();
+        updateResults();
         return false;
       }
     }
@@ -2961,9 +3026,32 @@
     currency.addEventListener("change", async () => {
       const nextCurrency = currency.value;
       const previousCurrency = lastCurrency;
-      const converted = await convertInputs(previousCurrency, nextCurrency);
+      const previousFxState = {
+        rate: usdToSelectedRate,
+        ready: fxRateReady
+      };
+      const operation = fxCoordinator.begin("conversion", nextCurrency);
 
-      if (converted && currency.value === nextCurrency) {
+      fxTransitionPending = true;
+      fxRateReady = nextCurrency === "USD";
+      if (nextCurrency === "USD") {
+        usdToSelectedRate = 1;
+      }
+      updateTeamEv();
+      updatePlayerDetail();
+      updateResults();
+
+      const converted = await convertInputs(
+        previousCurrency,
+        nextCurrency,
+        operation,
+        previousFxState
+      );
+
+      if (
+        converted &&
+        fxCoordinator.isCurrent(operation, currency.value)
+      ) {
         lastCurrency = nextCurrency;
         BreakMetricStorage.set("breakmetric_currency", nextCurrency);
         persistSpotState();
@@ -3578,9 +3666,13 @@
     }
 
     async function loadInitialFxRate() {
-      if (currency.value === "USD") {
+      const initialCurrency = currency.value;
+      const operation = fxCoordinator.begin("initial", initialCurrency);
+
+      if (initialCurrency === "USD") {
         usdToSelectedRate = 1;
         fxRateReady = true;
+        fxTransitionPending = false;
         if (canonicalSpotUsd === null && price.value !== "") {
           updateCanonicalSpotFromDisplay();
           persistSpotState();
@@ -3588,11 +3680,22 @@
         return;
       }
 
+      fxTransitionPending = true;
+      fxRateReady = false;
+      updateTeamEv();
+      updatePlayerDetail();
+      updateResults();
+
       try {
-        const data = await fetchFxRate("USD", currency.value);
+        const data = await fetchFxRate("USD", initialCurrency);
+        if (!fxCoordinator.isCurrent(operation, currency.value)) {
+          return;
+        }
+
         const rate = Number(data.rate);
         usdToSelectedRate = rate;
         fxRateReady = true;
+        fxTransitionPending = false;
 
         if (canonicalSpotUsd === null && price.value !== "") {
           canonicalSpotUsd = BreakMetricSpotCurrency.canonicalUsdFromDisplay(
@@ -3603,14 +3706,19 @@
         }
 
         fxStatus.textContent =
-          `Rate loaded: 1 USD = ${rate.toFixed(4)} ${currency.value}` +
+          `Rate loaded: 1 USD = ${rate.toFixed(4)} ${initialCurrency}` +
           (data.date ? ` · ${data.date}` : "");
         persistSpotState();
         updateTeamEv();
         updatePlayerDetail();
         updateResults();
       } catch (error) {
+        if (!fxCoordinator.isCurrent(operation, currency.value)) {
+          return;
+        }
+
         fxRateReady = false;
+        fxTransitionPending = false;
         fxStatus.textContent =
           error?.name === "AbortError"
             ? "Exchange-rate request timed out. Non-USD EV and ROI are withheld."
@@ -4139,10 +4247,13 @@
         return;
       }
 
-      if (!BreakMetricSpotCurrency.canPresentUsdValue(
-        currency.value,
-        fxRateReady
-      )) {
+      if (
+        fxTransitionPending ||
+        !BreakMetricSpotCurrency.canPresentUsdValue(
+          currency.value,
+          fxRateReady
+        )
+      ) {
         updateDataStatusUi();
         resultNet.textContent = "FX unavailable";
         resultRatio.textContent = "—";

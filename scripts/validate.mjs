@@ -72,6 +72,13 @@ pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
 
+const runtimeRaceBlock = json("data/validation/steps-706-710.json");
+pass("steps 706-710 count is exactly five", runtimeRaceBlock.step_count === 5 && runtimeRaceBlock.steps?.length === 5);
+pass("steps 706-710 start at 706", runtimeRaceBlock.steps?.[0]?.step === 706);
+pass("steps 706-710 end at 710", runtimeRaceBlock.steps?.[4]?.step === 710);
+pass("steps 706-710 are sequential", runtimeRaceBlock.steps?.every((row,index)=>row.step === 706 + index));
+pass("steps 706-710 implementation flags complete", runtimeRaceBlock.steps?.every(row=>row.implemented === true));
+
 const n200 = json("data/validation/v13-n200.json");
 pass("n200 step count is exactly 200", n200.step_count === 200 && n200.steps?.length === 200);
 pass("n200 starts at step 498", n200.steps?.[0]?.step === 498);
@@ -239,6 +246,8 @@ for (const module of [
   "storage.js",
   "spotCurrency.js",
   "fxRate.js",
+  "fxCoordinator.js",
+  "runtimeGuard.js",
   "teamReadiness.js",
   "analysisProvenance.js",
   "urlState.js"
@@ -281,6 +290,24 @@ pass(
   html.includes("Non-USD EV and ROI are withheld") &&
   html.includes("updateTeamEv();") &&
   html.includes("updateResults();")
+);
+pass(
+  "FX transitions use last-write-wins coordinator",
+  html.includes('fxCoordinator.begin("conversion", nextCurrency)') &&
+  html.includes('fxCoordinator.begin("initial", initialCurrency)') &&
+  (html.match(/fxCoordinator\.isCurrent\(/g) || []).length >= 5
+);
+pass(
+  "FX pending state withholds converted values",
+  html.includes("fxTransitionPending = true") &&
+  html.includes("fxTransitionPending = false") &&
+  html.includes("fxTransitionPending ||")
+);
+pass(
+  "runtime dependency guard blocks partial startup",
+  html.includes("runtimeDependencyReport") &&
+  html.includes("BreakMetric could not start because required application modules failed to load.") &&
+  html.includes("runtimeDependencyReport.missing.join")
 );
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
 pass(
