@@ -33,6 +33,8 @@ const assert=(condition,message)=>{
 
 for(const file of [
   "src/analysisQuality.js",
+  "src/teamReadiness.js",
+  "src/analysisProvenance.js",
   "src/teamComparison.js",
   "src/evCoverage.js",
   "src/evWorkQueue.js",
@@ -153,6 +155,70 @@ const metadata=JSON.parse(
 const evData=JSON.parse(
   fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-team-ev-progress.json"),"utf8")
 );
+const autographChecklist=JSON.parse(
+  fs.readFileSync(path.join(root,"data/checklists/2026-topps-chrome-premier-league-chrome-autographs.json"),"utf8")
+);
+const autographProbabilities=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-autograph-probabilities.json"),"utf8")
+);
+const insertProbabilities=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-insert-probabilities.json"),"utf8")
+);
+const baseParallelProbabilities=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-base-parallel-probabilities.json"),"utf8")
+);
+const playerProbabilities=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-player-probabilities.json"),"utf8")
+);
+const marketRegistry=JSON.parse(
+  fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/market-evidence-registry-v1.json"),"utf8")
+);
+const playerDerivationManifest=JSON.parse(
+  fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-player-derivation-manifest-v1.json"),"utf8")
+);
+
+const readiness=sandbox.BreakMetricTeamReadiness.buildTeamReadiness({
+  metadata,
+  baseParallelProbabilities,
+  insertProbabilities,
+  autographProbabilities,
+  autographChecklist,
+  playerProbabilities,
+  teamEv:evData,
+  marketRegistry
+});
+const canonicalTeams=metadata.teams.map(row=>row.name);
+const readinessValidation=sandbox.BreakMetricTeamReadiness.validate(
+  readiness,
+  canonicalTeams
+);
+assert(readinessValidation.valid,"team readiness smoke failed: "+readinessValidation.errors.join("; "));
+assert(readinessValidation.summary.team_count===20,"team readiness team count failed");
+assert(readinessValidation.summary.probability_ready_count===20,"team readiness probability count failed");
+assert(readinessValidation.summary.ev_partial_count===1,"team readiness partial EV count failed");
+assert(readinessValidation.summary.roi_ready_count===0,"team readiness ROI gate failed");
+
+const hobbyFormat=formats.formats.find(row=>row.id==="hobby");
+const chelseaPlayer=Object.keys(playerProbabilities.teams?.Chelsea||{})[0]||null;
+const provenance=sandbox.BreakMetricProvenance.build({
+  metadata,
+  playerDerivationManifest,
+  marketRegistry,
+  teamEv:evData,
+  playerProbabilities
+},{
+  productId:"2026-topps-chrome-premier-league",
+  formatId:"hobby",
+  format:hobbyFormat,
+  team:"Chelsea",
+  player:chelseaPlayer
+});
+const provenanceValidation=sandbox.BreakMetricProvenance.validate(provenance);
+assert(provenanceValidation.valid,"analysis provenance smoke failed: "+provenanceValidation.errors.join("; "));
+assert(provenance.format.packs===240,"analysis provenance pack count failed");
+assert(provenance.ev.coverage_complete===false,"analysis provenance EV coverage gate failed");
+assert(sandbox.BreakMetricProvenance.summaryLines(provenance).length===5,"analysis provenance summary failed");
+
 const evScope=JSON.parse(
   fs.readFileSync(path.join(root,"data/derived/2026-topps-chrome-premier-league-hobby-team-ev-scope-v1.json"),"utf8")
 );
@@ -304,6 +370,8 @@ console.log(JSON.stringify({
   result:"pass",
   checks:[
     "analysis quality",
+    "team readiness",
+    "analysis provenance",
     "EV coverage",
     "EV work queue",
     "market evidence coverage",

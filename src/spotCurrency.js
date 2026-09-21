@@ -6,6 +6,8 @@
   const api={};
 
   function finiteNonNegative(value){
+    if(value===null || value===undefined) return null;
+    if(typeof value==="string" && value.trim()==="") return null;
     const n=Number(value);
     return Number.isFinite(n) && n>=0 ? n : null;
   }
@@ -59,6 +61,58 @@
       amount:display,
       currency,
       usd_amount:canonical
+    };
+  };
+
+  api.canPresentUsdValue=function(currency,rateReady){
+    return currency==="USD" || rateReady===true;
+  };
+
+  api.conversionPlan=function({
+    displayAmount=null,
+    fromCurrency="USD",
+    toCurrency="USD",
+    canonicalUsd=null,
+    usdToFrom=1,
+    usdToTarget=1
+  }={}){
+    const hasDisplay=
+      displayAmount!==null &&
+      displayAmount!==undefined &&
+      displayAmount!=="";
+    const amount=hasDisplay ? finiteNonNegative(displayAmount) : null;
+    if(hasDisplay && amount===null) return null;
+
+    const canonical=
+      !hasDisplay
+        ? null
+        : finiteNonNegative(canonicalUsd) ??
+          api.canonicalUsdFromDisplay(amount,fromCurrency,usdToFrom);
+
+    if(hasDisplay && canonical===null) return null;
+
+    const direct=api.directRateFromUsdRates(usdToFrom,usdToTarget);
+    if(direct===null) return null;
+
+    const display=
+      canonical===null
+        ? null
+        : api.displayFromCanonicalUsd(canonical,toCurrency,usdToTarget);
+
+    if(canonical!==null && display===null) return null;
+
+    return {
+      canonical_usd:canonical,
+      display_amount:display,
+      direct_rate:direct
+    };
+  };
+
+  api.clearedState=function(currency="USD"){
+    return {
+      canonical_usd:null,
+      persisted_state:null,
+      currency
     };
   };
 

@@ -28,6 +28,8 @@ Every pull request and every push to supported release/step branches runs the re
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/validate-market-records.mjs
 node scripts/validate-ev-provenance.mjs
+node scripts/validate-player-derivation.mjs
+node scripts/test-spot-fx.mjs
 node scripts/validate.mjs
 node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
