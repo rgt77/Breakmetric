@@ -432,7 +432,17 @@ const recordQuality=sandbox.BreakMetricMarketRecordQuality.evaluate(
 assert(sandbox.BreakMetricMarketRecordQuality.validate(recordQuality).valid,"market record quality invalid");
 assert(recordQuality.sale_count===30,"market record sample-size smoke failed");
 assert(recordQuality.sample_size_confidence==="high","market record sample band failed");
-assert(recordQuality.source_status==="secondary-source-only","market record source status failed");
+assert(recordQuality.source_status==="mixed-original-secondary","market record source status failed");
+assert(
+  marketRecord.evidence_summary?.original_marketplace_verified_sale_count===1 &&
+  marketRecord.evidence_summary?.secondary_source_realized_sale_count===29,
+  "mixed-source Prism evidence counts failed"
+);
+assert(
+  marketRecord.sales?.[0]?.source_sale_id==="158227124444" &&
+  marketRecord.sales?.[0]?.original_marketplace_identity?.print_run===null,
+  "original Prism sale identity smoke failed"
+);
 assert(["fresh","current","aging","stale"].includes(recordQuality.recency_status),"market record recency band failed");
 const recordAudit=sandbox.BreakMetricMarketRecordIssues.audit(
   marketRecord,
