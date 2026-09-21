@@ -1,0 +1,57 @@
+{
+  "schema_version": 3,
+  "model": "static-data-loader-v3",
+  "generated_at": "2026-09-21",
+  "path_policy": {
+    "required_prefix": "data/",
+    "required_suffix": ".json",
+    "forbidden": [
+      "absolute paths",
+      "external URLs",
+      "parent traversal",
+      "backslash paths"
+    ]
+  },
+  "request_policy": {
+    "default_timeout_ms": 12000,
+    "default_retries": 1,
+    "max_concurrency": 12,
+    "application_concurrency": 6,
+    "default_max_bytes": 5000000,
+    "version_manifest_timeout_ms": 5000,
+    "version_retry_count": 1
+  },
+  "cache_policy": {
+    "in_memory": true,
+    "in_flight_deduplication": true,
+    "persistent_cache": false,
+    "namespace": "runtime data fingerprint",
+    "version_manifest": "data/validation/runtime-data-version-v1.json",
+    "version_manifest_fetch_cache_mode": "no-store",
+    "invalidate_on_fingerprint_change": true,
+    "verify_version_before_and_after_top_level_load": true
+  },
+  "metrics": [
+    "requests",
+    "cache_hits",
+    "cache_misses",
+    "inflight_hits",
+    "retries",
+    "failures",
+    "parsed_bytes",
+    "version_checks",
+    "version_changes",
+    "cache_invalidations",
+    "version_restarts"
+  ],
+  "rules": [
+    "Analysis JSON must be same-origin static data paths.",
+    "External or traversal paths are rejected before fetch.",
+    "Large JSON payloads are rejected before activation.",
+    "Bundle loading uses bounded concurrency rather than unbounded Promise.all.",
+    "Cached datasets are namespaced by the current runtime data fingerprint.",
+    "The runtime data version manifest is fetched without the browser cache.",
+    "A top-level load must observe the same fingerprint before and after loading or restart.",
+    "A changed fingerprint clears the in-memory dataset cache before new data is activated."
+  ]
+}
