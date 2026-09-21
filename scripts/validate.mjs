@@ -916,8 +916,8 @@ pass(
 );
 pass(
   "README reports current market verification progress",
-  read("README.md").includes("49 of the 72 stored supporting sales") &&
-  read("README.md").includes("1 of 72 sales is fully original-marketplace verified")
+  read("README.md").includes("56 of the 72 stored supporting sales") &&
+  read("README.md").includes("2 of 72 sales are fully original-marketplace verified")
 );
 
 const marketBlock741745 = json("data/validation/steps-741-745.json");
