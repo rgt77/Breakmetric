@@ -239,6 +239,8 @@ for (const module of [
   "storage.js",
   "spotCurrency.js",
   "fxRate.js",
+  "fxCoordinator.js",
+  "runtimeGuard.js",
   "teamReadiness.js",
   "analysisProvenance.js",
   "urlState.js"
@@ -281,6 +283,24 @@ pass(
   html.includes("Non-USD EV and ROI are withheld") &&
   html.includes("updateTeamEv();") &&
   html.includes("updateResults();")
+);
+pass(
+  "FX transitions use last-write-wins coordinator",
+  html.includes('fxCoordinator.begin("conversion", nextCurrency)') &&
+  html.includes('fxCoordinator.begin("initial", initialCurrency)') &&
+  (html.match(/fxCoordinator\.isCurrent\(/g) || []).length >= 5
+);
+pass(
+  "FX pending state withholds converted values",
+  html.includes("fxTransitionPending = true") &&
+  html.includes("fxTransitionPending = false") &&
+  html.includes("fxTransitionPending ||")
+);
+pass(
+  "runtime dependency guard blocks partial startup",
+  html.includes("runtimeDependencyReport") &&
+  html.includes("BreakMetric could not start because required application modules failed to load.") &&
+  html.includes("runtimeDependencyReport.missing.join")
 );
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
 pass(
