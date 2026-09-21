@@ -421,7 +421,19 @@ for(const category of ["base_parallels","inserts","autographs"]){
 const content=stable(queue);
 const target=path.join(root,paths.output);
 if(check){
-  if(!fs.existsSync(target) || fs.readFileSync(target,"utf8")!==content){
+  const current=fs.existsSync(target) ? fs.readFileSync(target,"utf8") : "";
+  if(current!==content){
+    let firstDiff=0;
+    const limit=Math.min(current.length,content.length);
+    while(firstDiff<limit && current[firstDiff]===content[firstDiff]) firstDiff++;
+    console.error(JSON.stringify({
+      generated_file:paths.output,
+      first_diff_index:firstDiff,
+      current_length:current.length,
+      expected_length:content.length,
+      current_excerpt:current.slice(Math.max(0,firstDiff-160),firstDiff+320),
+      expected_excerpt:content.slice(Math.max(0,firstDiff-160),firstDiff+320)
+    },null,2));
     throw new Error("Generated file is stale: "+paths.output);
   }
 }else{
