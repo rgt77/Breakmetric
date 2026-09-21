@@ -6,11 +6,26 @@ function text(value){
   return typeof value==="string" ? value.trim() : "";
 }
 
-export function saleVerified(sale={}){
+function storedIdentityMatches(record={},sale={},productId=""){
+  const identity=sale.original_marketplace_identity||{};
+  return (
+    identity.product_id===productId &&
+    text(identity.card_number).toLowerCase()===
+      text(record.card_number).toLowerCase() &&
+    text(identity.parallel).toLowerCase()===
+      text(record.parallel).toLowerCase() &&
+    Number(identity.print_run)===Number(record.serial_numbering) &&
+    text(identity.player).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase()===
+      text(record.player).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase()
+  );
+}
+
+export function saleVerified(sale={},record={},productId=""){
   return (
     sale.original_marketplace_verified===true &&
     sale.evidence_status==="original-marketplace-verified" &&
-    hasOriginalLocator(sale,sale.marketplace||"")
+    hasOriginalLocator(sale,sale.marketplace||"") &&
+    storedIdentityMatches(record,sale,productId)
   );
 }
 
@@ -29,7 +44,11 @@ export function buildVerificationTasks({
     if(!record) continue;
 
     for(const [saleIndex,sale] of (record.sales||[]).entries()){
-      const verified=saleVerified(sale);
+      const verified=saleVerified(
+        sale,
+        record,
+        queue.product_id||record.product_id||""
+      );
       tasks.push({
         task_id:[
           queue.product_id||"",
