@@ -3,8 +3,8 @@
   "generated_at": "2026-09-21",
   "model": "source-module-inventory-v1",
   "summary": {
-    "source_module_count": 50,
-    "runtime_module_count": 22,
+    "source_module_count": 51,
+    "runtime_module_count": 23,
     "ci_generator_count": 1,
     "offline_model_library_count": 27,
     "unclassified_count": 0
@@ -25,6 +25,7 @@
         "fxRate.js",
         "marketCoverage.js",
         "marketEvidenceQuality.js",
+        "marketRecordCoordinator.js",
         "marketRecordIssues.js",
         "marketRecordQuality.js",
         "runtimeContracts.js",

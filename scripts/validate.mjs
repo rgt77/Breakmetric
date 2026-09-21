@@ -72,6 +72,12 @@ pass("n100 ends at step 496", n100.steps?.[99]?.step === 496);
 pass("n100 steps are sequential", n100.steps?.every((row,index)=>row.step === 397 + index));
 pass("n100 implementation flags complete", n100.steps?.every(row=>row.implemented === true));
 
+const step712 = json("data/validation/step-712.json");
+pass("step 712 manifest schema", step712.schema_version === 1);
+pass("step 712 id", step712.step === 712);
+pass("step 712 implementation complete", step712.implemented === true);
+pass("step 712 context keys complete", JSON.stringify(step712.context_keys) === JSON.stringify(["product","format","team"]));
+
 const step711 = json("data/validation/step-711.json");
 pass("step 711 manifest schema", step711.schema_version === 1);
 pass("step 711 id", step711.step === 711);
@@ -245,6 +251,7 @@ for (const module of [
   "marketEvidenceQuality.js",
   "marketRecordQuality.js",
   "marketRecordIssues.js",
+  "marketRecordCoordinator.js",
   "dataFreshness.js",
   "dataLoader.js",
   "errorModel.js",
@@ -315,6 +322,16 @@ pass(
   html.includes("BreakMetric could not start because required application modules failed to load.") &&
   html.includes("runtimeDependencyReport.missing.join")
 );
+pass(
+  "lazy market records are context-guarded",
+  html.includes("BreakMetricMarketRecordCoordinator.create()") &&
+  html.includes('productId: currentProduct?.id || ""') &&
+  html.includes('formatId: selectedFormat || ""') &&
+  html.includes('team: team.value || ""') &&
+  (html.match(/marketRecordCoordinator\.isCurrent\(/g) || []).length >= 2 &&
+  html.includes("marketRecordCoordinator.invalidate();")
+);
+
 pass(
   "manual product selection is continuation-guarded",
   html.includes("selectionCoordinator.begin(item.id)") &&
