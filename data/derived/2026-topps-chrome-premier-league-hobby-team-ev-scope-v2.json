@@ -27,7 +27,7 @@
   "summary": {
     "team_count": 20,
     "eligible_contribution_count": 8896,
-    "valued_contribution_count": 32,
+    "valued_contribution_count": 33,
     "teams_with_progress": 1,
     "complete_team_count": 0
   },
@@ -240,17 +240,17 @@
       "coverage_complete": false,
       "denominator_status": "enumerated",
       "eligible_contribution_count": 638,
-      "valued_contribution_count": 32,
-      "remaining_contribution_count": 606,
-      "coverage_percent": 5.0157,
+      "valued_contribution_count": 33,
+      "remaining_contribution_count": 605,
+      "coverage_percent": 5.1724,
       "categories": {
         "base_parallels": {
           "status": "partial",
           "eligible_card_count": 10,
           "eligible_contribution_count": 250,
-          "valued_contribution_count": 27,
-          "remaining_contribution_count": 223,
-          "coverage_percent": 10.8
+          "valued_contribution_count": 28,
+          "remaining_contribution_count": 222,
+          "coverage_percent": 11.2
         },
         "inserts": {
           "status": "partial",
