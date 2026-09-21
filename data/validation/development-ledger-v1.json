@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "model": "development-ledger-v1",
+  "generated_at": "2026-09-21",
+  "canonical_step_start": 1,
+  "canonical_step_end": 825,
+  "status": "reviewed",
+  "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
+  "rules": [
+    "Canonical ranges must cover every step from canonical_step_start through canonical_step_end exactly once.",
+    "Historical manifests remain immutable snapshots even when their original numbering contains an error.",
+    "A historical numbering error is represented as an explicit alias/anomaly rather than silently editing old evidence.",
+    "Current-state validation must derive mutable counts from current data; historical manifests may retain snapshot counts.",
+    "Future development blocks must extend this ledger contiguously."
+  ],
+  "phases": [
+    {
+      "start": 1,
+      "end": 169,
+      "id": "legacy-foundation",
+      "title": "Foundation: product data, odds, probability, market/EV, supply and interactive analysis",
+      "source_kind": "commit-history",
+      "source": null,
+      "coverage_quality": "historical-commit-reconstruction",
+      "note": "These early steps predate the machine-readable release-ledger convention. Commit history is the historical source of truth."
+    },
+    {
+      "start": 170,
+      "end": 174,
+      "id": "v0.3-ui-integrity",
+      "title": "v0.3 UI integrity",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/ui-integrity-v03.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 175,
+      "end": 187,
+      "id": "product-format-integrity-bridge",
+      "title": "Ready-product and format integrity gates before v0.4",
+      "source_kind": "commit-history",
+      "source": null,
+      "coverage_quality": "historical-commit-reconstruction"
+    },
+    {
+      "start": 188,
+      "end": 207,
+      "id": "v0.4-analysis-scope",
+      "title": "v0.4 analysis unit and data-status integrity",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v04-analysis-unit-data-status-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 208,
+      "end": 227,
+      "id": "v0.5-market-evidence",
+      "title": "v0.5 market evidence integrity",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v05-market-evidence-integrity-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 228,
+      "end": 235,
+      "id": "market-record-migration-bridge",
+      "title": "Market record v2 migration and audit alignment",
+      "source_kind": "commit-history",
+      "source": null,
+      "coverage_quality": "historical-commit-reconstruction"
+    },
+    {
+      "start": 236,
+      "end": 285,
+      "id": "v0.6-runtime-contracts",
+      "title": "v0.6 runtime contracts and state safety",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v06-runtime-contracts-state-safety-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 286,
+      "end": 305,
+      "id": "v0.7-market-registry",
+      "title": "v0.7 team market evidence registry",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v07-team-market-evidence-registry-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 306,
+      "end": 325,
+      "id": "v0.8-team-readiness",
+      "title": "v0.8 team analysis readiness",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v08-team-analysis-readiness-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 326,
+      "end": 355,
+      "id": "v0.9-release-contracts",
+      "title": "v0.9 release and format contracts",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v09-release-format-contracts-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 356,
+      "end": 365,
+      "id": "v1.0-player-reproducibility",
+      "title": "v1.0 reproducible player derivation",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v10-player-derivation-reproducibility-v1.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 366,
+      "end": 375,
+      "id": "v1.1-analysis-provenance",
+      "title": "v1.1 analysis provenance",
+      "source_kind": "validation-manifest-with-historical-alias",
+      "source": "data/validation/v11-analysis-provenance-v1.json",
+      "coverage_quality": "canonicalized-historical-numbering",
+      "historical_range": {
+        "start": 356,
+        "end": 365
+      },
+      "note": "The historical v1.1 manifest repeats 356-365. Canonical chronology maps its ten checks to 366-375 while preserving the historical file unchanged."
+    },
+    {
+      "start": 376,
+      "end": 395,
+      "id": "v1.1.1-hardening",
+      "title": "v1.1.1 production hardening",
+      "source_kind": "release-doc-and-commit",
+      "source": "docs/v1.1.1-hardening.md",
+      "coverage_quality": "canonicalized-chronology",
+      "note": "Canonical range inferred from chronology between v1.1 and explicit step 396; historical release did not contain a machine-readable step ledger."
+    },
+    {
+      "start": 396,
+      "end": 396,
+      "id": "break-allocation-policy",
+      "title": "Protect team EV with explicit break-allocation policy",
+      "source_kind": "commit",
+      "source": "cd1c383e"
+    },
+    {
+      "start": 397,
+      "end": 496,
+      "id": "v1.2-n100",
+      "title": "v1.2 analysis quality, UX, resilience and regression block",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v12-n100.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 497,
+      "end": 497,
+      "id": "ev-category-scope",
+      "title": "Define team EV category scope",
+      "source_kind": "commit",
+      "source": "e884a510"
+    },
+    {
+      "start": 498,
+      "end": 697,
+      "id": "v1.3-n200",
+      "title": "v1.3 EV work queue, market evidence, provenance and production hardening",
+      "source_kind": "validation-manifest",
+      "source": "data/validation/v13-n200.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 698,
+      "end": 699,
+      "id": "post-v1.3-state-safety",
+      "title": "Canonical FX state and safe DOM rendering",
+      "source_kind": "commits",
+      "source": "5ab9cda3,5280a302"
+    },
+    {
+      "start": 700,
+      "end": 704,
+      "id": "runtime-hardening-a",
+      "title": "Runtime hardening block",
+      "source_kind": "commit-block",
+      "source": "ae902173"
+    },
+    {
+      "start": 705,
+      "end": 705,
+      "id": "source-inventory",
+      "title": "Classify and audit source modules",
+      "source_kind": "commit",
+      "source": "6938a55d"
+    },
+    {
+      "start": 706,
+      "end": 710,
+      "id": "runtime-race-hardening",
+      "title": "Runtime race and dependency hardening",
+      "source_kind": "commit-block",
+      "source": "18f783a7"
+    },
+    {
+      "start": 711,
+      "end": 711,
+      "id": "product-selection-race",
+      "title": "Guard product selection races",
+      "source_kind": "commit",
+      "source": "b8065ab7"
+    },
+    {
+      "start": 712,
+      "end": 712,
+      "id": "market-context-race",
+      "title": "Guard lazy market-record context",
+      "source_kind": "commit",
+      "source": "d4287b12"
+    },
+    {
+      "start": 713,
+      "end": 713,
+      "id": "runtime-data-cache-version",
+      "title": "Version runtime data cache",
+      "source_kind": "commit",
+      "source": "66c7f690"
+    },
+    {
+      "start": 714,
+      "end": 718,
+      "id": "ev-denominator-enumeration",
+      "title": "Enumerate EV-eligible denominator",
+      "source_kind": "commit-block",
+      "source": "9bf92363"
+    },
+    {
+      "start": 719,
+      "end": 719,
+      "id": "sale-derived-verification",
+      "title": "Make market verification sale-derived",
+      "source_kind": "commit",
+      "source": "ed3e0124"
+    },
+    {
+      "start": 720,
+      "end": 720,
+      "id": "sale-progress-ui",
+      "title": "Expose sale-level verification progress",
+      "source_kind": "commit",
+      "source": "be3bbe50"
+    },
+    {
+      "start": 721,
+      "end": 723,
+      "id": "verification-task-model",
+      "title": "Derive and gate sale verification tasks",
+      "source_kind": "commit-block",
+      "source": "97f9298f"
+    },
+    {
+      "start": 724,
+      "end": 724,
+      "id": "evidence-ingest",
+      "title": "Add fail-closed market evidence ingest",
+      "source_kind": "commit",
+      "source": "a283b688"
+    },
+    {
+      "start": 725,
+      "end": 725,
+      "id": "evidence-template",
+      "title": "Generate deterministic evidence templates",
+      "source_kind": "commit",
+      "source": "ac8b20e8"
+    },
+    {
+      "start": 726,
+      "end": 726,
+      "id": "locator-hardening",
+      "title": "Harden original marketplace sale locators",
+      "source_kind": "commit",
+      "source": "8aa907a3"
+    },
+    {
+      "start": 727,
+      "end": 727,
+      "id": "exact-product-identity",
+      "title": "Require exact product identity for market verification",
+      "source_kind": "commit",
+      "source": "7d2e6b04"
+    },
+    {
+      "start": 728,
+      "end": 728,
+      "id": "candidate-recovery-gate",
+      "title": "Add fail-closed market candidate recovery gate",
+      "source_kind": "commit",
+      "source": "b21246df"
+    },
+    {
+      "start": 729,
+      "end": 729,
+      "id": "safe-locator-persistence",
+      "title": "Persist recovered marketplace locators safely",
+      "source_kind": "commit",
+      "source": "88915e73"
+    },
+    {
+      "start": 730,
+      "end": 730,
+      "id": "gold-locator-recovery",
+      "title": "Recover Gold Refractor eBay locators",
+      "source_kind": "commit",
+      "source": "52d1bb8a"
+    },
+    {
+      "start": 731,
+      "end": 740,
+      "id": "market-ranks-3-12",
+      "title": "Recover and verify market sales ranks 3-12",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-731-740.json"
+    },
+    {
+      "start": 741,
+      "end": 745,
+      "id": "market-ranks-13-17",
+      "title": "Verify market sales ranks 13-17",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-741-745.json"
+    },
+    {
+      "start": 746,
+      "end": 755,
+      "id": "market-ranks-18-27",
+      "title": "Complete frozen Chelsea market candidate register",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-746-755.json"
+    },
+    {
+      "start": 756,
+      "end": 756,
+      "id": "research-state",
+      "title": "Add persistent unresolved-sale research state",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-756.json"
+    },
+    {
+      "start": 757,
+      "end": 761,
+      "id": "research-pass-a",
+      "title": "Persist first unresolved original-source research attempts",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-757-761.json"
+    },
+    {
+      "start": 762,
+      "end": 766,
+      "id": "research-pass-b",
+      "title": "Research five more unresolved Prism sales",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-762-766.json"
+    },
+    {
+      "start": 767,
+      "end": 776,
+      "id": "research-pass-c",
+      "title": "Verify Prism sale with UTC timestamp provenance",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-767-776.json"
+    },
+    {
+      "start": 777,
+      "end": 825,
+      "id": "research-first-pass-complete",
+      "title": "Complete first-pass original-source research for frozen 72-sale scope",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-777-825.json"
+    }
+  ],
+  "historical_anomalies": [
+    {
+      "id": "v1.0-v1.1-step-overlap",
+      "severity": "known-history-error",
+      "description": "v1.0 and v1.1 historical validation manifests both declare steps 356-365.",
+      "resolution": "Keep both historical files immutable; canonical ledger maps v1.1 to 366-375 by chronology."
+    },
+    {
+      "id": "legacy-unmanifested-ranges",
+      "severity": "documentation-gap",
+      "description": "Steps 1-169, 175-187, 228-235 and v1.1.1 hardening were implemented before exact machine-readable ledgers were consistently used.",
+      "resolution": "Represent them as contiguous canonical ranges sourced from commit chronology; do not fabricate per-step titles."
+    }
+  ],
+  "architecture_snapshot": {
+    "index_html_lines": 4478,
+    "index_html_bytes_approx": 161266,
+    "validate_mjs_lines": 1347,
+    "validate_mjs_bytes_approx": 62048,
+    "source_module_count": 52,
+    "runtime_module_count": 24,
+    "offline_model_library_count": 27,
+    "active_ready_products": 1,
+    "ready_formats": 1,
+    "canonical_team_count": 20,
+    "ev_eligible_slots": 8896,
+    "valued_ev_slots": 27,
+    "frozen_supporting_sales": 72,
+    "original_verified_sales": 5,
+    "unresolved_sales_after_first_pass": 67
+  }
+}
