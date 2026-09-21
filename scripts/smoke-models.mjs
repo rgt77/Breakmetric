@@ -286,6 +286,32 @@ assert(qualityValidation.valid,"market evidence quality validation failed");
 const verificationImpact=sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(verificationQueue);
 assert(Math.abs(verificationImpact.total_ev_usd-42.72)<0.02,"market verification EV impact sum failed");
 assert(verificationImpact.original_verified_ev_usd===0,"unexpected original verified EV impact");
+const inconsistentVerificationQueue={
+  items:[{
+    ev_contribution_usd:10,
+    original_marketplace_verified:true,
+    verification_status:"pending-original-verification"
+  }]
+};
+const inconsistentVerificationImpact=
+  sandbox.BreakMetricMarketEvidenceQuality.verificationImpact(
+    inconsistentVerificationQueue
+  );
+assert(
+  inconsistentVerificationImpact.original_verified_ev_usd===0,
+  "boolean-only market verification was incorrectly counted as verified EV"
+);
+assert(
+  sandbox.BreakMetricMarketEvidenceQuality.validate({
+    market:{
+      audited_contribution_count:1,
+      original_marketplace_verified_contribution_count:0,
+      secondary_source_contribution_count:1
+    },
+    queue:inconsistentVerificationQueue
+  }).valid===false,
+  "inconsistent market verification queue did not fail closed"
+);
 
 const marketRecord=JSON.parse(
   fs.readFileSync(path.join(root,"data/market/2026-topps-chrome-premier-league/68-estevao-willian-prism-refractor.json"),"utf8")
