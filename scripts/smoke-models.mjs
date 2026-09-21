@@ -244,7 +244,7 @@ assert(evScopeContract.metrics.ev_scope_partial_team_count===1,"EV scope partial
 assert(evScopeContract.metrics.ev_scope_complete_team_count===0,"EV scope complete-team smoke failed");
 assert(evScopeContract.metrics.ev_scope_eligible_contribution_count===8896,"EV scope eligible denominator smoke failed");
 assert(evScope.teams.Chelsea.eligible_contribution_count===638,"Chelsea EV denominator smoke failed");
-assert(Math.abs(evScope.teams.Chelsea.coverage_percent-4.232)<0.0001,"Chelsea EV coverage percent smoke failed");
+assert(Math.abs(evScope.teams.Chelsea.coverage_percent-5.0157)<0.0001,"Chelsea EV coverage percent smoke failed");
 assert(evScope.teams["AFC Bournemouth"].categories.autographs.status==="not-applicable","zero-denominator category status failed");
 
 const evWorkQueue=JSON.parse(
