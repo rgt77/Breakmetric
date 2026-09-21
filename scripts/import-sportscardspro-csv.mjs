@@ -6,6 +6,7 @@ import {
   mergeObservation,
   parseCsv
 } from "./lib/market-automation.mjs";
+import {buildUnvaluedCollectionTasks} from "./lib/ev-slot-inventory.mjs";
 
 const root=process.cwd();
 const args=process.argv.slice(2);
@@ -23,8 +24,20 @@ if(Number.isNaN(now.getTime())) throw new Error("Invalid --now timestamp");
 const readJson=file=>JSON.parse(fs.readFileSync(path.join(root,file),"utf8"));
 const stable=value=>JSON.stringify(value,null,2)+"\n";
 const config=readJson(configPath);
-const queue=readJson(config.queue_file);
 const store=readJson(config.observation_file);
+const sources=config.task_sources||{};
+const taskState=buildUnvaluedCollectionTasks({
+  product:config.product_id,
+  inventory:readJson(sources.inventory),
+  provenance:readJson(sources.provenance),
+  baseOdds:readJson(sources.base_odds),
+  insertMap:readJson(sources.insert_odds_mapping),
+  autoMap:readJson(sources.autograph_odds_mapping),
+  inserts:readJson(sources.insert_checklist),
+  mainAutos:readJson(sources.main_autographs),
+  specialAutos:readJson(sources.special_autographs),
+  format:readJson(sources.format)
+});
 const urlEnv=config.bulk_lane?.csv_url_env||"SPORTSCARDSPRO_CSV_URL";
 const csvUrl=process.env[urlEnv]||"";
 
@@ -54,7 +67,7 @@ if(!rows.length) throw new Error("CSV contained no data rows");
 
 let updated=0,unchanged=0,ambiguous=0;
 const results=[];
-for(const task of queue.tasks||[]){
+for(const task of taskState.tasks||[]){
   const matches=[];
   for(const row of rows){
     const identity=exactProviderIdentity(task,row);
@@ -115,7 +128,9 @@ if(updated>0){
 console.log(JSON.stringify({
   result:"pass",
   row_count:rows.length,
-  queue_task_count:(queue.tasks||[]).length,
+  eligible_slot_count:taskState.eligible_slot_count,
+  valued_slot_count:taskState.valued_slot_count,
+  unvalued_slot_count:taskState.unvalued_slot_count,
   updated_observation_count:updated,
   unchanged_observation_count:unchanged,
   ambiguous_match_count:ambiguous,
