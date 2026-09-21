@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "model": "market-verification-research-steps-762-766",
+  "step_count": 5,
+  "steps": [
+    762,
+    763,
+    764,
+    765,
+    766
+  ],
+  "attempted_unresolved_sale_count": 5,
+  "outcomes": {
+    "original_source_unavailable": 5,
+    "historical_event_unresolved": 0,
+    "historical_sale_match": 0
+  },
+  "cumulative_research_progress": {
+    "unresolved_sales_total": 70,
+    "research_attempted_unresolved_count": 11,
+    "research_unattempted_unresolved_count": 59,
+    "original_verified_sale_count": 2
+  },
+  "next_research_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::68-prism-refractor::8"
+}
