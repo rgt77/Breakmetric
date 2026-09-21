@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "market_source_file": "data/market/2026-topps-chrome-premier-league/CA-EV-gold-refractor-auto.json",
+  "marketplace": "eBay",
+  "listing_state": "sold",
+  "identity_source_kind": "secondary-source",
+  "checked_at": "2026-09-21",
+  "listing_identity": {
+    "series": "2026 Topps Chrome Premier League",
+    "card_number": "CA-EV",
+    "parallel": "Gold Refractor",
+    "print_run": 50,
+    "player": "Estêvão Willian",
+    "team": "Chelsea"
+  },
+  "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::CA-EV-gold-refractor-auto::0",
+  "sale_index": 0,
+  "direct_marketplace_url": "https://www.ebay.com/itm/366181936319",
+  "source_sale_id": "366181936319",
+  "observed_sale": {
+    "source_kind": "secondary-source",
+    "sale_date": "2026-02-07",
+    "sale_price_usd": 2000,
+    "marketplace": "eBay",
+    "serial_copy": "14/50"
+  },
+  "discovery_source": {
+    "name": "SportsCardsPro",
+    "url": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev",
+    "evidence": "Outbound sale link resolved to eBay item 366181936319; sold date, price and title remain secondary-source observations."
+  },
+  "assessment_status": "identity-match-sale-unresolved",
+  "research_note": "Recovered original eBay item locator. Do not promote until card identity and the historical sale event are independently observed on the original marketplace or equivalent original-source record."
+}
