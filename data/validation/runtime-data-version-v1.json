@@ -3,7 +3,7 @@
   "model": "runtime-data-version-v1",
   "algorithm": "sha256(sorted path + NUL + git-blob-sha1)",
   "file_count": 161,
-  "fingerprint": "f5f7adcc05ca1d43e343ba53f83da7343ab3b64e643259b9d1cf59cf0804bec4",
+  "fingerprint": "ac32fd30acfcd31e5f02415f91439b1e1deda4d9041fee4ed95ba18e99ad6d5d",
   "excluded": [
     "data/validation/runtime-data-version-v1.json"
   ]
