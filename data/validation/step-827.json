@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 827,
+  "title": "Research Chelsea EV completion task: Estêvão Willian — Alive and Kicking #AK-14 Base",
+  "implemented": true,
+  "focus": "Phase 2 — Chelsea EV completion",
+  "target_task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Alive and Kicking::AK-14::Base",
+  "result": {
+    "outcome": "valued-secondary-realized-sales",
+    "valued": true,
+    "market_value_usd": 0.99,
+    "ev_contribution_usd": 1.188
+  },
+  "guarantees": [
+    "Exact 2026 Topps Chrome Premier League product identity is required before valuation.",
+    "Queue proxy values are not used as market values.",
+    "The market value is the median of retained exact raw realized sales under the Phase-2 sample policy.",
+    "The frozen v1 27-contribution / 72-sale market verification scope is not expanded."
+  ]
+}
