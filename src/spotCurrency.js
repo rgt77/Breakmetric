@@ -6,6 +6,8 @@
   const api={};
 
   function finiteNonNegative(value){
+    if(value===null || value===undefined) return null;
+    if(typeof value==="string" && value.trim()==="") return null;
     const n=Number(value);
     return Number.isFinite(n) && n>=0 ? n : null;
   }
