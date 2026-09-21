@@ -108,7 +108,12 @@ export function assessVerificationCandidate({
   }
 
   const observed=candidate.observed_sale||{};
+  const identitySourceKind=text(candidate.identity_source_kind).toLowerCase();
+  const eventSourceKind=text(observed.source_kind).toLowerCase();
+
   const eventChecks={
+    identity_original_source:
+      identitySourceKind==="original-marketplace",
     listing_state:
       text(candidate.listing_state).toLowerCase()==="sold",
     sale_date:
@@ -122,9 +127,14 @@ export function assessVerificationCandidate({
     serial_copy:
       text(sale.serial_copy)
         ? text(observed.serial_copy)===text(sale.serial_copy)
-        : !text(observed.serial_copy)
+        : !text(observed.serial_copy),
+    sale_event_original_source:
+      eventSourceKind==="original-marketplace"
   };
 
+  if(!eventChecks.identity_original_source){
+    blockers.push("candidate card identity is not observed from original marketplace");
+  }
   if(!eventChecks.listing_state){
     blockers.push("candidate listing is not confirmed as a sold listing");
   }
@@ -139,6 +149,9 @@ export function assessVerificationCandidate({
   }
   if(!eventChecks.serial_copy){
     blockers.push("candidate serial copy does not match stored realized sale");
+  }
+  if(!eventChecks.sale_event_original_source){
+    blockers.push("candidate sale event is not observed from original marketplace");
   }
 
   const eventMatched=
