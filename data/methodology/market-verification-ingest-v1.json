@@ -5,6 +5,8 @@
   "purpose": "Safely apply recovered original-marketplace evidence to an existing realized sale without changing the sale sample.",
   "evidence_required_fields": [
     "schema_version",
+    "listing_identity",
+    "product_id",
     "task_id",
     "market_source_file",
     "sale_index",
@@ -73,5 +75,12 @@
       "node scripts/validate-market-verification-tasks.mjs"
     ]
   },
-  "evidence_schema_version": 2
+  "evidence_schema_version": 2,
+  "listing_identity_required_fields": [
+    "series",
+    "card_number",
+    "parallel",
+    "print_run",
+    "player"
+  ]
 }
