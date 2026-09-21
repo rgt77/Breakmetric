@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "model": "safe-dom-rendering-v1",
+  "generated_at": "2026-09-21",
+  "allowed_patterns": [
+    "textContent for text",
+    "createElement plus appendChild for structured UI",
+    "replaceChildren for clearing or replacing containers"
+  ],
+  "prohibited_patterns": [
+    "dynamic Element.innerHTML in the inline application"
+  ],
+  "rules": [
+    "Dataset-derived and user-derived text must not be interpolated into HTML strings.",
+    "Empty-state messages must be rendered with textContent.",
+    "Container resets must use replaceChildren rather than innerHTML assignment.",
+    "Release validation fails if the inline application reintroduces .innerHTML."
+  ]
+}

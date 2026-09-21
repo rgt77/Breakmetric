@@ -1588,7 +1588,7 @@
     function updateAnalysisProvenance() {
       const provenance = buildCurrentAnalysisProvenance();
       analysisProvenanceData = provenance;
-      analysisProvenanceRows.innerHTML = "";
+      analysisProvenanceRows.replaceChildren();
 
       if (!provenance) return;
 
@@ -1952,10 +1952,10 @@
       currentTeamEntry = null;
       currentEvUsd = null;
       clearPlayerSelection(false);
-      team.innerHTML = "";
-      teamGrid.innerHTML = "";
+      team.replaceChildren();
+      teamGrid.replaceChildren();
       teamComparisonBody.replaceChildren();
-      playerGrid.innerHTML = "";
+      playerGrid.replaceChildren();
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
       evCoverage.textContent = "Loading EV coverage…";
@@ -1993,7 +1993,7 @@
       qualityMarket.className = "";
       qualityRoi.textContent = "Locked";
       qualityRoi.className = "quality-locked";
-      analysisProvenanceRows.innerHTML = "";
+      analysisProvenanceRows.replaceChildren();
       marketEvidenceStatus.textContent = "Pending";
       marketAuditedCount.textContent = "0";
       marketOriginalCount.textContent = "0";
@@ -2269,7 +2269,7 @@
           productMetadataData
         );
 
-        team.innerHTML = "";
+        team.replaceChildren();
         for (const name of teams) {
           const option = document.createElement("option");
           option.value = name;
@@ -2385,7 +2385,7 @@
       if (!currentProduct || !formatPathAtStart) {
         formatCatalogData = null;
         formatCatalogContractReport = null;
-        formatGrid.innerHTML = "";
+        formatGrid.replaceChildren();
         formatStage.hidden = true;
         analysisContent.hidden = true;
         formatStatus.textContent = "No box-format model is available for this release yet.";
@@ -2394,7 +2394,7 @@
 
       formatStage.hidden = false;
       analysisContent.hidden = true;
-      formatGrid.innerHTML = "";
+      formatGrid.replaceChildren();
       formatStatus.textContent = "Loading box formats…";
 
       try {
@@ -2449,7 +2449,7 @@
 
         formatCatalogData = null;
         formatCatalogContractReport = null;
-        formatGrid.innerHTML = "";
+        formatGrid.replaceChildren();
         formatStatus.textContent =
           error?.name === "DataContractError"
             ? "Box format data failed integrity validation."
@@ -2459,7 +2459,7 @@
     }
 
     function renderFormats() {
-      formatGrid.innerHTML = "";
+      formatGrid.replaceChildren();
       const formats = formatCatalogData?.formats || [];
 
       for (const item of formats) {
@@ -2562,8 +2562,15 @@
       );
     }
 
+    function setEmptyMessage(element, message, className = "filter-empty") {
+      const empty = document.createElement("div");
+      empty.className = className;
+      empty.textContent = message;
+      element.replaceChildren(empty);
+    }
+
     function renderProducts() {
-      productGrid.innerHTML = "";
+      productGrid.replaceChildren();
 
       const q = normalizeSearch(productSearchQuery);
       const products = [...(productCatalog?.products || [])]
@@ -2581,8 +2588,10 @@
         .sort((a,b) => Number(b.year || 0) - Number(a.year || 0));
 
       if (!products.length) {
-        productGrid.innerHTML =
-          '<div class="filter-empty">No matching product / release.</div>';
+        setEmptyMessage(
+          productGrid,
+          "No matching product / release."
+        );
         productSearchStatus.textContent = "0 matching products";
         return;
       }
@@ -2633,7 +2642,7 @@
           formatLoadToken += 1;
           formatCatalogData = null;
           formatCatalogContractReport = null;
-          formatGrid.innerHTML = "";
+          formatGrid.replaceChildren();
           BreakMetricStorage.set("breakmetric_product", selectedProductId);
           currentProduct = item;
           restoreProductSelection(item.id);
@@ -2689,7 +2698,7 @@
         "Product slot exists, but odds/checklist/EV data has not been added yet."
       );
       formatCatalogData = null;
-      formatGrid.innerHTML = "";
+      formatGrid.replaceChildren();
       formatStatus.textContent = "No analysis-ready box format for this release.";
       formatStage.hidden = true;
       setAnalysisLoadState("idle");
@@ -2766,7 +2775,7 @@
       if (selectedPlayer) parts.push(selectedPlayer);
 
       updateFlowProgress();
-      analysisContext.innerHTML = "";
+      analysisContext.replaceChildren();
       parts.forEach((part,index) => {
         if (index > 0) {
           const sep = document.createElement("span");
@@ -3071,11 +3080,13 @@
 
     function renderTeams() {
       const matches = matchingTeams();
-      teamGrid.innerHTML = "";
+      teamGrid.replaceChildren();
 
       if (!matches.length) {
-        teamGrid.innerHTML =
-          '<div class="filter-empty">No matching team or player.</div>';
+        setEmptyMessage(
+          teamGrid,
+          "No matching team or player."
+        );
         searchStatus.textContent = "0 matches";
         return;
       }
@@ -3236,18 +3247,22 @@
         ? allPlayers
         : allPlayers.filter(item => normalizeSearch(item.name).includes(q));
 
-      playerGrid.innerHTML = "";
+      playerGrid.replaceChildren();
 
       if (!allPlayers.length) {
-        playerGrid.innerHTML =
-          '<div class="filter-empty">No player checklist loaded for this team.</div>';
+        setEmptyMessage(
+          playerGrid,
+          "No player checklist loaded for this team."
+        );
         clearPlayerSelection();
         return;
       }
 
       if (!players.length) {
-        playerGrid.innerHTML =
-          '<div class="filter-empty">No players in ' + team.value + ' match this search.</div>';
+        setEmptyMessage(
+          playerGrid,
+          "No players in " + team.value + " match this search."
+        );
         playerPanel.classList.remove("visible");
         return;
       }
@@ -3553,8 +3568,11 @@
           playerCardList.appendChild(row);
         }
       } else if (!trackedCards.length) {
-        playerCardList.innerHTML =
-          '<div class="empty-player-data">No card-level market data has been valued for this player yet.</div>';
+        setEmptyMessage(
+          playerCardList,
+          "No card-level market data has been valued for this player yet.",
+          "empty-player-data"
+        );
       }
 
       playerPanel.classList.add("visible");
@@ -3762,7 +3780,7 @@
           formatLoadToken += 1;
           formatCatalogData = null;
           formatCatalogContractReport = null;
-          formatGrid.innerHTML = "";
+          formatGrid.replaceChildren();
           resetProductData();
           await loadFormats();
 
@@ -3773,7 +3791,7 @@
       } catch (error) {
         productCatalog = null;
         productCatalogContractReport = null;
-        productGrid.innerHTML = "";
+        productGrid.replaceChildren();
         productStatus.textContent =
           error?.name === "DataContractError"
             ? "Product catalog failed integrity validation."
