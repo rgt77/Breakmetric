@@ -17,7 +17,7 @@
     "marketplace",
     "verified_at"
   ],
-  "original_locator_rule": "At least one qualifying original marketplace locator is required: a direct marketplace URL whose host matches the stored marketplace, or a stable original marketplace sale identifier.",
+  "original_locator_rule": "At least one qualifying original marketplace locator is required. For eBay, a direct URL must resolve to an /itm/ sale listing with an item number, or a stable numeric eBay item number must be supplied. Other marketplaces currently require a qualifying direct marketplace URL unless an explicit stable-id validator is added.",
   "identity_match_rules": [
     "task_id must resolve to the current verification queue",
     "market_source_file must match the task",
@@ -25,7 +25,8 @@
     "card/player/set/parallel must match the task",
     "sale date and sale price must exactly match the stored sample",
     "marketplace must match case-insensitively",
-    "serial_copy must match when the stored sale has one"
+    "serial_copy must match when the stored sale has one",
+    "when both a direct eBay listing URL and stable eBay item number are supplied, their item numbers must agree"
   ],
   "immutable_fields": [
     "sale_date",
@@ -45,6 +46,8 @@
   "fail_closed_rules": [
     "Dry-run is the default CLI behavior.",
     "Any identity, date, price, marketplace, serial or locator mismatch rejects the evidence.",
+    "A same-marketplace search/category page is not an original-sale locator.",
+    "A later active re-listing of the same serial-numbered card is candidate research evidence only; it must not verify an earlier realized sale unless the historical sale event can be linked to that marketplace identifier.",
     "Rejected evidence must leave the market record unchanged.",
     "Verification must never change realized sale prices.",
     "Contribution verification is derived from all supporting market-record sales, not from a contribution-level boolean."
