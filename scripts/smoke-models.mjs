@@ -333,6 +333,30 @@ assert(
   saleVerificationProgress.complete===false,
   "incomplete sale verification marked complete"
 );
+
+const currentVerificationRecords=(verificationQueue.items||[]).map(item=>
+  JSON.parse(
+    fs.readFileSync(path.join(root,item.market_source_file),"utf8")
+  )
+);
+const currentSaleProgress=
+  sandbox.BreakMetricMarketEvidenceQuality.saleVerificationProgress(
+    currentVerificationRecords
+  );
+assert(
+  currentVerificationRecords.length===verificationQueue.items.length,
+  "market verification records do not resolve one-per-contribution"
+);
+assert(
+  currentSaleProgress.sale_count>0,
+  "current market verification sample has no realized sales"
+);
+assert(
+  currentSaleProgress.original_verified_sale_count +
+    currentSaleProgress.pending_original_sale_count ===
+    currentSaleProgress.sale_count,
+  "current sale verification progress does not reconcile"
+);
 const inconsistentVerificationQueue={
   items:[{
     ev_contribution_usd:10,
