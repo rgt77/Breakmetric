@@ -236,6 +236,9 @@ for (const module of [
   "errorModel.js",
   "storage.js",
   "spotCurrency.js",
+  "fxRate.js",
+  "teamReadiness.js",
+  "analysisProvenance.js",
   "urlState.js"
 ]) {
   pass(
@@ -249,6 +252,24 @@ pass("canonical spot USD state enabled", html.includes("canonicalSpotUsd"));
 pass("spot state schema v2 persisted", html.includes("BreakMetricSpotCurrency.persistedState"));
 pass("FX conversion uses USD canonical basis", html.includes("displayFromCanonicalUsd") && html.includes("canonicalUsdFromDisplay"));
 pass("price edits refresh canonical spot basis", html.includes("price.addEventListener(\"input\"") && html.includes("updateCanonicalSpotFromDisplay"));
+pass(
+  "clearing price clears canonical spot basis",
+  html.includes('price.value = "";') &&
+  html.includes("updateCanonicalSpotFromDisplay();") &&
+  html.includes('BreakMetricStorage.remove("breakmetric_spot_state")')
+);
+pass("FX requests have an explicit timeout", html.includes("timeoutMs: 8000"));
+pass(
+  "non-USD EV is gated on FX readiness",
+  html.includes("canPresentUsdValue") &&
+  html.includes('resultNet.textContent = "FX unavailable"')
+);
+pass(
+  "initial FX failure refreshes EV and ROI display",
+  html.includes("Non-USD EV and ROI are withheld") &&
+  html.includes("updateTeamEv();") &&
+  html.includes("updateResults();")
+);
 pass("legacy spot-price writes removed", !html.includes('localStorage.setItem("breakmetric_spot_price"'));
 pass(
   "FX conversion is staged",
