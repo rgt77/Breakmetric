@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-21",
+  "step": 745,
+  "title": "Recover Cole Palmer 63 Aqua Refractor marketplace evidence",
+  "implemented": true,
+  "focus": "Priority 1 — market verification",
+  "contribution": {
+    "priority_rank": 17,
+    "team": "Chelsea",
+    "card_id": "63-aqua-refractor",
+    "player": "Cole Palmer",
+    "parallel": "Aqua Refractor",
+    "supporting_sale_count": 1
+  },
+  "result": {
+    "recovered_original_locator_count": 1,
+    "original_verified_sale_count": 0,
+    "unresolved_sale_count": 1
+  },
+  "guarantees": [
+    "Each recovered locator is tied to the exact stored sale index and exact Topps Chrome card identity.",
+    "Locator recovery does not by itself promote a sale.",
+    "Realized sale prices and EV contribution values remain immutable.",
+    "The current discovery source contains newer Cole Palmer Aqua sales that are outside the existing 72-sale verification scope and are not silently added to the stored sample."
+  ]
+}
