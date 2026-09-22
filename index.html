@@ -1065,7 +1065,7 @@
 
   <footer>© 2026 BreakMetric</footer>
 
-  <script src="src/runtimeContracts.js"></script>
+  <script src="src/runtimeContracts.js?v=2"></script>
   <script src="src/teamReadiness.js"></script>
   <script src="src/teamComparison.js"></script>
   <script src="src/analysisProvenance.js"></script>
@@ -2232,7 +2232,8 @@
           evScope: formatPath("ev_scope_data"),
           evWorkQueue: formatPath("ev_work_queue_data"),
           evContributionProvenance: formatPath("ev_contribution_provenance_data"),
-          marketVerificationQueue: formatPath("market_verification_queue_data")
+          marketVerificationQueue: formatPath("market_verification_queue_data"),
+          marketVerificationScope: formatPath("market_verification_scope_data")
         };
 
         const loaded = await BreakMetricDataLoader.loadManyVersioned(paths, {
@@ -2263,7 +2264,8 @@
           evScope: nextEvScope,
           evWorkQueue: nextEvWorkQueue,
           evContributionProvenance: nextEvContributionProvenance,
-          marketVerificationQueue: nextMarketVerificationQueue
+          marketVerificationQueue: nextMarketVerificationQueue,
+          marketVerificationScope: nextMarketVerificationScope
         } = loaded;
 
         updateLoaderStatsUi();
@@ -2294,7 +2296,8 @@
           evScope: nextEvScope,
           evWorkQueue: nextEvWorkQueue,
           evContributionProvenance: nextEvContributionProvenance,
-          marketVerificationQueue: nextMarketVerificationQueue
+          marketVerificationQueue: nextMarketVerificationQueue,
+          marketVerificationScope: nextMarketVerificationScope
         };
 
         const runtimeContract =

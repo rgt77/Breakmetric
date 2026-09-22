@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 853,
+  "canonical_step_end": 856,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -432,6 +432,15 @@
       "title": "Prevent mixed-version runtime datasets across browser/CDN caches",
       "source_kind": "block-summary",
       "source": "data/validation/steps-851-853.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 854,
+      "end": 856,
+      "id": "hobby-runtime-verification-scope-fix",
+      "title": "Reproduce and repair Hobby runtime contract against frozen market-verification scope",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-854-856.json",
       "coverage_quality": "exact-manifest"
     }
   ],

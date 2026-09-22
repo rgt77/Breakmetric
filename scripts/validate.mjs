@@ -258,7 +258,7 @@ for (const product of catalog.products || []) {
     const evContributionProvenance = json(format.analysis_data.ev_contribution_provenance_data);
     const marketVerificationQueue = json(format.analysis_data.market_verification_queue_data);
     const marketVerificationScope = json(
-      "data/market/"+product.id+"/market-verification-scope-v1.json"
+      format.analysis_data.market_verification_scope_data
     );
     pass(
       `EV contribution provenance linked: ${product.id}/${format.id}`,

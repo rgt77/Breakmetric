@@ -1,4 +1,4 @@
-// BreakMetric runtime data contracts v1.
+// BreakMetric runtime data contracts v2.
 // Browser-safe, dependency-free validation used before fetched datasets become active.
 
 (function(root){
@@ -159,6 +159,7 @@
       "ev_work_queue_data",
       "ev_contribution_provenance_data",
       "market_verification_queue_data",
+      "market_verification_scope_data",
       "base_checklist_data",
       "autograph_checklist_data",
       "player_index_data",
@@ -785,12 +786,32 @@
     return result(errors,warnings,{ev_provenance_contribution_count:data.entries.length});
   };
 
-  api.validateMarketVerificationQueue=function(data={}, productId, formatId, evData={}){
+  api.validateMarketVerificationQueue=function(
+    data={},
+    productId,
+    formatId,
+    evData={},
+    scope={}
+  ){
     const errors=[],warnings=[];
     if(data.schema_version!==1) errors.push("market verification queue schema_version mismatch");
     if(data.product_id!==productId) errors.push("market verification queue product_id mismatch");
     if(formatId && data.format_id!==formatId) errors.push("market verification queue format_id mismatch");
     if(data.model!=="market-verification-queue-v1") errors.push("market verification queue model mismatch");
+    if(scope.schema_version!==1) errors.push("market verification scope schema_version mismatch");
+    if(scope.product_id!==productId) errors.push("market verification scope product_id mismatch");
+    if(formatId && scope.format_id!==formatId) errors.push("market verification scope format_id mismatch");
+    if(scope.model!=="market-verification-scope-v1") errors.push("market verification scope model mismatch");
+    if(!Array.isArray(scope.card_ids)) errors.push("market verification scope card_ids missing");
+    if(
+      Number(scope.frozen_contribution_count)!==
+      (scope.card_ids||[]).length
+    ){
+      errors.push("market verification scope frozen contribution count mismatch");
+    }
+    if(!uniqueStrings(scope.card_ids||[])){
+      errors.push("market verification scope card ids not unique");
+    }
     if(!Array.isArray(data.items)){
       errors.push("market verification queue items missing");
       return result(errors,warnings);
@@ -829,8 +850,19 @@
     }
 
     if(!uniqueStrings(keys)) errors.push("market verification queue keys not unique");
-    if(data.items.length!==evMap.size){
-      errors.push("market verification queue contribution count mismatch");
+
+    const queueCardIds=(data.items||[]).map(item=>item?.card_id).filter(Boolean).sort();
+    const scopeCardIds=[...(scope.card_ids||[])].sort();
+    if(
+      queueCardIds.length!==scopeCardIds.length ||
+      queueCardIds.some((cardId,index)=>cardId!==scopeCardIds[index])
+    ){
+      errors.push("market verification queue does not exactly match frozen scope");
+    }
+    if(
+      data.items.length!==Number(scope.frozen_contribution_count)
+    ){
+      errors.push("market verification queue frozen contribution count mismatch");
     }
     if(Number(data.summary?.contribution_count)!==data.items.length){
       errors.push("market verification queue summary contribution count mismatch");
@@ -1038,7 +1070,8 @@
         bundle.marketVerificationQueue,
         productId,
         context.formatId || null,
-        bundle.teamEv
+        bundle.teamEv,
+        bundle.marketVerificationScope
       ),
       api.validateMarketRegistry(
         bundle.marketRegistry,
