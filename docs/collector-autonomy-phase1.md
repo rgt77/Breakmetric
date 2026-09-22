@@ -72,12 +72,14 @@ When all criteria pass, `ops/collector/acceptance-v1.json` sets:
 }
 ```
 
-Until a live `SPORTSCARDSPRO_TOKEN` exists, the correct state is `pending-live-provider`; the system must never claim a successful soak without real provider activity.
+Until both a live `SPORTSCARDSPRO_TOKEN` and explicit commercial-sharing approval exist, the correct state is `pending-live-provider`; the system must never claim a successful soak without real provider activity and permission to persist provider-derived data in the public application.
 
 ## Credentials
 
 Live fast-lane collection requires the GitHub Actions repository secret `SPORTSCARDSPRO_TOKEN`.
 
 The optional broad daily lane uses `SPORTSCARDSPRO_CSV_URL`.
+
+Because BreakMetric is deployed from a public repository/application, provider-derived data remains fail-closed until express written permission/commercial licensing permits third-party sharing. Only after that approval exists should `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` be configured as a GitHub Actions repository secret.
 
 No credential value or subscriber URL is written to repository data or operational telemetry.
