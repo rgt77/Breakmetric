@@ -252,7 +252,12 @@ function increment(obj,key,amount=1){
 export function recordCollectorRun(ops,run,selectedTasks,config={}){
   const limit=Number(config.telemetry?.run_history_limit||192);
   ops.runs.entries=Array.isArray(ops.runs.entries)?ops.runs.entries:[];
-  ops.runs.entries.push(run);
+  const storedRun={
+    ...run,
+    result_count:Array.isArray(run.results)?run.results.length:0,
+    results:Array.isArray(run.results)?run.results.slice(0,100):[]
+  };
+  ops.runs.entries.push(storedRun);
   ops.runs.entries=ops.runs.entries.slice(-limit);
 
   const totals=ops.metrics.totals||(ops.metrics.totals={});
