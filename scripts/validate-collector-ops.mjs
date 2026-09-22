@@ -27,6 +27,7 @@ const soak=read(t.soak_file);
 const acceptance=read(t.acceptance_file);
 const baseline=read("data/validation/phase1-collector-baseline-v1.json");
 const provenance=read(config.task_sources.provenance);
+const monitor=fs.readFileSync(path.join(root,"collector-status.html"),"utf8");
 
 ok(state.model==="collector-state-v1","state model mismatch");
 ok(runs.model==="collector-runs-v1","runs model mismatch");
@@ -87,6 +88,11 @@ ok(Number(config.acceptance?.soak_hours)===24,"soak duration must be 24 hours");
 ok(config.fast_lane?.fairness_mode==="team-then-subject-round-robin","fairness mode mismatch");
 ok(config.fast_lane?.persist_cursor===true,"persistent cursor must be enabled");
 ok(config.safety?.auto_promote_modeled_values_to_canonical_ev===false,"canonical EV safety changed");
+ok(
+  monitor.includes("commercial sharing not approved") &&
+  monitor.includes("sharing approval missing"),
+  "collector monitor licensing-state contract missing"
+);
 
 const serialized=requiredFiles.map(file=>fs.readFileSync(path.join(root,file),"utf8")).join("\n");
 ok(!/SPORTSCARDSPRO_TOKEN\s*[:=]\s*[^"\n]*[A-Za-z0-9]{8}/.test(serialized),"collector ops appear to contain an API token");
