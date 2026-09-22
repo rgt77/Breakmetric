@@ -33,6 +33,7 @@ jobs:
       - name: Import provider CSV
         env:
           SPORTSCARDSPRO_CSV_URL: ${{ secrets.SPORTSCARDSPRO_CSV_URL }}
+          SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED: ${{ secrets.SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED }}
         run: node scripts/import-sportscardspro-csv.mjs
       - name: Generate automated valuation candidates
         run: node scripts/generate-automated-valuation-candidates.mjs
