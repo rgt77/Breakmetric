@@ -524,6 +524,31 @@ export function evaluateSoakAndAcceptance(ops,config,at,canonicalEvCount){
   return ops.acceptance;
 }
 
+export async function withRetry(operation,{
+  maxAttempts=3,
+  baseDelayMs=750,
+  maxDelayMs=8000,
+  shouldRetry=()=>true,
+  onRetry=()=>{}
+}={}){
+  let lastError=null;
+  for(let attempt=1;attempt<=Math.max(1,Number(maxAttempts)||1);attempt++){
+    try{
+      return await operation(attempt);
+    }catch(error){
+      lastError=error;
+      if(attempt>=maxAttempts||!shouldRetry(error)) throw error;
+      const delay=Math.min(
+        Number(maxDelayMs)||8000,
+        (Number(baseDelayMs)||750)*(2**(attempt-1))
+      );
+      onRetry({attempt,error,delay_ms:delay});
+      await new Promise(resolve=>setTimeout(resolve,delay));
+    }
+  }
+  throw lastError;
+}
+
 export function runFairnessSummary(selectedTasks=[]){
   const teamCounts={},subjectCounts={};
   for(const task of selectedTasks){
