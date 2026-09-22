@@ -28,5 +28,11 @@
   },
   "last_live_observation_at": null,
   "last_data_change_at": null,
-  "latest_run": null
+  "latest_run": null,
+  "licensing": {
+    "public_repository": true,
+    "public_sharing_required": true,
+    "public_sharing_approved": false,
+    "status": "blocked-pending-approval"
+  }
 }
