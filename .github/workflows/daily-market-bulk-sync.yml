@@ -60,6 +60,5 @@ jobs:
             data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json \
             data/validation/runtime-data-version-v1.json \
             ops/collector
-          git commit -m "[market-data] daily provider bulk sync"
-          git pull --rebase origin main
+          git commit -m "[market-data] daily provider bulk sync [skip ci]"
           git push origin HEAD:main
