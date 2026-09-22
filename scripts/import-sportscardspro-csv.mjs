@@ -62,12 +62,46 @@ const taskState=buildUnvaluedCollectionTasks({
 const ops=loadCollectorOps(root,config);
 const urlEnv=config.bulk_lane?.csv_url_env||"SPORTSCARDSPRO_CSV_URL";
 const csvUrl=process.env[urlEnv]||"";
+const approvalEnv=
+  config.licensing?.approval_env||"SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED";
+const approvalRaw=String(process.env[approvalEnv]||"").trim().toLowerCase();
+const sharingApproved=
+  Boolean(fixturePath) ||
+  ["1","true","yes","approved"].includes(approvalRaw);
+ops.state.licensing={
+  public_repository:config.licensing?.repository_visibility==="public",
+  public_sharing_required:config.licensing?.public_sharing_requires_approval===true,
+  public_sharing_approved:sharingApproved,
+  status:sharingApproved?"approved":"blocked-pending-approval"
+};
 const credentialTransition=providerCredentialTransition(ops,{
   lane:"bulk",
   credentialPresent:Boolean(fixturePath||csvUrl),
   now:nowIso,
   missingReason:urlEnv+" is missing."
 });
+
+if(!fixturePath&&csvUrl&&!sharingApproved){
+  ops.state.lane_status=ops.state.lane_status||{};
+  ops.state.lane_status.bulk={
+    ...(ops.state.lane_status.bulk||{}),
+    status:"blocked-license",
+    credential_present:true,
+    last_attempt_at:nowIso,
+    blocker:"Commercial sharing approval is required before provider CSV data can be persisted in this public repository."
+  };
+  recomputeCoverage(ops,taskState,store,nowIso);
+  recomputeHealth(ops,config,nowIso);
+  evaluateSoakAndAcceptance(ops,config,nowIso,canonicalEvCount);
+  persistCollectorOps(root,config,ops);
+  console.log(JSON.stringify({
+    result:"disabled-missing-commercial-sharing-approval",
+    operational_health:ops.state.health,
+    approval_env:approvalEnv,
+    message:"Provider CSV URL is present, but public persistence remains blocked until commercial sharing approval is explicitly configured."
+  },null,2));
+  process.exit(0);
+}
 
 if(!fixturePath&&!csvUrl){
   if(credentialTransition){
