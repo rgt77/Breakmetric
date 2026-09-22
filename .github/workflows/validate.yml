@@ -36,6 +36,8 @@ jobs:
         run: node scripts/validate-ev-valuation-research.mjs
       - name: Check generated pipeline outputs
         run: node scripts/generate-v13-pipeline.mjs --check
+      - name: Reproduce browser Hobby runtime contract
+        run: node scripts/diagnose-runtime-contract.mjs
       - name: Validate market automation contract
         run: node scripts/validate-market-automation-config.mjs
       - name: Test continuous market collector
