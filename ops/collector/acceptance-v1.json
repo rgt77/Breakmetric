@@ -13,7 +13,8 @@
     "max_provider_error_rate": 0.15,
     "require_fast_lane_live": true,
     "bulk_lane_required": false,
-    "require_canonical_ev_unchanged": true
+    "require_canonical_ev_unchanged": true,
+    "require_public_sharing_approval": true
   },
   "checks": {
     "live_fast_lane": false,
@@ -22,9 +23,11 @@
     "min_distinct_tasks": false,
     "exact_provider_data": false,
     "error_rate": false,
-    "canonical_ev_unchanged": true
+    "canonical_ev_unchanged": true,
+    "commercial_sharing_approved": false
   },
   "blockers": [
-    "SPORTSCARDSPRO_TOKEN is not configured, so a real 24-hour soak test cannot start yet."
+    "SPORTSCARDSPRO_TOKEN is not configured, so a real 24-hour soak test cannot start yet.",
+    "SPORTSCARDSPRO commercial sharing approval is not configured for this public repository."
   ]
 }
