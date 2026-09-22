@@ -203,7 +203,8 @@ export function recordException(ops,task,type,details,at,config={}){
   const key=task.task_id;
   const previous=entries[key]||null;
   const missThreshold=Number(config.telemetry?.missing_match_exception_streak||3);
-  let count=Number(previous?.count||0)+1;
+  const sameType=previous?.type===type;
+  let count=sameType?Number(previous?.count||0)+1:1;
   if(type==="no-exact-match"&&count>missThreshold) count=missThreshold;
 
   if(type==="no-exact-match"&&count<missThreshold){
