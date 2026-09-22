@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "model": "collector-price-history-v1",
+  "product_id": "2026-topps-chrome-premier-league",
+  "currency": "USD",
+  "updated_at": null,
+  "entries": {}
+}
