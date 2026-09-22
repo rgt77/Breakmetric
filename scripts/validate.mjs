@@ -33,6 +33,18 @@ for (const file of walk("data").filter(file => file.endsWith(".json"))) {
 }
 pass("all data JSON parses", !failures.some(x => x.startsWith("JSON parse failed")));
 
+const uiSource = read("index.html");
+pass(
+  "team cards omit generic player counts",
+  !uiSource.includes("const playerCount = playersForTeamName") &&
+  !uiSource.includes('playerCount + " player"')
+);
+pass(
+  "team search still exposes matched player previews",
+  uiSource.includes("if (item.matchedPlayers.length)") &&
+  uiSource.includes("item.matchedPlayers.slice(0, 2)")
+);
+
 const methodology = json("data/methodology/v1.2.json");
 pass("v1.2 methodology schema", methodology.schema_version === 1);
 pass("v1.2 methodology principles present", Array.isArray(methodology.principles) && methodology.principles.length >= 7);
