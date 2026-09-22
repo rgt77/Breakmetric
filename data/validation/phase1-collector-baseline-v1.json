@@ -25,7 +25,9 @@
     "fast_lane_live": false,
     "bulk_lane_live": false,
     "fast_lane_blocker": "SPORTSCARDSPRO_TOKEN is empty in the workflow runtime.",
-    "bulk_lane_blocker": "SPORTSCARDSPRO_CSV_URL is empty in the workflow runtime."
+    "bulk_lane_blocker": "SPORTSCARDSPRO_CSV_URL is empty in the workflow runtime.",
+    "commercial_sharing_approval": false,
+    "commercial_sharing_blocker": "SportsCardsPro documentation requires commercial permission before provider price data is shared through a public application."
   },
   "conclusion": "Automation code and schedules are active, but no live provider data is currently collected. Green workflow status alone is therefore not a collector-health signal."
 }
