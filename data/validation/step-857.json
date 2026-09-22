@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-22",
+  "step": 857,
+  "title": "Remove player counts from team cards",
+  "implemented": true,
+  "objective": "Reduce visual noise in the primary team-selection flow so visitors can identify a team and its actionable data-readiness state faster.",
+  "changes": [
+    "Removed generic player-count text from team cards in the default browsing state.",
+    "Preserved player-name previews only when a search query matches players, because that information directly explains the search result.",
+    "Reduced team-card minimum height from 78px to 68px.",
+    "Reduced team-card vertical padding and readiness spacing to use the reclaimed space."
+  ],
+  "guarantees": [
+    "Team selection behavior is unchanged.",
+    "Player search remains available.",
+    "Matched-player previews remain visible when they are relevant to a search query.",
+    "Readiness badges and team-level status remain unchanged."
+  ]
+}
