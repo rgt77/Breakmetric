@@ -157,7 +157,7 @@
       background:#0e1528;
       color:var(--text);
       border-radius:13px;
-      padding:14px;
+      padding:13px 14px;
       cursor:pointer;
       font:inherit;
     }
@@ -294,7 +294,7 @@
     }
     .team-card{
       margin:0;
-      min-height:78px;
+      min-height:68px;
       text-align:left;
       border:1px solid var(--line);
       background:#0e1528;
@@ -316,7 +316,7 @@
       display:flex!important;
       flex-wrap:wrap;
       gap:5px;
-      margin-top:10px!important;
+      margin-top:8px!important;
     }
     .team-readiness-badge{
       display:inline-block!important;
@@ -3335,21 +3335,15 @@
         title.textContent = item.name;
         button.appendChild(title);
 
-        const meta = document.createElement("span");
-        const playerCount = playersForTeamName(item.name).length;
-
         if (item.matchedPlayers.length) {
+          const meta = document.createElement("span");
           const preview = item.matchedPlayers.slice(0, 2).join(", ");
           const more = item.matchedPlayers.length > 2
             ? " +" + (item.matchedPlayers.length - 2)
             : "";
           meta.textContent = preview + more;
-        } else {
-          meta.textContent =
-            playerCount + " player" + (playerCount === 1 ? "" : "s");
+          button.appendChild(meta);
         }
-
-        button.appendChild(meta);
 
         const readiness = teamReadinessData?.[item.name] || null;
 
