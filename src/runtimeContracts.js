@@ -1,4 +1,4 @@
-// BreakMetric runtime data contracts v1.
+// BreakMetric runtime data contracts v2.
 // Browser-safe, dependency-free validation used before fetched datasets become active.
 
 (function(root){
