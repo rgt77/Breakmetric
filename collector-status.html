@@ -61,18 +61,35 @@ const ago=value=>{
   }
   const fast=data.state.lane_status?.fast||{};
   const bulk=data.state.lane_status?.bulk||{};
+  const licensing=data.state.licensing||{};
   const fastAge=Date.now()-Date.parse(fast.last_live_success_at||"");
   const computedHealth=
     fast.credential_present!==true
       ? {status:"stalled",reason:"fast lane not configured"}
-      : !Number.isFinite(fastAge)||fastAge>45*60000
-        ? {status:"stalled",reason:"fast lane stale"}
-        : data.state.health||{status:"healthy",reason:"current"};
+      : licensing.public_sharing_required===true &&
+        licensing.public_sharing_approved!==true
+        ? {status:"stalled",reason:"commercial sharing not approved"}
+        : !Number.isFinite(fastAge)||fastAge>45*60000
+          ? {status:"stalled",reason:"fast lane stale"}
+          : data.state.health||{status:"healthy",reason:"current"};
   const healthClass=computedHealth.status==="healthy"?"ok":computedHealth.status==="degraded"?"warn":"bad";
   document.querySelector("#health").innerHTML=[
     card("Collector",computedHealth.status.toUpperCase(),healthClass),
     card("Reason",computedHealth.reason),
-    card("Fast lane",fast.credential_present?"Configured":"Blocked · missing token",fast.credential_present?"ok":"bad"),
+    card(
+      "Fast lane",
+      fast.credential_present
+        ? "Token configured"
+        : "Blocked · missing token",
+      fast.credential_present?"ok":"bad"
+    ),
+    card(
+      "Commercial sharing",
+      licensing.public_sharing_approved
+        ? "Approved"
+        : "Blocked · written permission required",
+      licensing.public_sharing_approved?"ok":"bad"
+    ),
     card("Last fast live run",ago(fast.last_live_success_at)),
     card("Bulk lane",bulk.credential_present?"Configured":"Optional · not configured",bulk.credential_present?"ok":"warn"),
     card("Last data change",ago(data.state.last_data_change_at))
@@ -98,7 +115,15 @@ const ago=value=>{
     card("Distinct tasks",s.distinct_tasks_checked||0),
     card("Provider errors",s.provider_errors||0),
     card("Acceptance",a.status,a.status==="passed"?"ok":a.status==="running"?"warn":"bad"),
-    '<div class="card" style="grid-column:1/-1"><span class="label">Soak progress</span><div class="bar"><span style="width:'+pct+'%"></span></div><code>'+esc((s.blockers||[]).join(" · ")||"No blockers")+'</code></div>'
+    card(
+      "Activation gate",
+      [
+        fast.credential_present?"token ✓":"token missing",
+        licensing.public_sharing_approved?"sharing approval ✓":"sharing approval missing"
+      ].join(" · "),
+      fast.credential_present&&licensing.public_sharing_approved?"ok":"bad"
+    ),
+    '<div class="card" style="grid-column:1/-1"><span class="label">Soak progress</span><div class="bar"><span style="width:'+pct+'%"></span></div><code>'+esc((s.blockers||a.blockers||[]).join(" · ")||"No blockers")+'</code></div>'
   ].join("");
 
   const tbody=document.querySelector("#runs");

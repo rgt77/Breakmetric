@@ -109,6 +109,7 @@ The collector is installed fail-closed. To activate live provider data, configur
 
 - `SPORTSCARDSPRO_TOKEN` — paid SportsCardsPro API token.
 - `SPORTSCARDSPRO_CSV_URL` — optional subscriber-specific CSV download URL for daily bulk sync.
+- `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED` — set to `true` only after express written permission/commercial licensing allows SportsCardsPro-derived data to be persisted for the public BreakMetric application.
 
 Missing credentials do not fabricate values or mutate canonical EV. The scheduled job exits cleanly until credentials are present.
 
@@ -120,7 +121,7 @@ The collector retries transient provider/network failures with deterministic exp
 
 Operational status is available at `/collector-status.html` (noindex, not linked from the customer flow). The first successful live fast-lane run starts an automatic 24-hour soak test. Phase 1 is accepted only after the machine-readable criteria in `ops/collector/acceptance-v1.json` pass, at which point the contract becomes `continuous-market-collection-v1`.
 
-**Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Adding the fast-lane repository secret automatically starts live collection and the soak clock; no manual Phase-1 start step is required.
+**Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments, and commercial sharing is not approved in collector state. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Live persistence and the soak clock start automatically only after the fast-lane token is configured **and** `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` is explicitly configured following written permission/commercial licensing. No manual Phase-1 start command is required after those prerequisites exist.
 
 
 ## Source-module inventory

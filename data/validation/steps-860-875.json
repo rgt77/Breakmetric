@@ -8,7 +8,8 @@
   "operational_acceptance_status": "pending-live-provider",
   "current_blockers": [
     "SPORTSCARDSPRO_TOKEN is absent in the fast-lane workflow runtime.",
-    "SPORTSCARDSPRO_CSV_URL is absent in the bulk-lane workflow runtime; bulk is optional for v1 acceptance."
+    "SPORTSCARDSPRO_CSV_URL is absent in the bulk-lane workflow runtime; bulk is optional for v1 acceptance.",
+    "SportsCardsPro commercial sharing approval is not configured; public persistence remains blocked until express written permission/commercial licensing exists."
   ],
   "steps": [
     {
@@ -21,7 +22,8 @@
       "step": 861,
       "title": "Make provider/credential state explicit",
       "status": "implemented",
-      "evidence": "ops/collector/state-v1.json"
+      "evidence": "ops/collector/state-v1.json",
+      "operational_note": "Fast-lane token state and commercial-sharing approval are separate activation gates."
     },
     {
       "step": 862,
@@ -117,7 +119,8 @@
     "min_exact_provider_matches": 1,
     "max_provider_error_rate": 0.15,
     "canonical_ev_must_remain_unchanged": true,
-    "bulk_lane_required": false
+    "bulk_lane_required": false,
+    "commercial_sharing_approval_required": true
   },
   "safety_guarantees": [
     "Operational telemetry is stored outside data/ and therefore does not participate in runtime-data fingerprints.",
@@ -126,6 +129,7 @@
     "Cross-series identity remains fail-closed.",
     "Extreme price movements are quarantined instead of silently entering observations.",
     "Missing credentials are represented as stalled/blocked configuration, not as healthy collection.",
-    "A concurrent main update causes the market bot push to fail safely; it does not rebase a stale generated fingerprint."
+    "A concurrent main update causes the market bot push to fail safely; it does not rebase a stale generated fingerprint.",
+    "SportsCardsPro-derived data cannot be persisted into the public BreakMetric repository unless explicit commercial sharing approval is configured."
   ]
 }

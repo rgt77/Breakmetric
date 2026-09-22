@@ -140,6 +140,49 @@ const policy={
     require_public_sharing_approval:true
   }
 };
+const blockedOps={
+  state:{
+    lane_status:{
+      fast:{
+        credential_present:true,
+        last_live_success_at:"2026-09-22T00:00:00.000Z"
+      },
+      bulk:{credential_present:false}
+    },
+    licensing:{
+      public_sharing_required:true,
+      public_sharing_approved:false
+    },
+    health:{}
+  },
+  metrics:{
+    totals:{runs:0,live_runs:0,tasks_checked:0,exact_matches:0,provider_errors:0},
+    by_lane:{fast:{runs:0,live_runs:0,tasks_checked:0,provider_errors:0}},
+    by_team:{},
+    by_subject:{}
+  },
+  coverage:{unique_tasks_checked:0},
+  soak:{status:"waiting-for-live-provider"},
+  acceptance:{status:"pending-live-provider"}
+};
+recomputeHealth(blockedOps,policy,"2026-09-22T00:20:00.000Z");
+assert.equal(blockedOps.state.health.status,"stalled");
+assert.equal(
+  blockedOps.state.health.reason,
+  "commercial-sharing-not-approved"
+);
+evaluateSoakAndAcceptance(
+  blockedOps,
+  policy,
+  "2026-09-22T00:20:00.000Z",
+  33
+);
+assert.equal(blockedOps.acceptance.status,"pending-live-provider");
+assert.equal(
+  blockedOps.acceptance.checks.commercial_sharing_approved,
+  false
+);
+
 recomputeHealth(ops,policy,"2026-09-22T00:20:00.000Z");
 assert.equal(ops.state.health.status,"healthy");
 
@@ -209,7 +252,7 @@ assert.equal(
 
 console.log(JSON.stringify({
   result:"pass",
-  checks:19,
+  checks:23,
   fairness:first.batch.length,
   retry_attempts:attempts,
   soak_status:ops.soak.status,
