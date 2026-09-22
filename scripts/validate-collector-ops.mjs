@@ -26,6 +26,7 @@ const quarantine=read(t.quarantine_file);
 const soak=read(t.soak_file);
 const acceptance=read(t.acceptance_file);
 const baseline=read("data/validation/phase1-collector-baseline-v1.json");
+const provenance=read(config.task_sources.provenance);
 
 ok(state.model==="collector-state-v1","state model mismatch");
 ok(runs.model==="collector-runs-v1","runs model mismatch");
@@ -39,7 +40,11 @@ ok(acceptance.model==="continuous-market-collection-v1-acceptance","acceptance m
 ok(baseline.facts?.fast_lane_live===false,"baseline must record fast lane as non-live");
 ok(baseline.facts?.bulk_lane_live===false,"baseline must record bulk lane as non-live");
 ok(Number(coverage.eligible_slot_count)===8896,"coverage denominator mismatch");
-ok(Number(coverage.canonical_valued_slot_count)===33,"canonical valued baseline mismatch");
+ok(
+  Number(coverage.canonical_valued_slot_count)===
+  Number(provenance.summary?.contribution_count||0),
+  "coverage canonical valued count does not match current provenance"
+);
 ok(Number(config.retry?.max_attempts)>=2,"retry policy missing");
 ok(Number(config.telemetry?.run_history_limit)>=96,"run retention too short for 24h evidence");
 ok(Number(config.acceptance?.soak_hours)===24,"soak duration must be 24 hours");
