@@ -246,6 +246,27 @@ export function selectRotatingBatch(tasks=[],{
   };
 }
 
+export function extractProviderCardNumber(productName=""){
+  const text=String(productName||"");
+  const hash=[...text.matchAll(/#([A-Za-z0-9-]+)/g)];
+  if(hash.length) return normalizeText(hash[hash.length-1][1]);
+  const trailing=text.match(/(?:^|\s)([A-Za-z]{1,5}-?[A-Za-z0-9-]*\d+[A-Za-z0-9-]*)\s*$/);
+  return trailing?normalizeText(trailing[1]):null;
+}
+
+export function indexProviderRowsByCardNumber(rows=[]){
+  const map=new Map();
+  for(const row of rows){
+    const cardNumber=extractProviderCardNumber(
+      row["product-name"]||row.product_name||""
+    );
+    if(!cardNumber) continue;
+    if(!map.has(cardNumber)) map.set(cardNumber,[]);
+    map.get(cardNumber).push(row);
+  }
+  return map;
+}
+
 export function apiPriceUsd(product={}){
   const cents=Number(product["loose-price"]);
   return Number.isFinite(cents)&&cents>0 ? Math.round(cents)/100 : null;
