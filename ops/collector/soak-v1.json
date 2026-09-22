@@ -15,6 +15,7 @@
     "contribution_count": 33
   },
   "blockers": [
-    "Fast lane is not live because SPORTSCARDSPRO_TOKEN is missing."
+    "Fast lane is not live because SPORTSCARDSPRO_TOKEN is missing.",
+    "Commercial sharing approval is not configured for provider data in this public repository."
   ]
 }
