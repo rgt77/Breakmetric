@@ -55,6 +55,32 @@ pass(
   uiSource.includes("function renderSelectedTeamStatus()") &&
   uiSource.includes('"selected-team-status-badge " + spec.className')
 );
+const teamBrandingProduct = json(
+  "data/products/2026-topps-chrome-premier-league.json"
+);
+const crestMappings =
+  uiSource.match(/"[^"]+": \{ id: \d+, abbr: "[A-Z]{3}" \}/g) || [];
+pass(
+  "all product teams have crest mappings",
+  crestMappings.length === 20 &&
+  (teamBrandingProduct.teams || []).every(team =>
+    uiSource.includes(
+      '"' + team.name + '": { id: '
+    )
+  )
+);
+pass(
+  "team cards use official Premier League crest host",
+  uiSource.includes(
+    "https://resources.premierleague.com/premierleague/badges/70/t"
+  )
+);
+pass(
+  "team crest loading has a non-image fallback",
+  uiSource.includes("function createTeamCrest(teamName)") &&
+  uiSource.includes("team-card-crest-fallback") &&
+  uiSource.includes('image.addEventListener("error"')
+);
 
 const methodology = json("data/methodology/v1.2.json");
 pass("v1.2 methodology schema", methodology.schema_version === 1);
