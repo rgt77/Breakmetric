@@ -13,7 +13,10 @@
     "min_request_interval_ms": 1100,
     "rotating_shards": true,
     "max_tasks_per_subject_per_batch": 2,
-    "credential_env": "SPORTSCARDSPRO_TOKEN"
+    "credential_env": "SPORTSCARDSPRO_TOKEN",
+    "persist_cursor": true,
+    "fairness_mode": "team-then-subject-round-robin",
+    "max_tasks_per_team_per_batch": 2
   },
   "bulk_lane": {
     "provider": "sportscardspro-csv",
@@ -49,5 +52,51 @@
     "eligible_slot_denominator": 8896,
     "current_valued_slots_are_excluded": true,
     "team_filter": null
+  },
+  "telemetry": {
+    "state_file": "ops/collector/state-v1.json",
+    "runs_file": "ops/collector/runs-v1.json",
+    "metrics_file": "ops/collector/metrics-v1.json",
+    "coverage_file": "ops/collector/coverage-v1.json",
+    "exceptions_file": "ops/collector/exceptions-v1.json",
+    "price_history_file": "ops/collector/price-history-v1.json",
+    "quarantine_file": "ops/collector/quarantine-v1.json",
+    "soak_file": "ops/collector/soak-v1.json",
+    "acceptance_file": "ops/collector/acceptance-v1.json",
+    "run_history_limit": 192,
+    "exception_history_limit": 500,
+    "price_history_limit_per_task": 50,
+    "stale_fast_lane_minutes": 45,
+    "stale_bulk_lane_hours": 36,
+    "missing_match_exception_streak": 3,
+    "degraded_provider_error_rate": 0.25
+  },
+  "retry": {
+    "max_attempts": 3,
+    "base_delay_ms": 750,
+    "max_delay_ms": 8000,
+    "retry_http_statuses": [
+      429,
+      500,
+      502,
+      503,
+      504
+    ]
+  },
+  "quality": {
+    "min_price_usd": 0.01,
+    "max_price_usd": 1000000,
+    "max_price_change_ratio": 10,
+    "quarantine_extreme_price_changes": true
+  },
+  "acceptance": {
+    "soak_hours": 24,
+    "min_successful_live_fast_runs": 72,
+    "min_distinct_tasks_checked": 500,
+    "min_exact_provider_matches": 1,
+    "max_provider_error_rate": 0.15,
+    "require_fast_lane_live": true,
+    "bulk_lane_required": false,
+    "require_canonical_ev_unchanged": true
   }
 }
