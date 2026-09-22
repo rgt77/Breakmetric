@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-22",
+  "step": 858,
+  "title": "Move readiness badges from team list to selected-team panel",
+  "implemented": true,
+  "objective": "Keep the primary team list visually minimal while preserving readiness information after a team has been selected.",
+  "changes": [
+    "Removed all four readiness badges from every team card in the team-selection list.",
+    "Added a compact selected-team status panel immediately before the player-selection step.",
+    "The selected-team panel shows probability, EV, market and ROI readiness for only the currently selected team.",
+    "Kept the active-team highlight in the list so users can still see which team is selected.",
+    "Reduced team-list gap, card height and bottom spacing for faster scanning."
+  ],
+  "guarantees": [
+    "Team cards contain no readiness-status badges.",
+    "Readiness information remains available after team selection.",
+    "Matched-player previews remain available only when a player search makes them relevant.",
+    "Team selection, player selection, EV logic and market-readiness calculations are unchanged."
+  ]
+}

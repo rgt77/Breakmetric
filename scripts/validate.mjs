@@ -44,6 +44,17 @@ pass(
   uiSource.includes("if (item.matchedPlayers.length)") &&
   uiSource.includes("item.matchedPlayers.slice(0, 2)")
 );
+pass(
+  "team list does not render readiness badges",
+  !uiSource.includes('readinessWrap.className = "team-readiness"') &&
+  !uiSource.includes('"team-readiness-badge " + spec.className')
+);
+pass(
+  "selected team panel owns readiness badges",
+  uiSource.includes('id="selectedTeamStatus"') &&
+  uiSource.includes("function renderSelectedTeamStatus()") &&
+  uiSource.includes('"selected-team-status-badge " + spec.className')
+);
 
 const methodology = json("data/methodology/v1.2.json");
 pass("v1.2 methodology schema", methodology.schema_version === 1);

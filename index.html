@@ -289,18 +289,18 @@
     .team-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:10px;
-      margin-bottom:18px;
+      gap:8px;
+      margin-bottom:14px;
     }
     .team-card{
       margin:0;
-      min-height:68px;
+      min-height:58px;
       text-align:left;
       border:1px solid var(--line);
       background:#0e1528;
       color:var(--text);
       border-radius:13px;
-      padding:12px 14px;
+      padding:11px 14px;
       cursor:pointer;
       font:inherit;
       transition:border-color .15s ease,transform .15s ease,background .15s ease;
@@ -312,25 +312,38 @@
     }
     .team-card strong{display:block;font-size:.94rem;line-height:1.25}
     .team-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
-    .team-readiness{
-      display:flex!important;
+    .selected-team-status{
+      margin:0 0 14px;
+      border:1px solid var(--line);
+      border-radius:13px;
+      background:rgba(14,21,40,.72);
+      padding:12px 14px;
+    }
+    .selected-team-status[hidden]{display:none}
+    .selected-team-status strong{
+      display:block;
+      font-size:.92rem;
+      line-height:1.2;
+      margin-bottom:8px;
+    }
+    .selected-team-status-badges{
+      display:flex;
       flex-wrap:wrap;
       gap:5px;
-      margin-top:8px!important;
     }
-    .team-readiness-badge{
-      display:inline-block!important;
+    .selected-team-status-badge{
+      display:inline-block;
       width:auto;
-      margin:0!important;
+      margin:0;
       padding:4px 6px;
       border:1px solid var(--line);
       border-radius:999px;
-      font-size:.62rem!important;
+      font-size:.62rem;
       line-height:1.15;
     }
-    .team-readiness-badge.ready{color:var(--accent)}
-    .team-readiness-badge.warn{color:#ffd18a}
-    .team-readiness-badge.muted{color:var(--muted)}
+    .selected-team-status-badge.ready{color:var(--accent)}
+    .selected-team-status-badge.warn{color:#ffd18a}
+    .selected-team-status-badge.muted{color:var(--muted)}
     .comparison-wrap{overflow-x:auto;margin-top:12px}
     .comparison-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.78rem}
     .comparison-table caption{text-align:left;color:var(--muted);padding:0 0 10px}
@@ -824,6 +837,19 @@
       </details>
 
       <div class="player-browser">
+        <div
+          id="selectedTeamStatus"
+          class="selected-team-status"
+          aria-live="polite"
+          hidden
+        >
+          <strong id="selectedTeamStatusName">Selected team</strong>
+          <div
+            id="selectedTeamStatusBadges"
+            class="selected-team-status-badges"
+            aria-label="Selected team data readiness"
+          ></div>
+        </div>
         <div class="section-title">4 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
       </div>
@@ -1161,6 +1187,9 @@
     const searchStatus = document.getElementById("searchStatus");
     const teamGrid = document.getElementById("teamGrid");
     const teamComparisonBody = document.getElementById("teamComparisonBody");
+    const selectedTeamStatus = document.getElementById("selectedTeamStatus");
+    const selectedTeamStatusName = document.getElementById("selectedTeamStatusName");
+    const selectedTeamStatusBadges = document.getElementById("selectedTeamStatusBadges");
     const playerGrid = document.getElementById("playerGrid");
     const playerPanel = document.getElementById("playerPanel");
     const playerName = document.getElementById("playerName");
@@ -2137,6 +2166,9 @@
       team.replaceChildren();
       teamGrid.replaceChildren();
       teamComparisonBody.replaceChildren();
+      selectedTeamStatus.hidden = true;
+      selectedTeamStatusName.textContent = "Selected team";
+      selectedTeamStatusBadges.replaceChildren();
       playerGrid.replaceChildren();
       resultEvLabel.textContent = "Team EV";
       resultEvSummary.textContent = "Loading…";
@@ -2509,6 +2541,7 @@
             : "Unavailable";
 
         renderTeams();
+        renderSelectedTeamStatus();
         renderTeamComparison();
         renderPlayers();
         updatePlayerDetail();
@@ -3308,6 +3341,59 @@
       }
     }
 
+    function renderSelectedTeamStatus() {
+      selectedTeamStatusBadges.replaceChildren();
+
+      const readiness = selectedTeamReadiness();
+      if (!team.value || !readiness) {
+        selectedTeamStatus.hidden = true;
+        selectedTeamStatusName.textContent = "Selected team";
+        return;
+      }
+
+      const labels = BreakMetricTeamReadiness.labels(readiness);
+      const badgeSpecs = [
+        {
+          text: labels.probability,
+          className: readiness.probability.ready ? "ready" : "warn"
+        },
+        {
+          text: labels.ev,
+          className:
+            readiness.ev.status === "complete"
+              ? "ready"
+              : readiness.ev.status === "partial"
+                ? "warn"
+                : "muted"
+        },
+        {
+          text: labels.market,
+          className:
+            readiness.market.status === "original-verified"
+              ? "ready"
+              : readiness.market.audited
+                ? "warn"
+                : "muted"
+        },
+        {
+          text: labels.roi,
+          className: readiness.roi.eligible ? "ready" : "muted"
+        }
+      ];
+
+      selectedTeamStatusName.textContent = team.value;
+
+      for (const spec of badgeSpecs) {
+        const badge = document.createElement("span");
+        badge.className =
+          "selected-team-status-badge " + spec.className;
+        badge.textContent = spec.text;
+        selectedTeamStatusBadges.appendChild(badge);
+      }
+
+      selectedTeamStatus.hidden = false;
+    }
+
     function renderTeams() {
       const matches = matchingTeams();
       teamGrid.replaceChildren();
@@ -3345,64 +3431,10 @@
           button.appendChild(meta);
         }
 
-        const readiness = teamReadinessData?.[item.name] || null;
-
-        if (readiness) {
-          const labels = BreakMetricTeamReadiness.labels(readiness);
-          const readinessWrap = document.createElement("span");
-          readinessWrap.className = "team-readiness";
-
-          const badgeSpecs = [
-            {
-              text: labels.probability,
-              className: readiness.probability.ready ? "ready" : "warn"
-            },
-            {
-              text: labels.ev,
-              className:
-                readiness.ev.status === "complete"
-                  ? "ready"
-                  : readiness.ev.status === "partial"
-                    ? "warn"
-                    : "muted"
-            },
-            {
-              text: labels.market,
-              className:
-                readiness.market.status === "original-verified"
-                  ? "ready"
-                  : readiness.market.audited
-                    ? "warn"
-                    : "muted"
-            },
-            {
-              text: labels.roi,
-              className: readiness.roi.eligible ? "ready" : "muted"
-            }
-          ];
-
-          for (const spec of badgeSpecs) {
-            const badge = document.createElement("span");
-            badge.className =
-              "team-readiness-badge " + spec.className;
-            badge.textContent = spec.text;
-            readinessWrap.appendChild(badge);
-          }
-
-          button.appendChild(readinessWrap);
-          button.setAttribute(
-            "aria-label",
-            item.name + ". " +
-            labels.probability + ". " +
-            labels.ev + ". " +
-            labels.market + ". " +
-            labels.roi + "."
-          );
-        }
-
         button.addEventListener("click", () => {
           if (team.value === item.name) {
             renderTeams();
+            renderSelectedTeamStatus();
             renderPlayers();
             return;
           }
@@ -4256,6 +4288,7 @@
       clearPlayerSelection();
       updateTeamEv();
       renderTeams();
+      renderSelectedTeamStatus();
       renderTeamComparison();
       renderPlayers();
       updateAutographChance();
