@@ -63,7 +63,8 @@ const bundle={
   evScope:loadRoute("ev_scope_data"),
   evWorkQueue:loadRoute("ev_work_queue_data"),
   evContributionProvenance:loadRoute("ev_contribution_provenance_data"),
-  marketVerificationQueue:loadRoute("market_verification_queue_data")
+  marketVerificationQueue:loadRoute("market_verification_queue_data"),
+  marketVerificationScope:loadRoute("market_verification_scope_data")
 };
 
 const report=contracts.validateAnalysisBundle(bundle,{
