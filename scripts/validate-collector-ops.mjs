@@ -41,8 +41,40 @@ ok(baseline.facts?.fast_lane_live===false,"baseline must record fast lane as non
 ok(baseline.facts?.bulk_lane_live===false,"baseline must record bulk lane as non-live");
 ok(state.licensing?.public_repository===true,"collector state must record public repository context");
 ok(state.licensing?.public_sharing_required===true,"collector state must require public sharing approval");
-ok(state.licensing?.public_sharing_approved===false,"baseline must remain blocked pending commercial sharing approval");
-ok(acceptance.checks?.commercial_sharing_approved===false,"baseline acceptance must include commercial sharing blocker");
+ok(
+  typeof state.licensing?.public_sharing_approved==="boolean",
+  "collector state commercial-sharing approval must be boolean"
+);
+ok(
+  state.licensing?.status===
+    (state.licensing?.public_sharing_approved
+      ?"approved"
+      :"blocked-pending-approval"),
+  "collector licensing status does not match approval state"
+);
+ok(
+  baseline.facts?.commercial_sharing_approval===false,
+  "historical Phase-1 baseline must record missing commercial sharing approval"
+);
+ok(
+  acceptance.checks?.commercial_sharing_approved===
+    (
+      config.acceptance?.require_public_sharing_approval!==true ||
+      state.licensing?.public_sharing_approved===true
+    ),
+  "acceptance commercial-sharing check does not match current licensing state"
+);
+if(acceptance.status==="passed"){
+  ok(
+    state.licensing?.public_sharing_approved===true,
+    "passed collector acceptance requires commercial sharing approval"
+  );
+  ok(soak.status==="passed","passed collector acceptance requires a passed soak");
+  ok(
+    acceptance.contract_id==="continuous-market-collection-v1",
+    "passed collector acceptance contract id mismatch"
+  );
+}
 ok(Number(coverage.eligible_slot_count)===8896,"coverage denominator mismatch");
 ok(
   Number(coverage.canonical_valued_slot_count)===
