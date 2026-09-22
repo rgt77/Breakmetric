@@ -48,7 +48,11 @@ node scripts/validate-chelsea-ev-completion-queue.mjs
 node scripts/validate-ev-valuation-research.mjs
 node scripts/generate-v13-pipeline.mjs --check
 node scripts/validate-market-automation-config.mjs
+node scripts/validate-collector-ops.mjs
 node scripts/test-continuous-market-collector.mjs
+node scripts/test-collector-autonomy.mjs
+node scripts/test-collector-end-to-end.mjs
+node scripts/check-collector-health.mjs
 node scripts/generate-automated-valuation-candidates.mjs --output /tmp/automated-valuation-candidates.json
 node scripts/generate-data-version.mjs --check
 node scripts/validate-market-records.mjs
@@ -70,7 +74,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 850 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 875 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -96,7 +100,7 @@ Steps 839–850 replace the one-manual-step-per-card approach with a reusable ma
 
 Two scheduled lanes are installed:
 
-- **Fast lane:** GitHub Actions runs every 15 minutes and rotates through a breadth-aware batch of unvalued slots. Player rotation is applied before depth so one subject cannot monopolize collection.
+- **Fast lane:** GitHub Actions runs every 15 minutes and advances a persistent cursor through a deterministic team-then-subject round-robin queue. Queue position survives restarts/missed schedules, and team/player caps prevent concentration.
 - **Bulk lane:** a daily SportsCardsPro CSV import can refresh the full release in one pass when a subscriber-specific Download Price List URL is configured.
 
 The official SportsCardsPro API is rate-limited to one request per second, so the fast lane enforces a minimum 1100 ms request interval. The provider also recommends CSV downloads for large datasets and states that those files are refreshed once per day. Live collection therefore uses the API for frequent priority sampling and CSV for broad daily coverage.
@@ -110,7 +114,13 @@ Missing credentials do not fabricate values or mutate canonical EV. The schedule
 
 Collected current-price observations are stored separately from realized-sale market records. Automated valuation candidates use the following hierarchy: **A** exact realized sales, **B** exact provider current price, **C** same-subject/same-category model, **D** team/product category model, **E** unknown. B/C/D values remain candidate/model data and do not silently enter canonical EV or original-marketplace verification.
 
-The scheduled collectors only commit when observations actually change. Unchanged provider responses are idempotent and do not generate repository churn.
+Steps 860–875 harden this into the Phase-1 autonomous collector. Live runs persist a bounded operational journal, cumulative metrics, coverage, exception state, price-change history, quarantine state and soak/acceptance progress under `ops/collector/`. These operational files are deliberately outside runtime `data/`, so collector telemetry does not invalidate browser runtime-data fingerprints. Repeated blocked-config runs remain idempotent; live runs persist their operational checkpoint even when prices themselves are unchanged.
+
+The collector retries transient provider/network failures with deterministic exponential backoff. Suspicious price ranges or extreme price changes are quarantined instead of silently entering provider observations. A separate hourly watchdog detects a previously configured fast lane that has gone stale.
+
+Operational status is available at `/collector-status.html` (noindex, not linked from the customer flow). The first successful live fast-lane run starts an automatic 24-hour soak test. Phase 1 is accepted only after the machine-readable criteria in `ops/collector/acceptance-v1.json` pass, at which point the contract becomes `continuous-market-collection-v1`.
+
+**Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Adding the fast-lane repository secret automatically starts live collection and the soak clock; no manual Phase-1 start step is required.
 
 
 ## Source-module inventory

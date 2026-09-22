@@ -25,10 +25,15 @@ jobs:
         with:
           node-version: "24"
       - name: Validate automation contract
-        run: node scripts/validate-market-automation-config.mjs
+        run: |
+          node scripts/validate-market-automation-config.mjs
+          node scripts/validate-collector-ops.mjs
+      - name: Test collector autonomy
+        run: node scripts/test-collector-autonomy.mjs
       - name: Import provider CSV
         env:
           SPORTSCARDSPRO_CSV_URL: ${{ secrets.SPORTSCARDSPRO_CSV_URL }}
+          SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED: ${{ secrets.SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED }}
         run: node scripts/import-sportscardspro-csv.mjs
       - name: Generate automated valuation candidates
         run: node scripts/generate-automated-valuation-candidates.mjs
@@ -51,6 +56,10 @@ jobs:
           fi
           git config user.name "BreakMetric Market Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add             data/collection/2026-topps-chrome-premier-league-market-observations-v1.json             data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json             data/validation/runtime-data-version-v1.json
-          git commit -m "[market-data] daily provider bulk sync"
+          git add \
+            data/collection/2026-topps-chrome-premier-league-market-observations-v1.json \
+            data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json \
+            data/validation/runtime-data-version-v1.json \
+            ops/collector
+          git commit -m "[market-data] daily provider bulk sync [skip ci]"
           git push origin HEAD:main

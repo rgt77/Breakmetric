@@ -147,6 +147,86 @@ export function breadthAwareOrder(tasks=[]){
   return result;
 }
 
+export function fairCollectionOrder(tasks=[]){
+  const teams=new Map();
+  for(const task of tasks){
+    const team=String(task.team||"Unknown");
+    if(!teams.has(team)) teams.set(team,[]);
+    teams.get(team).push(task);
+  }
+
+  const orderedByTeam=new Map(
+    [...teams.entries()].map(([team,rows])=>[
+      team,
+      breadthAwareOrder(rows)
+    ])
+  );
+  const teamNames=[...orderedByTeam.keys()].sort((a,b)=>a.localeCompare(b));
+  const result=[];
+  let remaining=true;
+  let round=0;
+  while(remaining){
+    remaining=false;
+    for(const team of teamNames){
+      const rows=orderedByTeam.get(team);
+      if(round<rows.length){
+        result.push(rows[round]);
+        remaining=true;
+      }
+    }
+    round++;
+  }
+  return result;
+}
+
+export function selectCursorBatch(tasks=[],{
+  cursor=0,
+  batchSize=20,
+  maxTasksPerSubject=2,
+  maxTasksPerTeam=2
+}={}){
+  const ordered=fairCollectionOrder(tasks);
+  if(!ordered.length){
+    return {batch:[],cursor:0,next_cursor:0,queue_size:0,wrapped:false};
+  }
+
+  const size=Math.max(1,Number(batchSize)||20);
+  const start=((Number(cursor)||0)%ordered.length+ordered.length)%ordered.length;
+  const subjectCounts=new Map();
+  const teamCounts=new Map();
+  const batch=[];
+  let scanned=0;
+
+  while(batch.length<size&&scanned<ordered.length){
+    const index=(start+scanned)%ordered.length;
+    const task=ordered[index];
+    const subject=String(task.subjects?.[0]||"Unknown");
+    const team=String(task.team||"Unknown");
+    const subjectCount=subjectCounts.get(subject)||0;
+    const teamCount=teamCounts.get(team)||0;
+
+    if(
+      subjectCount<Math.max(1,Number(maxTasksPerSubject)||2) &&
+      teamCount<Math.max(1,Number(maxTasksPerTeam)||2)
+    ){
+      batch.push(task);
+      subjectCounts.set(subject,subjectCount+1);
+      teamCounts.set(team,teamCount+1);
+    }
+    scanned++;
+  }
+
+  const nextCursor=(start+scanned)%ordered.length;
+  return {
+    batch,
+    cursor:start,
+    next_cursor:nextCursor,
+    queue_size:ordered.length,
+    scanned_count:scanned,
+    wrapped:start+scanned>=ordered.length
+  };
+}
+
 export function selectRotatingBatch(tasks=[],{
   nowMs=Date.now(),
   cadenceMinutes=15,
@@ -164,6 +244,27 @@ export function selectRotatingBatch(tasks=[],{
     shard_index:shardIndex,
     shard_count:shardCount
   };
+}
+
+export function extractProviderCardNumber(productName=""){
+  const text=String(productName||"");
+  const hash=[...text.matchAll(/#([A-Za-z0-9-]+)/g)];
+  if(hash.length) return normalizeText(hash[hash.length-1][1]);
+  const trailing=text.match(/(?:^|\s)([A-Za-z]{1,5}-?[A-Za-z0-9-]*\d+[A-Za-z0-9-]*)\s*$/);
+  return trailing?normalizeText(trailing[1]):null;
+}
+
+export function indexProviderRowsByCardNumber(rows=[]){
+  const map=new Map();
+  for(const row of rows){
+    const cardNumber=extractProviderCardNumber(
+      row["product-name"]||row.product_name||""
+    );
+    if(!cardNumber) continue;
+    if(!map.has(cardNumber)) map.set(cardNumber,[]);
+    map.get(cardNumber).push(row);
+  }
+  return map;
 }
 
 export function apiPriceUsd(product={}){

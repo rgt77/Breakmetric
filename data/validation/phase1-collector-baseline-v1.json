@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "model": "collector-phase1-baseline-v1",
+  "audited_at": "2026-09-22T12:04:52Z",
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "source_runs": {
+    "fast_lane": {
+      "run_id": 35725003210,
+      "observed_at": "2026-09-22T12:04:51Z",
+      "result": "disabled-missing-credential"
+    },
+    "bulk_lane": {
+      "run_id": 35705708010,
+      "observed_at": "2026-09-22T08:36:24Z",
+      "result": "disabled-missing-csv-url"
+    }
+  },
+  "facts": {
+    "eligible_slot_count": 8896,
+    "canonical_valued_slot_count": 33,
+    "provider_observation_count": 0,
+    "fast_lane_schedule_minutes": 15,
+    "bulk_lane_schedule_hours": 24,
+    "fast_lane_live": false,
+    "bulk_lane_live": false,
+    "fast_lane_blocker": "SPORTSCARDSPRO_TOKEN is empty in the workflow runtime.",
+    "bulk_lane_blocker": "SPORTSCARDSPRO_CSV_URL is empty in the workflow runtime.",
+    "commercial_sharing_approval": false,
+    "commercial_sharing_blocker": "SportsCardsPro documentation requires commercial permission before provider price data is shared through a public application."
+  },
+  "conclusion": "Automation code and schedules are active, but no live provider data is currently collected. Green workflow status alone is therefore not a collector-health signal."
+}

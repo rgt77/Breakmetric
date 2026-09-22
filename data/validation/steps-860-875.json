@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-22",
+  "step_start": 860,
+  "step_end": 875,
+  "title": "Phase 1 — autonomous continuous market collection",
+  "implementation_status": "implemented",
+  "operational_acceptance_status": "pending-live-provider",
+  "current_blockers": [
+    "SPORTSCARDSPRO_TOKEN is absent in the fast-lane workflow runtime.",
+    "SPORTSCARDSPRO_CSV_URL is absent in the bulk-lane workflow runtime; bulk is optional for v1 acceptance."
+  ],
+  "steps": [
+    {
+      "step": 860,
+      "title": "Audit collector baseline",
+      "status": "implemented",
+      "evidence": "data/validation/phase1-collector-baseline-v1.json"
+    },
+    {
+      "step": 861,
+      "title": "Make provider/credential state explicit",
+      "status": "implemented",
+      "evidence": "ops/collector/state-v1.json"
+    },
+    {
+      "step": 862,
+      "title": "Add end-to-end collection verification",
+      "status": "implemented",
+      "evidence": "scripts/test-collector-end-to-end.mjs",
+      "operational_note": "Live provider verification starts automatically when SPORTSCARDSPRO_TOKEN is configured."
+    },
+    {
+      "step": 863,
+      "title": "Persist bounded collector run journal",
+      "status": "implemented",
+      "evidence": "ops/collector/runs-v1.json"
+    },
+    {
+      "step": 864,
+      "title": "Persist cumulative collector metrics",
+      "status": "implemented",
+      "evidence": "ops/collector/metrics-v1.json"
+    },
+    {
+      "step": 865,
+      "title": "Measure release-wide collection coverage",
+      "status": "implemented",
+      "evidence": "ops/collector/coverage-v1.json"
+    },
+    {
+      "step": 866,
+      "title": "Persist queue cursor across runs",
+      "status": "implemented",
+      "evidence": "scripts/lib/market-automation.mjs"
+    },
+    {
+      "step": 867,
+      "title": "Enforce team/player breadth fairness",
+      "status": "implemented",
+      "evidence": "scripts/lib/market-automation.mjs"
+    },
+    {
+      "step": 868,
+      "title": "Add retry/backoff and concurrency-safe failure behavior",
+      "status": "implemented",
+      "evidence": "scripts/lib/collector-telemetry.mjs"
+    },
+    {
+      "step": 869,
+      "title": "Add exception/dead-letter queue",
+      "status": "implemented",
+      "evidence": "ops/collector/exceptions-v1.json"
+    },
+    {
+      "step": 870,
+      "title": "Retain provider price-change history",
+      "status": "implemented",
+      "evidence": "ops/collector/price-history-v1.json"
+    },
+    {
+      "step": 871,
+      "title": "Quarantine suspicious provider observations",
+      "status": "implemented",
+      "evidence": "ops/collector/quarantine-v1.json"
+    },
+    {
+      "step": 872,
+      "title": "Compute health and add hourly watchdog",
+      "status": "implemented",
+      "evidence": ".github/workflows/collector-health-watchdog.yml"
+    },
+    {
+      "step": 873,
+      "title": "Add operational collector monitor",
+      "status": "implemented",
+      "evidence": "collector-status.html"
+    },
+    {
+      "step": 874,
+      "title": "Automate 24-hour soak test",
+      "status": "implemented-waiting-to-run-live",
+      "evidence": "ops/collector/soak-v1.json"
+    },
+    {
+      "step": 875,
+      "title": "Automate Phase-1 acceptance contract",
+      "status": "implemented-pending-live-acceptance",
+      "evidence": "ops/collector/acceptance-v1.json"
+    }
+  ],
+  "acceptance_contract": {
+    "contract_id_on_pass": "continuous-market-collection-v1",
+    "soak_hours": 24,
+    "min_successful_live_fast_runs": 72,
+    "min_distinct_tasks_checked": 500,
+    "min_exact_provider_matches": 1,
+    "max_provider_error_rate": 0.15,
+    "canonical_ev_must_remain_unchanged": true,
+    "bulk_lane_required": false
+  },
+  "safety_guarantees": [
+    "Operational telemetry is stored outside data/ and therefore does not participate in runtime-data fingerprints.",
+    "Provider current prices remain separate from realized-sale canonical EV.",
+    "Modeled values cannot auto-promote into canonical EV.",
+    "Cross-series identity remains fail-closed.",
+    "Extreme price movements are quarantined instead of silently entering observations.",
+    "Missing credentials are represented as stalled/blocked configuration, not as healthy collection.",
+    "A concurrent main update causes the market bot push to fail safely; it does not rebase a stale generated fingerprint."
+  ]
+}

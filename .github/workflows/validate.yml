@@ -39,9 +39,16 @@ jobs:
       - name: Reproduce browser Hobby runtime contract
         run: node scripts/diagnose-runtime-contract.mjs
       - name: Validate market automation contract
-        run: node scripts/validate-market-automation-config.mjs
+        run: |
+          node scripts/validate-market-automation-config.mjs
+          node scripts/validate-collector-ops.mjs
       - name: Test continuous market collector
-        run: node scripts/test-continuous-market-collector.mjs
+        run: |
+          node scripts/test-continuous-market-collector.mjs
+          node scripts/test-collector-autonomy.mjs
+          node scripts/test-collector-end-to-end.mjs
+      - name: Check collector health model
+        run: node scripts/check-collector-health.mjs
       - name: Smoke-generate full-release valuation candidates
         shell: bash
         run: |
@@ -55,8 +62,13 @@ jobs:
           node --check scripts/collect-market-data.mjs
           node --check scripts/import-sportscardspro-csv.mjs
           node --check scripts/generate-automated-valuation-candidates.mjs
+          node --check scripts/check-collector-health.mjs
+          node --check scripts/validate-collector-ops.mjs
+          node --check scripts/test-collector-autonomy.mjs
+          node --check scripts/test-collector-end-to-end.mjs
           node --check scripts/lib/market-automation.mjs
           node --check scripts/lib/ev-slot-inventory.mjs
+          node --check scripts/lib/collector-telemetry.mjs
       - name: Check runtime data fingerprint
         run: node scripts/generate-data-version.mjs --check
       - name: Validate market records

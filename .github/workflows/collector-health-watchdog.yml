@@ -1,0 +1,26 @@
+name: Collector health watchdog
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - name: Validate collector operational contract
+        run: node scripts/validate-collector-ops.mjs
+      - name: Check collector freshness
+        run: node scripts/check-collector-health.mjs --strict

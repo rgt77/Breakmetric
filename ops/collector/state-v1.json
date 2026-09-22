@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "model": "collector-state-v1",
+  "product_id": "2026-topps-chrome-premier-league",
+  "format_id": "hobby",
+  "updated_at": "2026-09-22T12:04:52Z",
+  "fast_lane_cursor": 0,
+  "lane_status": {
+    "fast": {
+      "status": "blocked-config",
+      "credential_present": false,
+      "last_attempt_at": "2026-09-22T12:04:51Z",
+      "last_live_success_at": null,
+      "last_data_change_at": null
+    },
+    "bulk": {
+      "status": "blocked-config",
+      "credential_present": false,
+      "last_attempt_at": "2026-09-22T08:36:24Z",
+      "last_live_success_at": null,
+      "last_data_change_at": null
+    }
+  },
+  "health": {
+    "status": "stalled",
+    "reason": "no-live-provider-credentials",
+    "evaluated_at": "2026-09-22T12:04:52Z"
+  },
+  "last_live_observation_at": null,
+  "last_data_change_at": null,
+  "latest_run": null,
+  "licensing": {
+    "public_repository": true,
+    "public_sharing_required": true,
+    "public_sharing_approved": false,
+    "status": "blocked-pending-approval"
+  }
+}
