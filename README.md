@@ -84,6 +84,12 @@ Each task combines published-odds expected copies per case with a dynamically re
 Steps 827–838 researched the first twelve Chelsea completion tasks. Six produced exact-identity provisional raw-sale valuations and six remained unvalued because no exact realized-sale sample was available. Step 838 begins the broader-player pass with Liam Delap #62 Refractor. Chelsea therefore advances to **33 / 638 valued slots (5.1724%)**, with partial EV **$53.1077 per Hobby case**. The legacy v1 market-verification population remains frozen at 27 contributions / 72 supporting sales; Phase-2 records do not silently expand that audit.
 
 
+## Hobby runtime contract
+
+Steps 854–856 add the browser's exact `validateAnalysisBundle` path to CI. This exposed and fixed a mismatch between current EV coverage and the intentionally frozen v1 market-verification population. The runtime now loads `market-verification-scope-v1.json` explicitly and requires the v1 verification queue to match that frozen 27-contribution scope exactly, while still confirming that every frozen item remains present in current EV data.
+
+`runtimeContracts.js` is versioned as v2 in the HTML so existing mobile/browser caches cannot retain the pre-fix validator.
+
 ## Continuous market collection
 
 Steps 839–850 replace the one-manual-step-per-card approach with a reusable market-data pipeline. The collector expands the complete EV-eligible release inventory directly from normalized checklists, odds and committed provenance, so collection is no longer limited to Chelsea or to a hand-maintained research queue.
