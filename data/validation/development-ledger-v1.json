@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 856,
+  "canonical_step_end": 857,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -441,6 +441,15 @@
       "title": "Reproduce and repair Hobby runtime contract against frozen market-verification scope",
       "source_kind": "block-summary",
       "source": "data/validation/steps-854-856.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 857,
+      "end": 857,
+      "id": "team-card-player-count-removal",
+      "title": "Remove player-count clutter from team selection cards",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-857.json",
       "coverage_quality": "exact-manifest"
     }
   ],
