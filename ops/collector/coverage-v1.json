@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "model": "collector-coverage-v1",
+  "product_id": "2026-topps-chrome-premier-league",
+  "updated_at": "2026-09-22T12:04:52Z",
+  "eligible_slot_count": 8896,
+  "canonical_valued_slot_count": 33,
+  "unvalued_slot_count": 8863,
+  "unique_tasks_checked": 0,
+  "never_checked": 8863,
+  "exact_provider_price_count": 0,
+  "exact_match_no_price_count": 0,
+  "no_exact_match_count": 0,
+  "ambiguous_match_count": 0,
+  "provider_error_only_count": 0,
+  "quarantined_count": 0,
+  "checked_percent": 0,
+  "exact_provider_price_percent": 0,
+  "by_team": {},
+  "by_category": {}
+}
