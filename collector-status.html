@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BreakMetric Collector Monitor</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07101f;--panel:#0e1728;--line:#25324a;--text:#edf3ff;--muted:#94a3bd;--ok:#65e6b4;--warn:#ffd18a;--bad:#ff8c8c}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,sans-serif}
+    main{max-width:980px;margin:auto;padding:28px 18px 60px}
+    h1{font-size:1.35rem;margin:0 0 6px} h2{font-size:.9rem;margin:0 0 12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    p{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:16px 0 24px}
+    .card{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:14px}
+    .label{display:block;color:var(--muted);font-size:.72rem;margin-bottom:5px}
+    .value{font-size:1.05rem;font-weight:750}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .bar{height:8px;background:#18243a;border-radius:999px;overflow:hidden;margin-top:9px}.bar>span{display:block;height:100%;background:var(--ok)}
+    table{width:100%;border-collapse:collapse;font-size:.83rem}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted)}
+    code{font-size:.78rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+<main>
+  <h1>BreakMetric Collector Monitor</h1>
+  <p>Operational view only. No provider credentials or private URLs are exposed here.</p>
+  <div id="health" class="grid"></div>
+  <h2>Coverage</h2>
+  <div id="coverage" class="grid"></div>
+  <h2>24-hour autonomy gate</h2>
+  <div id="soak" class="grid"></div>
+  <h2>Recent runs</h2>
+  <div class="card"><table><thead><tr><th>Time</th><th>Lane</th><th>Status</th><th>Checked</th><th>Exact</th><th>Errors</th></tr></thead><tbody id="runs"></tbody></table></div>
+</main>
+<script>
+const paths={
+  state:"ops/collector/state-v1.json",
+  coverage:"ops/collector/coverage-v1.json",
+  soak:"ops/collector/soak-v1.json",
+  acceptance:"ops/collector/acceptance-v1.json",
+  runs:"ops/collector/runs-v1.json",
+  exceptions:"ops/collector/exceptions-v1.json"
+};
+const esc=v=>String(v??"—").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+const card=(label,value,cls="")=>'<div class="card"><span class="label">'+esc(label)+'</span><div class="value '+cls+'">'+esc(value)+'</div></div>';
+const ago=value=>{
+  const ms=Date.now()-Date.parse(value||"");
+  if(!Number.isFinite(ms)) return "Never";
+  const m=Math.round(ms/60000);
+  if(m<60) return m+"m ago";
+  return (m/60).toFixed(1)+"h ago";
+};
+(async()=>{
+  const data={};
+  for(const [key,url] of Object.entries(paths)){
+    const res=await fetch(url+"?t="+Date.now(),{cache:"no-store"});
+    if(!res.ok) throw new Error(url+" "+res.status);
+    data[key]=await res.json();
+  }
+  const fast=data.state.lane_status?.fast||{};
+  const bulk=data.state.lane_status?.bulk||{};
+  const fastAge=Date.now()-Date.parse(fast.last_live_success_at||"");
+  const computedHealth=
+    fast.credential_present!==true
+      ? {status:"stalled",reason:"fast lane not configured"}
+      : !Number.isFinite(fastAge)||fastAge>45*60000
+        ? {status:"stalled",reason:"fast lane stale"}
+        : data.state.health||{status:"healthy",reason:"current"};
+  const healthClass=computedHealth.status==="healthy"?"ok":computedHealth.status==="degraded"?"warn":"bad";
+  document.querySelector("#health").innerHTML=[
+    card("Collector",computedHealth.status.toUpperCase(),healthClass),
+    card("Reason",computedHealth.reason),
+    card("Fast lane",fast.credential_present?"Configured":"Blocked · missing token",fast.credential_present?"ok":"bad"),
+    card("Last fast live run",ago(fast.last_live_success_at)),
+    card("Bulk lane",bulk.credential_present?"Configured":"Optional · not configured",bulk.credential_present?"ok":"warn"),
+    card("Last data change",ago(data.state.last_data_change_at))
+  ].join("");
+
+  const c=data.coverage;
+  const openExceptions=Object.values(data.exceptions.entries||{}).filter(x=>x.status==="open").length;
+  document.querySelector("#coverage").innerHTML=[
+    card("Eligible slots",c.eligible_slot_count),
+    card("Canonical valued",c.canonical_valued_slot_count),
+    card("Unique checked",c.unique_tasks_checked+" · "+Number(c.checked_percent||0).toFixed(1)+"%"),
+    card("Exact provider prices",c.exact_provider_price_count),
+    card("Never checked",c.never_checked),
+    card("Open exceptions",openExceptions)
+  ].join("");
+
+  const s=data.soak,a=data.acceptance;
+  const pct=Math.min(100,Math.max(0,Number(s.elapsed_hours||0)/24*100));
+  document.querySelector("#soak").innerHTML=[
+    card("Soak",s.status),
+    card("Elapsed",Number(s.elapsed_hours||0).toFixed(1)+" / 24h"),
+    card("Successful fast runs",s.successful_live_fast_runs||0),
+    card("Distinct tasks",s.distinct_tasks_checked||0),
+    card("Provider errors",s.provider_errors||0),
+    card("Acceptance",a.status,a.status==="passed"?"ok":a.status==="running"?"warn":"bad"),
+    '<div class="card" style="grid-column:1/-1"><span class="label">Soak progress</span><div class="bar"><span style="width:'+pct+'%"></span></div><code>'+esc((s.blockers||[]).join(" · ")||"No blockers")+'</code></div>'
+  ].join("");
+
+  const tbody=document.querySelector("#runs");
+  for(const run of [...(data.runs.entries||[])].slice(-12).reverse()){
+    const tr=document.createElement("tr");
+    for(const value of [run.finished_at,run.lane,run.status,run.tasks_checked,run.exact_matches,run.provider_errors]){
+      const td=document.createElement("td");td.textContent=value??"—";tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+})().catch(error=>{
+  document.querySelector("#health").innerHTML=card("Monitor error",error.message,"bad");
+});
+</script>
+</body>
+</html>
