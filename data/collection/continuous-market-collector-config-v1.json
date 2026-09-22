@@ -22,7 +22,8 @@
     "provider": "sportscardspro-csv",
     "cadence_hours": 24,
     "csv_url_env": "SPORTSCARDSPRO_CSV_URL",
-    "credential_note": "Use the subscriber-specific Download Price List URL. The URL must be stored as a GitHub Actions secret."
+    "credential_note": "Use the subscriber-specific Download Price List URL. The URL must be stored as a GitHub Actions secret.",
+    "optional": true
   },
   "persistence": {
     "write_only_when_observation_changes": true,
