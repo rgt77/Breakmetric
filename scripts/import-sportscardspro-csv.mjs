@@ -229,6 +229,7 @@ if(changed>0){
   fs.writeFileSync(path.join(root,config.observation_file),stable(store));
 }
 
+const finishedAt=nowArg?nowIso:new Date().toISOString();
 const run={
   run_key:process.env.GITHUB_RUN_ID
     ?"github:"+process.env.GITHUB_RUN_ID+":"+String(process.env.GITHUB_RUN_ATTEMPT||"1")
@@ -236,7 +237,7 @@ const run={
   lane:"bulk",
   provider:config.bulk_lane?.provider||"sportscardspro-csv",
   started_at:nowIso,
-  finished_at:nowIso,
+  finished_at:finishedAt,
   status:"live-success",
   credential_present:true,
   source_row_count:rows.length,
@@ -256,9 +257,9 @@ const run={
   results
 };
 recordCollectorRun(ops,run,taskState.tasks||[],config);
-recomputeCoverage(ops,taskState,store,nowIso);
-recomputeHealth(ops,config,nowIso);
-evaluateSoakAndAcceptance(ops,config,nowIso,canonicalEvCount);
+recomputeCoverage(ops,taskState,store,finishedAt);
+recomputeHealth(ops,config,finishedAt);
+evaluateSoakAndAcceptance(ops,config,finishedAt,canonicalEvCount);
 const opsFilesChanged=persistCollectorOps(root,config,ops);
 
 console.log(JSON.stringify({
