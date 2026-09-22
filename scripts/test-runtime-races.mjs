@@ -73,6 +73,10 @@ assert(
 );
 
 const html=fs.readFileSync(path.join(root,"index.html"),"utf8");
+assert(
+  html.includes('src/runtimeContracts.js?v=2'),
+  "index does not force clients onto runtime contracts v2"
+);
 assert(html.includes("fxCoordinator.begin(\"conversion\", nextCurrency)"),"currency change is not coordinated");
 assert(html.includes("fxCoordinator.begin(\"initial\", initialCurrency)"),"initial FX load is not coordinated");
 assert(
@@ -99,6 +103,7 @@ console.log(JSON.stringify({
     "FX coordinator invalidation",
     "runtime dependency success",
     "runtime dependency missing-module detection",
-    "runtime fatal-load UI contract"
+    "runtime fatal-load UI contract",
+    "runtime contracts script cache-bust"
   ]
 },null,2));
