@@ -413,6 +413,11 @@ export function recomputeHealth(ops,config,at){
 
   if(fast.credential_present!==true){
     status="stalled"; reason="fast-lane-not-configured";
+  }else if(
+    ops.state.licensing?.public_sharing_required===true &&
+    ops.state.licensing?.public_sharing_approved!==true
+  ){
+    status="stalled"; reason="commercial-sharing-not-approved";
   }else if(!isoMs(fast.last_live_success_at)||now-isoMs(fast.last_live_success_at)>staleFast){
     status="stalled"; reason="fast-lane-stale";
   }else{
@@ -512,7 +517,10 @@ export function evaluateSoakAndAcceptance(ops,config,at,canonicalEvCount){
     error_rate:Number(ops.soak.provider_error_rate??1)<=Number(policy.max_provider_error_rate||0.15),
     canonical_ev_unchanged:
       !ops.soak.baseline ||
-      Number(canonicalEvCount)===Number(ops.soak.baseline.canonical_ev_contribution_count)
+      Number(canonicalEvCount)===Number(ops.soak.baseline.canonical_ev_contribution_count),
+    commercial_sharing_approved:
+      policy.require_public_sharing_approval!==true ||
+      ops.state.licensing?.public_sharing_approved===true
   };
   const required=Object.values(checks);
   const passed=required.every(Boolean);
