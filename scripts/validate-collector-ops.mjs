@@ -39,6 +39,10 @@ ok(soak.model==="collector-soak-v1","soak model mismatch");
 ok(acceptance.model==="continuous-market-collection-v1-acceptance","acceptance model mismatch");
 ok(baseline.facts?.fast_lane_live===false,"baseline must record fast lane as non-live");
 ok(baseline.facts?.bulk_lane_live===false,"baseline must record bulk lane as non-live");
+ok(state.licensing?.public_repository===true,"collector state must record public repository context");
+ok(state.licensing?.public_sharing_required===true,"collector state must require public sharing approval");
+ok(state.licensing?.public_sharing_approved===false,"baseline must remain blocked pending commercial sharing approval");
+ok(acceptance.checks?.commercial_sharing_approved===false,"baseline acceptance must include commercial sharing blocker");
 ok(Number(coverage.eligible_slot_count)===8896,"coverage denominator mismatch");
 ok(
   Number(coverage.canonical_valued_slot_count)===
