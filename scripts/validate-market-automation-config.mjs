@@ -27,6 +27,14 @@ ok(
 );
 ok(Number(config.fast_lane?.max_tasks_per_team_per_batch)>=1,"team fairness cap missing");
 ok(config.bulk_lane?.optional===true,"bulk lane optional flag missing");
+ok(config.licensing?.provider==="SportsCardsPro","provider licensing metadata missing");
+ok(config.licensing?.repository_visibility==="public","repository visibility licensing context mismatch");
+ok(config.licensing?.public_sharing_requires_approval===true,"public sharing approval gate disabled");
+ok(
+  config.licensing?.approval_env==="SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED",
+  "unexpected commercial sharing approval env"
+);
+ok(config.acceptance?.require_public_sharing_approval===true,"acceptance must require commercial sharing approval");
 ok(Number(config.retry?.max_attempts)>=2,"retry attempts missing");
 ok(Number(config.retry?.base_delay_ms)>=1,"retry base delay missing");
 ok(Number(config.retry?.max_delay_ms)>=Number(config.retry?.base_delay_ms||0),"retry max delay invalid");
