@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "model": "continuous-market-collection-v1-acceptance",
+  "product_id": "2026-topps-chrome-premier-league",
+  "status": "pending-live-provider",
+  "evaluated_at": "2026-09-22T12:04:52Z",
+  "contract_id": null,
+  "criteria": {
+    "soak_hours": 24,
+    "min_successful_live_fast_runs": 72,
+    "min_distinct_tasks_checked": 500,
+    "min_exact_provider_matches": 1,
+    "max_provider_error_rate": 0.15,
+    "require_fast_lane_live": true,
+    "bulk_lane_required": false,
+    "require_canonical_ev_unchanged": true
+  },
+  "checks": {
+    "live_fast_lane": false,
+    "soak_24h": false,
+    "min_live_runs": false,
+    "min_distinct_tasks": false,
+    "exact_provider_data": false,
+    "error_rate": false,
+    "canonical_ev_unchanged": true
+  },
+  "blockers": [
+    "SPORTSCARDSPRO_TOKEN is not configured, so a real 24-hour soak test cannot start yet."
+  ]
+}
