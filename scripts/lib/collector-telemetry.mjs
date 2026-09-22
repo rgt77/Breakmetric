@@ -448,52 +448,142 @@ export function evaluateSoakAndAcceptance(ops,config,at,canonicalEvCount){
   const fast=ops.state.lane_status?.fast||{};
   let soak=ops.soak||{};
 
-  if(fast.credential_present!==true||!fast.last_live_success_at){
+  if(ops.acceptance?.status==="passed"){
+    return ops.acceptance;
+  }
+
+  const sharingApproved=
+    policy.require_public_sharing_approval!==true ||
+    ops.state.licensing?.public_sharing_approved===true;
+  const livePrerequisites=
+    fast.credential_present===true &&
+    Boolean(fast.last_live_success_at) &&
+    sharingApproved;
+
+  const startSoak=(restartReason=null)=>{
+    const latest=ops.state.latest_run||{};
+    return {
+      schema_version:1,
+      model:"collector-soak-v1",
+      product_id:config.product_id,
+      status:"running",
+      started_at:fast.last_live_success_at,
+      last_evaluated_at:at,
+      restart_required:false,
+      restart_count:Number(soak.restart_count||0)+(restartReason?1:0),
+      restart_reason:restartReason,
+      baseline:{
+        fast_live_runs:Math.max(
+          0,
+          Number(metrics.by_lane?.fast?.live_runs||0)-
+          (latest.lane==="fast"&&String(latest.status||"").startsWith("live-")?1:0)
+        ),
+        tasks_checked:Math.max(
+          0,
+          Number(metrics.totals?.tasks_checked||0)-
+          (latest.lane==="fast"?Number(latest.tasks_checked||0):0)
+        ),
+        exact_matches:Math.max(
+          0,
+          Number(metrics.totals?.exact_matches||0)-
+          (latest.lane==="fast"?Number(latest.exact_matches||0):0)
+        ),
+        provider_errors:Math.max(
+          0,
+          Number(metrics.totals?.provider_errors||0)-
+          (latest.lane==="fast"?Number(latest.provider_errors||0):0)
+        ),
+        unique_tasks_checked:Math.max(
+          0,
+          Number(coverage.unique_tasks_checked||0)-
+          (latest.lane==="fast"?Number(latest.tasks_checked||0):0)
+        ),
+        canonical_ev_contribution_count:Number(canonicalEvCount||0)
+      }
+    };
+  };
+
+  if(!livePrerequisites){
+    const blocker=
+      !sharingApproved
+        ?"Commercial sharing approval is required before a live soak can run."
+        :"Fast lane has not completed a live provider run.";
     ops.soak={
       ...soak,
       status:"waiting-for-live-provider",
       last_evaluated_at:at,
-      blockers:["Fast lane has not completed a live provider run."]
+      restart_required:Boolean(soak.started_at),
+      blockers:[blocker]
     };
   }else{
-    if(!soak.started_at){
-      soak={
-        schema_version:1,
-        model:"collector-soak-v1",
-        product_id:config.product_id,
-        status:"running",
-        started_at:fast.last_live_success_at,
-        last_evaluated_at:at,
-        baseline:{
-          fast_live_runs:Number(metrics.by_lane?.fast?.live_runs||0)-1,
-          tasks_checked:Number(metrics.totals?.tasks_checked||0)-Number(ops.state.latest_run?.tasks_checked||0),
-          exact_matches:Number(metrics.totals?.exact_matches||0)-Number(ops.state.latest_run?.exact_matches||0),
-          provider_errors:Number(metrics.totals?.provider_errors||0)-Number(ops.state.latest_run?.provider_errors||0),
-          unique_tasks_checked:Math.max(0,Number(coverage.unique_tasks_checked||0)-Number(ops.state.latest_run?.tasks_checked||0)),
-          canonical_ev_contribution_count:Number(canonicalEvCount||0)
-        }
-      };
+    const canonicalChanged=
+      soak.baseline &&
+      Number(canonicalEvCount)!==
+        Number(soak.baseline.canonical_ev_contribution_count);
+
+    if(!soak.started_at||soak.restart_required===true||canonicalChanged){
+      soak=startSoak(
+        canonicalChanged
+          ?"canonical-ev-changed"
+          : soak.restart_required===true
+            ?"provider-prerequisite-interrupted"
+            : null
+      );
     }
+
     const start=isoMs(soak.started_at);
     const elapsed=start?Math.max(0,(isoMs(at)-start)/3_600_000):0;
-    const liveRuns=Math.max(0,Number(metrics.by_lane?.fast?.live_runs||0)-Number(soak.baseline?.fast_live_runs||0));
-    const exact=Math.max(0,Number(metrics.totals?.exact_matches||0)-Number(soak.baseline?.exact_matches||0));
-    const errors=Math.max(0,Number(metrics.totals?.provider_errors||0)-Number(soak.baseline?.provider_errors||0));
-    const checked=Math.max(0,Number(metrics.totals?.tasks_checked||0)-Number(soak.baseline?.tasks_checked||0));
-    const distinct=Math.max(0,Number(coverage.unique_tasks_checked||0)-Number(soak.baseline?.unique_tasks_checked||0));
+    const liveRuns=Math.max(
+      0,
+      Number(metrics.by_lane?.fast?.live_runs||0)-
+      Number(soak.baseline?.fast_live_runs||0)
+    );
+    const exact=Math.max(
+      0,
+      Number(metrics.totals?.exact_matches||0)-
+      Number(soak.baseline?.exact_matches||0)
+    );
+    const errors=Math.max(
+      0,
+      Number(metrics.totals?.provider_errors||0)-
+      Number(soak.baseline?.provider_errors||0)
+    );
+    const checked=Math.max(
+      0,
+      Number(metrics.totals?.tasks_checked||0)-
+      Number(soak.baseline?.tasks_checked||0)
+    );
+    const distinct=Math.max(
+      0,
+      Number(coverage.unique_tasks_checked||0)-
+      Number(soak.baseline?.unique_tasks_checked||0)
+    );
     const errorRate=checked?errors/checked:0;
     const blockers=[];
-    if(elapsed<Number(policy.soak_hours||24)) blockers.push("24-hour soak window not complete.");
-    if(liveRuns<Number(policy.min_successful_live_fast_runs||72)) blockers.push("Insufficient successful live fast-lane runs.");
-    if(distinct<Number(policy.min_distinct_tasks_checked||500)) blockers.push("Insufficient distinct tasks checked.");
-    if(exact<Number(policy.min_exact_provider_matches||1)) blockers.push("No exact provider price has been observed during the soak.");
-    if(errorRate>Number(policy.max_provider_error_rate||0.15)) blockers.push("Provider error rate exceeds acceptance threshold.");
-    if(Number(canonicalEvCount)!==Number(soak.baseline?.canonical_ev_contribution_count)){
-      blockers.push("Canonical EV contribution count changed during soak.");
+    if(elapsed<Number(policy.soak_hours||24)){
+      blockers.push("24-hour soak window not complete.");
     }
+    if(liveRuns<Number(policy.min_successful_live_fast_runs||72)){
+      blockers.push("Insufficient successful live fast-lane runs.");
+    }
+    if(distinct<Number(policy.min_distinct_tasks_checked||500)){
+      blockers.push("Insufficient distinct tasks checked.");
+    }
+    if(exact<Number(policy.min_exact_provider_matches||1)){
+      blockers.push("No exact provider price has been observed during the soak.");
+    }
+    if(errorRate>Number(policy.max_provider_error_rate||0.15)){
+      blockers.push("Provider error rate exceeds acceptance threshold.");
+    }
+
     soak={
       ...soak,
-      status:blockers.length===0?"passed":elapsed>=Number(policy.soak_hours||24)?"failed-criteria":"running",
+      status:
+        blockers.length===0
+          ?"passed"
+          :elapsed>=Number(policy.soak_hours||24)
+            ?"failed-criteria"
+            :"running",
       last_evaluated_at:at,
       elapsed_hours:round(elapsed,3),
       successful_live_fast_runs:liveRuns,
@@ -509,31 +599,43 @@ export function evaluateSoakAndAcceptance(ops,config,at,canonicalEvCount){
   }
 
   const checks={
-    live_fast_lane:fast.credential_present===true&&Boolean(fast.last_live_success_at),
+    live_fast_lane:livePrerequisites,
     soak_24h:Number(ops.soak.elapsed_hours||0)>=Number(policy.soak_hours||24),
-    min_live_runs:Number(ops.soak.successful_live_fast_runs||0)>=Number(policy.min_successful_live_fast_runs||72),
-    min_distinct_tasks:Number(ops.soak.distinct_tasks_checked||0)>=Number(policy.min_distinct_tasks_checked||500),
-    exact_provider_data:Number(ops.soak.exact_provider_matches||0)>=Number(policy.min_exact_provider_matches||1),
-    error_rate:Number(ops.soak.provider_error_rate??1)<=Number(policy.max_provider_error_rate||0.15),
+    min_live_runs:
+      Number(ops.soak.successful_live_fast_runs||0)>=
+      Number(policy.min_successful_live_fast_runs||72),
+    min_distinct_tasks:
+      Number(ops.soak.distinct_tasks_checked||0)>=
+      Number(policy.min_distinct_tasks_checked||500),
+    exact_provider_data:
+      Number(ops.soak.exact_provider_matches||0)>=
+      Number(policy.min_exact_provider_matches||1),
+    error_rate:
+      Number(ops.soak.provider_error_rate??1)<=
+      Number(policy.max_provider_error_rate||0.15),
     canonical_ev_unchanged:
       !ops.soak.baseline ||
-      Number(canonicalEvCount)===Number(ops.soak.baseline.canonical_ev_contribution_count),
-    commercial_sharing_approved:
-      policy.require_public_sharing_approval!==true ||
-      ops.state.licensing?.public_sharing_approved===true
+      Number(canonicalEvCount)===
+        Number(ops.soak.baseline.canonical_ev_contribution_count),
+    commercial_sharing_approved:sharingApproved
   };
-  const required=Object.values(checks);
-  const passed=required.every(Boolean);
+  const passed=Object.values(checks).every(Boolean);
   ops.acceptance={
     schema_version:1,
     model:"continuous-market-collection-v1-acceptance",
     product_id:config.product_id,
     status:passed?"passed":checks.live_fast_lane?"running":"pending-live-provider",
     evaluated_at:at,
+    passed_at:passed?at:null,
     contract_id:passed?"continuous-market-collection-v1":null,
     criteria:policy,
     checks,
-    blockers:passed?[]:Object.entries(checks).filter(([,value])=>!value).map(([key])=>key)
+    blockers:
+      passed
+        ?[]
+        :Object.entries(checks)
+          .filter(([,value])=>!value)
+          .map(([key])=>key)
   };
   return ops.acceptance;
 }
