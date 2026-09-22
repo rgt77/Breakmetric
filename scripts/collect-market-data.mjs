@@ -61,6 +61,18 @@ const taskState=buildUnvaluedCollectionTasks({
 const ops=loadCollectorOps(root,config);
 const token=process.env[config.fast_lane?.credential_env||"SPORTSCARDSPRO_TOKEN"]||"";
 const fixture=fixturePath ? readJson(fixturePath) : null;
+const approvalEnv=
+  config.licensing?.approval_env||"SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED";
+const approvalRaw=String(process.env[approvalEnv]||"").trim().toLowerCase();
+const sharingApproved=
+  Boolean(fixture) ||
+  ["1","true","yes","approved"].includes(approvalRaw);
+ops.state.licensing={
+  public_repository:config.licensing?.repository_visibility==="public",
+  public_sharing_required:config.licensing?.public_sharing_requires_approval===true,
+  public_sharing_approved:sharingApproved,
+  status:sharingApproved?"approved":"blocked-pending-approval"
+};
 const batchSize=Number(valueAfter("--batch-size")||config.fast_lane?.batch_size||20);
 const minDelay=Number(config.fast_lane?.min_request_interval_ms||1100);
 const retry=config.retry||{};
@@ -72,6 +84,28 @@ const credentialTransition=providerCredentialTransition(ops,{
   now:nowIso,
   missingReason:"SPORTSCARDSPRO_TOKEN is missing."
 });
+
+if(!fixture&&token&&!sharingApproved){
+  ops.state.lane_status=ops.state.lane_status||{};
+  ops.state.lane_status.fast={
+    ...(ops.state.lane_status.fast||{}),
+    status:"blocked-license",
+    credential_present:true,
+    last_attempt_at:nowIso,
+    blocker:"Commercial sharing approval is required before provider data can be persisted in this public repository."
+  };
+  recomputeCoverage(ops,taskState,store,nowIso);
+  recomputeHealth(ops,config,nowIso);
+  evaluateSoakAndAcceptance(ops,config,nowIso,canonicalEvCount);
+  persistCollectorOps(root,config,ops);
+  console.log(JSON.stringify({
+    result:"disabled-missing-commercial-sharing-approval",
+    operational_health:ops.state.health,
+    approval_env:approvalEnv,
+    message:"Provider token is present, but public persistence remains blocked until commercial sharing approval is explicitly configured."
+  },null,2));
+  process.exit(0);
+}
 
 if(!fixture&&!token){
   if(credentialTransition){
