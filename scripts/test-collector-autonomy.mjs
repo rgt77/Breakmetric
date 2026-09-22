@@ -78,6 +78,10 @@ assert.equal(
 const ops={
   state:{
     fast_lane_cursor:0,
+    licensing:{
+      public_sharing_required:true,
+      public_sharing_approved:true
+    },
     lane_status:{
       fast:{credential_present:true,last_live_success_at:"2026-09-22T00:00:00.000Z"},
       bulk:{credential_present:false}
@@ -132,7 +136,8 @@ const policy={
     min_successful_live_fast_runs:72,
     min_distinct_tasks_checked:500,
     min_exact_provider_matches:1,
-    max_provider_error_rate:.15
+    max_provider_error_rate:.15,
+    require_public_sharing_approval:true
   }
 };
 recomputeHealth(ops,policy,"2026-09-22T00:20:00.000Z");
@@ -186,9 +191,25 @@ assert.equal(ops.soak.status,"passed");
 assert.equal(ops.acceptance.status,"passed");
 assert.equal(ops.acceptance.contract_id,"continuous-market-collection-v1");
 
+evaluateSoakAndAcceptance(
+  ops,
+  policy,
+  "2026-09-24T00:10:00.000Z",
+  34
+);
+assert.equal(
+  ops.acceptance.status,
+  "passed",
+  "passed collector contract must remain stable after later canonical EV growth"
+);
+assert.equal(
+  ops.acceptance.contract_id,
+  "continuous-market-collection-v1"
+);
+
 console.log(JSON.stringify({
   result:"pass",
-  checks:17,
+  checks:19,
   fairness:first.batch.length,
   retry_attempts:attempts,
   soak_status:ops.soak.status,
