@@ -25,9 +25,13 @@ jobs:
         with:
           node-version: "24"
       - name: Validate automation contract
-        run: node scripts/validate-market-automation-config.mjs
+        run: |
+          node scripts/validate-market-automation-config.mjs
+          node scripts/validate-collector-ops.mjs
       - name: Test collector core
-        run: node scripts/test-continuous-market-collector.mjs
+        run: |
+          node scripts/test-continuous-market-collector.mjs
+          node scripts/test-collector-autonomy.mjs
       - name: Collect rotating market batch
         env:
           SPORTSCARDSPRO_TOKEN: ${{ secrets.SPORTSCARDSPRO_TOKEN }}
@@ -53,6 +57,11 @@ jobs:
           fi
           git config user.name "BreakMetric Market Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add             data/collection/2026-topps-chrome-premier-league-market-observations-v1.json             data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json             data/validation/runtime-data-version-v1.json
+          git add \
+            data/collection/2026-topps-chrome-premier-league-market-observations-v1.json \
+            data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json \
+            data/validation/runtime-data-version-v1.json \
+            ops/collector
           git commit -m "[market-data] continuous market sync"
+          git pull --rebase origin main
           git push origin HEAD:main
