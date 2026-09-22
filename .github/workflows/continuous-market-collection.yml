@@ -35,6 +35,7 @@ jobs:
       - name: Collect rotating market batch
         env:
           SPORTSCARDSPRO_TOKEN: ${{ secrets.SPORTSCARDSPRO_TOKEN }}
+          SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED: ${{ secrets.SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED }}
         run: node scripts/collect-market-data.mjs
       - name: Generate automated valuation candidates
         run: node scripts/generate-automated-valuation-candidates.mjs
