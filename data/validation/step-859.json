@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-22",
+  "step": 859,
+  "title": "Add Premier League club crests to team cards",
+  "implemented": true,
+  "objective": "Improve team recognition without restoring visual clutter to the minimal team-selection list.",
+  "source": {
+    "team_ids": "Premier League public 2025/26 competition team data",
+    "crest_host": "https://resources.premierleague.com/premierleague/badges/70/"
+  },
+  "changes": [
+    "Added a 20-team Premier League crest-ID and abbreviation mapping for the current release.",
+    "Added a 32px club crest to the left of each team name.",
+    "Kept team cards free of readiness badges and player counts.",
+    "Preserved matched-player text only when search makes it relevant.",
+    "Added a three-letter fallback badge if a crest image fails to load.",
+    "Configured crest images for lazy loading and asynchronous decoding."
+  ],
+  "guarantees": [
+    "Every canonical team in the current product metadata has a crest mapping.",
+    "A failed external crest request does not remove the team identity or break team selection.",
+    "Crests are decorative for accessibility because the adjacent team name remains the accessible identity.",
+    "Team selection, readiness, EV and player-selection logic are unchanged."
+  ]
+}

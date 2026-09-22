@@ -310,8 +310,53 @@
       border-color:var(--accent);
       background:rgba(101,230,180,.08);
     }
-    .team-card strong{display:block;font-size:.94rem;line-height:1.25}
-    .team-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
+    .team-card-main{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .team-card strong{
+      display:block;
+      min-width:0;
+      font-size:.94rem;
+      line-height:1.25;
+    }
+    .team-card-crest{
+      width:32px;
+      height:32px;
+      flex:0 0 32px;
+      display:grid;
+      place-items:center;
+    }
+    .team-card-crest img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+    .team-card-crest-fallback{
+      display:grid;
+      place-items:center;
+      width:30px;
+      height:30px;
+      margin:0!important;
+      border:1px solid var(--line);
+      border-radius:50%;
+      color:var(--muted);
+      font-size:.54rem!important;
+      font-weight:800;
+      line-height:1;
+      letter-spacing:.02em;
+    }
+    .team-card-crest-fallback[hidden]{display:none!important}
+    .team-search-match{
+      display:block;
+      color:var(--muted);
+      font-size:.72rem;
+      margin-top:7px;
+      padding-left:42px;
+    }
     .selected-team-status{
       margin:0 0 14px;
       border:1px solid var(--line);
@@ -3248,6 +3293,71 @@
       return [...team.options].map(option => option.value);
     }
 
+    const teamCrestMeta = Object.freeze({
+      "AFC Bournemouth": { id: 91, abbr: "BOU" },
+      "Arsenal": { id: 3, abbr: "ARS" },
+      "Aston Villa": { id: 7, abbr: "AVL" },
+      "Brentford": { id: 94, abbr: "BRE" },
+      "Brighton & Hove Albion": { id: 36, abbr: "BHA" },
+      "Burnley FC": { id: 90, abbr: "BUR" },
+      "Chelsea": { id: 8, abbr: "CHE" },
+      "Crystal Palace": { id: 31, abbr: "CRY" },
+      "Everton": { id: 11, abbr: "EVE" },
+      "Fulham": { id: 54, abbr: "FUL" },
+      "Leeds United": { id: 2, abbr: "LEE" },
+      "Liverpool FC": { id: 14, abbr: "LIV" },
+      "Manchester City": { id: 43, abbr: "MCI" },
+      "Manchester United": { id: 1, abbr: "MUN" },
+      "Newcastle United": { id: 4, abbr: "NEW" },
+      "Nottingham Forest": { id: 17, abbr: "NFO" },
+      "Sunderland": { id: 56, abbr: "SUN" },
+      "Tottenham Hotspur": { id: 6, abbr: "TOT" },
+      "West Ham United": { id: 21, abbr: "WHU" },
+      "Wolverhampton Wanderers": { id: 39, abbr: "WOL" }
+    });
+
+    function teamCrestUrl(teamName) {
+      const meta = teamCrestMeta[teamName];
+      return meta
+        ? "https://resources.premierleague.com/premierleague/badges/70/t" +
+          meta.id + ".png"
+        : null;
+    }
+
+    function createTeamCrest(teamName) {
+      const meta = teamCrestMeta[teamName] || null;
+      const wrap = document.createElement("span");
+      wrap.className = "team-card-crest";
+      wrap.setAttribute("aria-hidden", "true");
+
+      const fallback = document.createElement("span");
+      fallback.className = "team-card-crest-fallback";
+      fallback.textContent = meta?.abbr || teamName.slice(0, 3).toUpperCase();
+      fallback.hidden = true;
+
+      const src = teamCrestUrl(teamName);
+      if (!src) {
+        fallback.hidden = false;
+        wrap.appendChild(fallback);
+        return wrap;
+      }
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.width = 32;
+      image.height = 32;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.addEventListener("error", () => {
+        image.remove();
+        fallback.hidden = false;
+      }, { once: true });
+
+      wrap.append(image, fallback);
+      return wrap;
+    }
+
     function playersForTeamName(teamName) {
       const indexedPlayers = (playerIndexData?.teams?.[teamName] || [])
         .map(item => item.player);
@@ -3417,12 +3527,18 @@
           team.value === item.name ? "true" : "false"
         );
 
+        const main = document.createElement("span");
+        main.className = "team-card-main";
+        main.appendChild(createTeamCrest(item.name));
+
         const title = document.createElement("strong");
         title.textContent = item.name;
-        button.appendChild(title);
+        main.appendChild(title);
+        button.appendChild(main);
 
         if (item.matchedPlayers.length) {
           const meta = document.createElement("span");
+          meta.className = "team-search-match";
           const preview = item.matchedPlayers.slice(0, 2).join(", ");
           const more = item.matchedPlayers.length > 2
             ? " +" + (item.matchedPlayers.length - 2)

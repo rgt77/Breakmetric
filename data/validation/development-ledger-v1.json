@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 858,
+  "canonical_step_end": 859,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -459,6 +459,15 @@
       "title": "Move team readiness badges out of the team list into the selected-team panel",
       "source_kind": "step-manifest",
       "source": "data/validation/step-858.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 859,
+      "end": 859,
+      "id": "team-club-crests",
+      "title": "Add club crests to team selection cards",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-859.json",
       "coverage_quality": "exact-manifest"
     }
   ],
