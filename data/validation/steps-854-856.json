@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-22",
+  "step_start": 854,
+  "step_end": 856,
+  "title": "Repair Hobby runtime contract for frozen market-verification scope",
+  "implemented": true,
+  "trigger": "Production Hobby analysis remained blocked with Runtime data contract failed after browser/CDN cache hardening.",
+  "root_cause": "The browser runtime validator required the v1 market-verification queue to contain every current EV contribution. Phase 2 intentionally expanded Chelsea from 27 to 33 EV contributions while the v1 verification population remained frozen at 27 contributions / 72 supporting sales.",
+  "changes": [
+    "Added an exact browser validateAnalysisBundle reproduction to CI.",
+    "Added market_verification_scope_data to the Hobby analysis-data routes.",
+    "Loaded the frozen verification scope into the browser runtime bundle.",
+    "Changed market-verification runtime validation from current-EV count equality to exact frozen-scope identity validation.",
+    "Retained checks that every frozen queue contribution still exists in current EV with matching EV and market-source provenance.",
+    "Versioned runtimeContracts.js as v2 and cache-busted the script URL in index.html.",
+    "Added regression checks so the browser runtime contract itself is permanently gated in CI."
+  ],
+  "observed_failure_before_fix": "market verification queue contribution count mismatch",
+  "observed_counts_before_fix": {
+    "current_ev_contribution_count": 33,
+    "frozen_market_verification_contribution_count": 27
+  },
+  "guarantees": [
+    "The legacy 27-contribution / 72-sale verification population remains frozen.",
+    "Phase-2 EV additions do not silently enter the legacy verification sample.",
+    "The verification queue must exactly match the card_ids in market-verification-scope-v1.json.",
+    "Every frozen queue item must still resolve to a current EV contribution and matching market source.",
+    "Browser runtime validation now follows the same frozen-scope semantics as repository validation."
+  ]
+}
