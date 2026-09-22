@@ -98,6 +98,14 @@
     "max_provider_error_rate": 0.15,
     "require_fast_lane_live": true,
     "bulk_lane_required": false,
-    "require_canonical_ev_unchanged": true
+    "require_canonical_ev_unchanged": true,
+    "require_public_sharing_approval": true
+  },
+  "licensing": {
+    "provider": "SportsCardsPro",
+    "terms_url": "https://www.sportscardspro.com/api-documentation",
+    "repository_visibility": "public",
+    "public_sharing_requires_approval": true,
+    "approval_env": "SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED"
   }
 }
