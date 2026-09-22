@@ -68,6 +68,8 @@ const approvalRaw=String(process.env[approvalEnv]||"").trim().toLowerCase();
 const sharingApproved=
   Boolean(fixturePath) ||
   ["1","true","yes","approved"].includes(approvalRaw);
+const licensingTransition=
+  Boolean(ops.state.licensing?.public_sharing_approved)!==sharingApproved;
 ops.state.licensing={
   public_repository:config.licensing?.repository_visibility==="public",
   public_sharing_required:config.licensing?.public_sharing_requires_approval===true,
@@ -104,7 +106,7 @@ if(!fixturePath&&csvUrl&&!sharingApproved){
 }
 
 if(!fixturePath&&!csvUrl){
-  if(credentialTransition){
+  if(credentialTransition||licensingTransition){
     recomputeCoverage(ops,taskState,store,nowIso);
     recomputeHealth(ops,config,nowIso);
     evaluateSoakAndAcceptance(ops,config,nowIso,canonicalEvCount);
