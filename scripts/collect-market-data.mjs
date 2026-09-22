@@ -309,6 +309,7 @@ if(changed>0){
 
 ops.state.fast_lane_cursor=selection.next_cursor;
 const checked=selection.batch.length;
+const finishedAt=nowArg?nowIso:new Date().toISOString();
 const status=
   checked===0
     ?"live-empty"
@@ -324,7 +325,7 @@ const run={
   lane:"fast",
   provider:config.fast_lane?.provider||"sportscardspro-api",
   started_at:startedAt,
-  finished_at:nowIso,
+  finished_at:finishedAt,
   status,
   credential_present:true,
   cursor_start:selection.cursor,
@@ -346,9 +347,9 @@ const run={
   results
 };
 recordCollectorRun(ops,run,selection.batch,config);
-recomputeCoverage(ops,taskState,store,nowIso);
-recomputeHealth(ops,config,nowIso);
-evaluateSoakAndAcceptance(ops,config,nowIso,canonicalEvCount);
+recomputeCoverage(ops,taskState,store,finishedAt);
+recomputeHealth(ops,config,finishedAt);
+evaluateSoakAndAcceptance(ops,config,finishedAt,canonicalEvCount);
 const opsFilesChanged=persistCollectorOps(root,config,ops);
 
 console.log(JSON.stringify({
