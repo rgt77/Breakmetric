@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "model": "collector-soak-v1",
+  "product_id": "2026-topps-chrome-premier-league",
+  "status": "waiting-for-live-provider",
+  "started_at": null,
+  "last_evaluated_at": "2026-09-22T12:04:52Z",
+  "elapsed_hours": 0,
+  "successful_live_fast_runs": 0,
+  "distinct_tasks_checked": 0,
+  "exact_provider_matches": 0,
+  "provider_errors": 0,
+  "provider_error_rate": null,
+  "canonical_ev_baseline": {
+    "contribution_count": 33
+  },
+  "blockers": [
+    "Fast lane is not live because SPORTSCARDSPRO_TOKEN is missing."
+  ]
+}
