@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 885,
+  "canonical_step_end": 886,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -487,6 +487,15 @@
       "title": "Remove dormant source code, obsolete collector paths and unnecessary export surface",
       "source_kind": "block-summary",
       "source": "data/validation/steps-876-885.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 886,
+      "end": 886,
+      "id": "valuation-tier-separation",
+      "title": "Separate exact provider valuation candidates from modeled C/D estimates",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-886.json",
       "coverage_quality": "exact-manifest"
     }
   ],
