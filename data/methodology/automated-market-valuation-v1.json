@@ -51,6 +51,42 @@
     "Collector batches use breadth-aware player rotation before economic-priority depth so one player cannot dominate automated research.",
     "Repeated collection is idempotent: unchanged provider data does not rewrite repository data.",
     "Collection failures or missing credentials must not mutate canonical EV or fabricate values.",
-    "High-impact cards and ambiguous identities remain eligible for manual exception review."
-  ]
+    "High-impact cards and ambiguous identities remain eligible for manual exception review.",
+    "Tier B candidates must be machine-classified as direct-provider observations; Tier C/D candidates must be machine-classified as modeled values.",
+    "Modeled candidates must expose an evidence breakdown separating canonical realized-sale observations from exact provider current-price observations.",
+    "Direct-provider candidate EV and modeled candidate EV must be summarized separately; any combined candidate total must be explicitly labeled non-canonical."
+  ],
+  "output_contract": {
+    "direct_provider": {
+      "valuation_tier": "B",
+      "valuation_class": "direct-provider",
+      "direct_market_observation": true,
+      "modeled_value": false
+    },
+    "modeled": {
+      "valuation_tiers": [
+        "C",
+        "D"
+      ],
+      "valuation_class": "modeled",
+      "direct_market_observation": false,
+      "modeled_value": true
+    },
+    "unknown": {
+      "valuation_tier": "E",
+      "valuation_class": "unknown",
+      "direct_market_observation": false,
+      "modeled_value": false
+    },
+    "evidence_breakdown_fields": [
+      "total_count",
+      "canonical_realized_sale_count",
+      "exact_provider_current_price_count"
+    ],
+    "summary_fields": [
+      "direct_provider_candidate_ev_total_usd",
+      "modeled_candidate_ev_total_usd",
+      "noncanonical_candidate_ev_total_usd"
+    ]
+  }
 }
