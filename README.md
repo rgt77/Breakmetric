@@ -74,7 +74,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 875 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 885 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -123,6 +123,12 @@ Operational status is available at `/collector-status.html` (noindex, not linked
 
 **Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments, and commercial sharing is not approved in collector state. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Live persistence and the soak clock start automatically only after the fast-lane token is configured **and** `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` is explicitly configured following written permission/commercial licensing. No manual Phase-1 start command is required after those prerequisites exist.
 
+
+## Repository cleanup
+
+Steps 876–885 remove dormant code accumulated during earlier model experimentation. The `src/` directory now contains only 24 browser-runtime modules plus the single `playerDerivation.js` CI-generator module. Twenty-seven offline/dormant model modules were removed after confirming they were neither browser-loaded nor imported by the active script toolchain. The obsolete time-based rotating-shard collector path was also removed in favor of the persistent-cursor collector introduced in Phase 1.
+
+The source-module audit now rejects dormant/offline roles, preventing unused application modules from silently accumulating again. Runtime behavior, canonical EV and market evidence semantics are unchanged by this cleanup.
 
 ## Source-module inventory
 
