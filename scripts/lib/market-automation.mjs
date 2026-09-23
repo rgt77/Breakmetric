@@ -108,7 +108,7 @@ export function exactProviderIdentity(task={},product={}){
   };
 }
 
-export function breadthAwareOrder(tasks=[]){
+function breadthAwareOrder(tasks=[]){
   const groups=new Map();
   for(const task of tasks){
     const subject=String(task.subjects?.[0]||"Unknown");
@@ -147,7 +147,7 @@ export function breadthAwareOrder(tasks=[]){
   return result;
 }
 
-export function fairCollectionOrder(tasks=[]){
+function fairCollectionOrder(tasks=[]){
   const teams=new Map();
   for(const task of tasks){
     const team=String(task.team||"Unknown");
@@ -227,7 +227,7 @@ export function selectCursorBatch(tasks=[],{
   };
 }
 
-export function extractProviderCardNumber(productName=""){
+function extractProviderCardNumber(productName=""){
   const text=String(productName||"");
   const hash=[...text.matchAll(/#([A-Za-z0-9-]+)/g)];
   if(hash.length) return normalizeText(hash[hash.length-1][1]);
