@@ -130,9 +130,8 @@ All `src/*.js` files are explicitly classified in `data/validation/source-module
 
 - **Runtime:** loaded by `index.html`.
 - **CI generator:** source-of-truth model logic executed by validation tooling.
-- **Offline model library:** retained model/research utilities that are not part of the current browser runtime or mandatory CI path.
 
-CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
+The old dormant/offline model library has been removed. `src/` now contains only code with an active runtime or CI-generation role. CI fails if a source module is unclassified, classified twice, missing from disk, or if the runtime inventory no longer matches the scripts loaded by `index.html`.
 
 
 ## Assessing recovered marketplace candidates
