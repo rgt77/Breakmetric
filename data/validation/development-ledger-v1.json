@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 875,
+  "canonical_step_end": 885,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -479,6 +479,15 @@
       "source": "data/validation/steps-860-875.json",
       "coverage_quality": "exact-manifest",
       "operational_acceptance": "pending-live-provider"
+    },
+    {
+      "start": 876,
+      "end": 885,
+      "id": "repository-dead-code-cleanup",
+      "title": "Remove dormant source code, obsolete collector paths and unnecessary export surface",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-876-885.json",
+      "coverage_quality": "exact-manifest"
     }
   ],
   "historical_anomalies": [
@@ -500,9 +509,9 @@
     "index_html_bytes_approx": 161266,
     "validate_mjs_lines": 1347,
     "validate_mjs_bytes_approx": 62048,
-    "source_module_count": 52,
+    "source_module_count": 25,
     "runtime_module_count": 24,
-    "offline_model_library_count": 27,
+    "offline_model_library_count": 0,
     "active_ready_products": 1,
     "ready_formats": 1,
     "canonical_team_count": 20,

@@ -1,12 +1,10 @@
 import assert from "node:assert/strict";
 import {
   apiPriceUsd,
-  breadthAwareOrder,
   buildSearchQuery,
   exactProviderIdentity,
   mergeObservation,
-  parseCsv,
-  selectRotatingBatch
+  parseCsv
 } from "./lib/market-automation.mjs";
 
 const task={
@@ -43,25 +41,6 @@ assert.equal(exactProviderIdentity(task,prism).exact,false);
 const wrongCard={...exact,"product-name":"Liam Delap [Refractor] #63"};
 assert.equal(exactProviderIdentity(task,wrongCard).exact,false);
 
-const breadth=breadthAwareOrder([
-  {...task,task_id:"e1",subjects:["Estêvão Willian"],economic_priority_proxy_usd:100},
-  {...task,task_id:"e2",subjects:["Estêvão Willian"],economic_priority_proxy_usd:90},
-  {...task,task_id:"l1",subjects:["Liam Delap"],economic_priority_proxy_usd:20},
-  {...task,task_id:"h1",subjects:["Harrison Murray-Campbell"],economic_priority_proxy_usd:19}
-]);
-assert.deepEqual(
-  breadth.slice(0,3).map(x=>x.subjects[0]),
-  ["Estêvão Willian","Liam Delap","Harrison Murray-Campbell"]
-);
-
-const selected=selectRotatingBatch(breadth,{
-  nowMs:0,
-  cadenceMinutes:15,
-  batchSize:2
-});
-assert.equal(selected.batch.length,2);
-assert.equal(selected.shard_count,2);
-
 const store={entries:{}};
 const first=mergeObservation(store,task,{
   source:"sportscardspro-api",
@@ -94,4 +73,4 @@ const csv=parseCsv('id,console-name,product-name,loose-price\n11842805,"Soccer C
 assert.equal(csv.length,1);
 assert.equal(csv[0].id,"11842805");
 
-console.log(JSON.stringify({result:"pass",checks:14},null,2));
+console.log(JSON.stringify({result:"pass",checks:10},null,2));

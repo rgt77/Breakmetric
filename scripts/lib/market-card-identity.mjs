@@ -2,7 +2,7 @@ function text(value){
   return typeof value==="string" ? value.trim() : "";
 }
 
-export function normalizeIdentityText(value){
+function normalizeIdentityText(value){
   return text(value)
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g,"")
@@ -12,7 +12,7 @@ export function normalizeIdentityText(value){
     .replace(/\s+/g," ");
 }
 
-export function acceptedSeries(product={}){
+function acceptedSeries(product={}){
   return (product.market_identity?.accepted_series_aliases||[])
     .map(normalizeIdentityText)
     .filter(Boolean);

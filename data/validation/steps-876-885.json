@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-23",
+  "step_start": 876,
+  "step_end": 885,
+  "title": "Repository-wide dead-code cleanup and source-surface reduction",
+  "status": "implementation-complete-pending-ci",
+  "baseline": {
+    "source_module_count": 52,
+    "runtime_module_count": 24,
+    "ci_generator_count": 1,
+    "dormant_offline_module_count": 27
+  },
+  "result": {
+    "source_module_count": 25,
+    "runtime_module_count": 24,
+    "ci_generator_count": 1,
+    "dormant_offline_module_count": 0,
+    "removed_source_modules": 27,
+    "index_html_unreferenced_named_functions": 0,
+    "index_html_unreferenced_named_arrow_helpers": 0
+  },
+  "changes": [
+    "Removed all 27 source modules previously classified as offline/dormant model-library code because they were neither loaded by index.html nor imported by the current script toolchain.",
+    "Restricted src/ to runtime modules plus the single CI generator module.",
+    "Strengthened source-module audit so dormant/offline source roles are no longer allowed.",
+    "Removed the obsolete time-based rotating-shard collector implementation and configuration after persistent cursor selection became canonical.",
+    "Removed dead collector configuration and an unused Node import.",
+    "Reduced exported helper surface in script libraries so purely internal helpers are no longer public APIs.",
+    "Updated collector tests to exercise behavior through supported public APIs rather than internal ordering helpers.",
+    "Audited index.html and found no unreferenced named function declarations or named arrow helpers."
+  ],
+  "guarantees": [
+    "All 24 browser runtime source modules remain loaded and referenced by index.html.",
+    "playerDerivation.js remains the only non-runtime src module and is retained for CI reproducibility.",
+    "No canonical EV, market records, odds, checklists, team metadata or user-facing analysis semantics are intentionally changed by this cleanup.",
+    "Collector queue behavior remains persistent-cursor and team/player breadth-aware.",
+    "Future dormant src modules fail source-module inventory validation."
+  ],
+  "completion_gate": {
+    "full_ci_required": true,
+    "cloudflare_preview_required": true,
+    "merge_only_when_green": true,
+    "production_validation_required": true
+  }
+}

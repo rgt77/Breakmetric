@@ -15,13 +15,13 @@ function ensureParent(file){
   fs.mkdirSync(path.dirname(file),{recursive:true});
 }
 
-export function readOps(root,file,fallback){
+function readOps(root,file,fallback){
   const full=path.join(root,file);
   if(!fs.existsSync(full)) return structuredClone(fallback);
   return JSON.parse(fs.readFileSync(full,"utf8"));
 }
 
-export function writeOpsIfChanged(root,file,value){
+function writeOpsIfChanged(root,file,value){
   const full=path.join(root,file);
   ensureParent(full);
   const next=stable(value);

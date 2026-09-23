@@ -11,7 +11,6 @@
     "cadence_minutes": 15,
     "batch_size": 20,
     "min_request_interval_ms": 1100,
-    "rotating_shards": true,
     "max_tasks_per_subject_per_batch": 2,
     "credential_env": "SPORTSCARDSPRO_TOKEN",
     "persist_cursor": true,
@@ -24,11 +23,6 @@
     "csv_url_env": "SPORTSCARDSPRO_CSV_URL",
     "credential_note": "Use the subscriber-specific Download Price List URL. The URL must be stored as a GitHub Actions secret.",
     "optional": true
-  },
-  "persistence": {
-    "write_only_when_observation_changes": true,
-    "retain_first_seen": true,
-    "retain_provider_product_id": true
   },
   "safety": {
     "exact_identity_required": true,

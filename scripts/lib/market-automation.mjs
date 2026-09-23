@@ -108,7 +108,7 @@ export function exactProviderIdentity(task={},product={}){
   };
 }
 
-export function breadthAwareOrder(tasks=[]){
+function breadthAwareOrder(tasks=[]){
   const groups=new Map();
   for(const task of tasks){
     const subject=String(task.subjects?.[0]||"Unknown");
@@ -147,7 +147,7 @@ export function breadthAwareOrder(tasks=[]){
   return result;
 }
 
-export function fairCollectionOrder(tasks=[]){
+function fairCollectionOrder(tasks=[]){
   const teams=new Map();
   for(const task of tasks){
     const team=String(task.team||"Unknown");
@@ -227,26 +227,7 @@ export function selectCursorBatch(tasks=[],{
   };
 }
 
-export function selectRotatingBatch(tasks=[],{
-  nowMs=Date.now(),
-  cadenceMinutes=15,
-  batchSize=20
-}={}){
-  const ordered=breadthAwareOrder(tasks);
-  if(!ordered.length) return {batch:[],shard_index:0,shard_count:0};
-  const size=Math.max(1,Number(batchSize)||20);
-  const shardCount=Math.ceil(ordered.length/size);
-  const interval=Math.max(1,Number(cadenceMinutes)||15)*60*1000;
-  const shardIndex=Math.floor(nowMs/interval)%shardCount;
-  const start=shardIndex*size;
-  return {
-    batch:ordered.slice(start,start+size),
-    shard_index:shardIndex,
-    shard_count:shardCount
-  };
-}
-
-export function extractProviderCardNumber(productName=""){
+function extractProviderCardNumber(productName=""){
   const text=String(productName||"");
   const hash=[...text.matchAll(/#([A-Za-z0-9-]+)/g)];
   if(hash.length) return normalizeText(hash[hash.length-1][1]);
