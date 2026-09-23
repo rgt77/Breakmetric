@@ -1,4 +1,4 @@
-export function canonicalVariant(value){
+function canonicalVariant(value){
   const name=String(value||"").trim();
   if(name==="Frozenfractors") return "Frozenfractor";
   if(/^(Aqua|Blue|Green|Purple|Gold|Orange|Black|Red) Wave$/.test(name)){
