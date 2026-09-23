@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 886,
+  "title": "Separate direct provider valuation from modeled valuation candidates",
+  "objective": "Prevent exact provider prices and modeled C/D estimates from sharing ambiguous candidate semantics or EV totals.",
+  "changes": [
+    "Tier B candidates now carry valuation_class=direct-provider, direct_market_observation=true and modeled_value=false.",
+    "Tier C/D candidates now carry valuation_class=modeled, direct_market_observation=false and modeled_value=true.",
+    "Every candidate exposes evidence_breakdown with realized-sale and exact-provider observation counts.",
+    "Candidate summary now separates direct-provider EV from modeled EV and labels the combined total explicitly non-canonical.",
+    "The ambiguous candidate_ev_total_usd summary field is removed.",
+    "A CI regression test enforces the separation contract."
+  ],
+  "guarantees": [
+    "No automated candidate becomes canonical EV.",
+    "Tier B remains current provider evidence, not a realized sale.",
+    "Tier C/D remain modeled estimates even when their supporting evidence includes direct observations.",
+    "Tier E remains unknown with null market value and null EV."
+  ]
+}
