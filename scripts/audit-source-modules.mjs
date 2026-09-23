@@ -11,7 +11,15 @@ const actual=fs.readdirSync(path.join(root,"src"))
   .filter(name=>name.endsWith(".js"))
   .sort();
 
-const roleEntries=Object.entries(inventory.roles||{});
+const allowedRoles=["runtime","ci_generator"];
+const actualRoles=Object.keys(inventory.roles||{}).sort();
+if(JSON.stringify(actualRoles)!==JSON.stringify([...allowedRoles].sort())){
+  fail.push("source inventory may contain only runtime and ci_generator roles");
+}
+const roleEntries=allowedRoles.map(role=>[
+  role,
+  inventory.roles?.[role]||{files:[]}
+]);
 const classified=roleEntries.flatMap(([,role])=>role.files||[]);
 const counts=new Map();
 for(const file of classified) counts.set(file,(counts.get(file)||0)+1);
@@ -43,10 +51,6 @@ const runtimeSet=new Set(runtime);
 for(const file of inventory.roles?.ci_generator?.files||[]){
   if(runtimeSet.has(file)) fail.push("CI generator unexpectedly loaded at runtime: "+file);
 }
-for(const file of inventory.roles?.offline_model_library?.files||[]){
-  if(runtimeSet.has(file)) fail.push("offline model unexpectedly loaded at runtime: "+file);
-}
-
 const validationCorpus=[
   "scripts/validate-player-derivation.mjs",
   "scripts/validate.mjs",
@@ -63,12 +67,6 @@ for(const file of inventory.roles?.ci_generator?.files||[]){
   }
 }
 
-const offline=[...(inventory.roles?.offline_model_library?.files||[])].sort();
-const grouped=Object.values(inventory.domain_groups||{}).flat().sort();
-if(JSON.stringify(offline)!==JSON.stringify(grouped)){
-  fail.push("offline model domain groups do not exactly cover offline-model-library modules");
-}
-
 const summary=inventory.summary||{};
 if(Number(summary.source_module_count)!==actual.length){
   fail.push("source_module_count summary mismatch");
@@ -79,8 +77,8 @@ if(Number(summary.runtime_module_count)!==expectedRuntime.length){
 if(Number(summary.ci_generator_count)!==(inventory.roles?.ci_generator?.files||[]).length){
   fail.push("ci_generator_count summary mismatch");
 }
-if(Number(summary.offline_model_library_count)!==offline.length){
-  fail.push("offline_model_library_count summary mismatch");
+if("offline_model_library_count" in summary){
+  fail.push("obsolete offline_model_library_count summary field present");
 }
 if(Number(summary.unclassified_count)!==0){
   fail.push("inventory summary must report zero unclassified modules");
@@ -91,7 +89,6 @@ console.log(JSON.stringify({
   source_module_count:actual.length,
   runtime_module_count:runtime.length,
   ci_generator_count:(inventory.roles?.ci_generator?.files||[]).length,
-  offline_model_library_count:offline.length,
   unclassified_count:actual.filter(file=>!counts.has(file)).length,
   failures:fail
 },null,2));
