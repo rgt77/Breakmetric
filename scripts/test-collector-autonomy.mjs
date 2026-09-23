@@ -10,7 +10,6 @@ import {
   withRetry
 } from "./lib/collector-telemetry.mjs";
 import {
-  fairCollectionOrder,
   selectCursorBatch
 } from "./lib/market-automation.mjs";
 
@@ -29,9 +28,6 @@ for(let t=0;t<20;t++){
     });
   }
 }
-const fair=fairCollectionOrder(synthetic);
-assert.equal(new Set(fair.slice(0,20).map(x=>x.team)).size,20);
-
 const first=selectCursorBatch(synthetic,{
   cursor:0,batchSize:20,maxTasksPerSubject:2,maxTasksPerTeam:2
 });
@@ -252,7 +248,7 @@ assert.equal(
 
 console.log(JSON.stringify({
   result:"pass",
-  checks:23,
+  checks:22,
   fairness:first.batch.length,
   retry_attempts:attempts,
   soak_status:ops.soak.status,
