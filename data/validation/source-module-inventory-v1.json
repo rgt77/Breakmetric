@@ -1,12 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-21",
+  "generated_at": "2026-09-23",
   "model": "source-module-inventory-v1",
   "summary": {
-    "source_module_count": 52,
+    "source_module_count": 25,
     "runtime_module_count": 24,
     "ci_generator_count": 1,
-    "offline_model_library_count": 27,
     "unclassified_count": 0
   },
   "roles": {
@@ -44,83 +43,14 @@
       "files": [
         "playerDerivation.js"
       ]
-    },
-    "offline_model_library": {
-      "description": "Retained model/research utilities that are not part of the current browser runtime or mandatory CI execution path. Review explicitly before activation or deletion.",
-      "files": [
-        "autographProbability.js",
-        "baseParallelProbability.js",
-        "cardEV.js",
-        "insertProbability.js",
-        "liveOdds.js",
-        "liveOddsConfidence.js",
-        "liveOddsGate.js",
-        "marketAudit.js",
-        "marketEvidence.js",
-        "marketRecord.js",
-        "marketRegistry.js",
-        "marketValue.js",
-        "openingVelocity.js",
-        "playerCoverage.js",
-        "playerIndex.js",
-        "playerProbability.js",
-        "probability.js",
-        "productContext.js",
-        "productionEstimator.js",
-        "sealedEvidence.js",
-        "sealedSupply.js",
-        "sealedTimeSeries.js",
-        "serialIngest.js",
-        "serialTracker.js",
-        "spotValue.js",
-        "teamEV.js",
-        "teamProbability.js"
-      ]
     }
-  },
-  "domain_groups": {
-    "probability_models": [
-      "autographProbability.js",
-      "baseParallelProbability.js",
-      "insertProbability.js",
-      "playerCoverage.js",
-      "playerIndex.js",
-      "playerProbability.js",
-      "probability.js",
-      "teamProbability.js"
-    ],
-    "ev_and_market_models": [
-      "cardEV.js",
-      "marketAudit.js",
-      "marketEvidence.js",
-      "marketRecord.js",
-      "marketRegistry.js",
-      "marketValue.js",
-      "spotValue.js",
-      "teamEV.js"
-    ],
-    "supply_and_tracking_models": [
-      "liveOdds.js",
-      "liveOddsConfidence.js",
-      "liveOddsGate.js",
-      "openingVelocity.js",
-      "productionEstimator.js",
-      "sealedEvidence.js",
-      "sealedSupply.js",
-      "sealedTimeSeries.js",
-      "serialIngest.js",
-      "serialTracker.js"
-    ],
-    "context_models": [
-      "productContext.js"
-    ]
   },
   "rules": [
     "Every src/*.js file must be classified exactly once.",
+    "Only runtime and CI-generator source roles are allowed; dormant/offline source modules belong outside src or must be deleted.",
     "The runtime file set must exactly match script files loaded by index.html.",
-    "CI-generator modules must not be loaded by index.html.",
-    "Offline model-library modules must not be loaded by index.html.",
-    "Adding a source module without updating this inventory fails CI.",
+    "CI-generator modules must not be loaded by index.html and must have validation or derivation-manifest references.",
+    "Adding a source module without a runtime or CI execution role fails CI.",
     "Deleting or renaming a classified module without updating this inventory fails CI."
   ]
 }
