@@ -55,6 +55,8 @@ jobs:
           set -euo pipefail
           node scripts/generate-automated-valuation-candidates.mjs --output /tmp/automated-valuation-candidates.json
           node -e 'const fs=require("fs"); const x=JSON.parse(fs.readFileSync("/tmp/automated-valuation-candidates.json","utf8")); if(x.summary.eligible_slot_count!==8896) process.exit(1);'
+      - name: Test valuation tier separation
+        run: node scripts/test-automated-valuation-tier-separation.mjs
       - name: Syntax-check market automation scripts
         shell: bash
         run: |
@@ -62,6 +64,7 @@ jobs:
           node --check scripts/collect-market-data.mjs
           node --check scripts/import-sportscardspro-csv.mjs
           node --check scripts/generate-automated-valuation-candidates.mjs
+          node --check scripts/test-automated-valuation-tier-separation.mjs
           node --check scripts/check-collector-health.mjs
           node --check scripts/validate-collector-ops.mjs
           node --check scripts/test-collector-autonomy.mjs

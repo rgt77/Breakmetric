@@ -74,7 +74,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 885 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 886 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -123,6 +123,10 @@ Operational status is available at `/collector-status.html` (noindex, not linked
 
 **Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments, and commercial sharing is not approved in collector state. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Live persistence and the soak clock start automatically only after the fast-lane token is configured **and** `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` is explicitly configured following written permission/commercial licensing. No manual Phase-1 start command is required after those prerequisites exist.
 
+
+## Automated valuation tier separation
+
+Step 886 hardens the automated valuation candidate contract. Exact provider current prices (Tier B) are now machine-classified as direct-provider observations, while Tier C/D values are machine-classified as modeled estimates. Every candidate exposes an evidence breakdown separating canonical realized-sale observations from exact provider current-price observations. Candidate EV summaries are split into direct-provider and modeled totals; any combined total is explicitly labeled non-canonical.
 
 ## Repository cleanup
 

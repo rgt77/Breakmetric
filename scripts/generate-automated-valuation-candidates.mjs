@@ -57,6 +57,7 @@ for(const entry of provenance.entries||[]){
   const value=Number(derived.market_value_usd);
   if(value>0){
     evidence.push({
+      evidence_class:"canonical-realized-sale",
       source:"canonical-realized-sale-market-record",
       team:entry.team,
       subject:entry.player,
@@ -72,6 +73,7 @@ for(const observation of Object.values(observations.entries||{})){
     Number(observation.raw_price_usd)>0
   ){
     evidence.push({
+      evidence_class:"exact-provider-current-price",
       source:observation.source,
       team:observation.team,
       subject:observation.subjects?.[0]||null,
@@ -81,13 +83,22 @@ for(const observation of Object.values(observations.entries||{})){
   }
 }
 
+const evidenceBreakdown=rows=>({
+  total_count:rows.length,
+  canonical_realized_sale_count:
+    rows.filter(row=>row.evidence_class==="canonical-realized-sale").length,
+  exact_provider_current_price_count:
+    rows.filter(row=>row.evidence_class==="exact-provider-current-price").length
+});
+
 const candidates=[];
 const counts={A:0,B:0,C:0,D:0,E:0};
-let candidateEvTotal=0;
+let directProviderEvTotal=0;
+let modeledEvTotal=0;
 for(const task of taskState.tasks||[]){
   const exact=observations.entries?.[task.task_id];
   let tier="E",basis="unknown",value=null,confidence="none";
-  let observationCount=0;
+  let supportingEvidence=[];
 
   if(
     exact?.exact_identity===true &&
@@ -98,43 +109,47 @@ for(const task of taskState.tasks||[]){
     basis="exact-provider-current-price";
     value=Number(exact.raw_price_usd);
     confidence="medium";
-    observationCount=1;
+    supportingEvidence=[{
+      evidence_class:"exact-provider-current-price",
+      source:exact.source,
+      team:task.team,
+      subject:task.subjects?.[0]||null,
+      category:task.category,
+      value:Number(exact.raw_price_usd)
+    }];
   }else{
     const subject=task.subjects?.[0]||null;
-    const subjectValues=evidence
+    const subjectEvidence=evidence
       .filter(row=>
         row.team===task.team &&
         row.subject===subject &&
         row.category===task.category
-      )
-      .map(row=>row.value);
+      );
 
-    if(subjectValues.length){
+    if(subjectEvidence.length){
       tier="C";
       basis="same-subject-same-category-model";
-      value=median(subjectValues);
+      supportingEvidence=subjectEvidence;
+      value=median(subjectEvidence.map(row=>row.value));
       confidence="low";
-      observationCount=subjectValues.length;
     }else{
-      const teamCategoryValues=evidence
-        .filter(row=>row.team===task.team&&row.category===task.category)
-        .map(row=>row.value);
-      if(teamCategoryValues.length>=3){
+      const teamCategoryEvidence=evidence
+        .filter(row=>row.team===task.team&&row.category===task.category);
+      if(teamCategoryEvidence.length>=3){
         tier="D";
         basis="team-category-model";
-        value=median(teamCategoryValues);
+        supportingEvidence=teamCategoryEvidence;
+        value=median(teamCategoryEvidence.map(row=>row.value));
         confidence="very-low";
-        observationCount=teamCategoryValues.length;
       }else{
-        const productCategoryValues=evidence
-          .filter(row=>row.category===task.category)
-          .map(row=>row.value);
-        if(productCategoryValues.length>=3){
+        const productCategoryEvidence=evidence
+          .filter(row=>row.category===task.category);
+        if(productCategoryEvidence.length>=3){
           tier="D";
           basis="product-category-model";
-          value=median(productCategoryValues);
+          supportingEvidence=productCategoryEvidence;
+          value=median(productCategoryEvidence.map(row=>row.value));
           confidence="very-low";
-          observationCount=productCategoryValues.length;
         }
       }
     }
@@ -144,8 +159,18 @@ for(const task of taskState.tasks||[]){
   const ev=estimate===null
     ?null
     :round(estimate*Number(task.expected_copies_per_case||0));
-  if(ev!==null) candidateEvTotal+=ev;
+  if(ev!==null){
+    if(tier==="B") directProviderEvTotal+=ev;
+    if(tier==="C"||tier==="D") modeledEvTotal+=ev;
+  }
   counts[tier]=(counts[tier]||0)+1;
+  const breakdown=evidenceBreakdown(supportingEvidence);
+  const valuationClass=
+    tier==="B"
+      ?"direct-provider"
+      :tier==="C"||tier==="D"
+        ?"modeled"
+        :"unknown";
 
   candidates.push({
     task_id:task.task_id,
@@ -159,9 +184,13 @@ for(const task of taskState.tasks||[]){
     expected_copies_per_case:task.expected_copies_per_case,
     valuation_tier:tier,
     valuation_basis:basis,
+    valuation_class:valuationClass,
+    direct_market_observation:tier==="B",
+    modeled_value:tier==="C"||tier==="D",
     confidence,
     market_value_estimate_usd:estimate,
-    evidence_observation_count:observationCount,
+    evidence_observation_count:breakdown.total_count,
+    evidence_breakdown:breakdown,
     candidate_ev_contribution_usd:ev,
     canonical_ev_eligible:false,
     canonical_exclusion_reason:
@@ -189,7 +218,12 @@ const output={
     exact_provider_price_count:counts.B,
     modeled_candidate_count:counts.C+counts.D,
     unknown_count:counts.E,
-    candidate_ev_total_usd:round(candidateEvTotal)
+    direct_provider_candidate_ev_total_usd:round(directProviderEvTotal),
+    modeled_candidate_ev_total_usd:round(modeledEvTotal),
+    noncanonical_candidate_ev_total_usd:
+      round(directProviderEvTotal+modeledEvTotal),
+    aggregate_semantics:
+      "All candidate EV totals are non-canonical. Tier B is direct provider evidence; Tier C/D are modeled estimates and must remain separately presented."
   },
   candidates
 };
