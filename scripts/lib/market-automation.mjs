@@ -227,25 +227,6 @@ export function selectCursorBatch(tasks=[],{
   };
 }
 
-export function selectRotatingBatch(tasks=[],{
-  nowMs=Date.now(),
-  cadenceMinutes=15,
-  batchSize=20
-}={}){
-  const ordered=breadthAwareOrder(tasks);
-  if(!ordered.length) return {batch:[],shard_index:0,shard_count:0};
-  const size=Math.max(1,Number(batchSize)||20);
-  const shardCount=Math.ceil(ordered.length/size);
-  const interval=Math.max(1,Number(cadenceMinutes)||15)*60*1000;
-  const shardIndex=Math.floor(nowMs/interval)%shardCount;
-  const start=shardIndex*size;
-  return {
-    batch:ordered.slice(start,start+size),
-    shard_index:shardIndex,
-    shard_count:shardCount
-  };
-}
-
 export function extractProviderCardNumber(productName=""){
   const text=String(productName||"");
   const hash=[...text.matchAll(/#([A-Za-z0-9-]+)/g)];
