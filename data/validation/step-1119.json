@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1119,
+  "title": "Require sport taxonomy",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry validator re-read",
+      "missing-sport gate present"
+    ]
+  }
+}
