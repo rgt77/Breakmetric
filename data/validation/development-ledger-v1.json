@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1074,
+  "canonical_step_end": 1099,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1136,6 +1136,16 @@
       "source_kind": "step-manifests",
       "source": "data/validation/step-1050.json..data/validation/step-1074.json",
       "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1075,
+      "end": 1099,
+      "id": "phase-23-reference-release",
+      "title": "Phase 23 · First reference release integrity",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1075.json..data/validation/step-1099.json",
+      "coverage_quality": "per-step-static-qa",
+      "note": "Structural/data-contract completeness only; market valuation completeness remains evidence-gated."
     }
   ],
   "historical_anomalies": [
