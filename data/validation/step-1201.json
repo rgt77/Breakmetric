@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1201,
+  "title": "Probability result contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "probability_pct present"
+    ]
+  }
+}
