@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1099,
+  "title": "Finalize reference release contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "complete flag derived from zero issues",
+      "analysis_ready remains false until evidence gates pass"
+    ]
+  }
+}
