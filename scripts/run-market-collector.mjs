@@ -20,6 +20,7 @@ const taskQuery=task=>[task.subject,task.card_number,task.parallel,task.set,"202
 const apiBase="https://www.sportscardspro.com";
 const apiJson=async(endpoint,params)=>{const url=new URL(endpoint,apiBase);for(const [k,v] of Object.entries(params))url.searchParams.set(k,v);const response=await fetch(url,{headers:{"accept":"application/json","user-agent":"BreakMetric/1.0"}});let body;try{body=await response.json();}catch{fail("provider-response","Provider returned non-JSON response.");}if(!response.ok||body?.status==="error")fail("provider-response",body?.["error-message"]||`Provider HTTP ${response.status}`);return body;};
 const searchProvider=(token,task)=>apiJson("/api/products",{t:token,q:taskQuery(task)});
+const fetchProviderProduct=(token,id)=>apiJson("/api/product",{t:token,id:String(id)});
 const fail=(stage,message)=>{const error=new Error(message);error.stage=stage;throw error;};
 
 const config=read(configPath);
