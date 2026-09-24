@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 945,
+      "current_step": 946,
       "checks": [
-        "run_identity configured",
+        "stage_state configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -178,6 +178,16 @@
         "enabled": true,
         "format": "collector-{utc_timestamp}-{sequence}",
         "unique_per_execution": true
+      },
+      "stage_state": {
+        "states": [
+          "pending",
+          "running",
+          "passed",
+          "failed",
+          "needs-review"
+        ],
+        "single_active_stage": true
       }
     }
   }
