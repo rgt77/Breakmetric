@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 887,
+  "canonical_step_end": 888,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -505,6 +505,15 @@
       "title": "Measure C/D valuation accuracy with leave-one-out canonical holdouts",
       "source_kind": "step-manifest",
       "source": "data/validation/step-887.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 888,
+      "end": 888,
+      "id": "valuation-confidence-gates",
+      "title": "Fail closed on modeled valuation until calibration and local evidence pass",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-888.json",
       "coverage_quality": "exact-manifest"
     }
   ],

@@ -74,7 +74,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 887 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 888 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -123,6 +123,10 @@ Operational status is available at `/collector-status.html` (noindex, not linked
 
 **Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments, and commercial sharing is not approved in collector state. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Live persistence and the soak clock start automatically only after the fast-lane token is configured **and** `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` is explicitly configured following written permission/commercial licensing. No manual Phase-1 start command is required after those prerequisites exist.
 
+
+## Valuation confidence gates
+
+Step 888 makes modeled valuation fail closed. Tier C/D candidates must pass both a release-level calibration gate and a candidate-level evidence gate before they may expose a modeled market value or modeled EV. The current Step-887 baseline does **not** pass: it has only one team in the holdout population and a 67.96% median absolute percentage error, versus the deployment policy requiring at least three teams and at most 35% median absolute percentage error. Therefore current C/D proposals are suppressed to Tier E/unknown with null value/EV while retaining diagnostic gate reasons. Tier B direct-provider candidates and canonical EV are unaffected.
 
 ## Valuation model backtest
 

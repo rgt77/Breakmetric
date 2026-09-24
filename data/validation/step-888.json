@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 888,
+  "title": "Add fail-closed confidence gates for modeled valuation",
+  "objective": "Prevent Tier C/D estimates from being used unless both backtest calibration and candidate-level evidence meet explicit thresholds.",
+  "policy": "data/methodology/valuation-confidence-gates-v1.json",
+  "calibration_source": "data/validation/step-887.json",
+  "current_calibration": {
+    "status": "blocked",
+    "reasons": [
+      "insufficient-team-diversity",
+      "median-absolute-percentage-error-too-high"
+    ],
+    "observed": {
+      "canonical_holdout_count": 33,
+      "team_count": 1,
+      "prediction_coverage_pct": 96.9697,
+      "median_absolute_percentage_error_pct": 67.9582
+    },
+    "required": {
+      "min_canonical_holdouts": 30,
+      "min_team_count": 3,
+      "min_prediction_coverage_pct": 80,
+      "max_median_absolute_percentage_error_pct": 35
+    }
+  },
+  "local_evidence_thresholds": {
+    "same_subject_same_category": {
+      "min_total_evidence": 3
+    },
+    "team_category": {
+      "min_total_evidence": 8
+    },
+    "product_category": {
+      "min_total_evidence": 20,
+      "min_distinct_teams": 3
+    }
+  },
+  "failure_behavior": {
+    "final_tier": "E",
+    "market_value_estimate_usd": null,
+    "candidate_ev_contribution_usd": null,
+    "diagnostic_metadata_retained": true
+  },
+  "guarantees": [
+    "Tier B direct-provider candidates are not blocked by C/D confidence gates.",
+    "Tier C/D values remain measurable in ungated backtests even when deployment is blocked.",
+    "A failed confidence gate cannot contribute modeled candidate EV.",
+    "Canonical EV remains unchanged.",
+    "Gate relaxation requires an explicit policy/methodology change rather than an implicit data-side effect."
+  ],
+  "current_candidate_effect": {
+    "eligible_slot_count": 8896,
+    "canonical_valued_slot_count": 33,
+    "candidate_count": 8863,
+    "raw_modeled_candidate_count": 6468,
+    "suppressed_modeled_candidate_count": 6468,
+    "final_tier_count": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 8863
+    },
+    "modeled_candidate_ev_total_usd": 0,
+    "confidence_gate_status": "blocking",
+    "interpretation": "All currently proposed C/D values are suppressed to E/unknown; no modeled EV is exposed or aggregated."
+  }
+}
