@@ -39,5 +39,6 @@ const generatedAt=Date.parse(data.generated_at);if(data.generated_at!==null&&!Nu
 if(data.product_id!==config.product_id)issues.push({task_id:null,code:"product-id-mismatch"});
 if(data.schema_version!==1)issues.push({task_id:null,code:"schema-version-mismatch"});
 if(data.model!=="market-observations-v1")issues.push({task_id:null,code:"model-mismatch"});
+if(data.currency!=="USD")issues.push({task_id:null,code:"currency-root-mismatch"});
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,issues};
 process.stdout.write(JSON.stringify(summary,null,2)+"\n");if(issues.length)process.exitCode=1;
