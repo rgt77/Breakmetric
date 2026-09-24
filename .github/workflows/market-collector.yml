@@ -38,6 +38,7 @@ jobs:
         run: |
           node --check scripts/lib/release-registry.mjs
           node scripts/validate-release-registry.mjs
+          node scripts/validate-release-registry-runtime.mjs
       - name: Validate EV engine
         run: |
           node --check scripts/lib/ev-engine.mjs
