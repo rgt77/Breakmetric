@@ -20,3 +20,4 @@ export function pendingReleases(registry){return registry.releases.filter(r=>r.s
 export function activeReleases(registry){return registry.releases.filter(r=>["reference","active"].includes(r.status));}
 export function releaseSupportsFormat(root,release,formatId){return Boolean(formatById(root,release,formatId));}
 export function releaseIsAnalysisReady(root,release){return readyFormats(root,release).some(f=>Boolean(collectorConfigFor(release,f.id)));}
+export const releaseNamespace=releaseId=>"data/releases/"+releaseId;
