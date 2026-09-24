@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1286,
+  "title": "Performance budget validation",
+  "qa": {
+    "status": "pass",
+    "scope": "static-performance"
+  }
+}
