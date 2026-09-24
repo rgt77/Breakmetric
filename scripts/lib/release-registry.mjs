@@ -19,3 +19,4 @@ export function releaseByCollectorConfig(registry,file){return registry.releases
 export function pendingReleases(registry){return registry.releases.filter(r=>r.status==="pending");}
 export function activeReleases(registry){return registry.releases.filter(r=>["reference","active"].includes(r.status));}
 export function releaseSupportsFormat(root,release,formatId){return Boolean(formatById(root,release,formatId));}
+export function releaseIsAnalysisReady(root,release){return readyFormats(root,release).some(f=>Boolean(collectorConfigFor(release,f.id)));}
