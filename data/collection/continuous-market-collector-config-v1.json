@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 954,
+      "current_step": 955,
       "checks": [
-        "completion_gate configured",
+        "preflight configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -236,6 +236,12 @@
         "require_qa_passed": true,
         "require_no_partial_promotion": true,
         "status_on_success": "complete"
+      },
+      "preflight": {
+        "require_fresh_priority_queue": true,
+        "require_provider_credentials": true,
+        "require_valid_task_schema": true,
+        "on_failure": "block-run"
       }
     }
   }
