@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1226,
+  "title": "Release automation library",
+  "qa": {
+    "status": "pass",
+    "scope": "static-automation",
+    "checks": [
+      "component paths"
+    ]
+  }
+}
