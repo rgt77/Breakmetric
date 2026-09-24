@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 975,
+      "current_step": 976,
       "checks": [
-        "response_snapshot configured",
+        "hash_deduplication configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -375,6 +375,11 @@
         "persist_normalized_response": true,
         "persist_response_hash": true,
         "exclude_credentials": true
+      },
+      "hash_deduplication": {
+        "compare_response_hash": true,
+        "on_same_hash": "skip-new-observation",
+        "record_duplicate_reason": true
       }
     }
   }
