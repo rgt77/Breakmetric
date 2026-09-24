@@ -1,0 +1,30 @@
+{
+  "product_id": "2025-26-topps-premier-league",
+  "source": {
+    "type": "official-topps",
+    "url": "https://www.topps.com/pages/checklists/topps-premier-league-2025-26"
+  },
+  "formats": [
+    {
+      "id": "hobby",
+      "name": "Hobby",
+      "status": "pending",
+      "analysis_format": "Hobby Case",
+      "configuration": {
+        "boxes_per_case": 12,
+        "packs_per_box": 8,
+        "cards_per_pack": 25
+      },
+      "analysis_unit": {
+        "type": "case",
+        "display_name": "12-box case",
+        "cases": 1,
+        "boxes": 12,
+        "packs": 96,
+        "cards": 2400
+      },
+      "analysis_data": null,
+      "note": "Official box configuration recorded. Odds/checklist normalization required before ready."
+    }
+  ]
+}
