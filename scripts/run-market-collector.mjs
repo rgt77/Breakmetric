@@ -49,6 +49,7 @@ const fairnessCaps={team:Number(config.fast_lane?.priority_queue_max_tasks_per_t
 const fairnessCounts={team:{},subject:{}};
 for(const task of tasks){fairnessCounts.team[task.team]=(fairnessCounts.team[task.team]||0)+1;const subject=task.subject||"";fairnessCounts.subject[subject]=(fairnessCounts.subject[subject]||0)+1;}
 const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,claimed_at:now(),status:"claimed"}]));
+const providerPolicy={min_request_interval_ms:Number(config.fast_lane?.min_request_interval_ms||1100),max_attempts:Number(config.retry?.max_attempts||3),retry_http_statuses:[...(config.retry?.retry_http_statuses||[])]};
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
