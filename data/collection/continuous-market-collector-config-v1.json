@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 963,
+      "current_step": 964,
       "checks": [
-        "observation_immutability configured",
+        "refresh_lock configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -298,6 +298,12 @@
         "append_only": true,
         "allow_in_place_price_edit": false,
         "correction_mode": "superseding-observation"
+      },
+      "refresh_lock": {
+        "enabled": true,
+        "scope": "product+format",
+        "single_active_refresh": true,
+        "on_conflict": "defer"
       }
     }
   }
