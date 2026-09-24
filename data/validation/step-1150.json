@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1150,
+  "title": "Register release #3",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry re-read",
+      "third release unique",
+      "official Topps source recorded",
+      "pending until package complete"
+    ]
+  }
+}
