@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1060,
+  "title": "Provider Tier B separation",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "source re-read",
+      "evidence_tier:\"B\" present"
+    ]
+  }
+}
