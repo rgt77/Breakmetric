@@ -78,6 +78,7 @@ const persistObservation=observation=>{observationsEntries[observation.task_id]=
 const appendRun=entry=>{const file=config.telemetry?.runs_file||"ops/collector/runs-v1.json";const state=readOr(file,{schema_version:1,model:"collector-runs-v1",product_id:config.product_id,retained_run_limit:192,entries:[]});state.entries=[...(state.entries||[]),entry].slice(-Number(state.retained_run_limit||192));atomicWrite(file,state);};
 const persistState=(status,reason=null)=>{const state=readOr(statePath,{schema_version:1,model:"collector-state-v1",product_id:config.product_id,format_id:config.format_id});state.sequence=sequence;state.updated_at=now();state.latest_run=runId;state.health={status,reason,evaluated_at:now()};atomicWrite(statePath,state);};
 const refreshDerived=()=>{const result=spawnSync(process.execPath,["scripts/generate-automated-valuation-candidates.mjs","--config",configPath],{cwd:root,stdio:"inherit"});if(result.status!==0)fail("derived-refresh","Valuation candidate refresh failed.");};
+const runProviderTaskWithRetry=async task=>{let lastError;for(let attempt=1;attempt<=providerPolicy.max_attempts;attempt++){try{return await runProviderTask(task);}catch(error){lastError=error;if(attempt<providerPolicy.max_attempts)await sleep(Math.min(Number(config.retry?.base_delay_ms||750)*2**(attempt-1),Number(config.retry?.max_delay_ms||8000)));}}throw lastError;};
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
