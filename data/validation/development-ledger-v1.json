@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1049,
+  "canonical_step_end": 1074,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1126,6 +1126,15 @@
       "title": "Phase 21 · Market evidence pipeline",
       "source_kind": "step-manifests",
       "source": "data/validation/step-1025.json..data/validation/step-1049.json",
+      "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1050,
+      "end": 1074,
+      "id": "phase-22-ev-engine",
+      "title": "Phase 22 · EV engine",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1050.json..data/validation/step-1074.json",
       "coverage_quality": "per-step-static-qa"
     }
   ],
