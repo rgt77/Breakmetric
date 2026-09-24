@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 989,
+  "title": "Emit evidence gate report",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "evidence_gate_report configured",
+      "fail-closed semantics preserved",
+      "canonical EV promotion remains gated",
+      "per-step QA required"
+    ]
+  },
+  "canonical_ev_mutated": false
+}
