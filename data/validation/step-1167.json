@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1167,
+  "title": "Validate odds package scope",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "package validator re-read",
+      "odds-scope-mismatch gate present"
+    ]
+  }
+}
