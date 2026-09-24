@@ -14,3 +14,4 @@ export function analysisDataFor(root,release,formatId){const f=formatById(root,r
 export function assertReadyFormat(root,release,formatId){const f=formatById(root,release,formatId);if(!f)throw new Error("Unknown format: "+formatId);if(f.status!=="ready")throw new Error("Format not analysis-ready: "+formatId);return f;}
 export const releaseKey=(releaseId,formatId)=>releaseId+"::"+formatId;
 export function allReadyTargets(root,registry){return registry.releases.flatMap(r=>readyFormats(root,r).map(f=>({release:r,format:f,collector_config:collectorConfigFor(r,f.id)})));}
+export function assertCollectorConfig(release,formatId){const p=collectorConfigFor(release,formatId);if(!p)throw new Error("Missing collector config: "+releaseKey(release.id,formatId));return p;}
