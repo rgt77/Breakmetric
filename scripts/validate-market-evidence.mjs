@@ -22,6 +22,7 @@ for(const row of entries){
  if(!row.source_url)issues.push({task_id:row.task_id,code:"source-url-required"});
  if(!row.team)issues.push({task_id:row.task_id,code:"team-required"});
  if(!row.category)issues.push({task_id:row.task_id,code:"category-required"});
+ if(!row.parallel)issues.push({task_id:row.task_id,code:"parallel-required"});
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,issues};
