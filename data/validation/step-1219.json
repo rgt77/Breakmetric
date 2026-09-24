@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1219,
+  "title": "Risk display binding",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results"
+  }
+}
