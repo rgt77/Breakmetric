@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1108,
+  "title": "Make EV analysis release-driven",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "generator re-read",
+      "release flag present",
+      "format flag present",
+      "config resolved through registry"
+    ]
+  }
+}
