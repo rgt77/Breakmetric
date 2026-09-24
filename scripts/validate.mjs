@@ -635,7 +635,7 @@ pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'
 pass("retry analysis control present", html.includes('id="retryAnalysisButton"'));
 pass(
   "redundant analysis progress UI removed",
-  !html.includes('class="flow-progress"') &&
+  !html.includes("flow-progress") &&
   !html.includes('id="flowProduct"') &&
   !html.includes('id="flowFormat"')
 );
