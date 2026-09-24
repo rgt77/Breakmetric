@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1124,
+  "canonical_step_end": 1149,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1155,6 +1155,16 @@
       "source_kind": "step-manifests",
       "source": "data/validation/step-1100.json..data/validation/step-1124.json",
       "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1125,
+      "end": 1149,
+      "id": "phase-25-release-2",
+      "title": "Phase 25 · Release #2 onboarding",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1125.json..data/validation/step-1149.json",
+      "coverage_quality": "per-step-static-qa",
+      "note": "2025/26 Topps Premier League registered and scaffolded from official Topps metadata; checklist/odds ingestion remains fail-closed and release stays pending."
     }
   ],
   "historical_anomalies": [
