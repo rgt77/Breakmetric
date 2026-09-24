@@ -96,6 +96,33 @@ if(dryRun){
   process.exit(0);
 }
 
-// Network/provider execution intentionally remains fail-closed until the exact
-// SportsCardsPro request/response adapter is implemented and QA-verified.
-fail("provider-adapter","Live provider adapter not implemented; no market observation was mutated.");
+let changed=0;
+for(let index=0;index<tasks.length;index++){
+  const task=tasks[index];
+  try{
+    const result=await runProviderTaskWithRetry(task);
+    run.counts.processed++;
+    run.tasks[index].status=result.status;
+    if(result.status==="exact-match"){
+      persistObservation(result.observation);
+      run.counts.exact_matches++;
+      changed++;
+    }else if(result.status==="duplicate"){
+      run.counts.duplicates_skipped++;
+    }else{
+      run.counts.deferred++;
+    }
+  }catch(error){
+    run.counts.failed++;
+    run.tasks[index].status="failed";
+    run.tasks[index].error=String(error?.message||error);
+  }
+  if(index<tasks.length-1)await sleep(providerPolicy.min_request_interval_ms);
+}
+if(changed>0)refreshDerived();
+run.status=run.counts.failed>0?"needs-review":"complete";
+run.completed_at=now();
+run.stages.push({name:"provider-collection",status:run.counts.failed>0?"failed":"passed",completed_at:run.completed_at});
+appendRun({run_key:run.run_id,lane:"fast",provider,started_at:run.started_at,finished_at:run.completed_at,status:run.status,credential_present:true,tasks_checked:run.counts.processed,exact_matches:run.counts.exact_matches,changed_observations:changed,provider_errors:run.counts.failed});
+persistState(run.status==="complete"?"healthy":"degraded",run.counts.failed>0?"provider-task-failures":null);
+process.stdout.write(stable(run));
