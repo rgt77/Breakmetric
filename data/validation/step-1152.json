@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1152,
+  "title": "Add release #3 package manifest",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "manifest re-read",
+      "component paths isolated",
+      "readiness explicit",
+      "fail-closed true"
+    ]
+  }
+}
