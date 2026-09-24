@@ -7,3 +7,4 @@ export const promotionAllowed=(root,pkg)=>pkg.fail_closed===true&&allComponentsP
 export const ingestionOrder=['format','base_checklist','insert_checklist','autograph_checklist','odds','inventory','provenance','observations'];
 export function nextAction(root,pkg){const missing=new Set(nextMissing(root,pkg.required_components||{}).map(x=>x.component));return ingestionOrder.find(x=>missing.has(x))||null;}
 export function progress(root,pkg){const total=Object.keys(pkg.required_components||{}).length;const missing=nextMissing(root,pkg.required_components||{}).length;return {complete:total-missing,total};}
+export const automationReady=(root,pkg)=>nextAction(root,pkg)===null&&promotionAllowed(root,pkg);
