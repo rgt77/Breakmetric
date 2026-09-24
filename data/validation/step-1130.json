@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1130,
+  "title": "Add active release discovery",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry library re-read",
+      "activeReleases present"
+    ]
+  }
+}
