@@ -127,5 +127,19 @@
     "fail_closed_if_missing": true,
     "fail_closed_if_stale_hours": 24,
     "consume_only_exact_task_ids": true
+  },
+  "feedback_loop": {
+    "enabled": true,
+    "sequence": [
+      "collect_exact_provider_evidence",
+      "persist_observation",
+      "regenerate_valuation_candidates",
+      "recompute_coverage_diagnostics",
+      "refresh_acquisition_priority_queue"
+    ],
+    "trigger_on_exact_match": true,
+    "canonical_ev_promotion": "blocked-until-existing-evidence-gates-pass",
+    "idempotency_key": "task_id+provider+provider_product_id+observed_at",
+    "retain_previous_queue_on_refresh_failure": true
   }
 }
