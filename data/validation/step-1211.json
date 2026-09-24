@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1211,
+  "title": "Add BreakMetric Analysis result panel",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results"
+  }
+}
