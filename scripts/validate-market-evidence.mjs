@@ -17,6 +17,7 @@ for(const row of entries){
  const price=Number(row.raw_price_usd);if(!Number.isFinite(price)||price<Number(config.quality?.min_price_usd||0.01)||price>Number(config.quality?.max_price_usd||1000000))issues.push({task_id:row.task_id,code:"invalid-price"});
  if(!allowedSources.has(row.source))issues.push({task_id:row.task_id,code:"unapproved-source"});
  const t=Date.parse(row.observed_at);if(!Number.isFinite(t))issues.push({task_id:row.task_id,code:"invalid-observed-at"});else if(t>now+300000)issues.push({task_id:row.task_id,code:"future-observation"});
+ if(!row.provider_product_name)issues.push({task_id:row.task_id,code:"provider-product-name-required"});
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,issues};
