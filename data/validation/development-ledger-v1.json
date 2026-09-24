@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 944,
+  "canonical_step_end": 954,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -613,6 +613,96 @@
       "title": "Add checkpoint recovery for feedback-loop failures",
       "source_kind": "step-manifest",
       "source": "data/validation/step-944.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 945,
+      "end": 945,
+      "id": "feedback-execution-945",
+      "title": "Feedback-loop execution hardening step 945",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-945.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 946,
+      "end": 946,
+      "id": "feedback-execution-946",
+      "title": "Feedback-loop execution hardening step 946",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-946.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 947,
+      "end": 947,
+      "id": "feedback-execution-947",
+      "title": "Feedback-loop execution hardening step 947",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-947.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 948,
+      "end": 948,
+      "id": "feedback-execution-948",
+      "title": "Feedback-loop execution hardening step 948",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-948.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 949,
+      "end": 949,
+      "id": "feedback-execution-949",
+      "title": "Feedback-loop execution hardening step 949",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-949.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 950,
+      "end": 950,
+      "id": "feedback-execution-950",
+      "title": "Feedback-loop execution hardening step 950",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-950.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 951,
+      "end": 951,
+      "id": "feedback-execution-951",
+      "title": "Feedback-loop execution hardening step 951",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-951.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 952,
+      "end": 952,
+      "id": "feedback-execution-952",
+      "title": "Feedback-loop execution hardening step 952",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-952.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 953,
+      "end": 953,
+      "id": "feedback-execution-953",
+      "title": "Feedback-loop execution hardening step 953",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-953.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 954,
+      "end": 954,
+      "id": "feedback-execution-954",
+      "title": "Feedback-loop execution hardening step 954",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-954.json",
       "coverage_quality": "exact-manifest"
     }
   ],
