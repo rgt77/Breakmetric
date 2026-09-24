@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1253,
+  "title": "Data quality gate 1253",
+  "qa": {
+    "status": "pass",
+    "scope": "static-data-quality"
+  }
+}
