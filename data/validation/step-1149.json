@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1149,
+  "title": "Complete release #2 onboarding scaffold",
+  "qa": {
+    "status": "pass",
+    "scope": "static-integration",
+    "checks": [
+      "release registered",
+      "Hobby format official configuration present",
+      "data package fail-closed",
+      "checklist ingestion targets present",
+      "odds source remains required",
+      "CI validation present"
+    ],
+    "readiness": "pending-source-ingestion",
+    "analysis_ready": false
+  }
+}
