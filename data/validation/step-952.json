@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 952,
+  "title": "Add feedback-loop execution metrics",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "metrics configured",
+      "fail-closed semantics preserved",
+      "canonical EV promotion remains gated",
+      "per-step QA required"
+    ]
+  },
+  "canonical_ev_mutated": false
+}
