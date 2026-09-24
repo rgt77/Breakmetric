@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1209,
+  "title": "Fail-closed ROI validation",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "ROI exposed before readiness present"
+    ]
+  }
+}
