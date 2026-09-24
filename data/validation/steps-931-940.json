@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "start_step": 931,
+  "end_step": 940,
+  "title": "Operational evidence-queue handoff",
+  "objective": "Materialize the valuation priority queue as an explicit collector artifact and make its handoff fail-closed.",
+  "steps": [
+    {
+      "step": 931,
+      "title": "Materialize acquisition priority artifact"
+    },
+    {
+      "step": 932,
+      "title": "Persist top-100 priority tasks under collector ops"
+    },
+    {
+      "step": 933,
+      "title": "Attach product and format identity to queue"
+    },
+    {
+      "step": 934,
+      "title": "Persist canonical-EV non-mutation marker"
+    },
+    {
+      "step": 935,
+      "title": "Expose direct-provider evidence gap count"
+    },
+    {
+      "step": 936,
+      "title": "Report queue artifact from valuation generator"
+    },
+    {
+      "step": 937,
+      "title": "Point collector policy at materialized queue"
+    },
+    {
+      "step": 938,
+      "title": "Fail closed when queue artifact is missing"
+    },
+    {
+      "step": 939,
+      "title": "Fail closed when priority queue is stale"
+    },
+    {
+      "step": 940,
+      "title": "Require exact task IDs during queue consumption"
+    }
+  ],
+  "guarantees": [
+    "Queue generation does not promote any valuation.",
+    "Canonical EV remains unchanged.",
+    "Collector priority consumption requires exact task identity.",
+    "A missing or stale priority artifact cannot silently alter priority scheduling."
+  ]
+}
