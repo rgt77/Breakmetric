@@ -143,14 +143,15 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 943,
+      "current_step": 944,
       "checks": [
-        "observation persists before derived refresh",
-        "valuation refresh follows new exact observation",
-        "coverage refresh follows valuation refresh",
-        "priority queue refresh follows coverage refresh",
-        "stage failure retains last known good derived state",
-        "partial promotion is disabled"
+        "checkpoint after every feedback stage",
+        "resume from last successful checkpoint",
+        "completed stages are not rerun",
+        "only failed stage is retried",
+        "retry count is bounded",
+        "terminal failure is reviewable",
+        "failure reason is preserved"
       ]
     },
     "execution": {
@@ -160,7 +161,22 @@
       "coverage_refresh": "required-after-valuation-refresh",
       "priority_queue_refresh": "required-after-coverage-refresh",
       "on_stage_failure": "stop-and-retain-last-known-good-derived-state",
-      "partial_promotion_allowed": false
+      "partial_promotion_allowed": false,
+      "recovery": {
+        "step": 944,
+        "checkpoint_after": [
+          "persist_observation",
+          "regenerate_valuation_candidates",
+          "recompute_coverage_diagnostics",
+          "refresh_acquisition_priority_queue"
+        ],
+        "resume_from_last_successful_checkpoint": true,
+        "rerun_completed_stage": false,
+        "retry_failed_stage_only": true,
+        "max_stage_retries": 2,
+        "terminal_failure_state": "needs-review",
+        "preserve_failure_reason": true
+      }
     }
   }
 }
