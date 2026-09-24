@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1110,
+  "title": "Parameterize EV slot inventory format",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "library re-read",
+      "formatId parameter present",
+      "task IDs use selected format"
+    ]
+  }
+}
