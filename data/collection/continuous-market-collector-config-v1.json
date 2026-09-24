@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 976,
+      "current_step": 977,
       "checks": [
-        "hash_deduplication configured",
+        "freshness_classification configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -380,6 +380,16 @@
         "compare_response_hash": true,
         "on_same_hash": "skip-new-observation",
         "record_duplicate_reason": true
+      },
+      "freshness_classification": {
+        "fresh_hours": 24,
+        "aging_hours": 168,
+        "classes": [
+          "fresh",
+          "aging",
+          "stale"
+        ],
+        "stale_requires_refresh": true
       }
     }
   }
