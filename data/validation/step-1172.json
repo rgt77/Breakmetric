@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1172,
+  "title": "Extend registry scale tests to three releases",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "runtime test re-read",
+      "three-release assertion encoded",
+      "two pending releases asserted",
+      "pending release cannot analyze"
+    ]
+  }
+}
