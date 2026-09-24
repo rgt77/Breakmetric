@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 978,
+      "current_step": 979,
       "checks": [
-        "provider_health configured",
+        "health_circuit_breaker configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -396,6 +396,12 @@
         "track_invalid_payloads": true,
         "track_rate_limits": true,
         "track_transient_failures": true
+      },
+      "health_circuit_breaker": {
+        "enabled": true,
+        "open_on_consecutive_failures": 5,
+        "cooldown_minutes": 30,
+        "canonical_state_unchanged": true
       }
     }
   }
