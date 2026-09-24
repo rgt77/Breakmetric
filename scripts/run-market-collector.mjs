@@ -50,6 +50,7 @@ const fairnessCounts={team:{},subject:{}};
 for(const task of tasks){fairnessCounts.team[task.team]=(fairnessCounts.team[task.team]||0)+1;const subject=task.subject||"";fairnessCounts.subject[subject]=(fairnessCounts.subject[subject]||0)+1;}
 const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,claimed_at:now(),status:"claimed"}]));
 const providerPolicy={min_request_interval_ms:Number(config.fast_lane?.min_request_interval_ms||1100),max_attempts:Number(config.retry?.max_attempts||3),retry_http_statuses:[...(config.retry?.retry_http_statuses||[])]};
+const qualityPolicy={min_price_usd:Number(config.quality?.min_price_usd||0.01),max_price_usd:Number(config.quality?.max_price_usd||1000000),exact_identity_required:config.safety?.exact_identity_required===true};
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
