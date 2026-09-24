@@ -1,14 +1,12 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1180,
-  "title": "Simplify release search empty state",
+  "title": "Add downstream reset contract",
   "qa": {
     "status": "pass",
     "scope": "static-source",
     "checks": [
-      "index re-read",
-      "updated UX copy present"
+      "resetDownstream present"
     ]
   }
 }
