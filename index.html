@@ -69,20 +69,6 @@
     }
     .tool h2{margin:0 0 8px;font-size:1.5rem}
     .tool p{margin:0 0 22px;color:var(--muted)}
-    .flow-progress{
-      list-style:none;margin:18px 0 24px;padding:0;
-      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px
-    }
-    .flow-progress li{
-      border:1px solid var(--line);border-radius:12px;padding:10px 11px;
-      background:#0b1223;color:var(--muted);min-width:0
-    }
-    .flow-progress li strong{display:block;font-size:.78rem;color:var(--text)}
-    .flow-progress li small{display:block;margin-top:4px;font-size:.66rem}
-    .flow-progress li[data-state="done"]{border-color:rgba(101,230,180,.45)}
-    .flow-progress li[data-state="done"] small{color:var(--accent)}
-    .flow-progress li[data-state="active"]{border-color:var(--accent);background:rgba(101,230,180,.07)}
-    .flow-progress li[data-state="optional"] small{color:var(--muted)}
     .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .spot-toolbar{
       display:flex;
@@ -560,14 +546,13 @@
     .status b{color:var(--accent)}
     footer{padding:50px 0 28px;color:var(--muted);font-size:.85rem}
     @media(max-width:980px){
-      .flow-progress{grid-template-columns:repeat(3,minmax(0,1fr))}
       .quality-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .data-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .primary-results{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:760px){
       header,main,footer{width:min(100% - 24px,1100px)}
-      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid,.flow-progress{grid-template-columns:1fr}
+      .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
       .hero{padding-top:55px}
@@ -610,38 +595,30 @@
 
     <section class="tool" id="analysisTool">
       <h2>Spot value calculator</h2>
-      <p>Choose a release, box type, team and player to inspect modeled hit probability. EV and ROI remain beta until market coverage and source verification are complete.</p>
+      <p>Choose a box type, team and optional player, then enter the spot price. EV and ROI remain beta until market coverage and source verification are complete.</p>
 
-      <ol class="flow-progress" aria-label="Analysis progress">
-        <li id="flowProduct" data-state="active"><strong>Release</strong><small>Select product</small></li>
-        <li id="flowFormat"><strong>Box type</strong><small>Waiting</small></li>
-        <li id="flowTeam"><strong>Team</strong><small>Waiting</small></li>
-        <li id="flowPlayer" data-state="optional"><strong>Player</strong><small>Optional drill-down</small></li>
-        <li id="flowPrice"><strong>Spot price</strong><small>Waiting</small></li>
-      </ol>
-
-      
-      <div class="section-title">1 · Choose product / release</div>
-      <div class="browse-search" style="margin-top:0">
-        <label for="productSearch">Search product / release</label>
-        <input
-          id="productSearch"
-          type="search"
-          autocomplete="off"
-          aria-keyshortcuts="Control+K Meta+K"
-          placeholder="Try 2025, Premier League, Topps Chrome…"
-        />
-        <p id="productSearchStatus" class="browse-search-hint" aria-live="polite">
-          Type to filter products by brand, competition or year.
-        </p>
-      </div>
-      <div id="productGrid" class="product-grid" aria-label="Products and releases"></div>
-      <div id="productStatus" class="format-status" aria-live="polite">
-        Loading products…
+      <div id="productStage" hidden>
+        <div class="section-title">Choose release</div>
+        <div class="browse-search" style="margin-top:0">
+          <label for="productSearch">Search product / release</label>
+          <input
+            id="productSearch"
+            type="search"
+            autocomplete="off"
+            placeholder="Try 2025, Premier League, Topps Chrome…"
+          />
+          <p id="productSearchStatus" class="browse-search-hint" aria-live="polite">
+            Type to filter products by brand, competition or year.
+          </p>
+        </div>
+        <div id="productGrid" class="product-grid" aria-label="Products and releases"></div>
+        <div id="productStatus" class="format-status" aria-live="polite">
+          Loading products…
+        </div>
       </div>
 
       <div id="formatStage">
-        <div class="section-title">2 · Choose box type</div>
+        <div class="section-title">1 · Choose box type</div>
         <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
         <div id="formatStatus" class="format-status" aria-live="polite">
           Select a product first.
@@ -663,7 +640,7 @@
         <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
         <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
         <span id="shareStatus" class="share-status" aria-live="polite"></span>
-        <span class="share-status">Shortcuts: / search team/player · Ctrl/⌘K product · Esc clear search</span>
+        <span class="share-status">Shortcuts: / search team/player · Esc clear search</span>
       </div>
       <div class="analysis-scope">
         <div>
@@ -856,7 +833,7 @@
         </p>
       </div>
 
-      <div class="section-title">3 · Choose team</div>
+      <div class="section-title">2 · Choose team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true"></select>
 
@@ -895,11 +872,11 @@
             aria-label="Selected team data readiness"
           ></div>
         </div>
-        <div class="section-title">4 · Choose player</div>
+        <div class="section-title">3 · Choose player</div>
         <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
       </div>
 
-      <div class="section-title">5 · Team value overview <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
+      <div class="section-title">4 · Spot price</div>
 
       <div class="spot-toolbar">
         <div class="spot-control">
@@ -929,6 +906,8 @@
           EV is beta. ROI is calculated only when EV coverage is complete and the market-source verification gate is satisfied.
         </div>
       </div>
+
+      <div class="section-title">Team value overview <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
 
       <div class="results primary-results">
         <div class="result">
@@ -1161,11 +1140,7 @@
   <script src="src/marketRecordCoordinator.js"></script>
   <script src="src/runtimeGuard.js"></script>
   <script>
-    const flowProduct = document.getElementById("flowProduct");
-    const flowFormat = document.getElementById("flowFormat");
-    const flowTeam = document.getElementById("flowTeam");
-    const flowPlayer = document.getElementById("flowPlayer");
-    const flowPrice = document.getElementById("flowPrice");
+    const productStage = document.getElementById("productStage");
     const productSearch = document.getElementById("productSearch");
     const productSearchStatus = document.getElementById("productSearchStatus");
     const productGrid = document.getElementById("productGrid");
@@ -2977,53 +2952,6 @@
       setAnalysisLoadState("idle");
     }
 
-    function setFlowState(element, state, text) {
-      element.dataset.state = state;
-      const small = element.querySelector("small");
-      if (small) small.textContent = text;
-      if (state === "active") element.setAttribute("aria-current", "step");
-      else element.removeAttribute("aria-current");
-    }
-
-    function updateFlowProgress() {
-      const hasProduct = Boolean(currentProduct);
-      const format = selectedFormatConfig();
-      const hasFormat = Boolean(format && format.status === "ready");
-      const hasTeam = Boolean(team.value);
-      const hasPlayer = Boolean(selectedPlayer);
-      const hasPrice = Number(price.value) > 0;
-
-      setFlowState(
-        flowProduct,
-        hasProduct ? "done" : "active",
-        hasProduct ? "Selected" : "Select product"
-      );
-
-      setFlowState(
-        flowFormat,
-        hasFormat ? "done" : hasProduct ? "active" : "waiting",
-        hasFormat ? format.name : hasProduct ? "Select box type" : "Waiting"
-      );
-
-      setFlowState(
-        flowTeam,
-        hasTeam ? "done" : hasFormat ? "active" : "waiting",
-        hasTeam ? team.value : hasFormat ? "Select team" : "Waiting"
-      );
-
-      setFlowState(
-        flowPlayer,
-        hasPlayer ? "done" : "optional",
-        hasPlayer ? selectedPlayer : "Optional drill-down"
-      );
-
-      setFlowState(
-        flowPrice,
-        hasPrice ? "done" : hasTeam ? "active" : "waiting",
-        hasPrice ? "Entered" : hasTeam ? "Enter for ROI when eligible" : "Waiting"
-      );
-    }
-
     function updateAnalysisContext() {
       if (!analysisContext) return;
       updateAnalysisUnitUi();
@@ -3047,7 +2975,6 @@
 
       if (selectedPlayer) parts.push(selectedPlayer);
 
-      updateFlowProgress();
       analysisContext.replaceChildren();
       parts.forEach((part,index) => {
         if (index > 0) {
@@ -4148,10 +4075,22 @@
         productCatalog = nextProductCatalog;
         productCatalogContractReport = productCatalogContract;
 
-        selectedProductId = BreakMetricContracts.reconcileProduct(
-          productCatalog,
-          selectedProductId
-        );
+        const analysisReadyProducts = (productCatalog.products || [])
+          .filter(item =>
+            item.status === "ready" &&
+            item.active !== false
+          );
+
+        if (analysisReadyProducts.length === 1) {
+          selectedProductId = analysisReadyProducts[0].id;
+          productStage.hidden = true;
+        } else {
+          productStage.hidden = false;
+          selectedProductId = BreakMetricContracts.reconcileProduct(
+            productCatalog,
+            selectedProductId
+          );
+        }
 
         if (selectedProductId) {
           BreakMetricStorage.set("breakmetric_product", selectedProductId);
@@ -4193,6 +4132,7 @@
       } catch (error) {
         productCatalog = null;
         productCatalogContractReport = null;
+        productStage.hidden = false;
         productGrid.replaceChildren();
         productStatus.textContent =
           error?.name === "DataContractError"
@@ -4465,15 +4405,6 @@
     }
 
     document.addEventListener("keydown", event => {
-      const key = event.key.toLowerCase();
-
-      if ((event.ctrlKey || event.metaKey) && key === "k") {
-        event.preventDefault();
-        productSearch.focus();
-        productSearch.select();
-        return;
-      }
-
       if (event.key === "/" && !isTypingTarget(document.activeElement)) {
         event.preventDefault();
         browseSearch.focus();
@@ -4540,7 +4471,6 @@
     loadProducts();
 
     function updateResults() {
-      updateFlowProgress();
       const spotPrice = Number(price.value);
       resultTeam.textContent = team.value;
 
