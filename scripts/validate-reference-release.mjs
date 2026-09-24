@@ -11,5 +11,6 @@ if(state&&state.tasks.some(x=>!(Number(x.expected_copies_per_case)>0)))issues.pu
 if(state&&state.tasks.some(x=>!x.team||!x.set||!x.card_number||!x.parallel))issues.push("missing-card-identity");
 if(state&&state.tasks.some(x=>!Array.isArray(x.subjects)||!x.subjects.length))issues.push("missing-subject");
 if(state&&state.tasks.some(x=>!x.odds_basis))issues.push("missing-odds-basis");
+if(state&&state.tasks.some(x=>!(Number(x.odds_pool_size)>0)))issues.push("invalid-odds-pool");
 const report={schema_version:1,model:"reference-release-readiness-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),status:issues.length?"failed":"passed",data_contract_complete:issues.length===0,analysis_ready:false,eligible_slot_count:state?.eligible_slot_count??null,canonical_valued_slot_count:state?.valued_slot_count??null,remaining_slot_count:state?.unvalued_slot_count??null,issues,semantics:"Data-contract completeness is not market-valuation completeness. Analysis readiness remains fail-closed until evidence gates pass."};
 process.stdout.write(JSON.stringify(report,null,2)+"\n");if(issues.length)process.exitCode=1;
