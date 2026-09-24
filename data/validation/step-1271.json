@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1271,
+  "title": "Currency consistency gate",
+  "qa": {
+    "status": "pass",
+    "scope": "static-data-quality"
+  }
+}
