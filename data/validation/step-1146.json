@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1146,
+  "title": "Validate normalized odds payload",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "package validator re-read",
+      "odds-empty-when-ready gate present"
+    ]
+  }
+}
