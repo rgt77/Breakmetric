@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 952,
+      "current_step": 953,
       "checks": [
-        "metrics configured",
+        "audit_log configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -222,6 +222,14 @@
         "record_retry_count": true,
         "record_exact_match_count": true,
         "record_duplicate_skip_count": true
+      },
+      "audit_log": {
+        "enabled": true,
+        "append_only": true,
+        "record_run_id": true,
+        "record_stage": true,
+        "record_outcome": true,
+        "record_failure_reason": true
       }
     }
   }
