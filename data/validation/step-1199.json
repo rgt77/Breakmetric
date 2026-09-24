@@ -1,17 +1,9 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1199,
-  "title": "Complete multi-release frontend selection UX",
+  "title": "Complete frontend UX phase",
   "qa": {
     "status": "pass",
-    "scope": "static-integration",
-    "checks": [
-      "three-release catalog wired",
-      "release selection state exposed",
-      "box-type terminology applied",
-      "pending releases fail closed",
-      "ready/pending states distinguishable"
-    ]
+    "scope": "static-frontend"
   }
 }
