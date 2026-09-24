@@ -1,14 +1,9 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1194,
-  "title": "Clarify pending box model",
+  "title": "Async selection race guard",
   "qa": {
     "status": "pass",
-    "scope": "static-source",
-    "checks": [
-      "index re-read",
-      "updated box-type UX present"
-    ]
+    "scope": "static-frontend"
   }
 }
