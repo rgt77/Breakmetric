@@ -14,5 +14,6 @@ if(state&&state.tasks.some(x=>!x.odds_basis))issues.push("missing-odds-basis");
 if(state&&state.tasks.some(x=>!(Number(x.odds_pool_size)>0)))issues.push("invalid-odds-pool");
 if(state&&state.tasks.some((x,i)=>x.rank!==i+1))issues.push("rank-order-invalid");
 if(state&&!(state.eligible_slot_count>0))issues.push("inventory-denominator-missing");
+const obs=read(config.observation_file);if(obs.product_id!==config.product_id)issues.push("observation-product-mismatch");
 const report={schema_version:1,model:"reference-release-readiness-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),status:issues.length?"failed":"passed",data_contract_complete:issues.length===0,analysis_ready:false,eligible_slot_count:state?.eligible_slot_count??null,canonical_valued_slot_count:state?.valued_slot_count??null,remaining_slot_count:state?.unvalued_slot_count??null,issues,semantics:"Data-contract completeness is not market-valuation completeness. Analysis readiness remains fail-closed until evidence gates pass."};
 process.stdout.write(JSON.stringify(report,null,2)+"\n");if(issues.length)process.exitCode=1;
