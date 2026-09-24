@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1061,
+  "title": "Prevent silent canonical promotion",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "source re-read",
+      "canonical_ev_mutated:false present"
+    ]
+  }
+}
