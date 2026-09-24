@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 954,
+  "canonical_step_end": 970,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -703,6 +703,150 @@
       "title": "Feedback-loop execution hardening step 954",
       "source_kind": "step-manifest",
       "source": "data/validation/step-954.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 955,
+      "end": 955,
+      "id": "collector-hardening-955",
+      "title": "Collector execution hardening step 955",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-955.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 956,
+      "end": 956,
+      "id": "collector-hardening-956",
+      "title": "Collector execution hardening step 956",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-956.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 957,
+      "end": 957,
+      "id": "collector-hardening-957",
+      "title": "Collector execution hardening step 957",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-957.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 958,
+      "end": 958,
+      "id": "collector-hardening-958",
+      "title": "Collector execution hardening step 958",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-958.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 959,
+      "end": 959,
+      "id": "collector-hardening-959",
+      "title": "Collector execution hardening step 959",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-959.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 960,
+      "end": 960,
+      "id": "collector-hardening-960",
+      "title": "Collector execution hardening step 960",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-960.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 961,
+      "end": 961,
+      "id": "collector-hardening-961",
+      "title": "Collector execution hardening step 961",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-961.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 962,
+      "end": 962,
+      "id": "collector-hardening-962",
+      "title": "Collector execution hardening step 962",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-962.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 963,
+      "end": 963,
+      "id": "collector-hardening-963",
+      "title": "Collector execution hardening step 963",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-963.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 964,
+      "end": 964,
+      "id": "collector-hardening-964",
+      "title": "Collector execution hardening step 964",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-964.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 965,
+      "end": 965,
+      "id": "collector-hardening-965",
+      "title": "Collector execution hardening step 965",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-965.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 966,
+      "end": 966,
+      "id": "collector-hardening-966",
+      "title": "Collector execution hardening step 966",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-966.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 967,
+      "end": 967,
+      "id": "collector-hardening-967",
+      "title": "Collector execution hardening step 967",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-967.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 968,
+      "end": 968,
+      "id": "collector-hardening-968",
+      "title": "Collector execution hardening step 968",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-968.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 969,
+      "end": 969,
+      "id": "collector-hardening-969",
+      "title": "Collector execution hardening step 969",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-969.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 970,
+      "end": 970,
+      "id": "collector-hardening-970",
+      "title": "Collector execution hardening step 970",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-970.json",
       "coverage_quality": "exact-manifest"
     }
   ],
