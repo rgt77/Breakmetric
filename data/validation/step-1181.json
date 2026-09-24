@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1181,
+  "title": "Use release terminology in search",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "index re-read",
+      "updated UX copy present"
+    ]
+  }
+}
