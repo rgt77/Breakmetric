@@ -27,6 +27,7 @@ for(const row of entries){
  if(row.task_id&&!row.task_id.startsWith(config.product_id+"::"+config.format_id+"::"))issues.push({task_id:row.task_id,code:"task-product-mismatch"});
  if(row.provider_product_id&&!/^[0-9]+$/.test(String(row.provider_product_id)))issues.push({task_id:row.task_id,code:"provider-id-format"});
  if(row.source_url&&!String(row.source_url).startsWith("https://www.sportscardspro.com/"))issues.push({task_id:row.task_id,code:"source-url-provider-mismatch"});
+ if(Number.isFinite(t)&&now-t>365*86400000)issues.push({task_id:row.task_id,code:"timestamp-too-old"});
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,issues};
