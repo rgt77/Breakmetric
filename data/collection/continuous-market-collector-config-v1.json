@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 987,
+      "current_step": 988,
       "checks": [
-        "no_progress_detection configured",
+        "queue_exhaustion configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -449,6 +449,11 @@
         "consecutive_runs": 4,
         "condition": "zero-new-exact-observations",
         "action": "needs-review"
+      },
+      "queue_exhaustion": {
+        "detect_empty_priority_queue": true,
+        "distinguish_complete_vs_blocked": true,
+        "blocked_state": "needs-review"
       }
     }
   }
