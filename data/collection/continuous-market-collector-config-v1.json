@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 989,
+      "current_step": 990,
       "checks": [
-        "evidence_gate_report configured",
+        "operational_readiness configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -461,6 +461,18 @@
         "include_blockers": true,
         "include_verified_counts": true,
         "never_auto_override_gate": true
+      },
+      "operational_readiness": {
+        "required": [
+          "preflight",
+          "task_claim",
+          "provider_response_validation",
+          "identity_match",
+          "observation_provenance",
+          "publish_gate",
+          "post_run_reconciliation"
+        ],
+        "status_when_all_present": "ready-for-runner-implementation"
       }
     }
   }
