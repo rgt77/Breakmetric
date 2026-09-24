@@ -24,6 +24,7 @@ const fetchProviderProduct=(token,id)=>apiJson("/api/product",{t:token,id:String
 const identityScore=(task,item)=>{const name=normalize(item?.["product-name"]);const set=normalize(item?.["console-name"]);const subject=normalize(task.subject);const card=normalize(task.card_number);const parallel=normalize(task.parallel);let score=0;if(subject&&name.includes(subject))score+=4;if(card&&name.includes(card))score+=3;if(parallel&&parallel!=="base"&&name.includes(parallel))score+=2;if(set.includes("topps chrome")&&set.includes("premier league"))score+=3;return score;};
 const fail=(stage,message)=>{const error=new Error(message);error.stage=stage;throw error;};
 
+const chooseExactMatch=(task,items)=>{const ranked=(items||[]).map(item=>({item,score:identityScore(task,item)})).sort((a,b)=>b.score-a.score);if(!ranked.length||ranked[0].score<10)return null;if(ranked[1]&&ranked[1].score===ranked[0].score)return null;return ranked[0].item;};
 const config=read(configPath);
 const queuePath=config.priority_queue?.source;
 const required=["product_id","format_id","observation_file","automated_valuation_file"];
