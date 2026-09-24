@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1105,
+  "title": "Add UI-safe format options",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry library re-read",
+      "formatOptions present"
+    ]
+  }
+}
