@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1023,
+  "title": "Activate live SportsCardsPro collector loop",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner re-read",
+      "provider loop active",
+      "exact matches only persisted",
+      "derived refresh only after changes",
+      "canonical EV remains excluded"
+    ],
+    "qa_scope": "static-source; live provider call requires repository credential"
+  }
+}
