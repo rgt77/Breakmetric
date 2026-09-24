@@ -4,3 +4,4 @@ export const packagePath=(id,format='hobby')=>'data/releases/'+id+'-'+format+'.j
 export const scopeKey=(id,format)=>id+'::'+format;
 export const allComponentsPresent=(root,paths)=>nextMissing(root,paths).length===0;
 export const promotionAllowed=(root,pkg)=>pkg.fail_closed===true&&allComponentsPresent(root,pkg.required_components||{})&&Object.values(pkg.readiness||{}).every(Boolean);
+export const ingestionOrder=['format','base_checklist','insert_checklist','autograph_checklist','odds','inventory','provenance','observations'];
