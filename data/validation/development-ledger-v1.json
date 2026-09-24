@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 940,
+  "canonical_step_end": 941,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -577,6 +577,15 @@
       "title": "Materialize and harden the evidence-acquisition queue handoff",
       "source_kind": "block-summary",
       "source": "data/validation/steps-931-940.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 941,
+      "end": 941,
+      "id": "collector-valuation-feedback-loop",
+      "title": "Define safe collector-to-valuation feedback loop",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-941.json",
       "coverage_quality": "exact-manifest"
     }
   ],
