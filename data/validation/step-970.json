@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 970,
+  "title": "Add collector run summary",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "run_summary configured",
+      "fail-closed semantics preserved",
+      "canonical EV promotion remains gated",
+      "per-step QA required"
+    ]
+  },
+  "canonical_ev_mutated": false
+}
