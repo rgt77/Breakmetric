@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 968,
+      "current_step": 969,
       "checks": [
-        "regression_guard configured",
+        "publish_gate configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -326,6 +326,12 @@
         "flag_candidate_count_drop_pct": 20,
         "flag_weighted_coverage_drop_pct": 10,
         "on_flag": "needs-review"
+      },
+      "publish_gate": {
+        "require_candidate_validation": true,
+        "require_coverage_validation": true,
+        "require_queue_validation": true,
+        "require_regression_clear": true
       }
     }
   }
