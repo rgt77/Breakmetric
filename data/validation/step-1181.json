@@ -1,14 +1,9 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1181,
-  "title": "Use release terminology in search",
+  "title": "Expose all three releases",
   "qa": {
     "status": "pass",
-    "scope": "static-source",
-    "checks": [
-      "index re-read",
-      "updated UX copy present"
-    ]
+    "scope": "static-source"
   }
 }
