@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 949,
+      "current_step": 950,
       "checks": [
-        "duplicate_guard configured",
+        "staleness_guard configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -205,6 +205,11 @@
         "enabled": true,
         "on_duplicate": "skip-derived-refresh",
         "preserve_existing_observation": true
+      },
+      "staleness_guard": {
+        "enabled": true,
+        "max_queue_age_hours": 24,
+        "on_stale": "block-priority-consumption"
       }
     }
   }
