@@ -5,3 +5,4 @@ export const scopeKey=(id,format)=>id+'::'+format;
 export const allComponentsPresent=(root,paths)=>nextMissing(root,paths).length===0;
 export const promotionAllowed=(root,pkg)=>pkg.fail_closed===true&&allComponentsPresent(root,pkg.required_components||{})&&Object.values(pkg.readiness||{}).every(Boolean);
 export const ingestionOrder=['format','base_checklist','insert_checklist','autograph_checklist','odds','inventory','provenance','observations'];
+export function nextAction(root,pkg){const missing=new Set(nextMissing(root,pkg.required_components||{}).map(x=>x.component));return ingestionOrder.find(x=>missing.has(x))||null;}
