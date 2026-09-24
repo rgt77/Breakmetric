@@ -3,3 +3,4 @@ export function validateChecklistCount(data){if(data?.status!=='ready')return []
 export function validateSubjects(cards=[]){return cards.flatMap(c=>Array.isArray(c.subjects)&&c.subjects.length?[]:['subjects-empty:'+text(c.card_number)]);};
 export function validateTeams(cards=[]){return cards.flatMap(c=>text(c.team)?[]:['team-empty:'+text(c.card_number)]);};
 export function validateOddsUniqueness(rows=[]){return duplicates(rows,r=>text(r.name||r.variant)+'-'+text(r.denominator)).map(x=>'duplicate-odds-row:'+x);}
+export function validateOddsMagnitude(rows=[]){return rows.flatMap(r=>Number(r.denominator)>100000000?['implausible-odds-denominator']:[]);}
