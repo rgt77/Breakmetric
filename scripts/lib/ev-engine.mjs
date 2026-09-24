@@ -6,4 +6,5 @@ export const probabilityAtLeastOne=expected=>finite(expected)&&Number(expected)>
 export function aggregate(rows=[]){let ev=0,copies=0,valued=0;for(const r of rows){const c=contribution(r.expected_copies_per_case,r.market_value_usd);if(c===null)continue;ev+=c;copies+=Number(r.expected_copies_per_case);valued++;}return {ev_usd:round(ev),expected_copies_per_case:round(copies),probability_at_least_one_pct:probabilityAtLeastOne(copies),valued_contribution_count:valued,total_contribution_count:rows.length,coverage_pct:rows.length?round(100*valued/rows.length):0};}
 export const breakEvenPrice=ev=>finite(ev)&&Number(ev)>=0?round(Number(ev)):null;
 export const netValue=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?round(Number(ev)-Number(price)):null;
+export const valueMultiple=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?round(Number(ev)/Number(price)):null;
 export function analyzeSpot(rows=[],spotPrice=null){const result=aggregate(rows);return {...result,spot_price_usd:finite(spotPrice)&&Number(spotPrice)>0?Number(spotPrice):null,roi_pct:roi(result.ev_usd,spotPrice)};}
