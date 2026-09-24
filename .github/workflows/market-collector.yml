@@ -39,6 +39,10 @@ jobs:
           node --check scripts/lib/release-registry.mjs
           node scripts/validate-release-registry.mjs
           node scripts/validate-release-registry-runtime.mjs
+      - name: Validate multi-release isolation
+        run: |
+          node scripts/validate-multi-release-isolation.mjs
+          node scripts/validate-release-package.mjs --package data/releases/2024-25-topps-chrome-uefa-club-competitions-hobby.json
       - name: Validate release 2 package
         run: node scripts/validate-release-package.mjs --package data/releases/2025-26-topps-premier-league-hobby.json
       - name: Validate EV engine
