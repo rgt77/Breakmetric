@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 984,
+      "current_step": 985,
       "checks": [
-        "reproducibility configured",
+        "queue_lineage configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -432,6 +432,11 @@
         "record_queue_source_version": true,
         "record_generator_version": true,
         "record_provider": true
+      },
+      "queue_lineage": {
+        "record_parent_queue_generated_at": true,
+        "record_parent_task_rank": true,
+        "record_refresh_run_id": true
       }
     }
   }
