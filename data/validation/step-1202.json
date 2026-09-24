@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1202,
+  "title": "Expected hits result contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "expected_hits present"
+    ]
+  }
+}
