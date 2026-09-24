@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 950,
+      "current_step": 951,
       "checks": [
-        "staleness_guard configured",
+        "refresh_integrity configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -210,6 +210,12 @@
         "enabled": true,
         "max_queue_age_hours": 24,
         "on_stale": "block-priority-consumption"
+      },
+      "refresh_integrity": {
+        "require_candidate_output": true,
+        "require_coverage_output": true,
+        "require_queue_output": true,
+        "on_missing_output": "fail-stage"
       }
     }
   }
