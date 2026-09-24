@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 951,
+      "current_step": 952,
       "checks": [
-        "refresh_integrity configured",
+        "metrics configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -216,6 +216,12 @@
         "require_coverage_output": true,
         "require_queue_output": true,
         "on_missing_output": "fail-stage"
+      },
+      "metrics": {
+        "record_stage_duration_ms": true,
+        "record_retry_count": true,
+        "record_exact_match_count": true,
+        "record_duplicate_skip_count": true
       }
     }
   }
