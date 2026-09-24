@@ -21,6 +21,7 @@ const apiBase="https://www.sportscardspro.com";
 const apiJson=async(endpoint,params)=>{const url=new URL(endpoint,apiBase);for(const [k,v] of Object.entries(params))url.searchParams.set(k,v);const response=await fetch(url,{headers:{"accept":"application/json","user-agent":"BreakMetric/1.0"}});let body;try{body=await response.json();}catch{fail("provider-response","Provider returned non-JSON response.");}if(!response.ok||body?.status==="error")fail("provider-response",body?.["error-message"]||`Provider HTTP ${response.status}`);return body;};
 const searchProvider=(token,task)=>apiJson("/api/products",{t:token,q:taskQuery(task)});
 const fetchProviderProduct=(token,id)=>apiJson("/api/product",{t:token,id:String(id)});
+const identityScore=(task,item)=>{const name=normalize(item?.["product-name"]);const set=normalize(item?.["console-name"]);const subject=normalize(task.subject);const card=normalize(task.card_number);const parallel=normalize(task.parallel);let score=0;if(subject&&name.includes(subject))score+=4;if(card&&name.includes(card))score+=3;if(parallel&&parallel!=="base"&&name.includes(parallel))score+=2;if(set.includes("topps chrome")&&set.includes("premier league"))score+=3;return score;};
 const fail=(stage,message)=>{const error=new Error(message);error.stage=stage;throw error;};
 
 const config=read(configPath);
