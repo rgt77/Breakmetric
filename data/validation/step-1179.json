@@ -1,14 +1,12 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1179,
-  "title": "Use release terminology in failure state",
+  "title": "Add selection validation",
   "qa": {
     "status": "pass",
     "scope": "static-source",
     "checks": [
-      "index re-read",
-      "frontend state change present"
+      "selectionValid present"
     ]
   }
 }
