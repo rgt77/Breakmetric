@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "start_step": 904,
+  "end_step": 910,
+  "title": "Mobile UX completion and presentation hardening",
+  "objective": "Complete the planned mobile-first UX pass while preserving calculator behavior.",
+  "steps": [
+    {
+      "step": 904,
+      "title": "Reduce secondary panel spacing"
+    },
+    {
+      "step": 905,
+      "title": "Tighten calculator card radius on mobile"
+    },
+    {
+      "step": 906,
+      "title": "Tune calculator heading scale"
+    },
+    {
+      "step": 907,
+      "title": "Improve calculator intro readability"
+    },
+    {
+      "step": 908,
+      "title": "Tighten primary result spacing"
+    },
+    {
+      "step": 909,
+      "title": "Tune mobile result-card padding"
+    },
+    {
+      "step": 910,
+      "title": "Visually subordinate advanced diagnostics"
+    }
+  ],
+  "guarantees": [
+    "No calculation logic changed.",
+    "No data/evidence gates changed.",
+    "Primary flow remains box type → team → optional player → spot price → analysis."
+  ]
+}
