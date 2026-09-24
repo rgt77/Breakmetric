@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 957,
+      "current_step": 958,
       "checks": [
-        "claim_timeout configured",
+        "provider_response_validation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -253,6 +253,12 @@
         "enabled": true,
         "max_minutes": 30,
         "on_timeout": "release-for-retry"
+      },
+      "provider_response_validation": {
+        "require_http_success": true,
+        "require_product_identity": true,
+        "require_price_payload": true,
+        "on_invalid": "fail-task"
       }
     }
   }
