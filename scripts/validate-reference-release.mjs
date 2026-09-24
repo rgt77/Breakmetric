@@ -2,7 +2,7 @@ import fs from "node:fs";import path from "node:path";import {buildUnvaluedColle
 const root=process.cwd(),args=process.argv.slice(2),val=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;},read=f=>JSON.parse(fs.readFileSync(path.join(root,f),"utf8")),registry=loadRegistry(root),release=resolveRelease(registry,val("--release")),formatId=val("--format")||"hobby",configPath=collectorConfigFor(release,formatId);if(!configPath)throw new Error("No collector config for "+release.id+"::"+formatId);const config=read(configPath),src=config.task_sources,issues=[];
 const required=[src.inventory,src.provenance,src.base_odds,src.insert_odds_mapping,src.autograph_odds_mapping,src.insert_checklist,src.main_autographs,src.special_autographs,src.format,config.observation_file];
 for(const f of required)if(!fs.existsSync(path.join(root,f)))issues.push("missing:"+f);
-let state=null;if(!issues.length)state=buildUnvaluedCollectionTasks({product:config.product_id,inventory:read(src.inventory),provenance:read(src.provenance),baseOdds:read(src.base_odds),insertMap:read(src.insert_odds_mapping),autoMap:read(src.autograph_odds_mapping),inserts:read(src.insert_checklist),mainAutos:read(src.main_autographs),specialAutos:read(src.special_autographs),format:read(src.format)});
+let state=null;if(!issues.length)state=buildUnvaluedCollectionTasks({product:config.product_id,inventory:read(src.inventory),provenance:read(src.provenance),baseOdds:read(src.base_odds),insertMap:read(src.insert_odds_mapping),autoMap:read(src.autograph_odds_mapping),inserts:read(src.insert_checklist),mainAutos:read(src.main_autographs),specialAutos:read(src.special_autographs),format:read(src.format),formatId});
 if(state&&state.eligible_slot_count!==state.valued_slot_count+state.unvalued_slot_count)issues.push("slot-accounting-mismatch");
 if(config.product_id!==release.id||config.format_id!==formatId)issues.push("product-format-scope");
 if(state&&Number(config.scope?.eligible_slot_denominator)!==state.eligible_slot_count)issues.push("denominator-config-mismatch");
@@ -18,7 +18,7 @@ const obs=read(config.observation_file);if(obs.product_id!==config.product_id)is
 if(Object.values(obs.entries||{}).some(x=>x.canonical_ev_eligible===true))issues.push("observation-canonical-promotion");
 const prov=read(src.provenance);if(!(prov.entries||[]).length)issues.push("provenance-empty");
 if(Number(prov.summary?.contribution_count)!==(prov.entries||[]).length)issues.push("provenance-summary-mismatch");
-const fmt=read(src.format);const hobby=(fmt.formats||[]).find(x=>x.id==="hobby");if(!hobby||hobby.status!=="ready")issues.push("format-not-ready");
+const fmt=read(src.format);const hobby=(fmt.formats||[]).find(x=>x.id===formatId);if(!hobby||hobby.status!=="ready")issues.push("format-not-ready");
 if(!hobby?.analysis_unit?.packs||!hobby?.analysis_unit?.boxes)issues.push("analysis-unit-missing");
 if(!(read(src.base_odds).base_cards||[]).length)issues.push("base-odds-empty");
 if(!(read(src.insert_odds_mapping).mappings||[]).length)issues.push("insert-map-empty");
