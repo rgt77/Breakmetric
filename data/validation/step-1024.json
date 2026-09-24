@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1024,
+  "title": "Schedule production market collector",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "workflow re-read",
+      "15-minute cadence present",
+      "Node syntax check required before run",
+      "credential sourced from GitHub secret",
+      "collector outputs committed only on successful live run"
+    ]
+  }
+}
