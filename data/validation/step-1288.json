@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1288,
+  "title": "JSON cache hit optimization",
+  "qa": {
+    "status": "pass",
+    "scope": "static-performance"
+  }
+}
