@@ -4,7 +4,7 @@
   "step": 887,
   "title": "Add leave-one-out backtest for modeled valuation",
   "objective": "Measure how Tier C/D modeling performs against known canonical market values before defining confidence gates.",
-  "implementation_status": "implemented-pending-baseline-run",
+  "implementation_status": "implemented-baseline-measured",
   "method": {
     "holdout": "leave-one-out",
     "target_source": "canonical realized-sale market values",
@@ -28,6 +28,31 @@
     "basis",
     "category"
   ],
-  "baseline": null,
-  "interpretation": "This step creates measurement only. It does not enable modeled EV or define acceptable model accuracy; confidence gates are the next step."
+  "baseline": {
+    "measured_at": "2026-09-24",
+    "canonical_holdout_count": 33,
+    "predicted_count": 32,
+    "unknown_count": 1,
+    "prediction_coverage_pct": 96.9697,
+    "mae_usd": 82.3509375,
+    "median_absolute_error_usd": 39.21,
+    "mean_absolute_percentage_error_pct": 469.7327,
+    "median_absolute_percentage_error_pct": 67.9582,
+    "mean_signed_error_usd": -41.6021875,
+    "tier_count": {
+      "C": 23,
+      "D": 9,
+      "E": 1
+    },
+    "population": {
+      "team_count": 1,
+      "teams": [
+        "Chelsea"
+      ],
+      "subject_count": 10,
+      "provider_training_observation_count": 0
+    },
+    "limitation": "The current holdout population is Chelsea-only and contains no provider observations. These figures establish a calibration baseline but do not demonstrate release-wide model accuracy."
+  },
+  "interpretation": "The baseline shows high prediction coverage but large valuation error. This step is measurement only; modeled EV remains non-canonical and no confidence gate is enabled."
 }
