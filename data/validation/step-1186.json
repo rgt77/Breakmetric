@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1186,
+  "title": "Simplify pending release badge",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "index re-read",
+      "UX copy present"
+    ]
+  }
+}
