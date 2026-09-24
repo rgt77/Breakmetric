@@ -543,8 +543,11 @@
       .summary,.primary-results,.detail-results,.form-grid,.player-stats,.analysis-scope,.quality-grid,.data-status-grid{grid-template-columns:1fr}
       .spot-toolbar{align-items:stretch;flex-direction:column}
       .spot-control{width:100%}
-      .hero{padding-top:55px}
-      .tool{padding:20px}
+      .hero{padding-top:42px}
+      .tool{padding:18px}
+      .team-card,.player-card,.format-card{min-height:52px}
+      .browse-search{margin-top:14px}
+      .section-title{margin-top:18px}
       nav{display:none}
     }
   </style>
@@ -568,7 +571,7 @@
 
     <section class="tool" id="analysisTool">
       <h2>Spot value calculator</h2>
-      <p>Choose a box type, team and optional player, then enter the spot price. EV and ROI remain beta until market coverage and source verification are complete.</p>
+      <p>Choose a box type, team and optional player, then enter the spot price.</p>
 
       <div id="productStage" hidden>
         <div class="section-title">Choose release</div>
@@ -591,7 +594,7 @@
       </div>
 
       <div id="formatStage">
-        <div class="section-title">1 · Choose box type</div>
+        <div class="section-title">1 · Box type</div>
         <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
         <div id="formatStatus" class="format-status" aria-live="polite">
           Select a product first.
@@ -805,7 +808,7 @@
         </p>
       </div>
 
-      <div class="section-title">2 · Choose team</div>
+      <div class="section-title">2 · Team</div>
       <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
       <select id="team" hidden aria-hidden="true"></select>
 
@@ -844,7 +847,7 @@
             aria-label="Selected team data readiness"
           ></div>
         </div>
-        <div class="section-title">3 · Choose player</div>
+        <div class="section-title">3 · Player <span style="font-weight:600;color:var(--muted)">· optional</span></div>
         <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
       </div>
 
@@ -875,11 +878,11 @@
           </p>
         </div>
         <div class="spot-purpose">
-          EV is beta. ROI is calculated only when EV coverage is complete and the market-source verification gate is satisfied.
+          Enter the price you would pay for this spot.
         </div>
       </div>
 
-      <div class="section-title">Team value overview <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
+      <div class="section-title">Your break analysis <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
 
       <div class="results primary-results">
         <div class="result">
