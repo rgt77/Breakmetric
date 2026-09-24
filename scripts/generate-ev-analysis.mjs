@@ -1,6 +1,6 @@
-import fs from "node:fs";import path from "node:path";import {analyzeSpot} from "./lib/ev-engine.mjs";
+import fs from "node:fs";import path from "node:path";import {analyzeSpot} from "./lib/ev-engine.mjs";import {loadRegistry,resolveRelease,collectorConfigFor} from "./lib/release-registry.mjs";
 const root=process.cwd(),args=process.argv.slice(2),val=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;},read=f=>JSON.parse(fs.readFileSync(path.join(root,f),"utf8")),round=v=>Math.round(Number(v)*1e8)/1e8;
-const configPath=val("--config")||"data/collection/continuous-market-collector-config-v1.json",config=read(configPath),provenance=read(config.task_sources.provenance),observations=read(config.observation_file);
+const registry=loadRegistry(root),release=resolveRelease(registry,val("--release")),formatId=val("--format")||"hobby",configPath=val("--config")||collectorConfigFor(release,formatId);if(!configPath)throw new Error("No collector config for "+release.id+"::"+formatId);const config=read(configPath),provenance=read(config.task_sources.provenance),observations=read(config.observation_file);
 const teamFilter=val("--team"),playerFilter=val("--player"),spot=val("--spot-price");
 const rows=[];
 for(const e of provenance.entries||[]){if(teamFilter&&e.team!==teamFilter)continue;if(playerFilter&&e.player!==playerFilter)continue;const d=read(e.derived_ev_file),copies=Number(d.calculation?.expected_copies_per_case),value=Number(d.market_value_usd);if(copies>=0&&value>=0)rows.push({team:e.team,player:e.player,set:e.set,parallel:e.parallel,expected_copies_per_case:copies,market_value_usd:value,evidence_tier:"A",canonical:true});}
