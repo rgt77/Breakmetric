@@ -24,5 +24,6 @@ if(!(read(src.base_odds).base_cards||[]).length)issues.push("base-odds-empty");
 if(!(read(src.insert_odds_mapping).mappings||[]).length)issues.push("insert-map-empty");
 if(!(read(src.autograph_odds_mapping).mappings||[]).length)issues.push("autograph-map-empty");
 if(!(read(src.inventory).cards||[]).length)issues.push("inventory-empty");
+const queue=read(config.priority_queue.source);if(queue.product_id!==config.product_id||queue.format_id!==config.format_id)issues.push("queue-product-mismatch");
 const report={schema_version:1,model:"reference-release-readiness-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),status:issues.length?"failed":"passed",data_contract_complete:issues.length===0,analysis_ready:false,eligible_slot_count:state?.eligible_slot_count??null,canonical_valued_slot_count:state?.valued_slot_count??null,remaining_slot_count:state?.unvalued_slot_count??null,issues,semantics:"Data-contract completeness is not market-valuation completeness. Analysis readiness remains fail-closed until evidence gates pass."};
 process.stdout.write(JSON.stringify(report,null,2)+"\n");if(issues.length)process.exitCode=1;
