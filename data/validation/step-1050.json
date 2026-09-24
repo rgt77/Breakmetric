@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1050,
+  "title": "Add reusable EV engine",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "engine re-read",
+      "EV contribution formula present",
+      "ROI formula present",
+      "probability helper present"
+    ]
+  }
+}
