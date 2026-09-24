@@ -86,6 +86,17 @@ for(const observation of Object.values(observations.entries||{})){
 
 const candidates=[];
 const counts={A:0,B:0,C:0,D:0,E:0};
+const teamCoverage={};
+const categoryCoverage={};
+const ensureCoverage=(bucket,key)=>bucket[key]||(bucket[key]={
+  candidate_count:0,
+  direct_provider_count:0,
+  raw_modeled_count:0,
+  gated_modeled_count:0,
+  unknown_count:0,
+  expected_copies_per_case_total:0,
+  direct_provider_expected_copies_per_case:0
+});
 let directProviderEvTotal=0;
 let modeledEvTotal=0;
 let rawModeledCandidateCount=0;
@@ -164,6 +175,20 @@ for(const task of taskState.tasks||[]){
         ?"modeled"
         :"unknown";
 
+  const teamBucket=ensureCoverage(teamCoverage,task.team);
+  const categoryBucket=ensureCoverage(categoryCoverage,task.category);
+  for(const bucket of [teamBucket,categoryBucket]){
+    bucket.candidate_count++;
+    bucket.expected_copies_per_case_total+=Number(task.expected_copies_per_case||0);
+    if(tier==="B"){
+      bucket.direct_provider_count++;
+      bucket.direct_provider_expected_copies_per_case+=Number(task.expected_copies_per_case||0);
+    }
+    if(proposedTier==="C"||proposedTier==="D") bucket.raw_modeled_count++;
+    if(tier==="C"||tier==="D") bucket.gated_modeled_count++;
+    if(tier==="E") bucket.unknown_count++;
+  }
+
   candidates.push({
     task_id:task.task_id,
     rank:task.rank,
@@ -235,6 +260,19 @@ const output={
       round(directProviderEvTotal+modeledEvTotal),
     aggregate_semantics:
       "All candidate EV totals are non-canonical. Tier B is direct provider evidence. Tier C/D contribute modeled EV only after confidence gates pass; gated model candidates fall back to Tier E/unknown."
+  },
+  coverage:{
+    semantics:"Coverage diagnostics for non-canonical valuation candidates. Count coverage and expected-copy-weighted coverage are reported separately and never mutate canonical EV.",
+    by_team:Object.fromEntries(Object.entries(teamCoverage).map(([key,row])=>[key,{
+      ...row,
+      candidate_count_coverage_pct:row.candidate_count?round(100*row.direct_provider_count/row.candidate_count):0,
+      expected_copy_weighted_coverage_pct:row.expected_copies_per_case_total?round(100*row.direct_provider_expected_copies_per_case/row.expected_copies_per_case_total):0
+    }])),
+    by_category:Object.fromEntries(Object.entries(categoryCoverage).map(([key,row])=>[key,{
+      ...row,
+      candidate_count_coverage_pct:row.candidate_count?round(100*row.direct_provider_count/row.candidate_count):0,
+      expected_copy_weighted_coverage_pct:row.expected_copies_per_case_total?round(100*row.direct_provider_expected_copies_per_case/row.expected_copies_per_case_total):0
+    }]))
   },
   candidates
 };
