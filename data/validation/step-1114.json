@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1114,
+  "title": "Add collector config assertion",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry library re-read",
+      "assertCollectorConfig present"
+    ]
+  }
+}
