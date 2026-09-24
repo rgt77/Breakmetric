@@ -15,3 +15,4 @@ export function assertReadyFormat(root,release,formatId){const f=formatById(root
 export const releaseKey=(releaseId,formatId)=>releaseId+"::"+formatId;
 export function allReadyTargets(root,registry){return registry.releases.flatMap(r=>readyFormats(root,r).map(f=>({release:r,format:f,collector_config:collectorConfigFor(r,f.id)})));}
 export function assertCollectorConfig(release,formatId){const p=collectorConfigFor(release,formatId);if(!p)throw new Error("Missing collector config: "+releaseKey(release.id,formatId));return p;}
+export function releaseByCollectorConfig(registry,file){return registry.releases.find(r=>Object.values(r.collector_configs||{}).includes(file))||null;}
