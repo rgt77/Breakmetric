@@ -1,10 +1,10 @@
-import fs from "node:fs";import path from "node:path";import {buildUnvaluedCollectionTasks} from "./lib/ev-slot-inventory.mjs";
-const root=process.cwd(),read=f=>JSON.parse(fs.readFileSync(path.join(root,f),"utf8")),config=read("data/collection/continuous-market-collector-config-v1.json"),src=config.task_sources,issues=[];
+import fs from "node:fs";import path from "node:path";import {buildUnvaluedCollectionTasks} from "./lib/ev-slot-inventory.mjs";import {loadRegistry,resolveRelease,collectorConfigFor} from "./lib/release-registry.mjs";
+const root=process.cwd(),args=process.argv.slice(2),val=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;},read=f=>JSON.parse(fs.readFileSync(path.join(root,f),"utf8")),registry=loadRegistry(root),release=resolveRelease(registry,val("--release")),formatId=val("--format")||"hobby",configPath=collectorConfigFor(release,formatId);if(!configPath)throw new Error("No collector config for "+release.id+"::"+formatId);const config=read(configPath),src=config.task_sources,issues=[];
 const required=[src.inventory,src.provenance,src.base_odds,src.insert_odds_mapping,src.autograph_odds_mapping,src.insert_checklist,src.main_autographs,src.special_autographs,src.format,config.observation_file];
 for(const f of required)if(!fs.existsSync(path.join(root,f)))issues.push("missing:"+f);
 let state=null;if(!issues.length)state=buildUnvaluedCollectionTasks({product:config.product_id,inventory:read(src.inventory),provenance:read(src.provenance),baseOdds:read(src.base_odds),insertMap:read(src.insert_odds_mapping),autoMap:read(src.autograph_odds_mapping),inserts:read(src.insert_checklist),mainAutos:read(src.main_autographs),specialAutos:read(src.special_autographs),format:read(src.format)});
 if(state&&state.eligible_slot_count!==state.valued_slot_count+state.unvalued_slot_count)issues.push("slot-accounting-mismatch");
-if(config.product_id!=="2026-topps-chrome-premier-league"||config.format_id!=="hobby")issues.push("product-format-scope");
+if(config.product_id!==release.id||config.format_id!==formatId)issues.push("product-format-scope");
 if(state&&Number(config.scope?.eligible_slot_denominator)!==state.eligible_slot_count)issues.push("denominator-config-mismatch");
 if(state){const ids=state.tasks.map(x=>x.task_id);if(new Set(ids).size!==ids.length)issues.push("duplicate-task-id");}
 if(state&&state.tasks.some(x=>!(Number(x.expected_copies_per_case)>0)))issues.push("nonpositive-expected-copies");
