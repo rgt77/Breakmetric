@@ -171,22 +171,8 @@
     .format-status strong{color:var(--text)}
     .integrity-pass{color:var(--accent)}
     .integrity-fail{color:var(--danger)}
+    #productStage{display:none!important}
     #analysisContent[hidden]{display:none}
-    .analysis-context{
-      display:flex;
-      flex-wrap:wrap;
-      gap:7px;
-      align-items:center;
-      margin:18px 0 4px;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#0e1528;
-      color:var(--muted);
-      font-size:.82rem;
-    }
-    .analysis-context .context-item{color:var(--text);font-weight:700}
-    .analysis-context .context-sep{color:var(--muted)}
     .analysis-actions{
       display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px
     }
@@ -635,7 +621,6 @@
       </details>
 
       <div id="analysisContent" hidden>
-      <div id="analysisContext" class="analysis-context" aria-live="polite"></div>
       <div class="analysis-actions" aria-label="Analysis actions">
         <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
         <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
@@ -2953,42 +2938,8 @@
     }
 
     function updateAnalysisContext() {
-      if (!analysisContext) return;
       updateAnalysisUnitUi();
       updateDataStatusUi();
-
-      const productLabel =
-        currentProduct?.display_name ||
-        currentProduct?.name ||
-        "Product";
-
-      const formatConfig = selectedFormatConfig();
-      const formatLabel = formatConfig
-        ? formatConfig.name +
-          (formatConfig.analysis_unit?.display_name
-            ? " · " + formatConfig.analysis_unit.display_name
-            : "")
-        : "Box type";
-
-      const teamLabel = team.value || "Team";
-      const parts = [productLabel, formatLabel, teamLabel];
-
-      if (selectedPlayer) parts.push(selectedPlayer);
-
-      analysisContext.replaceChildren();
-      parts.forEach((part,index) => {
-        if (index > 0) {
-          const sep = document.createElement("span");
-          sep.className = "context-sep";
-          sep.textContent = "→";
-          analysisContext.appendChild(sep);
-        }
-
-        const item = document.createElement("span");
-        item.className = "context-item";
-        item.textContent = part;
-        analysisContext.appendChild(item);
-      });
     }
 
     function preferredCurrencyFromLocale() {
