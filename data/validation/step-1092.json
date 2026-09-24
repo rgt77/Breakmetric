@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1092,
+  "title": "Require base odds",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "base-odds-empty gate present"
+    ]
+  }
+}
