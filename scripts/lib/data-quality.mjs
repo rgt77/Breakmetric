@@ -2,3 +2,4 @@ export const text=v=>String(v??"").trim();export const finitePositive=v=>Number.
 export function validateChecklistCount(data){if(data?.status!=='ready')return [];const n=Number(data.expected_card_count);return n>0&&n!==(data.cards||[]).length?['checklist-count-mismatch']:[];}
 export function validateSubjects(cards=[]){return cards.flatMap(c=>Array.isArray(c.subjects)&&c.subjects.length?[]:['subjects-empty:'+text(c.card_number)]);};
 export function validateTeams(cards=[]){return cards.flatMap(c=>text(c.team)?[]:['team-empty:'+text(c.card_number)]);};
+export function validateOddsUniqueness(rows=[]){return duplicates(rows,r=>text(r.name||r.variant)+'-'+text(r.denominator)).map(x=>'duplicate-odds-row:'+x);}
