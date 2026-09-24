@@ -17,9 +17,10 @@ export function buildUnvaluedCollectionTasks({
   inserts,
   mainAutos,
   specialAutos,
-  format
+  format,
+  formatId="hobby"
 }){
-  const hobby=(format.formats||[]).find(row=>row.id==="hobby");
+  const hobby=(format.formats||[]).find(row=>row.id===formatId);
   if(!hobby||hobby.status!=="ready") throw new Error("Ready Hobby format missing");
   const packsPerCase=Number(hobby.analysis_unit?.packs);
   const boxesPerCase=Number(hobby.analysis_unit?.boxes);
@@ -153,7 +154,7 @@ export function buildUnvaluedCollectionTasks({
       tasks.push({
         task_id:[
           product,
-          "hobby",
+          formatId,
           card.team,
           card.category,
           card.set,
