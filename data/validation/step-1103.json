@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1103,
+  "title": "Add ready-format resolver",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry library re-read",
+      "readyFormats present"
+    ]
+  }
+}
