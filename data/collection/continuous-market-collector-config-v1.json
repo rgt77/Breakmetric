@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 964,
+      "current_step": 965,
       "checks": [
-        "refresh_lock configured",
+        "candidate_validation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -304,6 +304,11 @@
         "scope": "product+format",
         "single_active_refresh": true,
         "on_conflict": "defer"
+      },
+      "candidate_validation": {
+        "require_schema_valid": true,
+        "require_nonnegative_expected_copies": true,
+        "reject_missing_identity": true
       }
     }
   }
