@@ -8,3 +8,4 @@ export function validateMarketRows(rows=[]){const issues=[];for(const r of rows)
 export function validateInventoryRows(rows=[]){return rows.flatMap(r=>text(r.team)&&text(r.set)&&text(r.card_number)?[]:['invalid-inventory-identity']);}
 export function validateContributionRows(rows=[]){return rows.flatMap(r=>validateExpectedCopies(r.expected_copies_per_case)?[]:['invalid-expected-copies']);}
 export function validateTimestamps(rows=[]){const now=Date.now();return rows.flatMap(r=>{const t=Date.parse(r.observed_at);return !Number.isFinite(t)||t>now+300000?['invalid-observation-time']:[];});}
+export function validateCurrency(rows=[],currency='USD'){return rows.flatMap(r=>r.currency===currency?[]:['currency-mismatch']);}
