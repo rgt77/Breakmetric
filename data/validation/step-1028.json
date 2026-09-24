@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1028,
+  "title": "Require evidence source URL",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "source-url-required guard present"
+    ]
+  }
+}
