@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1121,
+  "title": "Gate workflow on release registry",
+  "qa": {
+    "status": "pass",
+    "scope": "workflow-static",
+    "checks": [
+      "workflow re-read",
+      "registry syntax check present",
+      "registry validation required"
+    ]
+  }
+}
