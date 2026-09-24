@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1087,
+  "title": "Block provider canonical promotion",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "observation-canonical-promotion gate present"
+    ]
+  }
+}
