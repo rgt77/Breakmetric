@@ -21,3 +21,4 @@ export function activeReleases(registry){return registry.releases.filter(r=>["re
 export function releaseSupportsFormat(root,release,formatId){return Boolean(formatById(root,release,formatId));}
 export function releaseIsAnalysisReady(root,release){return readyFormats(root,release).some(f=>Boolean(collectorConfigFor(release,f.id)));}
 export const releaseNamespace=releaseId=>"data/releases/"+releaseId;
+export function catalogStats(root,registry){return {release_count:registry.releases.length,active_count:activeReleases(registry).length,pending_count:pendingReleases(registry).length,ready_format_count:allReadyTargets(root,registry).length};}
