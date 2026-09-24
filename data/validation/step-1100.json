@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1100,
+  "title": "Add generic release registry",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry re-read",
+      "default release declared",
+      "collector config mapped by format"
+    ]
+  }
+}
