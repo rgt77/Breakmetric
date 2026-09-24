@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1207,
+  "title": "Market-quality indicator contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "market present"
+    ]
+  }
+}
