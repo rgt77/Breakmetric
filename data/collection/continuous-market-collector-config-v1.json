@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 979,
+      "current_step": 980,
       "checks": [
-        "health_circuit_breaker configured",
+        "post_run_reconciliation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -402,6 +402,13 @@
         "open_on_consecutive_failures": 5,
         "cooldown_minutes": 30,
         "canonical_state_unchanged": true
+      },
+      "post_run_reconciliation": {
+        "require_batch_balance": true,
+        "require_no_orphan_claims": true,
+        "require_audit_summary": true,
+        "require_last_known_good_pointer": true,
+        "on_failure": "needs-review"
       }
     }
   }
