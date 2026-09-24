@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "start_step": 921,
+  "end_step": 930,
+  "title": "Priority-driven market collection policy",
+  "objective": "Turn the evidence-acquisition queue into an operational collector policy without weakening evidence or EV safeguards.",
+  "steps": [
+    {
+      "step": 921,
+      "title": "Connect valuation acquisition queue to collector config"
+    },
+    {
+      "step": 922,
+      "title": "Enable priority-first scheduling"
+    },
+    {
+      "step": 923,
+      "title": "Reserve half of fast-lane batch for priority tasks"
+    },
+    {
+      "step": 924,
+      "title": "Preserve existing fairness lane as fallback"
+    },
+    {
+      "step": 925,
+      "title": "Cap priority tasks per team"
+    },
+    {
+      "step": 926,
+      "title": "Cap priority tasks per subject"
+    },
+    {
+      "step": 927,
+      "title": "Refresh priorities after valuation generation"
+    },
+    {
+      "step": 928,
+      "title": "Add priority-lane telemetry"
+    },
+    {
+      "step": 929,
+      "title": "Require positive expected-copy weight for priority tasks"
+    },
+    {
+      "step": 930,
+      "title": "Declare priority ordering non-valuative"
+    }
+  ],
+  "current_policy": {
+    "batch_size": 20,
+    "priority_slots": 10,
+    "fairness_slots": 10,
+    "priority_queue_size": 100
+  },
+  "guarantees": [
+    "Exact identity remains required.",
+    "Provider prices remain non-canonical.",
+    "Modeled values remain fail-closed.",
+    "Priority is evidence-acquisition ordering, not market value or ROI."
+  ]
+}
