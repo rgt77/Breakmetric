@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1014,
+  "title": "Add observation deduplication",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner re-read",
+      "deduplication present",
+      "canonical EV remains excluded"
+    ]
+  }
+}
