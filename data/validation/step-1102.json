@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1102,
+  "title": "Add release registry validator",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "release uniqueness gate",
+      "ready-format config gate",
+      "scope consistency gate"
+    ]
+  }
+}
