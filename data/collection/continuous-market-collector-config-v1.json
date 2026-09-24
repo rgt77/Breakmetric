@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 966,
+      "current_step": 967,
       "checks": [
-        "coverage_validation configured",
+        "queue_validation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -314,6 +314,12 @@
         "require_totals_consistent": true,
         "require_percent_range_0_100": true,
         "require_weighted_coverage": true
+      },
+      "queue_validation": {
+        "require_unique_task_ids": true,
+        "require_priority_order": true,
+        "require_positive_expected_copies": true,
+        "max_tasks": 100
       }
     }
   }
