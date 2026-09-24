@@ -307,9 +307,29 @@ const output={
 };
 
 const outputPath=outputOverride||config.automated_valuation_file;
+const queuePath="ops/collector/acquisition-priority-v1.json";
+const queueOutput={
+  schema_version:1,
+  model:"market-evidence-acquisition-priority-v1",
+  product_id:config.product_id,
+  format_id:config.format_id,
+  generated_at:output.generated_at,
+  source:outputPath,
+  canonical_ev_mutated:false,
+  summary:{
+    task_count:priorityTasks.length,
+    direct_provider_gap_count:priorityTasks.filter(x=>x.current_tier!=="B").length,
+    objective:"Acquire exact evidence for the highest-impact currently unvalued slots."
+  },
+  tasks:priorityTasks
+};
+fs.mkdirSync(path.dirname(path.resolve(root,queuePath)),{recursive:true});
 fs.writeFileSync(path.resolve(root,outputPath),stable(output));
+fs.writeFileSync(path.resolve(root,queuePath),stable(queueOutput));
 console.log(JSON.stringify({
   result:"written",
   output:outputPath,
+  acquisition_queue:queuePath,
+  acquisition_queue_task_count:priorityTasks.length,
   summary:output.summary
 },null,2));
