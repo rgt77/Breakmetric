@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 970,
+  "canonical_step_end": 980,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -847,6 +847,96 @@
       "title": "Collector execution hardening step 970",
       "source_kind": "step-manifest",
       "source": "data/validation/step-970.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 971,
+      "end": 971,
+      "id": "collector-resilience-971",
+      "title": "Collector resilience step 971",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-971.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 972,
+      "end": 972,
+      "id": "collector-resilience-972",
+      "title": "Collector resilience step 972",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-972.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 973,
+      "end": 973,
+      "id": "collector-resilience-973",
+      "title": "Collector resilience step 973",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-973.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 974,
+      "end": 974,
+      "id": "collector-resilience-974",
+      "title": "Collector resilience step 974",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-974.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 975,
+      "end": 975,
+      "id": "collector-resilience-975",
+      "title": "Collector resilience step 975",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-975.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 976,
+      "end": 976,
+      "id": "collector-resilience-976",
+      "title": "Collector resilience step 976",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-976.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 977,
+      "end": 977,
+      "id": "collector-resilience-977",
+      "title": "Collector resilience step 977",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-977.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 978,
+      "end": 978,
+      "id": "collector-resilience-978",
+      "title": "Collector resilience step 978",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-978.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 979,
+      "end": 979,
+      "id": "collector-resilience-979",
+      "title": "Collector resilience step 979",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-979.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 980,
+      "end": 980,
+      "id": "collector-resilience-980",
+      "title": "Collector resilience step 980",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-980.json",
       "coverage_quality": "exact-manifest"
     }
   ],
