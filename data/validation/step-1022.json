@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1022,
+  "title": "Add provider retry execution",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner re-read",
+      "bounded retry present",
+      "provider request interval retained"
+    ]
+  }
+}
