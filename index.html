@@ -127,6 +127,7 @@
       font-size:.82rem;
       line-height:1.45;
     }
+    .product-search-wrap{margin-bottom:10px}
     .product-grid,
     .format-grid{
       display:grid;
@@ -154,6 +155,7 @@
     }
     .product-card strong,
     .format-card strong{display:block;font-size:.95rem}
+    .product-card.active{box-shadow:inset 0 0 0 1px rgba(101,230,180,.22)}
     .product-card span,
     .format-card span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
     .product-card .product-state,
@@ -171,7 +173,6 @@
     .format-status strong{color:var(--text)}
     .integrity-pass{color:var(--accent)}
     .integrity-fail{color:var(--danger)}
-    #productStage{display:none!important}
     #analysisContent[hidden]{display:none}
     #analysisContent:not([hidden]){display:flex;flex-direction:column}
     #analysisContent > .advanced-analysis{order:90}
@@ -576,11 +577,11 @@
 
     <section class="tool" id="analysisTool">
       <h2>Spot value calculator</h2>
-      <p>Choose a box type, team and optional player, then enter the spot price.</p>
+      <p>Choose a release, box type, team and optional player, then enter the spot price.</p>
 
       <div id="productStage">
         <div class="section-title">1 · Release</div>
-        <div class="browse-search" style="margin-top:0">
+        <div class="browse-search product-search-wrap" style="margin-top:0">
           <label for="productSearch">Search product / release</label>
           <input
             id="productSearch"
@@ -2813,9 +2814,15 @@
         return;
       }
 
+      const catalogCount=(productCatalog?.products||[]).length;
       productSearchStatus.textContent = q
-        ? products.length + " matching product" + (products.length === 1 ? "" : "s")
-        : products.length + " products · newest release first";
+        ? products.length + " matching release" + (products.length === 1 ? "" : "s")
+        : catalogCount === 1
+          ? "1 release available"
+          : products.length + " releases · newest first";
+      if(productSearch?.parentElement){
+        productSearch.parentElement.hidden = catalogCount <= 1 && !q;
+      }
 
       for (const item of products) {
         const button = document.createElement("button");
@@ -4026,11 +4033,10 @@
             item.active !== false
           );
 
+        productStage.hidden = false;
         if (analysisReadyProducts.length === 1) {
           selectedProductId = analysisReadyProducts[0].id;
-          productStage.hidden = true;
         } else {
-          productStage.hidden = false;
           selectedProductId = BreakMetricContracts.reconcileProduct(
             productCatalog,
             selectedProductId
