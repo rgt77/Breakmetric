@@ -4028,10 +4028,7 @@
         productCatalogContractReport = productCatalogContract;
 
         const analysisReadyProducts = (productCatalog.products || [])
-          .filter(item =>
-            item.status === "ready" &&
-            item.active !== false
-          );
+          .filter(item => item.status === "ready" && item.active !== false);
 
         productStage.hidden = false;
         if (analysisReadyProducts.length === 1) {
