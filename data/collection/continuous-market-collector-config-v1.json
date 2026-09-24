@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 967,
+      "current_step": 968,
       "checks": [
-        "queue_validation configured",
+        "regression_guard configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -320,6 +320,12 @@
         "require_priority_order": true,
         "require_positive_expected_copies": true,
         "max_tasks": 100
+      },
+      "regression_guard": {
+        "compare_previous_summary": true,
+        "flag_candidate_count_drop_pct": 20,
+        "flag_weighted_coverage_drop_pct": 10,
+        "on_flag": "needs-review"
       }
     }
   }
