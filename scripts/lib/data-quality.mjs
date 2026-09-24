@@ -5,3 +5,4 @@ export function validateTeams(cards=[]){return cards.flatMap(c=>text(c.team)?[]:
 export function validateOddsUniqueness(rows=[]){return duplicates(rows,r=>text(r.name||r.variant)+'-'+text(r.denominator)).map(x=>'duplicate-odds-row:'+x);}
 export function validateOddsMagnitude(rows=[]){return rows.flatMap(r=>Number(r.denominator)>100000000?['implausible-odds-denominator']:[]);}
 export function validateMarketRows(rows=[]){const issues=[];for(const r of rows){if(!validatePrice(r.raw_price_usd))issues.push('invalid-market-price');if(r.exact_identity!==true)issues.push('market-identity-not-exact');}return issues;}
+export function validateInventoryRows(rows=[]){return rows.flatMap(r=>text(r.team)&&text(r.set)&&text(r.card_number)?[]:['invalid-inventory-identity']);}
