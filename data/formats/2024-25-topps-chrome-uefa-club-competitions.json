@@ -1,0 +1,30 @@
+{
+  "product_id": "2024-25-topps-chrome-uefa-club-competitions",
+  "source": {
+    "type": "official-topps",
+    "url": "https://www.topps.com/products/2025-25-topps-chrome%C2%AE-uefa-club-competitions-hobby-box-sealed-case"
+  },
+  "formats": [
+    {
+      "id": "hobby",
+      "name": "Hobby",
+      "status": "pending",
+      "analysis_format": "Hobby Case",
+      "configuration": {
+        "boxes_per_case": 12,
+        "packs_per_box": 20,
+        "cards_per_pack": 4,
+        "autographs_per_box": 1
+      },
+      "analysis_unit": {
+        "type": "case",
+        "display_name": "12-box case",
+        "cases": 1,
+        "boxes": 12,
+        "packs": 240,
+        "cards": 960
+      },
+      "analysis_data": null
+    }
+  ]
+}
