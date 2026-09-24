@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 991,
+  "title": "Add fail-closed market collector runner",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner source re-read",
+      "dry-run path present",
+      "priority queue preflight present",
+      "live provider path fails closed"
+    ]
+  }
+}
