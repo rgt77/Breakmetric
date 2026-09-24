@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1212,
+  "title": "Add safe result renderer",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results"
+  }
+}
