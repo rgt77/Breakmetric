@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1148,
+  "title": "Add release #2 package validation to CI",
+  "qa": {
+    "status": "pass",
+    "scope": "workflow-static",
+    "checks": [
+      "workflow re-read",
+      "release #2 package validation command present"
+    ]
+  }
+}
