@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1145,
+  "title": "Validate normalized base checklist count",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "package validator re-read",
+      "checklist-count-mismatch gate present"
+    ]
+  }
+}
