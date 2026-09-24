@@ -18,3 +18,4 @@ export function assertCollectorConfig(release,formatId){const p=collectorConfigF
 export function releaseByCollectorConfig(registry,file){return registry.releases.find(r=>Object.values(r.collector_configs||{}).includes(file))||null;}
 export function pendingReleases(registry){return registry.releases.filter(r=>r.status==="pending");}
 export function activeReleases(registry){return registry.releases.filter(r=>["reference","active"].includes(r.status));}
+export function releaseSupportsFormat(root,release,formatId){return Boolean(formatById(root,release,formatId));}
