@@ -23,6 +23,7 @@ try{
 
   let directEv=0;
   let modeledEv=0;
+  let suppressedModeled=0;
   for(const row of rows){
     const breakdown=row.evidence_breakdown||{};
     assert.equal(
@@ -57,6 +58,18 @@ try{
       assert.equal(row.modeled_value,false);
       assert.equal(row.market_value_estimate_usd,null);
       assert.equal(row.candidate_ev_contribution_usd,null);
+      if(row.model_candidate_suppressed===true){
+        suppressedModeled++;
+        assert.ok(
+          row.proposed_valuation_tier==="C" ||
+          row.proposed_valuation_tier==="D"
+        );
+        assert.equal(row.confidence_gate_status,"failed");
+        assert.ok(
+          Array.isArray(row.confidence_gate_reasons) &&
+          row.confidence_gate_reasons.length>0
+        );
+      }
     }
   }
 
@@ -72,6 +85,14 @@ try{
   assert.equal(
     data.summary.noncanonical_candidate_ev_total_usd,
     round(directEv+modeledEv)
+  );
+  assert.equal(
+    data.summary.suppressed_modeled_candidate_count,
+    suppressedModeled
+  );
+  assert.ok(
+    Number(data.summary.raw_modeled_candidate_count||0)>=
+    Number(data.summary.modeled_candidate_count||0)
   );
   assert.match(
     String(data.summary.aggregate_semantics||""),
