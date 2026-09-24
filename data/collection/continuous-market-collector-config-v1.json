@@ -15,7 +15,11 @@
     "credential_env": "SPORTSCARDSPRO_TOKEN",
     "persist_cursor": true,
     "fairness_mode": "team-then-subject-round-robin",
-    "max_tasks_per_team_per_batch": 2
+    "max_tasks_per_team_per_batch": 2,
+    "priority_queue_slots": 10,
+    "standard_fairness_slots": 10,
+    "priority_queue_max_tasks_per_team": 3,
+    "priority_queue_max_tasks_per_subject": 2
   },
   "bulk_lane": {
     "provider": "sportscardspro-csv",
@@ -29,7 +33,8 @@
     "allow_cross_series_match": false,
     "current_provider_price_is_realized_sale": false,
     "current_provider_price_is_original_marketplace_verified": false,
-    "auto_promote_modeled_values_to_canonical_ev": false
+    "auto_promote_modeled_values_to_canonical_ev": false,
+    "priority_queue_is_not_valuation": true
   },
   "task_sources": {
     "inventory": "data/derived/2026-topps-chrome-premier-league-hobby-ev-eligible-inventory-v1.json",
@@ -64,7 +69,13 @@
     "stale_fast_lane_minutes": 45,
     "stale_bulk_lane_hours": 36,
     "missing_match_exception_streak": 3,
-    "degraded_provider_error_rate": 0.25
+    "degraded_provider_error_rate": 0.25,
+    "priority_metrics": [
+      "priority_tasks_checked",
+      "priority_exact_matches",
+      "priority_provider_prices",
+      "priority_queue_coverage_pct"
+    ]
   },
   "retry": {
     "max_attempts": 3,
@@ -82,7 +93,8 @@
     "min_price_usd": 0.01,
     "max_price_usd": 1000000,
     "max_price_change_ratio": 10,
-    "quarantine_extreme_price_changes": true
+    "quarantine_extreme_price_changes": true,
+    "require_positive_expected_copies_for_priority": true
   },
   "acceptance": {
     "soak_hours": 24,
@@ -101,5 +113,15 @@
     "repository_visibility": "public",
     "public_sharing_requires_approval": true,
     "approval_env": "SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED"
+  },
+  "priority_queue": {
+    "source": "data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json",
+    "field": "acquisition_priority.tasks",
+    "enabled": true,
+    "max_priority_tasks": 100,
+    "scheduling": "priority-first-with-fairness",
+    "reserve_batch_slots": 10,
+    "fallback": "existing-team-then-subject-round-robin",
+    "refresh_after_each_valuation_generation": true
   }
 }
