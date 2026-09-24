@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1118,
+  "title": "Validate release year",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry validator re-read",
+      "invalid-release-year gate present"
+    ]
+  }
+}
