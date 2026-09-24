@@ -100,6 +100,9 @@
     }
   }
 
+  api.cacheSize=()=>cache.size;
+  api.clearCache=()=>{cache.clear();metrics.cache_invalidations++;};
+  api.pruneCache=function(maxEntries=40){const max=Math.max(1,Number(maxEntries)||40);while(cache.size>max){cache.delete(cache.keys().next().value);metrics.cache_invalidations++;}return cache.size;};
   api.isValidPath=validStaticJsonPath;
 
   api.loadJson=async function(path,{
