@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 942,
+  "title": "Add per-step QA contract to collector feedback loop",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "feedback loop enabled",
+      "sequence deterministic",
+      "canonical EV remains gated",
+      "previous queue retained on refresh failure",
+      "idempotency key defined",
+      "per-step QA requirement enabled"
+    ]
+  },
+  "guarantees": [
+    "Step 942 was re-read from the repository after mutation and all declared QA checks passed."
+  ]
+}
