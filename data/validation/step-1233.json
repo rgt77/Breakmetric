@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1233,
+  "title": "Gate automatic promotion",
+  "qa": {
+    "status": "pass",
+    "scope": "static-automation"
+  }
+}
