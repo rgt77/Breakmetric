@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1062,
+  "title": "Spot-price input",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "source re-read",
+      "spot-price present"
+    ]
+  }
+}
