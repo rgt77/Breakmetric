@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 889,
+  "title": "Simplify calculator selection flow",
+  "objective": "Remove redundant selected-state summary UI and keep the calculator focused on the next choice.",
+  "visible_flow": [
+    "box type",
+    "team",
+    "player",
+    "spot price"
+  ],
+  "changes": [
+    "Removed the visible analysis-context summary above the calculator controls.",
+    "Kept the product/release chooser permanently hidden while only one analysis-ready release is active.",
+    "Preserved the visible interaction order as box type first, then team, player and spot price.",
+    "Set root HTML and index.html to Cache-Control: no-store so mobile browsers do not continue rendering an older selection UI after deployment.",
+    "Added a regression test for flow order, hidden release stage, removed context summary and document cache policy."
+  ],
+  "guarantees": [
+    "Analysis-unit and technical-status updates still run even though the visible context summary is removed.",
+    "Product and format data-loading logic is unchanged.",
+    "Team, player, spot-price, EV and ROI calculation logic is unchanged.",
+    "This step changes presentation and HTML cache freshness only."
+  ]
+}

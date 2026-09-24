@@ -126,6 +126,8 @@ jobs:
         run: node scripts/test-runtime-races.mjs
       - name: Test product selection race
         run: node scripts/test-selection-race.mjs
+      - name: Test simplified selection flow
+        run: node scripts/test-selection-flow.mjs
       - name: Test market record context race
         run: node scripts/test-market-record-race.mjs
       - name: Test versioned data cache
