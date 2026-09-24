@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 920,
+  "canonical_step_end": 930,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -559,6 +559,15 @@
       "title": "Measure valuation coverage and prioritize exact evidence acquisition",
       "source_kind": "block-summary",
       "source": "data/validation/steps-911-920.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 921,
+      "end": 930,
+      "id": "priority-driven-market-collection",
+      "title": "Operationalize evidence-acquisition priorities in continuous collection",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-921-930.json",
       "coverage_quality": "exact-manifest"
     }
   ],
