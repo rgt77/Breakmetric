@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1205,
+  "title": "Risk indicator contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "risk=function present"
+    ]
+  }
+}
