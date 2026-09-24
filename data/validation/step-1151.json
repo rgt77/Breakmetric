@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1151,
+  "title": "Add release #3 Hobby format",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "format re-read",
+      "12 boxes/case",
+      "20 packs/box",
+      "4 cards/pack",
+      "1 autograph/box",
+      "case arithmetic 240 packs / 960 cards"
+    ]
+  }
+}
