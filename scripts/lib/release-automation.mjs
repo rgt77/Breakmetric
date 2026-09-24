@@ -2,3 +2,4 @@ import fs from "node:fs";import path from "node:path";export const componentPath
 export const safeReleaseId=id=>/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id||''));
 export const packagePath=(id,format='hobby')=>'data/releases/'+id+'-'+format+'.json';
 export const scopeKey=(id,format)=>id+'::'+format;
+export const allComponentsPresent=(root,paths)=>nextMissing(root,paths).length===0;
