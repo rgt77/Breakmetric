@@ -25,6 +25,17 @@
       "official_source": "https://www.topps.com/pages/checklists/topps-premier-league-2025-26",
       "formats_file": "data/formats/2025-26-topps-premier-league.json",
       "collector_configs": {}
+    },
+    {
+      "id": "2024-25-topps-chrome-uefa-club-competitions",
+      "name": "2024/25 Topps Chrome UEFA Club Competitions",
+      "sport": "soccer",
+      "manufacturer": "Topps",
+      "year": 2025,
+      "status": "pending",
+      "official_source": "https://www.topps.com/products/2025-25-topps-chrome%C2%AE-uefa-club-competitions-hobby-box-sealed-case",
+      "formats_file": "data/formats/2024-25-topps-chrome-uefa-club-competitions.json",
+      "collector_configs": {}
     }
   ]
 }
