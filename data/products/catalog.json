@@ -15,16 +15,29 @@
       "integrity_data": "data/validation/2026-topps-chrome-premier-league-product-integrity-v2.json"
     },
     {
-      "id": "2025-topps-chrome-premier-league",
-      "name": "2025 Topps Chrome Premier League",
-      "display_name": "Topps Chrome Soccer · Premier League · 2025",
-      "brand": "Topps Chrome Soccer",
+      "id": "2025-26-topps-premier-league",
+      "name": "2025/26 Topps Premier League",
+      "display_name": "Topps · Premier League · 2025/26",
+      "brand": "Topps",
       "competition": "Premier League",
-      "year": "2025",
+      "year": "2025/26",
       "status": "pending",
-      "active": false,
-      "format_data": null,
-      "note": "Product slot prepared. BreakMetric data has not been added yet.",
+      "active": true,
+      "format_data": "data/formats/2025-26-topps-premier-league.json",
+      "note": "Data ingestion in progress.",
+      "product_data": null
+    },
+    {
+      "id": "2024-25-topps-chrome-uefa-club-competitions",
+      "name": "2024/25 Topps Chrome UEFA Club Competitions",
+      "display_name": "Topps Chrome · UEFA Club Competitions · 2024/25",
+      "brand": "Topps Chrome",
+      "competition": "UEFA Club Competitions",
+      "year": "2024/25",
+      "status": "pending",
+      "active": true,
+      "format_data": "data/formats/2024-25-topps-chrome-uefa-club-competitions.json",
+      "note": "Data ingestion in progress.",
       "product_data": null
     }
   ]
