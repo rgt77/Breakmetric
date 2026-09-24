@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1070,
+  "title": "Expose complete spot economics",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "engine re-read",
+      "break-even output",
+      "net value output",
+      "value multiple output",
+      "readiness output"
+    ]
+  }
+}
