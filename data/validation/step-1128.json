@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1128,
+  "title": "Add generic release package validator",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "missing ready component guard",
+      "premature ready guard",
+      "fail-closed guard"
+    ]
+  }
+}
