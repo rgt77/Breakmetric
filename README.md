@@ -74,7 +74,7 @@ node scripts/smoke-models.mjs
 for file in src/*.js; do node --check "$file"; done
 ```
 
-The canonical development ledger now extends through step 886 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
+The canonical development ledger now extends through step 887 in `data/validation/development-ledger-v1.json`. The architecture review remains the immutable steps 1–825 snapshot in `docs/architecture-review-steps-1-825.md`.
 
 
 ## Chelsea EV completion queue
@@ -123,6 +123,10 @@ Operational status is available at `/collector-status.html` (noindex, not linked
 
 **Current audited provider state:** the scheduled workflows are installed, but the latest audited fast-lane and bulk-lane runs had empty `SPORTSCARDSPRO_TOKEN` and `SPORTSCARDSPRO_CSV_URL` environments, and commercial sharing is not approved in collector state. Therefore the correct Phase-1 operational state is `pending-live-provider`, not `healthy`. Live persistence and the soak clock start automatically only after the fast-lane token is configured **and** `SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED=true` is explicitly configured following written permission/commercial licensing. No manual Phase-1 start command is required after those prerequisites exist.
 
+
+## Valuation model backtest
+
+Step 887 adds a deterministic leave-one-out backtest for Tier C/D valuation. Each known canonical realized-sale market value is hidden in turn, removed from the training evidence, and predicted with the same shared C/D model used by the automated candidate generator. An exact provider observation for the same task is also excluded to prevent self-leakage. CI reports prediction coverage, MAE, median absolute error, mean/median absolute percentage error and signed bias, with breakdowns by tier, model basis and card category. These metrics are calibration evidence only and do not enable modeled EV; confidence gates are defined separately in the next step.
 
 ## Automated valuation tier separation
 

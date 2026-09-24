@@ -88,5 +88,31 @@
       "modeled_candidate_ev_total_usd",
       "noncanonical_candidate_ev_total_usd"
     ]
+  },
+  "backtest_contract": {
+    "model": "leave-one-out-canonical-holdout",
+    "target_population": "canonical realized-sale market values",
+    "prediction_models": [
+      "C",
+      "D"
+    ],
+    "self_leakage_control": [
+      "Remove the target canonical observation from training evidence.",
+      "Remove any exact provider observation with the same task_id from training evidence."
+    ],
+    "required_metrics": [
+      "prediction_coverage_pct",
+      "mae_usd",
+      "median_absolute_error_usd",
+      "mean_absolute_percentage_error_pct",
+      "median_absolute_percentage_error_pct",
+      "mean_signed_error_usd"
+    ],
+    "required_breakdowns": [
+      "valuation tier",
+      "valuation basis",
+      "card category"
+    ],
+    "interpretation": "Backtest metrics are calibration evidence only. They do not authorize model use until separate confidence gates are defined and passed."
   }
 }

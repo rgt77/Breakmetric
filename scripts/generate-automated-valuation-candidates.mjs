@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import {buildUnvaluedCollectionTasks} from "./lib/ev-slot-inventory.mjs";
+import {
+  evidenceBreakdown,
+  estimateModeledValue
+} from "./lib/valuation-model.mjs";
 
 const root=process.cwd();
 const args=process.argv.slice(2);
@@ -14,13 +18,6 @@ const outputOverride=valueAfter("--output");
 const read=file=>JSON.parse(fs.readFileSync(path.join(root,file),"utf8"));
 const stable=value=>JSON.stringify(value,null,2)+"\n";
 const round=value=>Math.round(Number(value)*1e8)/1e8;
-const median=values=>{
-  const xs=values.filter(Number.isFinite).sort((a,b)=>a-b);
-  if(!xs.length) return null;
-  const m=Math.floor(xs.length/2);
-  return xs.length%2?xs[m]:(xs[m-1]+xs[m])/2;
-};
-
 const config=read(configPath);
 const observations=read(config.observation_file);
 const sources=config.task_sources||{};
@@ -83,14 +80,6 @@ for(const observation of Object.values(observations.entries||{})){
   }
 }
 
-const evidenceBreakdown=rows=>({
-  total_count:rows.length,
-  canonical_realized_sale_count:
-    rows.filter(row=>row.evidence_class==="canonical-realized-sale").length,
-  exact_provider_current_price_count:
-    rows.filter(row=>row.evidence_class==="exact-provider-current-price").length
-});
-
 const candidates=[];
 const counts={A:0,B:0,C:0,D:0,E:0};
 let directProviderEvTotal=0;
@@ -118,41 +107,12 @@ for(const task of taskState.tasks||[]){
       value:Number(exact.raw_price_usd)
     }];
   }else{
-    const subject=task.subjects?.[0]||null;
-    const subjectEvidence=evidence
-      .filter(row=>
-        row.team===task.team &&
-        row.subject===subject &&
-        row.category===task.category
-      );
-
-    if(subjectEvidence.length){
-      tier="C";
-      basis="same-subject-same-category-model";
-      supportingEvidence=subjectEvidence;
-      value=median(subjectEvidence.map(row=>row.value));
-      confidence="low";
-    }else{
-      const teamCategoryEvidence=evidence
-        .filter(row=>row.team===task.team&&row.category===task.category);
-      if(teamCategoryEvidence.length>=3){
-        tier="D";
-        basis="team-category-model";
-        supportingEvidence=teamCategoryEvidence;
-        value=median(teamCategoryEvidence.map(row=>row.value));
-        confidence="very-low";
-      }else{
-        const productCategoryEvidence=evidence
-          .filter(row=>row.category===task.category);
-        if(productCategoryEvidence.length>=3){
-          tier="D";
-          basis="product-category-model";
-          supportingEvidence=productCategoryEvidence;
-          value=median(productCategoryEvidence.map(row=>row.value));
-          confidence="very-low";
-        }
-      }
-    }
+    const modeled=estimateModeledValue(task,evidence);
+    tier=modeled.tier;
+    basis=modeled.basis;
+    value=modeled.value;
+    confidence=modeled.confidence;
+    supportingEvidence=modeled.supporting_evidence;
   }
 
   const estimate=value===null?null:round(value);
