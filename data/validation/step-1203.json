@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1203,
+  "title": "Break-even result contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "break_even present"
+    ]
+  }
+}
