@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 941,
+  "title": "Define collector-to-valuation feedback loop",
+  "objective": "Specify the safe execution chain that turns exact provider matches into refreshed valuation coverage and acquisition priorities.",
+  "sequence": [
+    "collect exact provider evidence",
+    "persist observation",
+    "regenerate valuation candidates",
+    "recompute coverage diagnostics",
+    "refresh acquisition priority queue"
+  ],
+  "guarantees": [
+    "Canonical EV promotion remains blocked behind existing evidence gates.",
+    "Queue refresh failure retains the previous queue.",
+    "Observation idempotency is defined by task/provider/product/time identity."
+  ]
+}
