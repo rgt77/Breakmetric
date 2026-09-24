@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1277,
+  "title": "Performance optimization 1277",
+  "qa": {
+    "status": "pass",
+    "scope": "static-performance"
+  }
+}
