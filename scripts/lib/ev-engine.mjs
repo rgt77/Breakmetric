@@ -9,4 +9,4 @@ export const netValue=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?rou
 export const valueMultiple=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?round(Number(ev)/Number(price)):null;
 export const coverageStatus=pct=>Number(pct)>=95?"high":Number(pct)>=75?"medium":"low";
 export const analysisReady=result=>Number(result.coverage_pct)>=95&&Number(result.valued_contribution_count)>0;
-export function analyzeSpot(rows=[],spotPrice=null){const result=aggregate(rows);return {...result,spot_price_usd:finite(spotPrice)&&Number(spotPrice)>0?Number(spotPrice):null,roi_pct:roi(result.ev_usd,spotPrice)};}
+export function analyzeSpot(rows=[],spotPrice=null){const result=aggregate(rows),price=finite(spotPrice)&&Number(spotPrice)>0?Number(spotPrice):null;return {...result,spot_price_usd:price,break_even_price_usd:breakEvenPrice(result.ev_usd),net_value_usd:netValue(result.ev_usd,price),value_multiple:valueMultiple(result.ev_usd,price),roi_pct:roi(result.ev_usd,price),coverage_status:coverageStatus(result.coverage_pct),analysis_ready:analysisReady(result)};}
