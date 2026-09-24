@@ -633,7 +633,25 @@ pass("market evidence detail present", html.includes('id="marketEvidencePanel"')
 pass("freshness panel present", html.includes('id="dataFreshnessPanel"'));
 pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'));
 pass("retry analysis control present", html.includes('id="retryAnalysisButton"'));
-pass("analysis progress UI present", html.includes('class="flow-progress"'));
+pass(
+  "redundant analysis progress UI removed",
+  !html.includes('class="flow-progress"') &&
+  !html.includes('id="flowProduct"') &&
+  !html.includes('id="flowFormat"')
+);
+pass(
+  "calculator visible flow starts with box type",
+  html.includes('<div class="section-title">1 · Choose box type</div>') &&
+  html.includes('<div class="section-title">2 · Choose team</div>') &&
+  html.includes('<div class="section-title">3 · Choose player</div>') &&
+  html.includes('<div class="section-title">4 · Spot price</div>')
+);
+pass(
+  "single ready release is auto-selected and release chooser hidden",
+  html.includes('const analysisReadyProducts = (productCatalog.products || [])') &&
+  html.includes('if (analysisReadyProducts.length === 1)') &&
+  html.includes('productStage.hidden = true')
+);
 pass("team comparison panel present", html.includes('id="teamComparisonPanel"'));
 pass("team comparison has descriptive caption", html.includes("No value ranking is applied"));
 pass("player panel is labelled region", html.includes('role="region" aria-labelledby="playerName"'));
@@ -673,7 +691,11 @@ pass(
   html.includes('stats.version.slice(0, 8)') &&
   html.includes("stats.cache_invalidations")
 );
-pass("keyboard shortcuts disclosed", html.includes("Ctrl/⌘K"));
+pass(
+  "keyboard shortcuts disclosed without hidden release shortcut",
+  html.includes("Shortcuts: / search team/player · Esc clear search") &&
+  !html.includes("Ctrl/⌘K product")
+);
 pass("reduced motion supported", html.includes("prefers-reduced-motion"));
 pass("webmanifest linked", html.includes('rel="manifest" href="site.webmanifest"'));
 pass("Open Graph title present", html.includes('property="og:title"'));
