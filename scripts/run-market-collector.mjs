@@ -48,6 +48,7 @@ if(uniqueTasks.length!==tasks.length) fail("task-selection","Selected batch cont
 const fairnessCaps={team:Number(config.fast_lane?.priority_queue_max_tasks_per_team||3),subject:Number(config.fast_lane?.priority_queue_max_tasks_per_subject||2)};
 const fairnessCounts={team:{},subject:{}};
 for(const task of tasks){fairnessCounts.team[task.team]=(fairnessCounts.team[task.team]||0)+1;const subject=task.subject||"";fairnessCounts.subject[subject]=(fairnessCounts.subject[subject]||0)+1;}
+const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,claimed_at:now(),status:"claimed"}]));
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
