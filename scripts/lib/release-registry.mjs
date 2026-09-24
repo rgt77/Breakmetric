@@ -9,3 +9,4 @@ export function formatById(root,release,id){return formatsFor(root,release).find
 export function collectorConfigFor(release,formatId){return release.collector_configs?.[formatId]||null;}
 export function readyFormats(root,release){return formatsFor(root,release).filter(x=>x.status==="ready");}
 export function releaseOptions(registry){return registry.releases.map(({id,name,sport,manufacturer,year,status})=>({id,name,sport,manufacturer,year,status}));}
+export function formatOptions(root,release){return formatsFor(root,release).map(({id,name,status,analysis_unit})=>({id,name,status,analysis_unit:analysis_unit||null}));}
