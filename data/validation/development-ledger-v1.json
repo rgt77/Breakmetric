@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 889,
+  "canonical_step_end": 890,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -523,6 +523,15 @@
       "title": "Remove redundant selection summary and keep box type → team → player → price flow",
       "source_kind": "step-manifest",
       "source": "data/validation/step-889.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 890,
+      "end": 890,
+      "id": "core-calculator-priority",
+      "title": "Move advanced diagnostics behind the primary calculator flow",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-890.json",
       "coverage_quality": "exact-manifest"
     }
   ],
