@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1124,
+  "title": "Complete multi-series architecture contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-integration",
+    "checks": [
+      "release registry present",
+      "generic registry library present",
+      "EV analysis release-driven",
+      "reference validator release-driven",
+      "slot inventory format-driven",
+      "CI registry gates present"
+    ],
+    "files": [
+      "data/releases/index.json",
+      "scripts/lib/release-registry.mjs",
+      "scripts/validate-release-registry.mjs",
+      "scripts/generate-ev-analysis.mjs",
+      "scripts/validate-reference-release.mjs",
+      "scripts/lib/ev-slot-inventory.mjs",
+      ".github/workflows/market-collector.yml"
+    ]
+  }
+}
