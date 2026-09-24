@@ -45,6 +45,8 @@ jobs:
           node scripts/validate-release-package.mjs --package data/releases/2024-25-topps-chrome-uefa-club-competitions-hobby.json
       - name: Validate release 2 package
         run: node scripts/validate-release-package.mjs --package data/releases/2025-26-topps-premier-league-hobby.json
+      - name: Validate frontend flow
+        run: node scripts/validate-frontend-flow.mjs
       - name: Validate EV engine
         run: |
           node --check scripts/lib/ev-engine.mjs
