@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1174,
+  "canonical_step_end": 1199,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1175,6 +1175,15 @@
       "source": "data/validation/step-1150.json..data/validation/step-1174.json",
       "coverage_quality": "per-step-static-qa",
       "note": "Three releases coexist with isolated namespaces. Releases #2/#3 remain pending source ingestion and cannot be analyzed until their data packages become ready."
+    },
+    {
+      "start": 1175,
+      "end": 1199,
+      "id": "phase-27-frontend-ux",
+      "title": "Phase 27 · Multi-release frontend / UX",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1175.json..data/validation/step-1199.json",
+      "coverage_quality": "per-step-static-qa"
     }
   ],
   "historical_anomalies": [
