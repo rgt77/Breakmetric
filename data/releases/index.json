@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "model": "release-registry-v1",
+  "default_release_id": "2026-topps-chrome-premier-league",
+  "releases": [
+    {
+      "id": "2026-topps-chrome-premier-league",
+      "name": "2026 Topps Chrome Premier League",
+      "sport": "soccer",
+      "manufacturer": "Topps",
+      "year": 2026,
+      "status": "reference",
+      "formats_file": "data/formats/2026-topps-chrome-premier-league.json",
+      "collector_configs": {
+        "hobby": "data/collection/continuous-market-collector-config-v1.json"
+      }
+    }
+  ]
+}
