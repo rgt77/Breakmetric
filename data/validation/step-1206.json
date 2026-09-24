@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1206,
+  "title": "Coverage indicator contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "coverage present"
+    ]
+  }
+}
