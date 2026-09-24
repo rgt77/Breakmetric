@@ -29,6 +29,7 @@ for(const row of entries){
  if(row.source_url&&!String(row.source_url).startsWith("https://www.sportscardspro.com/"))issues.push({task_id:row.task_id,code:"source-url-provider-mismatch"});
  if(Number.isFinite(t)&&now-t>365*86400000)issues.push({task_id:row.task_id,code:"timestamp-too-old"});
  if(Number.isFinite(price)&&Math.round(price*100)!==price*100)issues.push({task_id:row.task_id,code:"price-precision"});
+ if(!row.set)issues.push({task_id:row.task_id,code:"empty-set"});
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,issues};
