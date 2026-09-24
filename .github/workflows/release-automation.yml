@@ -1,0 +1,27 @@
+name: Release automation validation
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "data/releases/**"
+      - "data/formats/**"
+      - "data/checklists/**"
+      - "data/odds/**"
+      - "scripts/scaffold-release.mjs"
+      - "scripts/lib/release-automation.mjs"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate automation contract
+        run: |
+          node --check scripts/scaffold-release.mjs
+          node --check scripts/lib/release-automation.mjs
+          node --check scripts/plan-release-ingestion.mjs
+          node --check scripts/promote-release.mjs
+          node scripts/validate-release-automation.mjs
+          node scripts/release-automation-status.mjs
