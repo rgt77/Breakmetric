@@ -51,6 +51,9 @@ const provider=config.fast_lane?.provider;
 const credentialEnv=config.fast_lane?.credential_env;
 const credential=credentialEnv?process.env[credentialEnv]:null;
 if(!dryRun&&!credential) fail("preflight",`Missing provider credential: ${credentialEnv}`);
+const sharingApprovalEnv=config.licensing?.approval_env;
+const sharingApproved=sharingApprovalEnv?process.env[sharingApprovalEnv]==="true":false;
+if(!dryRun&&config.licensing?.public_sharing_requires_approval===true&&!sharingApproved) fail("preflight",`Missing commercial sharing approval: ${sharingApprovalEnv}`);
 
 const statePath=config.telemetry?.state_file||"ops/collector/state-v1.json";
 const previous=exists(statePath)?read(statePath):{};
