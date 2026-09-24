@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "start_step": 894,
+  "end_step": 903,
+  "title": "Mobile calculator UX refinement",
+  "objective": "Tighten the customer-facing mobile flow without changing probability, EV or ROI logic.",
+  "steps": [
+    {
+      "step": 894,
+      "title": "Balance mobile hero spacing"
+    },
+    {
+      "step": 895,
+      "title": "Shorten calculator introduction"
+    },
+    {
+      "step": 896,
+      "title": "Simplify box-type stage label"
+    },
+    {
+      "step": 897,
+      "title": "Simplify team stage label"
+    },
+    {
+      "step": 898,
+      "title": "Mark player selection as optional"
+    },
+    {
+      "step": 899,
+      "title": "Simplify spot-price helper copy"
+    },
+    {
+      "step": 900,
+      "title": "Rename results section around the user's break analysis"
+    },
+    {
+      "step": 901,
+      "title": "Reduce mobile calculator panel padding"
+    },
+    {
+      "step": 902,
+      "title": "Normalize mobile selection touch targets"
+    },
+    {
+      "step": 903,
+      "title": "Tighten mobile search and section spacing"
+    }
+  ],
+  "guarantees": [
+    "Calculation logic is unchanged.",
+    "Probability, EV, ROI and evidence gates are unchanged.",
+    "Advanced diagnostics remain available after the primary flow."
+  ]
+}
