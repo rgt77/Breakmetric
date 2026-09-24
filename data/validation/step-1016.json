@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1016,
+  "title": "Implement exact provider task execution",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner re-read",
+      "implementation present",
+      "canonical EV remains excluded"
+    ]
+  }
+}
