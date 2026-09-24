@@ -6,5 +6,6 @@ let state=null;if(!issues.length)state=buildUnvaluedCollectionTasks({product:con
 if(state&&state.eligible_slot_count!==state.valued_slot_count+state.unvalued_slot_count)issues.push("slot-accounting-mismatch");
 if(config.product_id!=="2026-topps-chrome-premier-league"||config.format_id!=="hobby")issues.push("product-format-scope");
 if(state&&Number(config.scope?.eligible_slot_denominator)!==state.eligible_slot_count)issues.push("denominator-config-mismatch");
+if(state){const ids=state.tasks.map(x=>x.task_id);if(new Set(ids).size!==ids.length)issues.push("duplicate-task-id");}
 const report={schema_version:1,model:"reference-release-readiness-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),status:issues.length?"failed":"passed",data_contract_complete:issues.length===0,analysis_ready:false,eligible_slot_count:state?.eligible_slot_count??null,canonical_valued_slot_count:state?.valued_slot_count??null,remaining_slot_count:state?.unvalued_slot_count??null,issues,semantics:"Data-contract completeness is not market-valuation completeness. Analysis readiness remains fail-closed until evidence gates pass."};
 process.stdout.write(JSON.stringify(report,null,2)+"\n");if(issues.length)process.exitCode=1;
