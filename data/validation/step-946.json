@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 946,
+  "title": "Define feedback stage state machine",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "stage_state configured",
+      "fail-closed semantics preserved",
+      "canonical EV promotion remains gated",
+      "per-step QA required"
+    ]
+  },
+  "canonical_ev_mutated": false
+}
