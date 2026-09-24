@@ -625,6 +625,21 @@
       </details>
 
       <div id="analysisContent" hidden>
+      <div id="breakMetricResult" class="details-panel" aria-live="polite" hidden>
+        <h3 style="margin-top:0">BreakMetric Analysis</h3>
+        <div class="result-grid">
+          <div class="result"><span>Hit probability</span><strong id="bmResultProbability">—</strong></div>
+          <div class="result"><span>Expected hits</span><strong id="bmResultExpectedHits">—</strong></div>
+          <div class="result"><span>Expected value</span><strong id="bmResultEv">Withheld</strong></div>
+          <div class="result"><span>Spot price</span><strong id="bmResultSpotPrice">—</strong></div>
+          <div class="result"><span>ROI</span><strong id="bmResultRoi">Locked</strong></div>
+          <div class="result"><span>Break-even</span><strong id="bmResultBreakEven">Withheld</strong></div>
+          <div class="result"><span>Risk</span><strong id="bmResultRisk">Pending</strong></div>
+          <div class="result"><span>Data coverage</span><strong id="bmResultCoverage">Pending</strong></div>
+        </div>
+        <p id="bmResultGate" class="spot-note">Results remain fail-closed until required evidence gates pass.</p>
+      </div>
+      
       <div class="analysis-actions advanced-analysis" aria-label="Analysis actions">
         <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
         <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
@@ -1110,6 +1125,7 @@
   <script src="src/teamComparison.js"></script>
   <script src="src/analysisProvenance.js"></script>
   <script src="src/analysisQuality.js"></script>
+  <script src="src/resultsView.js"></script>
   <script src="src/evCoverage.js"></script>
   <script src="src/evWorkQueue.js"></script>
   <script src="src/evContributionProvenance.js"></script>
