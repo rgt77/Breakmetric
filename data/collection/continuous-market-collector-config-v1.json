@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 985,
+      "current_step": 986,
       "checks": [
-        "queue_lineage configured",
+        "coverage_delta configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -437,6 +437,12 @@
         "record_parent_queue_generated_at": true,
         "record_parent_task_rank": true,
         "record_refresh_run_id": true
+      },
+      "coverage_delta": {
+        "record_before_after": true,
+        "record_candidate_delta": true,
+        "record_weighted_coverage_delta": true,
+        "record_team_deltas": true
       }
     }
   }
