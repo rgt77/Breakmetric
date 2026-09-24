@@ -143,15 +143,12 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 944,
+      "current_step": 945,
       "checks": [
-        "checkpoint after every feedback stage",
-        "resume from last successful checkpoint",
-        "completed stages are not rerun",
-        "only failed stage is retried",
-        "retry count is bounded",
-        "terminal failure is reviewable",
-        "failure reason is preserved"
+        "run_identity configured",
+        "fail-closed semantics preserved",
+        "canonical EV promotion remains gated",
+        "per-step QA required"
       ]
     },
     "execution": {
@@ -176,6 +173,11 @@
         "max_stage_retries": 2,
         "terminal_failure_state": "needs-review",
         "preserve_failure_reason": true
+      },
+      "run_identity": {
+        "enabled": true,
+        "format": "collector-{utc_timestamp}-{sequence}",
+        "unique_per_execution": true
       }
     }
   }
