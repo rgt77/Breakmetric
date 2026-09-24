@@ -12,3 +12,4 @@ export function releaseOptions(registry){return registry.releases.map(({id,name,
 export function formatOptions(root,release){return formatsFor(root,release).map(({id,name,status,analysis_unit})=>({id,name,status,analysis_unit:analysis_unit||null}));}
 export function analysisDataFor(root,release,formatId){const f=formatById(root,release,formatId);return f?.analysis_data||null;}
 export function assertReadyFormat(root,release,formatId){const f=formatById(root,release,formatId);if(!f)throw new Error("Unknown format: "+formatId);if(f.status!=="ready")throw new Error("Format not analysis-ready: "+formatId);return f;}
+export const releaseKey=(releaseId,formatId)=>releaseId+"::"+formatId;
