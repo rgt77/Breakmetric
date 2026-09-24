@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1208,
+  "title": "Analysis readiness contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "analysis_ready present"
+    ]
+  }
+}
