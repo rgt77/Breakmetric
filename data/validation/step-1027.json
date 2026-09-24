@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1027,
+  "title": "Require provider set name",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "provider-set-name-required guard present"
+    ]
+  }
+}
