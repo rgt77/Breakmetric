@@ -2686,6 +2686,8 @@
         button.type = "button";
         button.className =
           "format-card" + (selectedFormat === item.id ? " active" : "");
+        button.dataset.formatId = item.id;
+        button.dataset.formatStatus = item.status;
         button.setAttribute(
           "aria-pressed",
           selectedFormat === item.id ? "true" : "false"
