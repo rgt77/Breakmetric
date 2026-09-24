@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1184,
+  "title": "Clarify pending box type state",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "index re-read",
+      "updated UX copy present"
+    ]
+  }
+}
