@@ -140,6 +140,17 @@
     "trigger_on_exact_match": true,
     "canonical_ev_promotion": "blocked-until-existing-evidence-gates-pass",
     "idempotency_key": "task_id+provider+provider_product_id+observed_at",
-    "retain_previous_queue_on_refresh_failure": true
+    "retain_previous_queue_on_refresh_failure": true,
+    "qa": {
+      "required_after_each_step": true,
+      "current_step": 942,
+      "checks": [
+        "feedback loop enabled",
+        "sequence order is deterministic",
+        "canonical EV promotion remains gated",
+        "queue refresh failure retains previous queue",
+        "idempotency key is defined"
+      ]
+    }
   }
 }
