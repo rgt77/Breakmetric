@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 996,
+  "title": "Add runner market quality policy",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner source re-read",
+      "new runner contract present",
+      "live adapter remains fail-closed"
+    ]
+  }
+}
