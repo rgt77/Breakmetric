@@ -22,3 +22,4 @@ export function releaseSupportsFormat(root,release,formatId){return Boolean(form
 export function releaseIsAnalysisReady(root,release){return readyFormats(root,release).some(f=>Boolean(collectorConfigFor(release,f.id)));}
 export const releaseNamespace=releaseId=>"data/releases/"+releaseId;
 export function catalogStats(root,registry){return {release_count:registry.releases.length,active_count:activeReleases(registry).length,pending_count:pendingReleases(registry).length,ready_format_count:allReadyTargets(root,registry).length};}
+export function canAnalyze(root,release,formatId){const f=formatById(root,release,formatId);return Boolean(f?.status==="ready"&&collectorConfigFor(release,formatId));}
