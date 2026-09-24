@@ -12,6 +12,7 @@ const exists=file=>fs.existsSync(path.join(root,file));
 const stable=value=>JSON.stringify(value,null,2)+"\n";
 const now=()=>new Date().toISOString();
 const hash=value=>crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const fail=(stage,message)=>{const error=new Error(message);error.stage=stage;throw error;};
 
 const config=read(configPath);
