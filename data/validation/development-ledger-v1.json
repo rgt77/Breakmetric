@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 890,
+  "canonical_step_end": 903,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -532,6 +532,15 @@
       "title": "Move advanced diagnostics behind the primary calculator flow",
       "source_kind": "step-manifest",
       "source": "data/validation/step-890.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 894,
+      "end": 903,
+      "id": "mobile-calculator-ux-refinement",
+      "title": "Refine the mobile-first calculator flow and result presentation",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-894-903.json",
       "coverage_quality": "exact-manifest"
     }
   ],
