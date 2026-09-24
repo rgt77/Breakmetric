@@ -2841,6 +2841,8 @@
         button.dataset.releaseId = item.id;
         button.dataset.releaseStatus = item.status;
         button.disabled = item.status !== "ready";
+        button.title = item.status === "ready" ? "Open release" : "Analysis data is still being prepared";
+        button.setAttribute("aria-disabled", item.status === "ready" ? "false" : "true");
         button.setAttribute(
           "aria-pressed",
           selectedProductId === item.id ? "true" : "false"
