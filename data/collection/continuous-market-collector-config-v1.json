@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 983,
+      "current_step": 984,
       "checks": [
-        "config_fingerprint configured",
+        "reproducibility configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -426,6 +426,12 @@
         "hash_algorithm": "sha256",
         "record_with_run": true,
         "exclude_secrets": true
+      },
+      "reproducibility": {
+        "record_config_fingerprint": true,
+        "record_queue_source_version": true,
+        "record_generator_version": true,
+        "record_provider": true
       }
     }
   }
