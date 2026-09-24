@@ -49,5 +49,22 @@
     "A failed confidence gate cannot contribute modeled candidate EV.",
     "Canonical EV remains unchanged.",
     "Gate relaxation requires an explicit policy/methodology change rather than an implicit data-side effect."
-  ]
+  ],
+  "current_candidate_effect": {
+    "eligible_slot_count": 8896,
+    "canonical_valued_slot_count": 33,
+    "candidate_count": 8863,
+    "raw_modeled_candidate_count": 6468,
+    "suppressed_modeled_candidate_count": 6468,
+    "final_tier_count": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 8863
+    },
+    "modeled_candidate_ev_total_usd": 0,
+    "confidence_gate_status": "blocking",
+    "interpretation": "All currently proposed C/D values are suppressed to E/unknown; no modeled EV is exposed or aggregated."
+  }
 }
