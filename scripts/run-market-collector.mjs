@@ -74,6 +74,7 @@ const observationsState=read(config.observation_file);
 const observationsEntries=observationsState.entries||(observationsState.entries={});
 const runProviderTask=async task=>{const search=await searchProvider(credential,task);const match=chooseExactMatch(task,search.products);if(!match)return {status:"no-exact-match"};const detail=await fetchProviderProduct(credential,match.id);const price=providerPriceUsd(detail);if(!validPrice(price))return {status:"invalid-price"};const observation=observationFor(task,detail,price,now());if(sameObservation(observationsEntries[task.task_id],observation))return {status:"duplicate",observation};return {status:"exact-match",observation};};
 const persistObservation=observation=>{observationsEntries[observation.task_id]=observation;observationsState.generated_at=observation.observed_at;atomicWrite(config.observation_file,observationsState);};
+const appendRun=entry=>{const file=config.telemetry?.runs_file||"ops/collector/runs-v1.json";const state=readOr(file,{schema_version:1,model:"collector-runs-v1",product_id:config.product_id,retained_run_limit:192,entries:[]});state.entries=[...(state.entries||[]),entry].slice(-Number(state.retained_run_limit||192));atomicWrite(file,state);};
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
