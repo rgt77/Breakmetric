@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 988,
+      "current_step": 989,
       "checks": [
-        "queue_exhaustion configured",
+        "evidence_gate_report configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -454,6 +454,13 @@
         "detect_empty_priority_queue": true,
         "distinguish_complete_vs_blocked": true,
         "blocked_state": "needs-review"
+      },
+      "evidence_gate_report": {
+        "emit_after_refresh": true,
+        "include_gate_status": true,
+        "include_blockers": true,
+        "include_verified_counts": true,
+        "never_auto_override_gate": true
       }
     }
   }
