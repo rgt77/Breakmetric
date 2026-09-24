@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import {spawnSync} from "node:child_process";
 
 const root=process.cwd();
 const args=process.argv.slice(2);
