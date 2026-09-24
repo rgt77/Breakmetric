@@ -813,6 +813,7 @@
         <input
           id="browseSearch"
           type="search"
+          inputmode="search"
           autocomplete="off"
           aria-keyshortcuts="/"
           placeholder="Try Chelsea, Palmer, Estêvão…"
@@ -878,9 +879,9 @@
               step="0.01"
               inputmode="decimal"
               autocomplete="off"
-              placeholder="Enter price"
+              placeholder="Enter spot price" aria-describedby="fxStatus"
             />
-            <select id="currency" aria-label="Currency">
+            <select id="currency" aria-label="Spot price currency">
               <option value="USD" selected>USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
