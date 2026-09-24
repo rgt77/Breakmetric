@@ -52,6 +52,8 @@ const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,
 const providerPolicy={min_request_interval_ms:Number(config.fast_lane?.min_request_interval_ms||1100),max_attempts:Number(config.retry?.max_attempts||3),retry_http_statuses:[...(config.retry?.retry_http_statuses||[])]};
 const qualityPolicy={min_price_usd:Number(config.quality?.min_price_usd||0.01),max_price_usd:Number(config.quality?.max_price_usd||1000000),exact_identity_required:config.safety?.exact_identity_required===true};
 const observationPolicy={append_only:true,required_fields:["task_id","provider","provider_product_id","observed_at","raw_price_usd"],canonical_ev_eligible:false};
+const feedbackPlan=[...(config.feedback_loop?.sequence||[])];
+if(feedbackPlan.length<5) fail("preflight","Feedback plan is incomplete.");
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
