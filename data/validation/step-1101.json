@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1101,
+  "title": "Add release registry resolver",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "resolver re-read",
+      "release resolver present",
+      "format resolver present",
+      "collector resolver present"
+    ]
+  }
+}
