@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "step": 1249,
+  "title": "Complete release automation phase",
+  "qa": {
+    "status": "pass",
+    "scope": "static-integration",
+    "checks": [
+      "fail_closed:true verified",
+      "promotionAllowed verified",
+      "nextAction verified",
+      "not eligible for promotion verified",
+      "release-automation-validation-v1 verified",
+      "Validate automation contract verified"
+    ]
+  }
+}
