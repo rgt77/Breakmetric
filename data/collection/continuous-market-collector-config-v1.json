@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 982,
+      "current_step": 983,
       "checks": [
-        "schema_versioning configured",
+        "config_fingerprint configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -420,6 +420,12 @@
         "require_schema_version": true,
         "reject_future_unknown_version": true,
         "migration_required_for_breaking_change": true
+      },
+      "config_fingerprint": {
+        "enabled": true,
+        "hash_algorithm": "sha256",
+        "record_with_run": true,
+        "exclude_secrets": true
       }
     }
   }
