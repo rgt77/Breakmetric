@@ -1,0 +1,27 @@
+name: Data quality
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "data/**"
+      - "scripts/lib/data-quality.mjs"
+      - "scripts/validate-data-quality*.mjs"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate quality code
+        run: |
+          node --check scripts/lib/data-quality.mjs
+          node --check scripts/validate-data-quality.mjs
+          node scripts/validate-data-quality-library.mjs
+          node scripts/validate-cross-release-quality.mjs
+          node scripts/validate-ev-quality.mjs
+      - name: Validate pending release packages
+        run: |
+          node scripts/validate-data-quality.mjs --package data/releases/2025-26-topps-premier-league-hobby.json
+          node scripts/validate-data-quality.mjs --package data/releases/2024-25-topps-chrome-uefa-club-competitions-hobby.json
