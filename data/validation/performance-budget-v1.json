@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "model": "performance-budget-v1",
+  "status": "active",
+  "budgets": {
+    "json_single_file_max_bytes": 5000000,
+    "json_batch_concurrency_max": 12,
+    "frontend_initial_render_rows_max": 500,
+    "frontend_render_batch_rows": 100,
+    "runtime_cache_entries_target_max": 40
+  },
+  "notes": [
+    "Budgets are guardrails, not measured production latency claims.",
+    "Runtime browser timings require browser execution."
+  ]
+}
