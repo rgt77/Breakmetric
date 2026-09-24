@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "step": 1200,
+  "title": "Add fail-closed results model",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "model re-read",
+      "EV withheld until coverage complete",
+      "ROI locked until market eligible"
+    ]
+  }
+}
