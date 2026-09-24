@@ -4031,6 +4031,7 @@
           .filter(item => item.status === "ready" && item.active !== false);
 
         productStage.hidden = false;
+        productStage.dataset.releaseCount = String((productCatalog.products||[]).length);
         if (analysisReadyProducts.length === 1) {
           selectedProductId = analysisReadyProducts[0].id;
         } else {
