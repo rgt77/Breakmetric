@@ -598,7 +598,7 @@
             Type to filter products by brand, competition or year.
           </p>
         </div>
-        <div id="productGrid" class="product-grid" aria-label="Products and releases" aria-describedby="productStatus"></div>
+        <div id="productGrid" class="product-grid" aria-label="Products and releases" aria-describedby="productStatus" aria-describedby="productStatus"></div>
         <div id="productStatus" class="format-status" aria-live="polite">
           Loading products…
         </div>
@@ -606,7 +606,7 @@
 
       <div id="formatStage">
         <div class="section-title">2 · Box type</div>
-        <div id="formatGrid" class="format-grid" aria-label="Box types"></div>
+        <div id="formatGrid" class="format-grid" aria-label="Box types" aria-describedby="formatStatus"></div>
         <div id="formatStatus" class="format-status" aria-live="polite">
           Select a product first.
         </div>
@@ -823,7 +823,7 @@
       </div>
 
       <div class="section-title">3 · Team</div>
-      <div id="teamGrid" class="team-grid" aria-label="Teams"></div>
+      <div id="teamGrid" class="team-grid" aria-label="Teams" aria-describedby="searchStatus"></div>
       <select id="team" hidden aria-hidden="true"></select>
 
       <details class="details-panel" id="teamComparisonPanel">
@@ -862,7 +862,7 @@
           ></div>
         </div>
         <div class="section-title">4 · Player <span style="font-weight:600;color:var(--muted)">· optional</span></div>
-        <div id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"></div>
+        <div id="playerGrid" class="player-grid" aria-label="Players" aria-describedby="searchStatus" tabindex="-1"></div>
       </div>
 
       <div class="section-title">5 · Spot price</div>
