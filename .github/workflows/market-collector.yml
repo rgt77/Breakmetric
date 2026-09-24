@@ -34,6 +34,11 @@ jobs:
           node-version: "22"
       - name: Validate runner syntax
         run: node --check scripts/run-market-collector.mjs
+      - name: Validate EV engine
+        run: |
+          node --check scripts/lib/ev-engine.mjs
+          node --check scripts/generate-ev-analysis.mjs
+          node scripts/validate-ev-engine.mjs
       - name: Validate market evidence before collection
         run: node scripts/validate-market-evidence.mjs
       - name: Run collector
