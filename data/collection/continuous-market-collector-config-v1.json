@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 959,
+      "current_step": 960,
       "checks": [
-        "identity_match configured",
+        "price_validation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -266,6 +266,12 @@
         "require_subject": true,
         "require_parallel": true,
         "on_ambiguity": "reject"
+      },
+      "price_validation": {
+        "require_positive_numeric": true,
+        "reject_zero": true,
+        "reject_negative": true,
+        "reject_non_numeric": true
       }
     }
   }
