@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1196,
+  "title": "Expose release state on cards",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "index re-read",
+      "state dataset present"
+    ]
+  }
+}
