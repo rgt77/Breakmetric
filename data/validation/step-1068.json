@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1068,
+  "title": "Add coverage status",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "EV engine re-read",
+      "export const coverageStatus present"
+    ]
+  }
+}
