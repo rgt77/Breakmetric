@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1127,
+  "title": "Add release #2 data package manifest",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "manifest re-read",
+      "required component paths declared",
+      "readiness explicit",
+      "fail-closed true"
+    ]
+  }
+}
