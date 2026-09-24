@@ -20,6 +20,10 @@ const stable=value=>JSON.stringify(value,null,2)+"\n";
 const round=value=>Math.round(Number(value)*1e8)/1e8;
 const config=read(configPath);
 const observations=read(config.observation_file);
+const confidencePolicy=
+  read("data/methodology/valuation-confidence-gates-v1.json");
+const backtestManifest=
+  read("data/validation/step-887.json");
 const sources=config.task_sources||{};
 const provenance=read(sources.provenance);
 const insertMap=read(sources.insert_odds_mapping);
@@ -84,10 +88,21 @@ const candidates=[];
 const counts={A:0,B:0,C:0,D:0,E:0};
 let directProviderEvTotal=0;
 let modeledEvTotal=0;
+let rawModeledCandidateCount=0;
+let suppressedModeledCandidateCount=0;
 for(const task of taskState.tasks||[]){
   const exact=observations.entries?.[task.task_id];
   let tier="E",basis="unknown",value=null,confidence="none";
   let supportingEvidence=[];
+  let proposedTier=null;
+  let proposedBasis=null;
+  let proposedConfidence=null;
+  let confidenceGate={
+    applies:false,
+    passed:false,
+    status:"not-applicable",
+    reasons:[]
+  };
 
   if(
     exact?.exact_identity===true &&
@@ -107,12 +122,29 @@ for(const task of taskState.tasks||[]){
       value:Number(exact.raw_price_usd)
     }];
   }else{
-    const modeled=estimateModeledValue(task,evidence);
+    const modeled=estimateModeledValue(
+      task,
+      evidence,
+      {
+        gatePolicy:confidencePolicy,
+        calibration:backtestManifest.baseline
+      }
+    );
     tier=modeled.tier;
     basis=modeled.basis;
     value=modeled.value;
     confidence=modeled.confidence;
     supportingEvidence=modeled.supporting_evidence;
+    proposedTier=modeled.proposed_tier||null;
+    proposedBasis=modeled.proposed_basis||null;
+    proposedConfidence=modeled.proposed_confidence||null;
+    confidenceGate=modeled.confidence_gate||confidenceGate;
+    if(proposedTier==="C"||proposedTier==="D"){
+      rawModeledCandidateCount++;
+      if(confidenceGate.status==="failed"){
+        suppressedModeledCandidateCount++;
+      }
+    }
   }
 
   const estimate=value===null?null:round(value);
@@ -148,6 +180,13 @@ for(const task of taskState.tasks||[]){
     direct_market_observation:tier==="B",
     modeled_value:tier==="C"||tier==="D",
     confidence,
+    proposed_valuation_tier:proposedTier,
+    proposed_valuation_basis:proposedBasis,
+    proposed_confidence:proposedConfidence,
+    confidence_gate_status:confidenceGate.status,
+    confidence_gate_reasons:[...(confidenceGate.reasons||[])],
+    model_candidate_suppressed:
+      confidenceGate.status==="failed",
     market_value_estimate_usd:estimate,
     evidence_observation_count:breakdown.total_count,
     evidence_breakdown:breakdown,
@@ -177,13 +216,25 @@ const output={
     tier_count:counts,
     exact_provider_price_count:counts.B,
     modeled_candidate_count:counts.C+counts.D,
+    raw_modeled_candidate_count:rawModeledCandidateCount,
+    suppressed_modeled_candidate_count:
+      suppressedModeledCandidateCount,
     unknown_count:counts.E,
+    confidence_gate:{
+      policy:"data/methodology/valuation-confidence-gates-v1.json",
+      calibration_source:"data/validation/step-887.json",
+      calibration_status:
+        suppressedModeledCandidateCount>0 &&
+        counts.C+counts.D===0
+          ?"blocking"
+          :"mixed-or-passing"
+    },
     direct_provider_candidate_ev_total_usd:round(directProviderEvTotal),
     modeled_candidate_ev_total_usd:round(modeledEvTotal),
     noncanonical_candidate_ev_total_usd:
       round(directProviderEvTotal+modeledEvTotal),
     aggregate_semantics:
-      "All candidate EV totals are non-canonical. Tier B is direct provider evidence; Tier C/D are modeled estimates and must remain separately presented."
+      "All candidate EV totals are non-canonical. Tier B is direct provider evidence. Tier C/D contribute modeled EV only after confidence gates pass; gated model candidates fall back to Tier E/unknown."
   },
   candidates
 };
