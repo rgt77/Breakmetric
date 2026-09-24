@@ -115,13 +115,17 @@
     "approval_env": "SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED"
   },
   "priority_queue": {
-    "source": "data/derived/2026-topps-chrome-premier-league-hobby-automated-valuation-candidates-v1.json",
-    "field": "acquisition_priority.tasks",
+    "source": "ops/collector/acquisition-priority-v1.json",
+    "field": "tasks",
     "enabled": true,
     "max_priority_tasks": 100,
     "scheduling": "priority-first-with-fairness",
     "reserve_batch_slots": 10,
     "fallback": "existing-team-then-subject-round-robin",
-    "refresh_after_each_valuation_generation": true
+    "refresh_after_each_valuation_generation": true,
+    "generated_by": "scripts/generate-automated-valuation-candidates.mjs",
+    "fail_closed_if_missing": true,
+    "fail_closed_if_stale_hours": 24,
+    "consume_only_exact_task_ids": true
   }
 }
