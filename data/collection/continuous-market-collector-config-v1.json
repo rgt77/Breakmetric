@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 972,
+      "current_step": 973,
       "checks": [
-        "fairness_audit configured",
+        "rate_limit_handling configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -359,6 +359,12 @@
         "record_subject_distribution": true,
         "enforce_team_cap": true,
         "enforce_subject_cap": true
+      },
+      "rate_limit_handling": {
+        "respect_retry_after": true,
+        "exponential_backoff": true,
+        "max_backoff_seconds": 300,
+        "on_exhausted": "defer-task"
       }
     }
   }
