@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 944,
+  "title": "Add checkpoint recovery to feedback loop",
+  "qa": {
+    "status": "pass",
+    "check_count": 9
+  },
+  "guarantees": [
+    "Every derived stage has a recovery checkpoint.",
+    "Retries resume at the failed stage rather than repeating completed stages.",
+    "Retries are bounded to two attempts.",
+    "Terminal failures preserve their reason and enter needs-review."
+  ]
+}
