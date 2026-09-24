@@ -226,6 +226,31 @@ for(const task of taskState.tasks||[]){
   });
 }
 
+const priorityTasks=[...candidates]
+  .sort((a,b)=>{
+    const directGapA=a.valuation_tier==="B"?1:0;
+    const directGapB=b.valuation_tier==="B"?1:0;
+    if(directGapA!==directGapB) return directGapA-directGapB;
+    const impactA=Number(a.expected_copies_per_case||0);
+    const impactB=Number(b.expected_copies_per_case||0);
+    if(impactA!==impactB) return impactB-impactA;
+    return Number(a.rank||0)-Number(b.rank||0);
+  })
+  .slice(0,100)
+  .map((item,index)=>({
+    priority:index+1,
+    task_id:item.task_id,
+    team:item.team,
+    category:item.category,
+    subject:item.subjects?.[0]||null,
+    parallel:item.parallel,
+    expected_copies_per_case:item.expected_copies_per_case,
+    current_tier:item.valuation_tier,
+    proposed_modeled_tier:item.proposed_valuation_tier,
+    blocker:item.confidence_gate_reasons,
+    objective:"Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+  }));
+
 const output={
   schema_version:1,
   model:"automated-valuation-candidates-v1",
@@ -260,6 +285,10 @@ const output={
       round(directProviderEvTotal+modeledEvTotal),
     aggregate_semantics:
       "All candidate EV totals are non-canonical. Tier B is direct provider evidence. Tier C/D contribute modeled EV only after confidence gates pass; gated model candidates fall back to Tier E/unknown."
+  },
+  acquisition_priority:{
+    semantics:"Deterministic top-100 evidence-acquisition queue for unvalued slots. Higher expected copies per case are researched first; this is a collection priority, not a valuation or ROI ranking.",
+    tasks:priorityTasks
   },
   coverage:{
     semantics:"Coverage diagnostics for non-canonical valuation candidates. Count coverage and expected-copy-weighted coverage are reported separately and never mutate canonical EV.",
