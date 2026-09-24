@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 890,
+  "title": "Prioritize the core calculator flow",
+  "objective": "Keep technical diagnostics from interrupting the box type → team → player → spot price path.",
+  "changes": [
+    "Moved analysis actions, scope/readiness summaries and technical evidence panels behind the primary calculator content using explicit layout ordering.",
+    "Kept team and player selection, spot price and value results ahead of advanced diagnostics.",
+    "Preserved all existing diagnostic controls and data; nothing is deleted from the analysis."
+  ],
+  "guarantees": [
+    "Selection and calculation logic is unchanged.",
+    "Market evidence, provenance, data dates and technical status remain available.",
+    "The change is presentation-only."
+  ]
+}
