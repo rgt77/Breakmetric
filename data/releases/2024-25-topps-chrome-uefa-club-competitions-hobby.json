@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "model": "release-data-package-v1",
+  "product_id": "2024-25-topps-chrome-uefa-club-competitions",
+  "format_id": "hobby",
+  "status": "ingestion-pending",
+  "official_sources": {
+    "product": "https://www.topps.com/products/2025-25-topps-chrome%C2%AE-uefa-club-competitions-hobby-box-sealed-case"
+  },
+  "known_official_facts": {
+    "boxes_per_case": 12,
+    "packs_per_box": 20,
+    "cards_per_pack": 4,
+    "autographs_per_box": 1
+  },
+  "required_components": {
+    "format": "data/formats/2024-25-topps-chrome-uefa-club-competitions.json",
+    "base_checklist": "data/checklists/2024-25-topps-chrome-uefa-club-competitions-base.json",
+    "insert_checklist": "data/checklists/2024-25-topps-chrome-uefa-club-competitions-inserts.json",
+    "autograph_checklist": "data/checklists/2024-25-topps-chrome-uefa-club-competitions-autographs.json",
+    "odds": "data/odds/2024-25-topps-chrome-uefa-club-competitions-hobby.json",
+    "inventory": "data/derived/2024-25-topps-chrome-uefa-club-competitions-hobby-ev-eligible-inventory-v1.json",
+    "provenance": "data/derived/2024-25-topps-chrome-uefa-club-competitions-hobby-ev-contribution-provenance-v1.json",
+    "observations": "data/collection/2024-25-topps-chrome-uefa-club-competitions-market-observations-v1.json"
+  },
+  "readiness": {
+    "format": true,
+    "base_checklist": false,
+    "insert_checklist": false,
+    "autograph_checklist": false,
+    "odds": false,
+    "inventory": false,
+    "provenance": false,
+    "observations": true
+  },
+  "fail_closed": true
+}
