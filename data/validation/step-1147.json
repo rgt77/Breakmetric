@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1147,
+  "title": "Validate release #2 market store scope",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "package validator re-read",
+      "market-evidence-scope-mismatch gate present"
+    ]
+  }
+}
