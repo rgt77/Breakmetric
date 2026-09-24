@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1228,
+  "title": "Release automation validator",
+  "qa": {
+    "status": "pass",
+    "scope": "static-automation",
+    "checks": [
+      "automation contract"
+    ]
+  }
+}
