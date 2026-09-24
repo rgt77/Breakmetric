@@ -28,6 +28,7 @@ const chooseExactMatch=(task,items)=>{const ranked=(items||[]).map(item=>({item,
 const providerPriceUsd=item=>{const pennies=Number(item?.["loose-price"]);return Number.isFinite(pennies)&&pennies>0?Math.round(pennies)/100:null;};
 const validPrice=price=>Number.isFinite(price)&&price>=Number(config.quality?.min_price_usd||0.01)&&price<=Number(config.quality?.max_price_usd||1000000);
 const observationFor=(task,item,price,observedAt)=>({task_id:task.task_id,source:"sportscardspro-api",provider_product_id:String(item.id),provider_product_name:item["product-name"]||null,provider_set_name:item["console-name"]||null,source_url:`https://www.sportscardspro.com/game/${item.id}`,team:task.team,category:task.category,subjects:task.subject?[task.subject]:[],set:task.set,card_number:task.card_number||null,parallel:task.parallel,exact_identity:true,status:"exact-current-price",currency:"USD",raw_price_usd:price,observed_at:observedAt,canonical_ev_eligible:false});
+const sameObservation=(a,b)=>a&&b&&a.provider_product_id===b.provider_product_id&&Number(a.raw_price_usd)===Number(b.raw_price_usd);
 const config=read(configPath);
 const queuePath=config.priority_queue?.source;
 const required=["product_id","format_id","observation_file","automated_valuation_file"];
