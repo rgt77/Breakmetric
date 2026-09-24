@@ -54,7 +54,9 @@
     "High-impact cards and ambiguous identities remain eligible for manual exception review.",
     "Tier B candidates must be machine-classified as direct-provider observations; Tier C/D candidates must be machine-classified as modeled values.",
     "Modeled candidates must expose an evidence breakdown separating canonical realized-sale observations from exact provider current-price observations.",
-    "Direct-provider candidate EV and modeled candidate EV must be summarized separately; any combined candidate total must be explicitly labeled non-canonical."
+    "Direct-provider candidate EV and modeled candidate EV must be summarized separately; any combined candidate total must be explicitly labeled non-canonical.",
+    "Tier C/D deployment is fail-closed: modeled values are suppressed to Tier E unless both release-level calibration and candidate-level evidence gates pass.",
+    "Backtesting remains ungated so model quality can be measured even while deployment gates block modeled values."
   ],
   "output_contract": {
     "direct_provider": {
@@ -114,5 +116,12 @@
       "card category"
     ],
     "interpretation": "Backtest metrics are calibration evidence only. They do not authorize model use until separate confidence gates are defined and passed."
+  },
+  "confidence_gate_policy": "data/methodology/valuation-confidence-gates-v1.json",
+  "deployment_semantics": {
+    "tier_b": "Direct provider candidates are unaffected by C/D confidence gates and remain non-canonical.",
+    "tier_c_d": "Only gate-passing modeled candidates may expose market_value_estimate_usd or candidate EV.",
+    "gate_failure": "A failed modeled candidate becomes Tier E with null market value and null EV while retaining proposed tier/basis and gate reasons for diagnostics.",
+    "canonical_ev": "Never mutated by automated confidence gating."
   }
 }
