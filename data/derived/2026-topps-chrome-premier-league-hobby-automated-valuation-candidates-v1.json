@@ -32,6 +32,2065 @@
     "noncanonical_candidate_ev_total_usd": 0,
     "aggregate_semantics": "All candidate EV totals are non-canonical. Tier B is direct provider evidence. Tier C/D contribute modeled EV only after confidence gates pass; gated model candidates fall back to Tier E/unknown."
   },
+  "acquisition_priority": {
+    "semantics": "Deterministic top-100 evidence-acquisition queue for unvalued slots. Higher expected copies per case are researched first; this is a collection priority, not a valuation or ROI ranking.",
+    "tasks": [
+      {
+        "priority": 1,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::inserts::Golazo::GZ-1::Base",
+        "team": "AFC Bournemouth",
+        "category": "inserts",
+        "subject": "Justin Kluivert",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 2,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::inserts::That's His Job::THJ-1::Base",
+        "team": "AFC Bournemouth",
+        "category": "inserts",
+        "subject": "Tyler Adams",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 3,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Alive and Kicking::AK-5::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Noni Madueke",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 4,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Alive and Kicking::AK-16::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Bukayo Saka",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 5,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Golazo::GZ-6::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Dennis Bergkamp",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 6,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Golazo::GZ-10::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Kanu",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 7,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Golazo::GZ-14::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Thierry Henry",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 8,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Golazo::GZ-15::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Olivier Giroud",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 9,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Golazo::GZ-17::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Robert Pirès",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 10,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Stoppage Time Heartbreaker::STH-5::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Reiss Nelson",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 11,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Stoppage Time Heartbreaker::STH-18::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Danny Welbeck",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 12,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::Stoppage Time Heartbreaker::STH-19::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Declan Rice",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 13,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::That's His Job::THJ-3::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "William Saliba",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 14,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Arsenal::inserts::The Streets Won't Forget::SWF-15::Base",
+        "team": "Arsenal",
+        "category": "inserts",
+        "subject": "Abou Diaby",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 15,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Aston Villa::inserts::Alive and Kicking::AK-1::Base",
+        "team": "Aston Villa",
+        "category": "inserts",
+        "subject": "Harvey Elliott",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 16,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Aston Villa::inserts::That's His Job::THJ-4::Base",
+        "team": "Aston Villa",
+        "category": "inserts",
+        "subject": "Ollie Watkins",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 17,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Aston Villa::inserts::The Streets Won't Forget::SWF-19::Base",
+        "team": "Aston Villa",
+        "category": "inserts",
+        "subject": "Gabriel Agbonlahor",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 18,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Brentford::inserts::That's His Job::THJ-5::Base",
+        "team": "Brentford",
+        "category": "inserts",
+        "subject": "Nathan Collins",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 19,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Brighton & Hove Albion::inserts::Alive and Kicking::AK-9::Base",
+        "team": "Brighton & Hove Albion",
+        "category": "inserts",
+        "subject": "Georginio Rutter",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 20,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Brighton & Hove Albion::inserts::Golazo::GZ-2::Base",
+        "team": "Brighton & Hove Albion",
+        "category": "inserts",
+        "subject": "Kaoru Mitoma",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 21,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Brighton & Hove Albion::inserts::That's His Job::THJ-2::Base",
+        "team": "Brighton & Hove Albion",
+        "category": "inserts",
+        "subject": "Lewis Dunk",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 22,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Burnley FC::inserts::That's His Job::THJ-6::Base",
+        "team": "Burnley FC",
+        "category": "inserts",
+        "subject": "Maxime Estève",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 23,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::Golazo::GZ-8::Base",
+        "team": "Chelsea",
+        "category": "inserts",
+        "subject": "Gus Poyet",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 24,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Chelsea::inserts::That's His Job::THJ-7::Base",
+        "team": "Chelsea",
+        "category": "inserts",
+        "subject": "Moisés Caicedo",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 25,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Crystal Palace::inserts::That's His Job::THJ-8::Base",
+        "team": "Crystal Palace",
+        "category": "inserts",
+        "subject": "Jean-Philippe Mateta",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 26,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Crystal Palace::inserts::The Streets Won't Forget::SWF-6::Base",
+        "team": "Crystal Palace",
+        "category": "inserts",
+        "subject": "Andy Johnson",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 27,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Crystal Palace::inserts::The Streets Won't Forget::SWF-8::Base",
+        "team": "Crystal Palace",
+        "category": "inserts",
+        "subject": "Yannick Bolasie",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 28,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Everton::inserts::Alive and Kicking::AK-6::Base",
+        "team": "Everton",
+        "category": "inserts",
+        "subject": "Tyler Dibling",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 29,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Everton::inserts::Alive and Kicking::AK-15::Base",
+        "team": "Everton",
+        "category": "inserts",
+        "subject": "Iliman Ndiaye",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 30,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Everton::inserts::Golazo::GZ-3::Base",
+        "team": "Everton",
+        "category": "inserts",
+        "subject": "James Tarkowski",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 31,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Everton::inserts::That's His Job::THJ-9::Base",
+        "team": "Everton",
+        "category": "inserts",
+        "subject": "James Tarkowski",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 32,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Everton::inserts::The Streets Won't Forget::SWF-5::Base",
+        "team": "Everton",
+        "category": "inserts",
+        "subject": "Yakubu",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 33,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::Alive and Kicking::AK-11::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Antonee Robinson",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 34,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::Stoppage Time Heartbreaker::STH-7::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Rodrigo Muniz",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 35,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::Stoppage Time Heartbreaker::STH-16::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Alex Iwobi",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 36,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::That's His Job::THJ-10::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Raúl Jiménez",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 37,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::The Streets Won't Forget::SWF-9::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Bobby Zamora",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 38,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Fulham::inserts::The Streets Won't Forget::SWF-14::Base",
+        "team": "Fulham",
+        "category": "inserts",
+        "subject": "Zoltán Gera",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 39,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Leeds United::inserts::Alive and Kicking::AK-10::Base",
+        "team": "Leeds United",
+        "category": "inserts",
+        "subject": "Harry Gray",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 40,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Leeds United::inserts::Golazo::GZ-13::Base",
+        "team": "Leeds United",
+        "category": "inserts",
+        "subject": "Tony Yeboah",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 41,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Leeds United::inserts::That's His Job::THJ-17::Base",
+        "team": "Leeds United",
+        "category": "inserts",
+        "subject": "Anton Stach",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 42,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Leeds United::inserts::The Streets Won't Forget::SWF-17::Base",
+        "team": "Leeds United",
+        "category": "inserts",
+        "subject": "Tony Yeboah",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 43,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Alive and Kicking::AK-3::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Dominik Szoboszlai",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 44,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Alive and Kicking::AK-12::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Mohamed Salah",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 45,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Golazo::GZ-4::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Luis Suárez",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 46,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Golazo::GZ-20::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Robbie Fowler",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 47,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Stoppage Time Heartbreaker::STH-1::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Stan Collymore",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 48,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Stoppage Time Heartbreaker::STH-6::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Alisson",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 49,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Stoppage Time Heartbreaker::STH-12::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Sadio Mané",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 50,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Stoppage Time Heartbreaker::STH-14::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Steven Gerrard",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 51,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::Stoppage Time Heartbreaker::STH-15::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Dirk Kuyt",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 52,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::That's His Job::THJ-12::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Virgil van Dijk",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 53,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::The Streets Won't Forget::SWF-1::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "Harry Kewell",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 54,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Liverpool FC::inserts::The Streets Won't Forget::SWF-12::Base",
+        "team": "Liverpool FC",
+        "category": "inserts",
+        "subject": "John Arne Riise",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 55,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::Alive and Kicking::AK-4::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Rodri",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 56,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::Alive and Kicking::AK-20::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Omar Marmoush",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 57,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::Golazo::GZ-18::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Georgi Kinkladze",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 58,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::Stoppage Time Heartbreaker::STH-2::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Sergio Agüero",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 59,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::Stoppage Time Heartbreaker::STH-9::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Oscar Bobb",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 60,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::That's His Job::THJ-13::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Erling Haaland",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 61,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::The Streets Won't Forget::SWF-3::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Elano",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 62,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::The Streets Won't Forget::SWF-11::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Stephen Ireland",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 63,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester City::inserts::The Streets Won't Forget::SWF-16::Base",
+        "team": "Manchester City",
+        "category": "inserts",
+        "subject": "Georgi Kinkladze",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 64,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Alive and Kicking::AK-2::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Amad",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 65,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Golazo::GZ-5::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Kobbie Mainoo",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 66,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Golazo::GZ-7::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Eric Cantona",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 67,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Golazo::GZ-11::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Wayne Rooney",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 68,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Golazo::GZ-19::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Andy Cole",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 69,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Stoppage Time Heartbreaker::STH-8::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Steve Bruce",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 70,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Stoppage Time Heartbreaker::STH-10::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Robin van Persie",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 71,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Stoppage Time Heartbreaker::STH-11::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Michael Owen",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 72,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Stoppage Time Heartbreaker::STH-13::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Paul Scholes",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 73,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::Stoppage Time Heartbreaker::STH-17::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Federico Macheda",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 74,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Manchester United::inserts::That's His Job::THJ-14::Base",
+        "team": "Manchester United",
+        "category": "inserts",
+        "subject": "Bruno Fernandes",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 75,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::Alive and Kicking::AK-17::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Joelinton",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 76,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::Golazo::GZ-9::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Philippe Albert",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 77,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::That's His Job::THJ-15::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Dan Burn",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 78,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::The Streets Won't Forget::SWF-7::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Papiss Cissé",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 79,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::The Streets Won't Forget::SWF-13::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Nolberto Solano",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 80,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Newcastle United::inserts::The Streets Won't Forget::SWF-18::Base",
+        "team": "Newcastle United",
+        "category": "inserts",
+        "subject": "Faustino Asprilla",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 81,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Nottingham Forest::inserts::Alive and Kicking::AK-18::Base",
+        "team": "Nottingham Forest",
+        "category": "inserts",
+        "subject": "Ola Aina",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 82,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Nottingham Forest::inserts::That's His Job::THJ-16::Base",
+        "team": "Nottingham Forest",
+        "category": "inserts",
+        "subject": "Chris Wood",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 83,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Sunderland::inserts::Alive and Kicking::AK-13::Base",
+        "team": "Sunderland",
+        "category": "inserts",
+        "subject": "Chris Rigg",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 84,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Sunderland::inserts::That's His Job::THJ-11::Base",
+        "team": "Sunderland",
+        "category": "inserts",
+        "subject": "Habib Diarra",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 85,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Sunderland::inserts::The Streets Won't Forget::SWF-20::Base",
+        "team": "Sunderland",
+        "category": "inserts",
+        "subject": "Kevin Phillips",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 86,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::Alive and Kicking::AK-19::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Archie Gray",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 87,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::Golazo::GZ-12::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Gareth Bale",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 88,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::Golazo::GZ-16::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Harry Kane",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 89,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::Stoppage Time Heartbreaker::STH-3::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Gareth Bale",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 90,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::Stoppage Time Heartbreaker::STH-20::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Dejan Kulusevski",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 91,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::That's His Job::THJ-18::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "João Palhinha",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 92,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::The Streets Won't Forget::SWF-4::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Aaron Lennon",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 93,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Tottenham Hotspur::inserts::The Streets Won't Forget::SWF-10::Base",
+        "team": "Tottenham Hotspur",
+        "category": "inserts",
+        "subject": "Niko Kranjčar",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 94,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Wolverhampton Wanderers::inserts::Alive and Kicking::AK-8::Base",
+        "team": "Wolverhampton Wanderers",
+        "category": "inserts",
+        "subject": "André",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 95,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Wolverhampton Wanderers::inserts::That's His Job::THJ-19::Base",
+        "team": "Wolverhampton Wanderers",
+        "category": "inserts",
+        "subject": "João Gomes",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 96,
+        "task_id": "2026-topps-chrome-premier-league::hobby::Wolverhampton Wanderers::inserts::That's His Job::THJ-20::Base",
+        "team": "Wolverhampton Wanderers",
+        "category": "inserts",
+        "subject": "Jørgen Strand Larsen",
+        "parallel": "Base",
+        "expected_copies_per_case": 1.2,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-evidence",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 97,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::base_parallels::Base Cards::1::Refractor",
+        "team": "AFC Bournemouth",
+        "category": "base_parallels",
+        "subject": "Justin Kluivert",
+        "parallel": "Refractor",
+        "expected_copies_per_case": 0.36,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 98,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::base_parallels::Base Cards::2::Refractor",
+        "team": "AFC Bournemouth",
+        "category": "base_parallels",
+        "subject": "Tyler Adams",
+        "parallel": "Refractor",
+        "expected_copies_per_case": 0.36,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 99,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::base_parallels::Base Cards::3::Refractor",
+        "team": "AFC Bournemouth",
+        "category": "base_parallels",
+        "subject": "Antoine Semenyo",
+        "parallel": "Refractor",
+        "expected_copies_per_case": 0.36,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      },
+      {
+        "priority": 100,
+        "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::base_parallels::Base Cards::4::Refractor",
+        "team": "AFC Bournemouth",
+        "category": "base_parallels",
+        "subject": "David Brooks",
+        "parallel": "Refractor",
+        "expected_copies_per_case": 0.36,
+        "current_tier": "E",
+        "proposed_modeled_tier": "D",
+        "blocker": [
+          "insufficient-team-diversity",
+          "median-absolute-percentage-error-too-high",
+          "insufficient-local-team-diversity"
+        ],
+        "objective": "Acquire exact provider or exact realized-sale evidence; do not promote modeled values automatically."
+      }
+    ]
+  },
+  "coverage": {
+    "semantics": "Coverage diagnostics for non-canonical valuation candidates. Count coverage and expected-copy-weighted coverage are reported separately and never mutate canonical EV.",
+    "by_team": {
+      "AFC Bournemouth": {
+        "candidate_count": 275,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 275,
+        "gated_modeled_count": 0,
+        "unknown_count": 275,
+        "expected_copies_per_case_total": 10.721820599999969,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Arsenal": {
+        "candidate_count": 755,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 444,
+        "gated_modeled_count": 0,
+        "unknown_count": 755,
+        "expected_copies_per_case_total": 24.709047629999933,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Aston Villa": {
+        "candidate_count": 403,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 295,
+        "gated_modeled_count": 0,
+        "unknown_count": 403,
+        "expected_copies_per_case_total": 12.538265099999977,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Brentford": {
+        "candidate_count": 283,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 267,
+        "gated_modeled_count": 0,
+        "unknown_count": 283,
+        "expected_copies_per_case_total": 9.582171539999981,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Brighton & Hove Albion": {
+        "candidate_count": 363,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 299,
+        "gated_modeled_count": 0,
+        "unknown_count": 363,
+        "expected_copies_per_case_total": 12.363598719999974,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Burnley FC": {
+        "candidate_count": 279,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 263,
+        "gated_modeled_count": 0,
+        "unknown_count": 279,
+        "expected_copies_per_case_total": 9.575913589999981,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Chelsea": {
+        "candidate_count": 605,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 358,
+        "gated_modeled_count": 0,
+        "unknown_count": 605,
+        "expected_copies_per_case_total": 11.017040669999993,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Crystal Palace": {
+        "candidate_count": 345,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 291,
+        "gated_modeled_count": 0,
+        "unknown_count": 345,
+        "expected_copies_per_case_total": 12.252753639999973,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Everton": {
+        "candidate_count": 405,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 307,
+        "gated_modeled_count": 0,
+        "unknown_count": 405,
+        "expected_copies_per_case_total": 14.917859769999975,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Fulham": {
+        "candidate_count": 349,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 311,
+        "gated_modeled_count": 0,
+        "unknown_count": 349,
+        "expected_copies_per_case_total": 15.85522406999997,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Leeds United": {
+        "candidate_count": 339,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 291,
+        "gated_modeled_count": 0,
+        "unknown_count": 339,
+        "expected_copies_per_case_total": 13.464805349999976,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Liverpool FC": {
+        "candidate_count": 708,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 445,
+        "gated_modeled_count": 0,
+        "unknown_count": 708,
+        "expected_copies_per_case_total": 24.605565889999927,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Manchester City": {
+        "candidate_count": 552,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 395,
+        "gated_modeled_count": 0,
+        "unknown_count": 552,
+        "expected_copies_per_case_total": 20.320343399999942,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Manchester United": {
+        "candidate_count": 798,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 425,
+        "gated_modeled_count": 0,
+        "unknown_count": 798,
+        "expected_copies_per_case_total": 23.817961269999934,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Newcastle United": {
+        "candidate_count": 487,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 327,
+        "gated_modeled_count": 0,
+        "unknown_count": 487,
+        "expected_copies_per_case_total": 16.52450708999995,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Nottingham Forest": {
+        "candidate_count": 356,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 287,
+        "gated_modeled_count": 0,
+        "unknown_count": 356,
+        "expected_copies_per_case_total": 11.119119709999973,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Sunderland": {
+        "candidate_count": 323,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 287,
+        "gated_modeled_count": 0,
+        "unknown_count": 323,
+        "expected_copies_per_case_total": 12.162117289999973,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Tottenham Hotspur": {
+        "candidate_count": 556,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 347,
+        "gated_modeled_count": 0,
+        "unknown_count": 556,
+        "expected_copies_per_case_total": 19.234174339999974,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "Wolverhampton Wanderers": {
+        "candidate_count": 303,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 283,
+        "gated_modeled_count": 0,
+        "unknown_count": 303,
+        "expected_copies_per_case_total": 12.061266479999972,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "West Ham United": {
+        "candidate_count": 379,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 271,
+        "gated_modeled_count": 0,
+        "unknown_count": 379,
+        "expected_copies_per_case_total": 8.835213659999999,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      }
+    },
+    "by_category": {
+      "inserts": {
+        "candidate_count": 1476,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 1476,
+        "gated_modeled_count": 0,
+        "unknown_count": 1476,
+        "expected_copies_per_case_total": 120.28161585000058,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "base_parallels": {
+        "candidate_count": 4977,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 4977,
+        "gated_modeled_count": 0,
+        "unknown_count": 4977,
+        "expected_copies_per_case_total": 163.41395052998504,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      },
+      "autographs": {
+        "candidate_count": 2410,
+        "direct_provider_count": 0,
+        "raw_modeled_count": 15,
+        "gated_modeled_count": 0,
+        "unknown_count": 2410,
+        "expected_copies_per_case_total": 11.983203430000245,
+        "direct_provider_expected_copies_per_case": 0,
+        "candidate_count_coverage_pct": 0,
+        "expected_copy_weighted_coverage_pct": 0
+      }
+    }
+  },
   "candidates": [
     {
       "task_id": "2026-topps-chrome-premier-league::hobby::AFC Bournemouth::inserts::Golazo::GZ-1::Base",
