@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1185,
+  "title": "Simplify ready release badge",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "index re-read",
+      "updated UX copy present"
+    ]
+  }
+}
