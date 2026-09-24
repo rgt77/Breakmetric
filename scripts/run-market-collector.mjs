@@ -77,6 +77,7 @@ const runProviderTask=async task=>{const search=await searchProvider(credential,
 const persistObservation=observation=>{observationsEntries[observation.task_id]=observation;observationsState.generated_at=observation.observed_at;atomicWrite(config.observation_file,observationsState);};
 const appendRun=entry=>{const file=config.telemetry?.runs_file||"ops/collector/runs-v1.json";const state=readOr(file,{schema_version:1,model:"collector-runs-v1",product_id:config.product_id,retained_run_limit:192,entries:[]});state.entries=[...(state.entries||[]),entry].slice(-Number(state.retained_run_limit||192));atomicWrite(file,state);};
 const persistState=(status,reason=null)=>{const state=readOr(statePath,{schema_version:1,model:"collector-state-v1",product_id:config.product_id,format_id:config.format_id});state.sequence=sequence;state.updated_at=now();state.latest_run=runId;state.health={status,reason,evaluated_at:now()};atomicWrite(statePath,state);};
+const refreshDerived=()=>{const result=spawnSync(process.execPath,["scripts/generate-automated-valuation-candidates.mjs","--config",configPath],{cwd:root,stdio:"inherit"});if(result.status!==0)fail("derived-refresh","Valuation candidate refresh failed.");};
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
