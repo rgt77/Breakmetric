@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 974,
+      "current_step": 975,
       "checks": [
-        "network_resilience configured",
+        "response_snapshot configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -370,6 +370,11 @@
         "retry_transient_only": true,
         "do_not_retry_identity_rejection": true,
         "do_not_retry_invalid_payload": true
+      },
+      "response_snapshot": {
+        "persist_normalized_response": true,
+        "persist_response_hash": true,
+        "exclude_credentials": true
       }
     }
   }
