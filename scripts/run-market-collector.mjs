@@ -70,6 +70,8 @@ const observationPolicy={append_only:true,required_fields:["task_id","provider",
 const feedbackPlan=[...(config.feedback_loop?.sequence||[])];
 if(feedbackPlan.length<5) fail("preflight","Feedback plan is incomplete.");
 const completionRequirements={all_stages_passed:true,qa_required:config.feedback_loop?.qa?.required_after_each_step===true,no_partial_promotion:config.feedback_loop?.execution?.partial_promotion_allowed===false};
+const observationsState=read(config.observation_file);
+const observationsEntries=observationsState.entries||(observationsState.entries={});
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
   format_id:config.format_id,started_at:now(),completed_at:null,status:"running",
