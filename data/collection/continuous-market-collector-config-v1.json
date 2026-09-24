@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 955,
+      "current_step": 956,
       "checks": [
-        "preflight configured",
+        "task_claim configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -242,6 +242,12 @@
         "require_provider_credentials": true,
         "require_valid_task_schema": true,
         "on_failure": "block-run"
+      },
+      "task_claim": {
+        "enabled": true,
+        "claim_scope": "task_id",
+        "single_active_claim": true,
+        "release_on_terminal_state": true
       }
     }
   }
