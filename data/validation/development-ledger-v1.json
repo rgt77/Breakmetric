@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1099,
+  "canonical_step_end": 1124,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1146,6 +1146,15 @@
       "source": "data/validation/step-1075.json..data/validation/step-1099.json",
       "coverage_quality": "per-step-static-qa",
       "note": "Structural/data-contract completeness only; market valuation completeness remains evidence-gated."
+    },
+    {
+      "start": 1100,
+      "end": 1124,
+      "id": "phase-24-multi-series-architecture",
+      "title": "Phase 24 · Multi-series architecture",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1100.json..data/validation/step-1124.json",
+      "coverage_quality": "per-step-static-qa"
     }
   ],
   "historical_anomalies": [
