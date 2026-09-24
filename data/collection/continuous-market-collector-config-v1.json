@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 980,
+      "current_step": 981,
       "checks": [
-        "post_run_reconciliation configured",
+        "data_retention configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -409,6 +409,12 @@
         "require_audit_summary": true,
         "require_last_known_good_pointer": true,
         "on_failure": "needs-review"
+      },
+      "data_retention": {
+        "raw_response_days": 30,
+        "normalized_observation_days": 365,
+        "audit_log_days": 365,
+        "never_expire_canonical_evidence": true
       }
     }
   }
