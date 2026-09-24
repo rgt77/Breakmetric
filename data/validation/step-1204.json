@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1204,
+  "title": "ROI result contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results",
+    "checks": [
+      "roi_pct present"
+    ]
+  }
+}
