@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 999,
+  "canonical_step_end": 1024,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1109,6 +1109,15 @@
       "source_kind": "step-manifest",
       "source": "data/validation/step-999.json",
       "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 1000,
+      "end": 1024,
+      "id": "phase-20-collector-runner",
+      "title": "Phase 20 · Production collector runner",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1000.json..data/validation/step-1024.json",
+      "coverage_quality": "per-step-qa"
     }
   ],
   "historical_anomalies": [
