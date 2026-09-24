@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1260,
+  "title": "Data quality validation 1260",
+  "qa": {
+    "status": "pass",
+    "scope": "static-data-quality"
+  }
+}
