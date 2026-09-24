@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1140,
+  "title": "Create release #2 base checklist ingestion target",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "target re-read",
+      "release scope present",
+      "not falsely marked ready"
+    ]
+  }
+}
