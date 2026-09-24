@@ -1,0 +1,10 @@
+import fs from "node:fs";import path from "node:path";
+const root=process.cwd(),args=process.argv.slice(2);
+const val=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;};
+const id=val("--id"),name=val("--name"),source=val("--source"),formatId=val("--format")||"hobby";
+if(!id||!name||!source)throw new Error("id, name and source are required");
+const target="data/releases/"+id+"-"+formatId+".json";
+if(fs.existsSync(path.join(root,target)))throw new Error("Release package already exists");
+const pkg={schema_version:1,model:"release-data-package-v1",product_id:id,format_id:formatId,status:"ingestion-pending",official_sources:{primary:source},required_components:{format:"data/formats/"+id+".json",base_checklist:"data/checklists/"+id+"-base.json",insert_checklist:"data/checklists/"+id+"-inserts.json",autograph_checklist:"data/checklists/"+id+"-autographs.json",odds:"data/odds/"+id+"-"+formatId+".json",inventory:"data/derived/"+id+"-"+formatId+"-ev-eligible-inventory-v1.json",provenance:"data/derived/"+id+"-"+formatId+"-ev-contribution-provenance-v1.json",observations:"data/collection/"+id+"-market-observations-v1.json"},readiness:{format:false,base_checklist:false,insert_checklist:false,autograph_checklist:false,odds:false,inventory:false,provenance:false,observations:false},fail_closed:true};
+fs.writeFileSync(path.join(root,target),JSON.stringify(pkg,null,2)+"\n");
+process.stdout.write(JSON.stringify({status:"scaffolded",product_id:id,format_id:formatId,package:target},null,2)+"\n");
