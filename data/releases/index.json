@@ -14,6 +14,17 @@
       "collector_configs": {
         "hobby": "data/collection/continuous-market-collector-config-v1.json"
       }
+    },
+    {
+      "id": "2025-26-topps-premier-league",
+      "name": "2025/26 Topps Premier League",
+      "sport": "soccer",
+      "manufacturer": "Topps",
+      "year": 2025,
+      "status": "pending",
+      "official_source": "https://www.topps.com/pages/checklists/topps-premier-league-2025-26",
+      "formats_file": "data/formats/2025-26-topps-premier-league.json",
+      "collector_configs": {}
     }
   ]
 }
