@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 953,
+      "current_step": 954,
       "checks": [
-        "audit_log configured",
+        "completion_gate configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -230,6 +230,12 @@
         "record_stage": true,
         "record_outcome": true,
         "record_failure_reason": true
+      },
+      "completion_gate": {
+        "require_all_stages_passed": true,
+        "require_qa_passed": true,
+        "require_no_partial_promotion": true,
+        "status_on_success": "complete"
       }
     }
   }
