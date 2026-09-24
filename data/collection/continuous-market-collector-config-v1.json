@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 977,
+      "current_step": 978,
       "checks": [
-        "freshness_classification configured",
+        "provider_health configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -390,6 +390,12 @@
           "stale"
         ],
         "stale_requires_refresh": true
+      },
+      "provider_health": {
+        "track_success_rate": true,
+        "track_invalid_payloads": true,
+        "track_rate_limits": true,
+        "track_transient_failures": true
       }
     }
   }
