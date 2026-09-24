@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1225,
+  "title": "Release package scaffolder",
+  "qa": {
+    "status": "pass",
+    "scope": "static-automation",
+    "checks": [
+      "fail-closed"
+    ]
+  }
+}
