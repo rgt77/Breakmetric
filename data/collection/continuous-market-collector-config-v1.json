@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 969,
+      "current_step": 970,
       "checks": [
-        "publish_gate configured",
+        "run_summary configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -332,6 +332,20 @@
         "require_coverage_validation": true,
         "require_queue_validation": true,
         "require_regression_clear": true
+      },
+      "run_summary": {
+        "emit_on_every_run": true,
+        "fields": [
+          "run_id",
+          "started_at",
+          "completed_at",
+          "tasks_checked",
+          "exact_matches",
+          "duplicates_skipped",
+          "retries",
+          "final_status"
+        ],
+        "persist_with_audit_log": true
       }
     }
   }
