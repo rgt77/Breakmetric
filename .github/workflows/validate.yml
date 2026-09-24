@@ -64,6 +64,8 @@ jobs:
           node scripts/test-valuation-model.mjs
           node scripts/generate-valuation-backtest.mjs --output /tmp/valuation-backtest.json
           node -e 'const fs=require("fs"); const x=JSON.parse(fs.readFileSync("/tmp/valuation-backtest.json","utf8")); if(x.population.canonical_holdout_count!==33) process.exit(1); if(x.summary.holdout_count!==33) process.exit(1); if(x.summary.predicted_count+x.summary.unknown_count!==33) process.exit(1);'
+      - name: Test valuation confidence gates
+        run: node scripts/test-valuation-confidence-gates.mjs
       - name: Syntax-check market automation scripts
         shell: bash
         run: |
@@ -74,6 +76,7 @@ jobs:
           node --check scripts/test-automated-valuation-tier-separation.mjs
           node --check scripts/generate-valuation-backtest.mjs
           node --check scripts/test-valuation-model.mjs
+          node --check scripts/test-valuation-confidence-gates.mjs
           node --check scripts/lib/valuation-model.mjs
           node --check scripts/check-collector-health.mjs
           node --check scripts/validate-collector-ops.mjs
