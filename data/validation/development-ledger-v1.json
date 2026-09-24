@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 910,
+  "canonical_step_end": 920,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -550,6 +550,15 @@
       "title": "Complete mobile calculator polish and subordinate advanced diagnostics",
       "source_kind": "block-summary",
       "source": "data/validation/steps-904-910.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 911,
+      "end": 920,
+      "id": "valuation-coverage-acquisition",
+      "title": "Measure valuation coverage and prioritize exact evidence acquisition",
+      "source_kind": "block-summary",
+      "source": "data/validation/steps-911-920.json",
       "coverage_quality": "exact-manifest"
     }
   ],
