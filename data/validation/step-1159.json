@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1159,
+  "title": "Require three releases",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "isolation validator re-read",
+      "minimum-release-count gate present"
+    ]
+  }
+}
