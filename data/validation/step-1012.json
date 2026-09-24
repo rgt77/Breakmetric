@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1012,
+  "title": "Enforce market price bounds",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner re-read",
+      "market safety logic present",
+      "canonical EV remains excluded"
+    ]
+  }
+}
