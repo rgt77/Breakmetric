@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 946,
+      "current_step": 947,
       "checks": [
-        "stage_state configured",
+        "timestamps configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -188,6 +188,12 @@
           "needs-review"
         ],
         "single_active_stage": true
+      },
+      "timestamps": {
+        "record_started_at": true,
+        "record_completed_at": true,
+        "utc_only": true,
+        "monotonic_stage_order": true
       }
     }
   }
