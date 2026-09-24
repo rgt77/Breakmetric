@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1149,
+  "canonical_step_end": 1174,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1165,6 +1165,16 @@
       "source": "data/validation/step-1125.json..data/validation/step-1149.json",
       "coverage_quality": "per-step-static-qa",
       "note": "2025/26 Topps Premier League registered and scaffolded from official Topps metadata; checklist/odds ingestion remains fail-closed and release stays pending."
+    },
+    {
+      "start": 1150,
+      "end": 1174,
+      "id": "phase-26-release-3-scale",
+      "title": "Phase 26 · Release #3 + multi-release scale test",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1150.json..data/validation/step-1174.json",
+      "coverage_quality": "per-step-static-qa",
+      "note": "Three releases coexist with isolated namespaces. Releases #2/#3 remain pending source ingestion and cannot be analyzed until their data packages become ready."
     }
   ],
   "historical_anomalies": [
