@@ -8,3 +8,4 @@ export function formatsFor(root,release){return readJson(root,release.formats_fi
 export function formatById(root,release,id){return formatsFor(root,release).find(x=>x.id===id)||null;}
 export function collectorConfigFor(release,formatId){return release.collector_configs?.[formatId]||null;}
 export function readyFormats(root,release){return formatsFor(root,release).filter(x=>x.status==="ready");}
+export function releaseOptions(registry){return registry.releases.map(({id,name,sport,manufacturer,year,status})=>({id,name,sport,manufacturer,year,status}));}
