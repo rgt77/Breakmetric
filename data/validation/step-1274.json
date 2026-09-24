@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1274,
+  "title": "Complete data quality phase",
+  "qa": {
+    "status": "pass",
+    "scope": "static-data-quality"
+  }
+}
