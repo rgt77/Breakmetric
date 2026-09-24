@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1073,
+  "title": "Protect canonical and supplemental EV semantics",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "canonical:{ present",
+      "supplemental:{ present",
+      "canonical_ev_mutated:false present"
+    ]
+  }
+}
