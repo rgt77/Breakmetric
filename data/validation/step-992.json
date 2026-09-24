@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 992,
+  "title": "Add runner task-selection deduplication",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "syntax defect found during QA and corrected",
+      "runner source re-read",
+      "duplicate task guard present",
+      "live adapter remains fail-closed"
+    ]
+  }
+}
