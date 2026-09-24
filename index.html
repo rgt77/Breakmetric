@@ -611,6 +611,8 @@
         </div>
       </div>
 
+
+      <div id="selectionSummary" class="selection-summary" aria-live="polite">Select a release to begin.</div>
       <div id="analysisLoadStatus" class="format-status" hidden aria-live="assertive"></div>
       <div class="analysis-actions">
         <button id="retryAnalysisButton" class="ghost-button" type="button" hidden>Retry analysis</button>
@@ -1374,6 +1376,8 @@
     let fxTransitionPending = false;
     const fxCoordinator = BreakMetricFxCoordinator.create();
     const fxStatus = document.getElementById("fxStatus");
+    const selectionSummary = document.getElementById("selectionSummary");
+
 
     function selectionStorageKey(field, productId = selectedProductId) {
       return "breakmetric_selection__" + productId + "__" + field;
@@ -2951,7 +2955,10 @@
       setAnalysisLoadState("idle");
     }
 
+
+    function updateSelectionSummary(){if(!selectionSummary)return;const product=currentProduct?.display_name||currentProduct?.name||"Release";const format=selectedFormatConfig()?.name||"Box type";const t=team?.value||"Team";const player=selectedPlayer||"Any player";selectionSummary.textContent=[product,format,t,player].join(" → ");}
     function updateAnalysisContext() {
+      updateSelectionSummary();
       updateAnalysisUnitUi();
       updateDataStatusUi();
     }
