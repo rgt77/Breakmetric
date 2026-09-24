@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1223,
+  "title": "Result accessibility contract",
+  "qa": {
+    "status": "pass",
+    "scope": "static-results"
+  }
+}
