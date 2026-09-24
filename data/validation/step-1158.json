@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1158,
+  "title": "Add multi-release isolation validator",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "duplicate release guard",
+      "shared format guard",
+      "shared collector guard"
+    ]
+  }
+}
