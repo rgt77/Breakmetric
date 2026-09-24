@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 973,
+      "current_step": 974,
       "checks": [
-        "rate_limit_handling configured",
+        "network_resilience configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -365,6 +365,11 @@
         "exponential_backoff": true,
         "max_backoff_seconds": 300,
         "on_exhausted": "defer-task"
+      },
+      "network_resilience": {
+        "retry_transient_only": true,
+        "do_not_retry_identity_rejection": true,
+        "do_not_retry_invalid_payload": true
       }
     }
   }
