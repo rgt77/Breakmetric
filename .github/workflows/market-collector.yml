@@ -34,6 +34,8 @@ jobs:
           node-version: "22"
       - name: Validate runner syntax
         run: node --check scripts/run-market-collector.mjs
+      - name: Validate market evidence before collection
+        run: node scripts/validate-market-evidence.mjs
       - name: Run collector
         shell: bash
         run: |
