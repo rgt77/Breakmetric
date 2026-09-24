@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 962,
+      "current_step": 963,
       "checks": [
-        "observation_provenance configured",
+        "observation_immutability configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -293,6 +293,11 @@
           "currency"
         ],
         "reject_incomplete": true
+      },
+      "observation_immutability": {
+        "append_only": true,
+        "allow_in_place_price_edit": false,
+        "correction_mode": "superseding-observation"
       }
     }
   }
