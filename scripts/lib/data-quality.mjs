@@ -9,3 +9,4 @@ export function validateInventoryRows(rows=[]){return rows.flatMap(r=>text(r.tea
 export function validateContributionRows(rows=[]){return rows.flatMap(r=>validateExpectedCopies(r.expected_copies_per_case)?[]:['invalid-expected-copies']);}
 export function validateTimestamps(rows=[]){const now=Date.now();return rows.flatMap(r=>{const t=Date.parse(r.observed_at);return !Number.isFinite(t)||t>now+300000?['invalid-observation-time']:[];});}
 export function validateCurrency(rows=[],currency='USD'){return rows.flatMap(r=>r.currency===currency?[]:['currency-mismatch']);}
+export function validateTaskIds(rows=[]){return duplicates(rows,r=>text(r.task_id)).filter(Boolean).map(x=>'duplicate-task-id:'+x);}
