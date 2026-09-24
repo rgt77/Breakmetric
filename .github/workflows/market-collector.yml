@@ -39,6 +39,8 @@ jobs:
           node --check scripts/lib/ev-engine.mjs
           node --check scripts/generate-ev-analysis.mjs
           node scripts/validate-ev-engine.mjs
+      - name: Validate reference release contract
+        run: node scripts/validate-reference-release.mjs
       - name: Validate market evidence before collection
         run: node scripts/validate-market-evidence.mjs
       - name: Run collector
