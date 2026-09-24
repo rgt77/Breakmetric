@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1075,
+  "title": "Add reference release readiness validator",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "slot accounting gate present",
+      "analysis readiness remains fail-closed"
+    ]
+  }
+}
