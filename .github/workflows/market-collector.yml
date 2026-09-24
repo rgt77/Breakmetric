@@ -1,0 +1,56 @@
+name: Market collector
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Run validation without provider calls
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: breakmetric-market-collector
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      SPORTSCARDSPRO_TOKEN: ${{ secrets.SPORTSCARDSPRO_TOKEN }}
+      SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED: ${{ secrets.SPORTSCARDSPRO_COMMERCIAL_SHARING_APPROVED }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate runner syntax
+        run: node --check scripts/run-market-collector.mjs
+      - name: Run collector
+        shell: bash
+        run: |
+          if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+            node scripts/run-market-collector.mjs --dry-run
+          else
+            node scripts/run-market-collector.mjs
+          fi
+      - name: Commit collector state
+        if: ${{ success() && inputs.dry_run != true }}
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "breakmetric-bot"
+          git config user.email "breakmetric-bot@users.noreply.github.com"
+          git add data/collection data/derived ops/collector
+          git commit -m "data: refresh market collector evidence"
+          git push
