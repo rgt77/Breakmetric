@@ -1,14 +1,9 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1198,
-  "title": "Fail closed analysis for pending release",
+  "title": "Frontend CI gate",
   "qa": {
     "status": "pass",
-    "scope": "static-source",
-    "checks": [
-      "index re-read",
-      "analysis hidden before pending format load"
-    ]
+    "scope": "static-frontend"
   }
 }
