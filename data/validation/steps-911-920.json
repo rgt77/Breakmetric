@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "start_step": 911,
+  "end_step": 920,
+  "title": "Valuation coverage and evidence-acquisition phase",
+  "objective": "Shift from UI work back to autonomous data coverage while keeping modeled values fail-closed.",
+  "steps": [
+    {
+      "step": 911,
+      "title": "Track candidate coverage by team"
+    },
+    {
+      "step": 912,
+      "title": "Track candidate coverage by category"
+    },
+    {
+      "step": 913,
+      "title": "Separate direct-provider coverage from modeled proposals"
+    },
+    {
+      "step": 914,
+      "title": "Add count-based provider coverage percentage"
+    },
+    {
+      "step": 915,
+      "title": "Add expected-copy-weighted provider coverage"
+    },
+    {
+      "step": 916,
+      "title": "Document non-canonical coverage semantics"
+    },
+    {
+      "step": 917,
+      "title": "Generate deterministic evidence-acquisition priority queue"
+    },
+    {
+      "step": 918,
+      "title": "Prioritize missing direct evidence by expected copies per case"
+    },
+    {
+      "step": 919,
+      "title": "Expose modeled-gate blockers in acquisition tasks"
+    },
+    {
+      "step": 920,
+      "title": "Cap operational acquisition queue at top 100 tasks"
+    }
+  ],
+  "guarantees": [
+    "Canonical EV is not mutated.",
+    "Tier C/D confidence gates remain fail-closed.",
+    "The acquisition queue is research ordering only and is not a value ranking."
+  ]
+}
