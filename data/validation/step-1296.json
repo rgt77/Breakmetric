@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1296,
+  "title": "Stable sort and dedupe strategy",
+  "qa": {
+    "status": "pass",
+    "scope": "static-performance"
+  }
+}
