@@ -10,3 +10,4 @@ export function collectorConfigFor(release,formatId){return release.collector_co
 export function readyFormats(root,release){return formatsFor(root,release).filter(x=>x.status==="ready");}
 export function releaseOptions(registry){return registry.releases.map(({id,name,sport,manufacturer,year,status})=>({id,name,sport,manufacturer,year,status}));}
 export function formatOptions(root,release){return formatsFor(root,release).map(({id,name,status,analysis_unit})=>({id,name,status,analysis_unit:analysis_unit||null}));}
+export function analysisDataFor(root,release,formatId){const f=formatById(root,release,formatId);return f?.analysis_data||null;}
