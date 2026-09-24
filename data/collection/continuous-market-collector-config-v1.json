@@ -143,14 +143,24 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 942,
+      "current_step": 943,
       "checks": [
-        "feedback loop enabled",
-        "sequence order is deterministic",
-        "canonical EV promotion remains gated",
-        "queue refresh failure retains previous queue",
-        "idempotency key is defined"
+        "observation persists before derived refresh",
+        "valuation refresh follows new exact observation",
+        "coverage refresh follows valuation refresh",
+        "priority queue refresh follows coverage refresh",
+        "stage failure retains last known good derived state",
+        "partial promotion is disabled"
       ]
+    },
+    "execution": {
+      "step": 943,
+      "observation_write": "atomic-before-derived-refresh",
+      "valuation_refresh": "required-after-new-exact-observation",
+      "coverage_refresh": "required-after-valuation-refresh",
+      "priority_queue_refresh": "required-after-coverage-refresh",
+      "on_stage_failure": "stop-and-retain-last-known-good-derived-state",
+      "partial_promotion_allowed": false
     }
   }
 }
