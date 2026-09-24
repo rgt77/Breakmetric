@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1227,
+  "title": "Automated ingestion planner",
+  "qa": {
+    "status": "pass",
+    "scope": "static-automation",
+    "checks": [
+      "status plan"
+    ]
+  }
+}
