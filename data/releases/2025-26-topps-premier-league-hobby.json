@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "model": "release-data-package-v1",
+  "product_id": "2025-26-topps-premier-league",
+  "format_id": "hobby",
+  "status": "ingestion-pending",
+  "official_sources": {
+    "checklist": "https://www.topps.com/pages/checklists/topps-premier-league-2025-26",
+    "product_reference": "https://ripped.topps.com/topps-premier-league-2025-26-checklist/"
+  },
+  "known_official_facts": {
+    "base_card_count": 280,
+    "boxes_per_case": 12,
+    "packs_per_box": 8,
+    "cards_per_pack": 25
+  },
+  "required_components": {
+    "format": "data/formats/2025-26-topps-premier-league.json",
+    "base_checklist": "data/checklists/2025-26-topps-premier-league-base.json",
+    "insert_checklist": "data/checklists/2025-26-topps-premier-league-inserts.json",
+    "autograph_checklist": "data/checklists/2025-26-topps-premier-league-autographs.json",
+    "odds": "data/odds/2025-26-topps-premier-league-hobby.json",
+    "inventory": "data/derived/2025-26-topps-premier-league-hobby-ev-eligible-inventory-v1.json",
+    "provenance": "data/derived/2025-26-topps-premier-league-hobby-ev-contribution-provenance-v1.json",
+    "observations": "data/collection/2025-26-topps-premier-league-market-observations-v1.json"
+  },
+  "readiness": {
+    "format": true,
+    "checklists": false,
+    "odds": false,
+    "inventory": false,
+    "market_evidence": false,
+    "ev": false
+  },
+  "fail_closed": true
+}
