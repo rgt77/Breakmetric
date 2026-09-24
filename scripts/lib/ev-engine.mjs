@@ -8,4 +8,5 @@ export const breakEvenPrice=ev=>finite(ev)&&Number(ev)>=0?round(Number(ev)):null
 export const netValue=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?round(Number(ev)-Number(price)):null;
 export const valueMultiple=(ev,price)=>finite(ev)&&finite(price)&&Number(price)>0?round(Number(ev)/Number(price)):null;
 export const coverageStatus=pct=>Number(pct)>=95?"high":Number(pct)>=75?"medium":"low";
+export const analysisReady=result=>Number(result.coverage_pct)>=95&&Number(result.valued_contribution_count)>0;
 export function analyzeSpot(rows=[],spotPrice=null){const result=aggregate(rows);return {...result,spot_price_usd:finite(spotPrice)&&Number(spotPrice)>0?Number(spotPrice):null,roi_pct:roi(result.ev_usd,spotPrice)};}
