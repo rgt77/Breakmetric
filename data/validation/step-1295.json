@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1295,
+  "title": "Memory-bound cache strategy",
+  "qa": {
+    "status": "pass",
+    "scope": "static-performance"
+  }
+}
