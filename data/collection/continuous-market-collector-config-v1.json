@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 960,
+      "current_step": 961,
       "checks": [
-        "price_validation configured",
+        "currency_validation configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -272,6 +272,16 @@
         "reject_zero": true,
         "reject_negative": true,
         "reject_non_numeric": true
+      },
+      "currency_validation": {
+        "require_currency_code": true,
+        "allowed": [
+          "USD",
+          "EUR",
+          "GBP",
+          "SEK"
+        ],
+        "on_unknown": "reject"
       }
     }
   }
