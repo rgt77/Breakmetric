@@ -2832,6 +2832,8 @@
           "product-card" +
           (selectedProductId === item.id ? " active" : "") +
           (item.status === "pending" ? " pending" : "");
+        button.dataset.releaseId = item.id;
+        button.dataset.releaseStatus = item.status;
         button.setAttribute(
           "aria-pressed",
           selectedProductId === item.id ? "true" : "false"
