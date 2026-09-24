@@ -560,6 +560,7 @@
   .product-card.pending,.format-card:not(.active){position:relative}.product-card.pending::after{content:"COMING";position:absolute;top:10px;right:10px;font-size:.58rem;letter-spacing:.08em;color:var(--muted)}    .stage-complete{border-left:3px solid var(--accent);padding-left:12px}
     .selection-summary{margin:14px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:.82rem}
     .flow-hint{font-size:.75rem;color:var(--muted);margin:6px 0 14px}
+    .step-hidden{display:none!important}.step-ready{animation:none}.flow-progress{margin:0 0 18px;color:var(--muted);font-size:.78rem}.flow-progress strong{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -612,6 +613,7 @@
       </div>
 
 
+      <div id="flowProgress" class="flow-progress" aria-live="polite"><strong>Step 1 of 5</strong> · Choose a release</div>
       <div id="selectionSummary" class="selection-summary" aria-live="polite">Select a release to begin.</div>
       <div id="analysisLoadStatus" class="format-status" hidden aria-live="assertive"></div>
       <div class="analysis-actions">
@@ -1377,6 +1379,7 @@
     const fxCoordinator = BreakMetricFxCoordinator.create();
     const fxStatus = document.getElementById("fxStatus");
     const selectionSummary = document.getElementById("selectionSummary");
+    const flowProgress = document.getElementById("flowProgress");
 
 
     function selectionStorageKey(field, productId = selectedProductId) {
@@ -2956,9 +2959,12 @@
     }
 
 
+
+    function updateFlowProgress(){if(!flowProgress)return;let step=1,label="Choose a release";if(currentProduct?.status==="ready"){step=2;label="Choose a box type";}if(selectedFormatConfig()?.status==="ready"){step=3;label="Choose a team";}if(team?.value){step=4;label="Optional player, then enter spot price";}if(Number(price?.value)>0){step=5;label="Review analysis";}flowProgress.innerHTML="<strong>Step "+step+" of 5</strong> · "+label;}
     function updateSelectionSummary(){if(!selectionSummary)return;const product=currentProduct?.display_name||currentProduct?.name||"Release";const format=selectedFormatConfig()?.name||"Box type";const t=team?.value||"Team";const player=selectedPlayer||"Any player";selectionSummary.textContent=[product,format,t,player].join(" → ");}
     function updateAnalysisContext() {
       updateSelectionSummary();
+      updateFlowProgress();
       updateAnalysisUnitUi();
       updateDataStatusUi();
     }
