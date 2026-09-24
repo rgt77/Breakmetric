@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 1024,
+  "canonical_step_end": 1049,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1118,6 +1118,15 @@
       "source_kind": "step-manifests",
       "source": "data/validation/step-1000.json..data/validation/step-1024.json",
       "coverage_quality": "per-step-qa"
+    },
+    {
+      "start": 1025,
+      "end": 1049,
+      "id": "phase-21-market-evidence-pipeline",
+      "title": "Phase 21 · Market evidence pipeline",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1025.json..data/validation/step-1049.json",
+      "coverage_quality": "per-step-static-qa"
     }
   ],
   "historical_anomalies": [
