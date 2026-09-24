@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 961,
+      "current_step": 962,
       "checks": [
-        "currency_validation configured",
+        "observation_provenance configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -282,6 +282,17 @@
           "SEK"
         ],
         "on_unknown": "reject"
+      },
+      "observation_provenance": {
+        "required_fields": [
+          "task_id",
+          "provider",
+          "provider_product_id",
+          "observed_at",
+          "price",
+          "currency"
+        ],
+        "reject_incomplete": true
       }
     }
   }
