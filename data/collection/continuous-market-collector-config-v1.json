@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 970,
+      "current_step": 971,
       "checks": [
-        "run_summary configured",
+        "batch_accounting configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -346,6 +346,13 @@
           "final_status"
         ],
         "persist_with_audit_log": true
+      },
+      "batch_accounting": {
+        "require_requested_count": true,
+        "require_processed_count": true,
+        "require_deferred_count": true,
+        "require_failed_count": true,
+        "require_counts_balance": true
       }
     }
   }
