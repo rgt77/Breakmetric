@@ -16,6 +16,7 @@ const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const atomicWrite=(file,value)=>{const target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});const temp=target+".tmp";fs.writeFileSync(temp,stable(value));fs.renameSync(temp,target);};
 const readOr=(file,fallback)=>exists(file)?read(file):structuredClone(fallback);
 const normalize=value=>String(value??"").toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g," ").trim();
+const taskQuery=task=>[task.subject,task.card_number,task.parallel,task.set,"2026 Topps Chrome Premier League"].filter(Boolean).join(" ");
 const fail=(stage,message)=>{const error=new Error(message);error.stage=stage;throw error;};
 
 const config=read(configPath);
