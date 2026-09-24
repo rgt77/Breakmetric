@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 887,
+  "title": "Add leave-one-out backtest for modeled valuation",
+  "objective": "Measure how Tier C/D modeling performs against known canonical market values before defining confidence gates.",
+  "implementation_status": "implemented-pending-baseline-run",
+  "method": {
+    "holdout": "leave-one-out",
+    "target_source": "canonical realized-sale market values",
+    "target_count": 33,
+    "leakage_control": [
+      "The held-out canonical observation is excluded from training evidence.",
+      "Any exact provider observation for the same task_id is excluded from training evidence.",
+      "The backtest uses the same shared C/D valuation function as the candidate generator."
+    ]
+  },
+  "required_metrics": [
+    "prediction coverage",
+    "MAE USD",
+    "median absolute error USD",
+    "mean absolute percentage error",
+    "median absolute percentage error",
+    "mean signed error USD"
+  ],
+  "required_breakdowns": [
+    "tier",
+    "basis",
+    "category"
+  ],
+  "baseline": null,
+  "interpretation": "This step creates measurement only. It does not enable modeled EV or define acceptable model accuracy; confidence gates are the next step."
+}
