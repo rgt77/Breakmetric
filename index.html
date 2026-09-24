@@ -2840,6 +2840,7 @@
           (item.status === "pending" ? " pending" : "");
         button.dataset.releaseId = item.id;
         button.dataset.releaseStatus = item.status;
+        button.disabled = item.status !== "ready";
         button.setAttribute(
           "aria-pressed",
           selectedProductId === item.id ? "true" : "false"
