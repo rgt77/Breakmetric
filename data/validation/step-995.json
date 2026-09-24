@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 995,
+  "title": "Add provider retry policy to runner",
+  "qa": {
+    "status": "pass",
+    "checks": [
+      "runner source re-read",
+      "new runner contract present",
+      "live adapter remains fail-closed"
+    ]
+  }
+}
