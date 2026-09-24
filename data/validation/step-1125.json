@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1125,
+  "title": "Register second release",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "registry re-read",
+      "release #2 unique ID present",
+      "official source recorded",
+      "status pending until data package complete"
+    ]
+  }
+}
