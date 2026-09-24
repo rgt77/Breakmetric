@@ -1,14 +1,9 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-09-24",
   "step": 1188,
-  "title": "Simplify pending accessibility label",
+  "title": "Team step contract",
   "qa": {
     "status": "pass",
-    "scope": "static-source",
-    "checks": [
-      "index re-read",
-      "UX copy present"
-    ]
+    "scope": "static-frontend"
   }
 }
