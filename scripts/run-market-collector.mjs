@@ -43,7 +43,7 @@ const runId=`collector-${now().replace(/[-:.]/g,"").replace("Z","Z")}-${sequence
 const configFingerprint=hash({...config,credential:undefined});
 const batchSize=Number(config.fast_lane?.batch_size||20);
 const tasks=queue.tasks.slice(0,batchSize);
-const uniqueTasks=tasks.filter((task,index,array)=>array.findIndex(row=>row.task_id===task.task_id)===index;
+const uniqueTasks=tasks.filter((task,index,array)=>array.findIndex(row=>row.task_id===task.task_id)===index);
 if(uniqueTasks.length!==tasks.length) fail("task-selection","Selected batch contains duplicate task IDs.");
 const run={
   schema_version:1,run_id:runId,sequence,provider,product_id:config.product_id,
