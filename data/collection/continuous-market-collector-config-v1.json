@@ -143,9 +143,9 @@
     "retain_previous_queue_on_refresh_failure": true,
     "qa": {
       "required_after_each_step": true,
-      "current_step": 981,
+      "current_step": 982,
       "checks": [
-        "data_retention configured",
+        "schema_versioning configured",
         "fail-closed semantics preserved",
         "canonical EV promotion remains gated",
         "per-step QA required"
@@ -415,6 +415,11 @@
         "normalized_observation_days": 365,
         "audit_log_days": 365,
         "never_expire_canonical_evidence": true
+      },
+      "schema_versioning": {
+        "require_schema_version": true,
+        "reject_future_unknown_version": true,
+        "migration_required_for_breaking_change": true
       }
     }
   }
