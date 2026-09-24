@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 1109,
+  "title": "Make release validator registry-driven",
+  "qa": {
+    "status": "pass",
+    "scope": "static-source",
+    "checks": [
+      "validator re-read",
+      "hard-coded release gate removed",
+      "registry scope gate present"
+    ]
+  }
+}
