@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-21",
   "canonical_step_start": 1,
-  "canonical_step_end": 990,
+  "canonical_step_end": 999,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1027,6 +1027,87 @@
       "title": "Collector readiness step 990",
       "source_kind": "step-manifest",
       "source": "data/validation/step-990.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 991,
+      "end": 991,
+      "id": "collector-runner-991",
+      "title": "Collector runner implementation step 991",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-991.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 992,
+      "end": 992,
+      "id": "collector-runner-992",
+      "title": "Collector runner implementation step 992",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-992.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 993,
+      "end": 993,
+      "id": "collector-runner-993",
+      "title": "Collector runner implementation step 993",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-993.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 994,
+      "end": 994,
+      "id": "collector-runner-994",
+      "title": "Collector runner implementation step 994",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-994.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 995,
+      "end": 995,
+      "id": "collector-runner-995",
+      "title": "Collector runner implementation step 995",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-995.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 996,
+      "end": 996,
+      "id": "collector-runner-996",
+      "title": "Collector runner implementation step 996",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-996.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 997,
+      "end": 997,
+      "id": "collector-runner-997",
+      "title": "Collector runner implementation step 997",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-997.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 998,
+      "end": 998,
+      "id": "collector-runner-998",
+      "title": "Collector runner implementation step 998",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-998.json",
+      "coverage_quality": "exact-manifest"
+    },
+    {
+      "start": 999,
+      "end": 999,
+      "id": "collector-runner-999",
+      "title": "Collector runner implementation step 999",
+      "source_kind": "step-manifest",
+      "source": "data/validation/step-999.json",
       "coverage_quality": "exact-manifest"
     }
   ],
