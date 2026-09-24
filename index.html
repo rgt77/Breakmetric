@@ -173,6 +173,8 @@
     .integrity-fail{color:var(--danger)}
     #productStage{display:none!important}
     #analysisContent[hidden]{display:none}
+    #analysisContent:not([hidden]){display:flex;flex-direction:column}
+    #analysisContent > .advanced-analysis{order:90}
     .analysis-actions{
       display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px
     }
@@ -621,13 +623,13 @@
       </details>
 
       <div id="analysisContent" hidden>
-      <div class="analysis-actions" aria-label="Analysis actions">
+      <div class="analysis-actions advanced-analysis" aria-label="Analysis actions">
         <button id="copyAnalysisLink" class="ghost-button" type="button">Copy analysis link</button>
         <button id="clearAnalysisFilters" class="ghost-button" type="button">Clear player & price</button>
         <span id="shareStatus" class="share-status" aria-live="polite"></span>
         <span class="share-status">Shortcuts: / search team/player · Esc clear search</span>
       </div>
-      <div class="analysis-scope">
+      <div class="analysis-scope advanced-analysis">
         <div>
           <span>Analysis unit</span>
           <strong id="analysisUnitText">—</strong>
@@ -638,7 +640,7 @@
         </div>
       </div>
 
-      <div class="quality-grid" aria-label="Analysis readiness">
+      <div class="quality-grid advanced-analysis" aria-label="Analysis readiness">
         <div>
           <span class="quality-label">Probability</span>
           <strong id="qualityProbability">Pending</strong>
@@ -657,7 +659,7 @@
         </div>
       </div>
 
-      <details class="details-panel">
+      <details class="details-panel advanced-analysis">
         <summary>Technical data status</summary>
         <div class="data-status-grid" aria-label="Technical data status">
           <div>
@@ -699,7 +701,7 @@
         </div>
       </details>
 
-      <details class="details-panel" id="analysisProvenancePanel">
+      <details class="details-panel advanced-analysis" id="analysisProvenancePanel">
         <summary>Analysis provenance</summary>
         <div id="analysisProvenanceRows" class="player-card-list" aria-live="polite"></div>
         <p class="spot-note" style="margin-top:10px!important">
@@ -708,7 +710,7 @@
         </p>
       </details>
 
-      <details class="details-panel" id="marketEvidencePanel">
+      <details class="details-panel advanced-analysis" id="marketEvidencePanel">
         <summary>Market evidence</summary>
         <div class="player-card-list">
           <div class="player-data-row">
@@ -786,7 +788,7 @@
         </div>
       </details>
 
-      <details class="details-panel" id="dataFreshnessPanel">
+      <details class="details-panel advanced-analysis" id="dataFreshnessPanel">
         <summary>Data dates</summary>
         <div class="player-card-list">
           <div class="player-data-row">
