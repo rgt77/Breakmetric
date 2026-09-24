@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-24",
+  "step": 943,
+  "title": "Define atomic feedback-loop execution order",
+  "qa": {
+    "status": "pass",
+    "check_count": 8
+  },
+  "guarantees": [
+    "Exact observations persist before derived refresh.",
+    "Each derived stage executes in order.",
+    "Any stage failure stops the chain and retains last-known-good derived state.",
+    "Partial promotion is disabled."
+  ]
+}
