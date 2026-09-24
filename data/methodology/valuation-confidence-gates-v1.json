@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "model": "valuation-confidence-gates-v1",
+  "status": "active-fail-closed",
+  "objective": "Allow modeled Tier C/D valuation only when both release-level calibration and candidate-level evidence pass conservative thresholds.",
+  "calibration_gate": {
+    "min_canonical_holdouts": 30,
+    "min_team_count": 3,
+    "min_prediction_coverage_pct": 80,
+    "max_median_absolute_percentage_error_pct": 35
+  },
+  "candidate_evidence_gate": {
+    "same-subject-same-category-model": {
+      "min_total_evidence": 3
+    },
+    "team-category-model": {
+      "min_total_evidence": 8
+    },
+    "product-category-model": {
+      "min_total_evidence": 20,
+      "min_distinct_teams": 3
+    }
+  },
+  "failure_behavior": {
+    "final_tier": "E",
+    "final_basis": "confidence-gate-failed",
+    "market_value_estimate_usd": null,
+    "candidate_ev_contribution_usd": null,
+    "retain_proposed_model_metadata": true
+  },
+  "notes": [
+    "Thresholds are conservative deployment gates, not claims of statistical optimality.",
+    "Backtest remains ungated so raw model quality can continue to be measured.",
+    "A model gate can be relaxed only through an explicit methodology change backed by updated backtest evidence."
+  ]
+}
