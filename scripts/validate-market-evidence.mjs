@@ -43,5 +43,4 @@ if(data.model!=="market-observations-v1")issues.push({task_id:null,code:"model-m
 if(data.currency!=="USD")issues.push({task_id:null,code:"currency-root-mismatch"});
 if(Number.isFinite(generatedAt)){const latest=Math.max(...entries.map(x=>Date.parse(x.observed_at)).filter(Number.isFinite),0);if(latest&&generatedAt<latest)issues.push({task_id:null,code:"generated-before-observation"});}
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,fail_closed:true,coverage_count:entries.filter(x=>x.exact_identity===true&&x.status==="exact-current-price").length,issues};
-process.stdout.write(JSON.stringify(summary,null,2)+"
-");if(issues.length)process.exitCode=1;
+process.stdout.write(JSON.stringify(summary,null,2)+"\\n");if(issues.length)process.exitCode=1;
