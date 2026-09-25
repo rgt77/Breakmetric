@@ -78,7 +78,7 @@ if(uniqueTasks.length!==tasks.length) fail("task-selection","Selected batch cont
 const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,claimed_at:now(),status:"claimed"}]));
 const providerPolicy={min_request_interval_ms:Number(config.fast_lane?.min_request_interval_ms||1100),max_attempts:Number(config.retry?.max_attempts||3),retry_http_statuses:[...(config.retry?.retry_http_statuses||[])]};
 const qualityPolicy={min_price_usd:Number(config.quality?.min_price_usd||0.01),max_price_usd:Number(config.quality?.max_price_usd||1000000),exact_identity_required:config.safety?.exact_identity_required===true};
-const observationPolicy={storage_mode:"latest-by-task",append_only:false,required_fields:["task_id","provider","provider_product_id","observed_at","raw_price_usd"],canonical_ev_eligible:false};
+const observationPolicy={storage_mode:"latest-by-task",append_only:false,required_fields:["task_id","source","provider_product_id","observed_at","raw_price_usd"],canonical_ev_eligible:false};
 const feedbackPlan=[...(config.feedback_loop?.sequence||[])];
 if(feedbackPlan.length<5) fail("preflight","Feedback plan is incomplete.");
 const completionRequirements={all_stages_passed:true,qa_required:config.feedback_loop?.qa?.required_after_each_step===true,no_partial_promotion:config.feedback_loop?.execution?.partial_promotion_allowed===false};
