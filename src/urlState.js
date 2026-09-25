@@ -8,7 +8,9 @@
   function clean(value){
     if(typeof value!=="string") return null;
     const trimmed=value.trim();
-    return trimmed && trimmed.length<=160 ? trimmed : null;
+    if(!trimmed || trimmed.length>160) return null;
+    if(/[\\u0000-\\u001f\\u007f]/.test(trimmed)) return null;
+    return trimmed;
   }
 
   api.read=function(search=""){
