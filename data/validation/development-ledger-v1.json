@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-25",
   "canonical_step_start": 1,
-  "canonical_step_end": 1374,
+  "canonical_step_end": 1399,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1249,6 +1249,16 @@
       "source": "data/validation/step-1350.json..data/validation/step-1374.json",
       "coverage_quality": "per-step-static-qa",
       "note": "End-to-end static integration contracts verified; live browser/provider execution remains separately gated."
+    },
+    {
+      "start": 1375,
+      "end": 1399,
+      "id": "phase-35-launch-readiness",
+      "title": "Phase 35 · Launch readiness",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1375.json..data/validation/step-1399.json",
+      "coverage_quality": "per-step-static-qa",
+      "note": "Launch gate is intentionally blocked until live provider collection, browser/device E2E, and collector freshness are verified."
     }
   ],
   "historical_anomalies": [
