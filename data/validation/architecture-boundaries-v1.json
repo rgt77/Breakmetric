@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "model": "architecture-boundaries-v1",
+  "phase": 5,
+  "purpose": "Keep data acquisition, validation, domain calculation, orchestration and presentation concerns separated and fail-closed.",
+  "boundaries": {
+    "data_access": {
+      "required_modules": ["src/dataLoader.js"],
+      "rules": [
+        "Runtime datasets are loaded through BreakMetricDataLoader.",
+        "Runtime dataset paths are same-origin data/*.json paths.",
+        "Versioned batch loads must observe one stable runtime fingerprint."
+      ]
+    },
+    "validation": {
+      "required_modules": ["src/runtimeContracts.js", "src/runtimeGuard.js"],
+      "rules": [
+        "Fetched datasets are validated before activation.",
+        "Runtime dependencies fail closed before application startup."
+      ]
+    },
+    "domain": {
+      "required_modules": [
+        "src/analysisProvenance.js",
+        "src/analysisQuality.js",
+        "src/evCoverage.js",
+        "src/evContributionProvenance.js",
+        "src/marketCoverage.js",
+        "src/marketEvidenceQuality.js",
+        "src/teamReadiness.js"
+      ],
+      "rules": [
+        "EV, probability, market evidence and readiness remain separate states.",
+        "Missing or unverified market evidence must not be coerced to zero-value evidence."
+      ]
+    },
+    "application": {
+      "required_modules": [
+        "src/selectionCoordinator.js",
+        "src/marketRecordCoordinator.js",
+        "src/fxCoordinator.js"
+      ],
+      "rules": [
+        "Async state transitions use coordinators so stale work cannot overwrite newer user state."
+      ]
+    },
+    "persistence": {
+      "required_modules": ["src/storage.js"],
+      "rules": [
+        "Browser persistence is isolated behind the storage abstraction."
+      ]
+    }
+  },
+  "forbidden_patterns": {
+    "src/dataLoader.js": [
+      "http://",
+      "https://"
+    ]
+  }
+}
