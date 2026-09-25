@@ -561,6 +561,50 @@
     .selection-summary{margin:14px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:.82rem}
     .flow-hint{font-size:.75rem;color:var(--muted);margin:6px 0 14px}
     .step-hidden{display:none!important}.step-ready{animation:none}.flow-progress{margin:0 0 18px;color:var(--muted);font-size:.78rem}.flow-progress strong{color:var(--accent)}
+
+    /* Phase 32: mobile-first interaction hardening */
+    @media(max-width:760px){
+      html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+      body{overflow-x:hidden}
+      header{padding:18px 0}
+      .brand{font-size:1.15rem}
+      .hero{padding:26px 0 18px}
+      h1{font-size:clamp(2.65rem,15vw,4.3rem);margin:12px 0 18px}
+      .lead{font-size:1rem;line-height:1.55}
+      .tool{margin-top:20px}
+      .product-grid,.format-grid,.team-grid,.player-grid{grid-template-columns:1fr}
+      .product-card,.format-card,.team-card,.player-card{width:100%;min-height:48px}
+      button,.ghost-button,input,select,summary{min-height:44px}
+      input,select{font-size:16px}
+      .price-combo input{font-size:16px}
+      .analysis-actions{align-items:stretch}
+      .analysis-actions .ghost-button{flex:1 1 150px}
+      .player-panel{padding:15px}
+      .player-panel-head{flex-direction:column}
+      .player-panel-actions{width:100%;flex-wrap:wrap}
+      .player-data-row{align-items:flex-start;flex-direction:column;gap:5px}
+      .player-data-row strong{white-space:normal;overflow-wrap:anywhere}
+      .comparison-wrap{margin-left:-18px;margin-right:-18px;padding:0 18px;overscroll-behavior-x:contain}
+      .comparison-table{min-width:700px}
+      .details-panel{padding:13px}
+      #breakMetricResult .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      #breakMetricResult .result{min-width:0}
+      #breakMetricResult .result strong{overflow-wrap:anywhere}
+      .flow-progress{position:sticky;top:0;z-index:20;margin:0 -18px 14px;padding:10px 18px;background:rgba(11,16,32,.96);border-bottom:1px solid var(--line)}
+    }
+    @media(max-width:420px){
+      header,main,footer{width:min(100% - 20px,1100px)}
+      .tool{padding:14px}
+      #breakMetricResult .result-grid{grid-template-columns:1fr}
+      .product-card,.format-card,.team-card,.player-card{border-radius:11px}
+      .price-combo{grid-template-columns:minmax(0,1fr) 82px}
+      .section-title{font-size:.72rem}
+    }
+    @media(hover:none) and (pointer:coarse){
+      .team-card:hover,.player-card:hover{transform:none}
+      button,.product-card,.format-card,.team-card,.player-card,.ghost-button{touch-action:manipulation}
+    }
+
 </style>
 </head>
 <body>
