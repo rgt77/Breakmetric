@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1324,
+  "title": "Complete mobile and responsiveness phase",
+  "qa": {
+    "status": "pass",
+    "scope": "static-integration"
+  }
+}
