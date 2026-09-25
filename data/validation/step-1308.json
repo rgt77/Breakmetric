@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1308,
+  "title": "Mobile price control",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      ".price-combo input{font-size:16px} present"
+    ]
+  }
+}
