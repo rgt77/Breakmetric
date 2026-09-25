@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1333,
+  "title": "Bound frontend data cache",
+  "qa": {
+    "status": "pass",
+    "scope": "static-production-hardening",
+    "checks": [
+      "source re-read",
+      "contract invariant verified"
+    ]
+  }
+}
