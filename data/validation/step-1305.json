@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1305,
+  "title": "Mobile format controls",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      ".product-card,.format-card,.team-card,.player-card{width:100%;min-height:48px} present"
+    ]
+  }
+}
