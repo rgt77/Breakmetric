@@ -26,5 +26,5 @@
       : "Runtime dependencies ready.";
   };
 
-  root.BreakMetricRuntimeGuard=Object.freeze(api);
+  api.assert=function(requiredNames=[]){const report=api.check(requiredNames);if(!report.valid){const error=new Error(api.message(report));error.name="RuntimeDependencyError";error.missing=report.missing;throw error;}return report;};\n\n  root.BreakMetricRuntimeGuard=Object.freeze(api);
 })(typeof window!=="undefined" ? window : globalThis);
