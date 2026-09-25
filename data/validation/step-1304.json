@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1304,
+  "title": "Mobile release cards",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      ".product-grid,.format-grid,.team-grid,.player-grid{grid-template-columns:1fr} present"
+    ]
+  }
+}
