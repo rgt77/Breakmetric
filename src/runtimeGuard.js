@@ -15,7 +15,8 @@
       valid:missing.length===0,
       required_count:names.length,
       available_count:names.length-missing.length,
-      missing
+      missing,
+      checked_at:new Date().toISOString()
     };
   };
 
@@ -26,5 +27,7 @@
       : "Runtime dependencies ready.";
   };
 
-  api.assert=function(requiredNames=[]){const report=api.check(requiredNames);if(!report.valid){const error=new Error(api.message(report));error.name="RuntimeDependencyError";error.missing=report.missing;throw error;}return report;};\n\n  root.BreakMetricRuntimeGuard=Object.freeze(api);
+  api.assert=function(requiredNames=[]){const report=api.check(requiredNames);if(!report.valid){const error=new Error(api.message(report));error.name="RuntimeDependencyError";error.missing=report.missing;throw error;}return report;};
+
+  root.BreakMetricRuntimeGuard=Object.freeze(api);
 })(typeof window!=="undefined" ? window : globalThis);
