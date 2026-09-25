@@ -7,7 +7,8 @@ must(html.includes("BreakMetricProductionGuard.install"),"production-guard-not-i
 must(html.includes('"BreakMetricProductionGuard"'),"production-guard-not-required");
 must(guard.includes('"unhandledrejection"'),"unhandled-rejection-not-contained");
 must(guard.includes('"offline"')&&guard.includes('"online"'),"connectivity-not-monitored");
-must(loader.includes("activeControllers")&&loader.includes("cancelAll"),"request-cancellation-missing");\nmust(loader.includes("timeoutMs=12000")&&loader.includes("maxBytes=5_000_000"),"dataset-request-bounds-missing");
+must(loader.includes("activeControllers")&&loader.includes("cancelAll"),"request-cancellation-missing");
+must(loader.includes("timeoutMs=12000")&&loader.includes("maxBytes=5_000_000"),"dataset-request-bounds-missing");
 must(loader.includes("api.pruneCache(40)"),"cache-bound-missing");
 must(storage.includes("MAX_VALUE_LENGTH")&&storage.includes("value-too-large"),"storage-bound-missing");
 must(errors.includes("DataVersionChanged"),"version-error-unclassified");
@@ -15,4 +16,5 @@ must(errors.includes("[redacted]"),"error-secret-redaction-missing");
 must(url.includes("u0000")&&url.includes("u001f"),"url-control-character-guard-missing");
 must(runtime.includes("api.assert"),"runtime-assert-missing");
 const out={schema_version:1,model:"production-hardening-validation-v1",status:issues.length?"failed":"passed",issue_count:issues.length,checks:13,issues,fail_closed:true};
-process.stdout.write(JSON.stringify(out,null,2)+"\n");if(issues.length)process.exitCode=1;
+process.stdout.write(JSON.stringify(out,null,2)+"
+");if(issues.length)process.exitCode=1;
