@@ -16,8 +16,13 @@ assert.ok(priceIndex>playerIndex,"spot price must follow player");
 
 assert.match(
   html,
+  /<div id="productStage">/,
+  "release/product stage must exist"
+);
+assert.doesNotMatch(
+  html,
   /#productStage\{display:none!important\}/,
-  "release/product chooser must stay hidden"
+  "release/product stage must not be permanently hidden by CSS"
 );
 assert.doesNotMatch(
   html,
