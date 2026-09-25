@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1375,
+  "title": "Launch readiness baseline",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness",
+    "checks": [
+      "launch contract verified",
+      "fail-closed release policy verified"
+    ]
+  }
+}
