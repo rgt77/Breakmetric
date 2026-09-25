@@ -45,51 +45,62 @@ pass(
   productCatalogValidation.valid,
   productCatalogValidation.errors.join("; ")
 );
+const productFixture=(id,overrides={})=>({
+  id,
+  display_name:id,
+  sport:"soccer",
+  manufacturer:"Topps",
+  product_family:"Test Family",
+  brand:"Test",
+  competition:"Test Competition",
+  season:"2025/26",
+  release_year:2025,
+  lifecycle_state:"pending",
+  status:"pending",
+  active:false,
+  product_data:null,
+  ...overrides
+});
+const catalogFixture=products=>({schema_version:2,model:"product-catalog-v2",products});
+
 pass(
-  "product catalog accepts calendar and consecutive season years",
-  runtimeContracts.validateProductCatalog({
-    products: [
-      {
-        id: "calendar-year",
-        display_name: "Calendar year",
-        brand: "Test",
-        competition: "Test",
-        year: "2026",
-        status: "pending",
-        active: false,
-        product_data: null
-      },
-      {
-        id: "season-year",
-        display_name: "Season year",
-        brand: "Test",
-        competition: "Test",
-        year: "2025/26",
-        status: "pending",
-        active: false,
-        product_data: null
-      }
-    ]
-  }).valid
+  "product model accepts calendar and consecutive season identities",
+  runtimeContracts.validateProductCatalog(catalogFixture([
+    productFixture("calendar-season",{season:"2026",release_year:2026}),
+    productFixture("season-year",{product_family:"Other Family"})
+  ])).valid
 );
-for(const invalidYear of ["2025/27","25/26","2025-26","",null]){
-  const invalid = runtimeContracts.validateProductCatalog({
-    products: [{
-      id: "invalid-year",
-      display_name: "Invalid year",
-      brand: "Test",
-      competition: "Test",
-      year: invalidYear,
-      status: "pending",
-      active: false,
-      product_data: null
-    }]
-  });
+for(const invalidSeason of ["2025/27","25/26","2025-26","",null]){
+  const invalid=runtimeContracts.validateProductCatalog(
+    catalogFixture([productFixture("invalid-season",{season:invalidSeason})])
+  );
   pass(
-    "product catalog rejects malformed year "+String(invalidYear),
-    !invalid.valid && invalid.errors.some(error=>error.includes("invalid product year: invalid-year"))
+    "product model rejects malformed season "+String(invalidSeason),
+    !invalid.valid && invalid.errors.some(error=>error.includes("invalid product season: invalid-season"))
   );
 }
+const collision=runtimeContracts.validateProductCatalog(catalogFixture([
+  productFixture("product-a"),
+  productFixture("product-b")
+]));
+pass(
+  "product model rejects canonical identity collisions",
+  !collision.valid && collision.errors.includes("canonical product identities are not unique")
+);
+const activeWithoutReady=runtimeContracts.validateProductCatalog(catalogFixture([
+  productFixture("bad-active",{lifecycle_state:"active",active:true})
+]));
+pass(
+  "product lifecycle cannot activate a non-ready product",
+  !activeWithoutReady.valid && activeWithoutReady.errors.some(error=>error.includes("active lifecycle requires ready/active product"))
+);
+const canonicalProductMetadata=json("data/products/2026-topps-chrome-premier-league.json");
+const canonicalCatalogEntry=productCatalog.products.find(x=>x.id===canonicalProductMetadata.id);
+pass(
+  "active product metadata matches canonical catalog identity",
+  runtimeContracts.validateProductMetadataAgainstCatalog(canonicalProductMetadata,canonicalCatalogEntry).valid
+);
+
 
 const uiSource = read("index.html");
 pass(
