@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "model": "launch-readiness-v1",
+  "generated_at": "2026-09-25",
+  "target": "BreakMetric 1.0",
+  "status": "blocked",
+  "release_candidate": false,
+  "gates": {
+    "static_system_qa": "configured-pass-contract",
+    "analysis_release_available": true,
+    "pending_releases_fail_closed": true,
+    "ev_roi_fail_closed": true,
+    "production_runtime_containment": true,
+    "ci_regression_gate": true,
+    "live_market_collection": false,
+    "browser_device_e2e": false,
+    "collector_queue_freshness": false
+  },
+  "blockers": [
+    {
+      "code": "live-market-collection-unverified",
+      "owner": "external/provider",
+      "required_for_launch": true
+    },
+    {
+      "code": "browser-device-e2e-unexecuted",
+      "owner": "runtime QA",
+      "required_for_launch": true
+    },
+    {
+      "code": "collector-queue-freshness-unverifiable",
+      "owner": "data pipeline",
+      "required_for_launch": true
+    }
+  ],
+  "policy": "Launch is denied while any required blocker remains. No synthetic evidence may satisfy a launch gate."
+}
