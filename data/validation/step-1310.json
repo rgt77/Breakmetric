@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1310,
+  "title": "Mobile player panel",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      ".player-panel-head{flex-direction:column} present"
+    ]
+  }
+}
