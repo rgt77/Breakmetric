@@ -36,7 +36,7 @@ for(const row of entries){
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const generatedAt=Date.parse(data.generated_at);if(data.generated_at!==null&&!Number.isFinite(generatedAt))issues.push({task_id:null,code:"generated-at-invalid"});
-if(data.product_id!==config.product_id)issues.push({task_id:null,code:"product-id-mismatch"});
+if(data.product_id!==config.product_id)issues.push({task_id:null,code:"product-id-mismatch"});\nif(data.format_id!==config.format_id)issues.push({task_id:null,code:"format-id-mismatch"});
 if(data.schema_version!==1)issues.push({task_id:null,code:"schema-version-mismatch"});
 if(data.model!=="market-observations-v1")issues.push({task_id:null,code:"model-mismatch"});
 if(data.currency!=="USD")issues.push({task_id:null,code:"currency-root-mismatch"});
