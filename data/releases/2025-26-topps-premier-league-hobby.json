@@ -26,11 +26,13 @@
   },
   "readiness": {
     "format": true,
-    "checklists": false,
+    "base_checklist": false,
+    "insert_checklist": false,
+    "autograph_checklist": false,
     "odds": false,
     "inventory": false,
-    "market_evidence": false,
-    "ev": false
+    "provenance": false,
+    "observations": true
   },
   "fail_closed": true
 }
