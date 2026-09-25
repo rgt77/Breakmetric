@@ -16,5 +16,4 @@ must(errors.includes("[redacted]"),"error-secret-redaction-missing");
 must(url.includes("u0000")&&url.includes("u001f"),"url-control-character-guard-missing");
 must(runtime.includes("api.assert"),"runtime-assert-missing");
 const out={schema_version:1,model:"production-hardening-validation-v1",status:issues.length?"failed":"passed",issue_count:issues.length,checks:13,issues,fail_closed:true};
-process.stdout.write(JSON.stringify(out,null,2)+"
-");if(issues.length)process.exitCode=1;
+process.stdout.write(JSON.stringify(out,null,2)+"\\n");if(issues.length)process.exitCode=1;
