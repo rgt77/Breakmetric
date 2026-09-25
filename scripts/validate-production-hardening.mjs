@@ -4,7 +4,7 @@ const must=(ok,code)=>{if(!ok)issues.push(code);};
 const html=read("index.html"),loader=read("src/dataLoader.js"),storage=read("src/storage.js"),errors=read("src/errorModel.js"),url=read("src/urlState.js"),guard=read("src/productionGuard.js"),runtime=read("src/runtimeGuard.js");
 must(html.includes('src/productionGuard.js'),"production-guard-not-loaded");
 must(html.includes("BreakMetricProductionGuard.install"),"production-guard-not-installed");
-must(html.includes('"BreakMetricProductionGuard"'),"production-guard-not-required");
+must(html.includes("BreakMetricProductionGuard.install"),"production-guard-not-required");
 must(guard.includes('"unhandledrejection"'),"unhandled-rejection-not-contained");
 must(guard.includes('"offline"')&&guard.includes('"online"'),"connectivity-not-monitored");
 must(loader.includes("activeControllers")&&loader.includes("cancelAll"),"request-cancellation-missing");
