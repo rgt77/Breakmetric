@@ -33,6 +33,64 @@ for (const file of walk("data").filter(file => file.endsWith(".json"))) {
 }
 pass("all data JSON parses", !failures.some(x => x.startsWith("JSON parse failed")));
 
+const runtimeContractsSource = read("src/runtimeContracts.js");
+const runtimeContractsSandbox = { console };
+runtimeContractsSandbox.globalThis = runtimeContractsSandbox;
+vm.runInNewContext(runtimeContractsSource, runtimeContractsSandbox);
+const runtimeContracts = runtimeContractsSandbox.BreakMetricContracts;
+const productCatalog = json("data/products/catalog.json");
+const productCatalogValidation = runtimeContracts.validateProductCatalog(productCatalog);
+pass(
+  "product catalog runtime contract accepts committed catalog",
+  productCatalogValidation.valid,
+  productCatalogValidation.errors.join("; ")
+);
+pass(
+  "product catalog accepts calendar and consecutive season years",
+  runtimeContracts.validateProductCatalog({
+    products: [
+      {
+        id: "calendar-year",
+        display_name: "Calendar year",
+        brand: "Test",
+        competition: "Test",
+        year: "2026",
+        status: "pending",
+        active: false,
+        product_data: null
+      },
+      {
+        id: "season-year",
+        display_name: "Season year",
+        brand: "Test",
+        competition: "Test",
+        year: "2025/26",
+        status: "pending",
+        active: false,
+        product_data: null
+      }
+    ]
+  }).valid
+);
+for(const invalidYear of ["2025/27","25/26","2025-26","",null]){
+  const invalid = runtimeContracts.validateProductCatalog({
+    products: [{
+      id: "invalid-year",
+      display_name: "Invalid year",
+      brand: "Test",
+      competition: "Test",
+      year: invalidYear,
+      status: "pending",
+      active: false,
+      product_data: null
+    }]
+  });
+  pass(
+    "product catalog rejects malformed year "+String(invalidYear),
+    !invalid.valid && invalid.errors.some(error=>error.includes("invalid product year: invalid-year"))
+  );
+}
+
 const uiSource = read("index.html");
 pass(
   "team cards omit generic player counts",
