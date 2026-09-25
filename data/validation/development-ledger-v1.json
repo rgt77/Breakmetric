@@ -3,7 +3,7 @@
   "model": "development-ledger-v1",
   "generated_at": "2026-09-25",
   "canonical_step_start": 1,
-  "canonical_step_end": 1349,
+  "canonical_step_end": 1374,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1239,6 +1239,16 @@
       "source_kind": "step-manifests",
       "source": "data/validation/step-1325.json..data/validation/step-1349.json",
       "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1350,
+      "end": 1374,
+      "id": "phase-34-full-system-qa",
+      "title": "Phase 34 · Full system QA",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1350.json..data/validation/step-1374.json",
+      "coverage_quality": "per-step-static-qa",
+      "note": "End-to-end static integration contracts verified; live browser/provider execution remains separately gated."
     }
   ],
   "historical_anomalies": [
