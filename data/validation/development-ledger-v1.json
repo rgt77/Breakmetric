@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "model": "development-ledger-v1",
-  "generated_at": "2026-09-21",
+  "generated_at": "2026-09-25",
   "canonical_step_start": 1,
-  "canonical_step_end": 1324,
+  "canonical_step_end": 1349,
   "status": "reviewed",
   "purpose": "Provide one contiguous canonical map for BreakMetric development steps without rewriting immutable historical validation snapshots.",
   "rules": [
@@ -1194,6 +1194,51 @@
       "source": "data/validation/step-1200.json..data/validation/step-1224.json",
       "coverage_quality": "per-step-static-qa",
       "note": "BreakMetric Analysis result contract with fail-closed EV/ROI, probability, expected hits, break-even, risk and data coverage."
+    },
+    {
+      "start": 1225,
+      "end": 1249,
+      "id": "phase-29-release-automation",
+      "title": "Phase 29 · Release automation",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1225.json..data/validation/step-1249.json",
+      "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1250,
+      "end": 1274,
+      "id": "phase-30-data-quality",
+      "title": "Phase 30 · Data quality",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1250.json..data/validation/step-1274.json",
+      "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1275,
+      "end": 1299,
+      "id": "phase-31-performance",
+      "title": "Phase 31 · Performance",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1275.json..data/validation/step-1299.json",
+      "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1300,
+      "end": 1324,
+      "id": "phase-32-mobile-responsive",
+      "title": "Phase 32 · Mobile + responsiveness",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1300.json..data/validation/step-1324.json",
+      "coverage_quality": "per-step-static-qa"
+    },
+    {
+      "start": 1325,
+      "end": 1349,
+      "id": "phase-33-production-hardening",
+      "title": "Phase 33 · Production hardening",
+      "source_kind": "step-manifests",
+      "source": "data/validation/step-1325.json..data/validation/step-1349.json",
+      "coverage_quality": "per-step-static-qa"
     }
   ],
   "historical_anomalies": [
