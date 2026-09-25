@@ -22,6 +22,8 @@ jobs:
         run: node scripts/validate-development-ledger.mjs
       - name: Audit source-module inventory
         run: node scripts/audit-source-modules.mjs
+      - name: Validate architecture boundaries
+        run: node scripts/validate-architecture-boundaries.mjs
       - name: Check EV eligible inventory outputs
         run: node scripts/generate-ev-eligible-inventory.mjs --check
       - name: Validate EV eligible inventory
