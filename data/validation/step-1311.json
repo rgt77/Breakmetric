@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1311,
+  "title": "Mobile result grid",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      "#breakMetricResult .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px} present"
+    ]
+  }
+}
