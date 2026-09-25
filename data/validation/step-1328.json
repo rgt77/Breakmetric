@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1328,
+  "title": "Offline state handling",
+  "qa": {
+    "status": "pass",
+    "scope": "static-production-hardening",
+    "checks": [
+      "source re-read",
+      "contract invariant verified"
+    ]
+  }
+}
