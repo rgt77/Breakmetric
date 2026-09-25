@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1372,
+  "title": "Full system QA",
+  "qa": {
+    "status": "pass",
+    "scope": "static-full-system",
+    "checks": [
+      "integration invariant verified",
+      "fail-closed behavior verified"
+    ]
+  }
+}
