@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1383,
+  "title": "Live market collection gate",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness",
+    "checks": [
+      "launch contract verified",
+      "fail-closed release policy verified"
+    ]
+  }
+}
