@@ -3,7 +3,8 @@
 (function(root){
   "use strict";
 
-  const api={};\n  const MAX_KEY_LENGTH=120,MAX_VALUE_LENGTH=20000;
+  const api={};
+  const MAX_KEY_LENGTH=120,MAX_VALUE_LENGTH=20000;
   const fallback=new Map();
   let persistentAvailable=false;
   let readFailures=0;
@@ -38,6 +39,7 @@
 
   api.get=function(key,fallbackValue=null){
     const name=String(key);
+    if(!name||name.length>MAX_KEY_LENGTH) return fallbackValue;
     if(persistentAvailable){
       try{
         const value=storage().getItem(name);
@@ -53,6 +55,8 @@
   api.set=function(key,value){
     const name=String(key);
     const stringValue=String(value);
+    if(!name||name.length>MAX_KEY_LENGTH) return {persistent:false,rejected:true,reason:"invalid-key"};
+    if(stringValue.length>MAX_VALUE_LENGTH) return {persistent:false,rejected:true,reason:"value-too-large"};
     fallback.set(name,stringValue);
     if(persistentAvailable){
       try{
