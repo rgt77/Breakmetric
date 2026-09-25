@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1322,
+  "title": "Mobile accessibility integration",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile"
+  }
+}
