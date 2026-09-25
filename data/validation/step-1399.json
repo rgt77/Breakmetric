@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1399,
+  "title": "Complete launch readiness phase",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness"
+  }
+}
