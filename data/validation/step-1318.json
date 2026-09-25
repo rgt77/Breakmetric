@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "step": 1318,
+  "title": "Mobile overflow protection",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile"
+  }
+}
