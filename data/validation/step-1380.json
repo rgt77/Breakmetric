@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1380,
+  "title": "EV and ROI evidence gate",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness",
+    "checks": [
+      "launch contract verified",
+      "fail-closed release policy verified"
+    ]
+  }
+}
