@@ -4,8 +4,8 @@
   "model": "source-module-inventory-v1",
   "summary": {
     "source_module_count": 30,
-    "runtime_module_count": 29,
-    "ci_generator_count": 1,
+    "runtime_module_count": 28,
+    "ci_generator_count": 2,
     "unclassified_count": 0
   },
   "roles": {
@@ -31,7 +31,6 @@
         "mobile.js",
         "performance.js",
         "productionGuard.js",
-        "releaseCatalog.js",
         "resultsView.js",
         "runtimeContracts.js",
         "runtimeGuard.js",
@@ -46,7 +45,8 @@
     "ci_generator": {
       "description": "Not browser-loaded; executed by validation/reproducibility tooling and treated as source-of-truth model logic.",
       "files": [
-        "playerDerivation.js"
+        "playerDerivation.js",
+        "releaseCatalog.js"
       ]
     }
   },
