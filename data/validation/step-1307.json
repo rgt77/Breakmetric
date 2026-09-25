@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1307,
+  "title": "Prevent iOS input zoom",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      "input,select{font-size:16px} present"
+    ]
+  }
+}
