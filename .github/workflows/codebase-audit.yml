@@ -1,0 +1,34 @@
+name: Codebase audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax checks
+        run: |
+          find scripts src -type f \( -name '*.js' -o -name '*.mjs' \) -print0 | xargs -0 -n1 node --check
+      - name: Whole-codebase audit
+        run: node scripts/audit-codebase.mjs
+      - name: Core validators
+        run: |
+          node scripts/validate-release-registry.mjs
+          node scripts/validate-release-registry-runtime.mjs
+          node scripts/validate-multi-release-isolation.mjs
+          node scripts/validate-release-package.mjs --package data/releases/2025-26-topps-premier-league-hobby.json
+          node scripts/validate-release-package.mjs --package data/releases/2024-25-topps-chrome-uefa-club-competitions-hobby.json
+          node scripts/validate-ev-engine.mjs
+          node scripts/validate-data-quality-library.mjs
+          node scripts/validate-cross-release-quality.mjs
+          node scripts/validate-ev-quality.mjs
+          node scripts/validate-performance.mjs
+          node scripts/validate-performance-budget.mjs
+          node scripts/validate-mobile.mjs
+          node scripts/validate-market-evidence.mjs
