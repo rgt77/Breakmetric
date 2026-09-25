@@ -20,6 +20,7 @@ jobs:
           node scripts/audit-codebase.mjs
           node scripts/validate-production-hardening.mjs
           node scripts/validate-full-system.mjs
+          node scripts/validate-launch-readiness.mjs
       - name: Core validators
         run: |
           node scripts/validate-release-registry.mjs
