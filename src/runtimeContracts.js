@@ -78,9 +78,28 @@
         errors.push("product competition missing: "+product.id);
       }
 
-      const year=Number(product.year);
-      if(!Number.isInteger(year) || year<1900 || year>2200){
-        errors.push("invalid product year: "+product.id);
+      const yearValue=String(product.year ?? "").trim();
+      const calendarYearMatch=/^(\\d{4})$/.exec(yearValue);
+      const seasonYearMatch=/^(\\d{4})\\/(\\d{2})$/.exec(yearValue);
+      let validYear=false;
+
+      if(calendarYearMatch){
+        const year=Number(calendarYearMatch[1]);
+        validYear=year>=1900 && year<=2200;
+      }else if(seasonYearMatch){
+        const startYear=Number(seasonYearMatch[1]);
+        const endYear=Number(seasonYearMatch[2]);
+        validYear=
+          startYear>=1900 &&
+          startYear<=2199 &&
+          endYear===(startYear+1)%100;
+      }
+
+      if(!validYear){
+        errors.push(
+          "invalid product year: "+product.id+
+          " (expected YYYY or consecutive-season YYYY/YY)"
+        );
       }
 
       if(product.status==="ready"){
