@@ -1190,7 +1190,7 @@
   <script src="src/urlState.js"></script>
   <script src="src/selectionCoordinator.js"></script>
   <script src="src/marketRecordCoordinator.js"></script>
-  <script src="src/runtimeGuard.js"></script>
+  <script src="src/runtimeGuard.js"></script>\n  <script src="src/productionGuard.js"></script>
   <script>
     const productStage = document.getElementById("productStage");
     const productSearch = document.getElementById("productSearch");
@@ -1329,6 +1329,25 @@
         runtimeDependencyReport.missing.join(", ")
       );
     }
+
+    BreakMetricProductionGuard.install({
+      onFatal: () => {
+        analysisLoadStatus.hidden = false;
+        analysisLoadStatus.className = "format-status integrity-fail";
+        analysisLoadStatus.textContent = "A runtime error was contained. Retry the analysis before trusting the result.";
+        retryAnalysisButton.hidden = false;
+      },
+      onConnectivity: isOnline => {
+        if (!isOnline) {
+          analysisLoadStatus.hidden = false;
+          analysisLoadStatus.className = "format-status";
+          analysisLoadStatus.textContent = "You are offline. Existing loaded data stays visible, but new analysis data cannot be fetched.";
+        } else if (analysisLoadState !== "error") {
+          analysisLoadStatus.hidden = true;
+          analysisLoadStatus.textContent = "";
+        }
+      }
+    });
 
     const initialUrlState = BreakMetricUrlState.read(location.search);
     const savedCurrency = BreakMetricStorage.get("breakmetric_currency");
