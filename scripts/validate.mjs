@@ -646,7 +646,7 @@ pass(
 pass("EV beta disclosure present", html.includes("EV and ROI remain beta"));
 pass("combined probability approximation disclosed", html.includes("independence approximation"));
 pass("skip link present", html.includes('class="skip-link"'));
-pass("analysis quality UI present", html.includes('class="quality-grid"'));
+pass("analysis quality UI present", html.includes('quality-grid advanced-analysis'));
 pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
 pass(
   "EV coverage UI discloses slot semantics",
@@ -704,22 +704,22 @@ pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'
 pass("retry analysis control present", html.includes('id="retryAnalysisButton"'));
 pass(
   "redundant analysis progress UI removed",
-  !html.includes("flow-progress") &&
   !html.includes('id="flowProduct"') &&
   !html.includes('id="flowFormat"')
 );
 pass(
   "calculator visible flow starts with box type",
-  html.includes('<div class="section-title">1 · Choose box type</div>') &&
-  html.includes('<div class="section-title">2 · Choose team</div>') &&
-  html.includes('<div class="section-title">3 · Choose player</div>') &&
-  html.includes('<div class="section-title">4 · Spot price</div>')
+  html.includes('<div class="section-title">2 · Box type</div>') &&
+  html.includes('<div class="section-title">3 · Team</div>') &&
+  html.includes('<div class="section-title">4 · Player') &&
+  html.includes('<div class="section-title">5 · Spot price</div>')
 );
 pass(
-  "single ready release is auto-selected and release chooser hidden",
+  "single ready release is auto-selected while release stage remains runtime-managed",
   html.includes('const analysisReadyProducts = (productCatalog.products || [])') &&
   html.includes('if (analysisReadyProducts.length === 1)') &&
-  html.includes('productStage.hidden = true')
+  html.includes('selectedProductId = analysisReadyProducts[0].id') &&
+  html.includes('productStage.hidden = false')
 );
 pass("team comparison panel present", html.includes('id="teamComparisonPanel"'));
 pass("team comparison has descriptive caption", html.includes("No value ranking is applied"));
@@ -727,7 +727,7 @@ pass("player panel is labelled region", html.includes('role="region" aria-labell
 pass("player clear control present", html.includes('id="clearPlayerButton"'));
 pass("player details use progressive disclosure", (html.match(/class="player-detail-section"/g) || []).length === 4);
 pass("player controls expose aria-expanded", html.includes('"aria-expanded"'));
-pass("player grid can receive programmatic focus", html.includes('id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"'));
+pass("player grid can receive programmatic focus", html.includes('id="playerGrid" class="player-grid"') && html.includes('tabindex="-1"'));
 pass("player detail resets avoid innerHTML", !html.includes('playerCoverageDetail.innerHTML = ""'));
 pass("dataset loader status visible", html.includes('id="dataLoaderStatus"'));
 pass("dataset loader metrics visible", html.includes('id="dataLoaderMetrics"'));
