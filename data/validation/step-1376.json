@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1376,
+  "title": "Release candidate fail-closed policy",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness",
+    "checks": [
+      "launch contract verified",
+      "fail-closed release policy verified"
+    ]
+  }
+}
