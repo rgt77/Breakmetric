@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "model": "codebase-review-v1",
+  "reviewed_at": "2026-09-25",
+  "scope": "repository-wide static review of frontend runtime helpers, release architecture, validators, collector and CI contracts",
+  "fixed": [
+    {
+      "code": "pending-package-false-failure",
+      "severity": "high"
+    },
+    {
+      "code": "release-2-readiness-schema-drift",
+      "severity": "high"
+    },
+    {
+      "code": "scaffolder-validator-schema-drift",
+      "severity": "medium"
+    },
+    {
+      "code": "duplicate-aria-describedby",
+      "severity": "low"
+    },
+    {
+      "code": "ev-test-count-mismatch",
+      "severity": "low"
+    },
+    {
+      "code": "collector-hardcoded-release-query-and-score",
+      "severity": "high"
+    },
+    {
+      "code": "collector-retry-policy-not-enforced",
+      "severity": "high"
+    },
+    {
+      "code": "collector-provider-call-pacing-gap",
+      "severity": "high"
+    },
+    {
+      "code": "collector-fairness-caps-not-enforced",
+      "severity": "medium"
+    },
+    {
+      "code": "collector-observation-contract-field-mismatch",
+      "severity": "medium"
+    },
+    {
+      "code": "runtime-cache-bound-not-enforced",
+      "severity": "medium"
+    },
+    {
+      "code": "reference-observation-format-scope-missing",
+      "severity": "medium"
+    }
+  ],
+  "remaining": [
+    {
+      "code": "collector-queue-generated-at-null",
+      "severity": "medium",
+      "reason": "Existing queue has no trustworthy generation timestamp; not rewritten with a fabricated date."
+    },
+    {
+      "code": "runtime-browser-e2e-not-executed",
+      "severity": "medium",
+      "reason": "Repository connector does not provide a checked-out browser runtime in this review."
+    }
+  ],
+  "regression_guards": [
+    "scripts/audit-codebase.mjs",
+    ".github/workflows/codebase-audit.yml"
+  ],
+  "status": "fixed-with-known-followups"
+}
