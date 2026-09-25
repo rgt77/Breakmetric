@@ -3,7 +3,7 @@
 (function(root){
   "use strict";
 
-  const api={};
+  const api={};\n  const MAX_KEY_LENGTH=120,MAX_VALUE_LENGTH=20000;
   const fallback=new Map();
   let persistentAvailable=false;
   let readFailures=0;
