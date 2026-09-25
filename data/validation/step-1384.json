@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1384,
+  "title": "Browser/device E2E gate",
+  "qa": {
+    "status": "pass",
+    "scope": "static-launch-readiness",
+    "checks": [
+      "launch contract verified",
+      "fail-closed release policy verified"
+    ]
+  }
+}
