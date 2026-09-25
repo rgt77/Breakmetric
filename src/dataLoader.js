@@ -5,7 +5,7 @@
 
   const api={};
   const cache=new Map();
-  const inFlight=new Map();
+  const inFlight=new Map();\n  const activeControllers=new Set();
   const DEFAULT_VERSION_PATH="data/validation/runtime-data-version-v1.json";
   let currentVersion="unversioned";
   const metrics={
@@ -100,7 +100,7 @@
     }
   }
 
-  api.cacheSize=()=>cache.size;
+  api.cacheSize=()=>cache.size;\n  api.cancelAll=function(){for(const controller of activeControllers)controller.abort();activeControllers.clear();inFlight.clear();};
   api.clearCache=()=>{cache.clear();metrics.cache_invalidations++;};
   api.pruneCache=function(maxEntries=40){const max=Math.max(1,Number(maxEntries)||40);while(cache.size>max){cache.delete(cache.keys().next().value);metrics.cache_invalidations++;}return cache.size;};
   api.isValidPath=validStaticJsonPath;
