@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "step": 1325,
+  "title": "Production runtime guard",
+  "qa": {
+    "status": "pass",
+    "scope": "static-production-hardening",
+    "checks": [
+      "source re-read",
+      "contract invariant verified"
+    ]
+  }
+}
