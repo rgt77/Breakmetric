@@ -1,0 +1,18 @@
+import fs from "node:fs";import path from "node:path";
+const root=process.cwd(),issues=[];const read=p=>fs.readFileSync(path.join(root,p),"utf8");
+const must=(ok,code)=>{if(!ok)issues.push(code);};
+const html=read("index.html"),loader=read("src/dataLoader.js"),storage=read("src/storage.js"),errors=read("src/errorModel.js"),url=read("src/urlState.js"),guard=read("src/productionGuard.js"),runtime=read("src/runtimeGuard.js");
+must(html.includes('src/productionGuard.js'),"production-guard-not-loaded");
+must(html.includes("BreakMetricProductionGuard.install"),"production-guard-not-installed");
+must(html.includes('"BreakMetricProductionGuard"'),"production-guard-not-required");
+must(guard.includes('"unhandledrejection"'),"unhandled-rejection-not-contained");
+must(guard.includes('"offline"')&&guard.includes('"online"'),"connectivity-not-monitored");
+must(loader.includes("activeControllers")&&loader.includes("cancelAll"),"request-cancellation-missing");
+must(loader.includes("api.pruneCache(40)"),"cache-bound-missing");
+must(storage.includes("MAX_VALUE_LENGTH")&&storage.includes("value-too-large"),"storage-bound-missing");
+must(errors.includes("DataVersionChanged"),"version-error-unclassified");
+must(errors.includes("[redacted]"),"error-secret-redaction-missing");
+must(url.includes("u0000")&&url.includes("u001f"),"url-control-character-guard-missing");
+must(runtime.includes("api.assert"),"runtime-assert-missing");
+const out={schema_version:1,model:"production-hardening-validation-v1",status:issues.length?"failed":"passed",issue_count:issues.length,checks:12,issues,fail_closed:true};
+process.stdout.write(JSON.stringify(out,null,2)+"\n");if(issues.length)process.exitCode=1;
