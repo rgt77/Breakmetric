@@ -3,7 +3,7 @@ const root=process.cwd(),issues=[],warnings=[];
 const read=p=>fs.readFileSync(path.join(root,p),"utf8");
 const json=p=>JSON.parse(read(p));
 const exists=p=>fs.existsSync(path.join(root,p));
-const html=read("index.html");
+for(const tag of html.matchAll(/<[^>]+>/g)){if(tag[0].includes("${")||tag[0].includes("item."))continue;const names=[...tag[0].matchAll(/\\s([a-zA-Z_:][-\\w:.]*)\\s*=/g)].map(x=>x[1]);for(const n of new Set(names))if(names.filter(x=>x===n).length>1)issues.push("duplicate-html-attribute:"+n);}
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
 for(const id of new Set(ids))if(ids.filter(x=>x===id).length>1)issues.push("duplicate-html-id:"+id);
 for(const tag of html.matchAll(/<[^>]+>/g)){const names=[...tag[0].matchAll(/\s([a-zA-Z_:][-\w:.]*)\s*=/g)].map(x=>x[1]);for(const n of new Set(names))if(names.filter(x=>x===n).length>1)issues.push("duplicate-html-attribute:"+n);}
