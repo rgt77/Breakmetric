@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1309,
+  "title": "Mobile analysis actions",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      ".analysis-actions .ghost-button{flex:1 1 150px} present"
+    ]
+  }
+}
