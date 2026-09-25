@@ -36,10 +36,12 @@ for(const row of entries){
  if(row.canonical_ev_eligible===true)issues.push({task_id:row.task_id,code:"canonical-promotion-forbidden"});
 }
 const generatedAt=Date.parse(data.generated_at);if(data.generated_at!==null&&!Number.isFinite(generatedAt))issues.push({task_id:null,code:"generated-at-invalid"});
-if(data.product_id!==config.product_id)issues.push({task_id:null,code:"product-id-mismatch"});\nif(data.format_id!==config.format_id)issues.push({task_id:null,code:"format-id-mismatch"});
+if(data.product_id!==config.product_id)issues.push({task_id:null,code:"product-id-mismatch"});
+if(data.format_id!==config.format_id)issues.push({task_id:null,code:"format-id-mismatch"});
 if(data.schema_version!==1)issues.push({task_id:null,code:"schema-version-mismatch"});
 if(data.model!=="market-observations-v1")issues.push({task_id:null,code:"model-mismatch"});
 if(data.currency!=="USD")issues.push({task_id:null,code:"currency-root-mismatch"});
 if(Number.isFinite(generatedAt)){const latest=Math.max(...entries.map(x=>Date.parse(x.observed_at)).filter(Number.isFinite),0);if(latest&&generatedAt<latest)issues.push({task_id:null,code:"generated-before-observation"});}
 const summary={schema_version:1,model:"market-evidence-validation-v1",product_id:config.product_id,format_id:config.format_id,checked_at:new Date().toISOString(),observation_count:entries.length,issue_count:issues.length,status:issues.length?"failed":"passed",canonical_ev_mutated:false,fail_closed:true,coverage_count:entries.filter(x=>x.exact_identity===true&&x.status==="exact-current-price").length,issues};
-process.stdout.write(JSON.stringify(summary,null,2)+"\n");if(issues.length)process.exitCode=1;
+process.stdout.write(JSON.stringify(summary,null,2)+"
+");if(issues.length)process.exitCode=1;
