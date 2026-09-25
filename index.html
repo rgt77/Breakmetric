@@ -1158,7 +1158,7 @@
       </details>
 
       </div>
-      <p class="status"><b>BreakMetric v1.3.0</b> — probability analysis ready · EV/ROI beta.</p>
+      <p class="status"><b>BreakMetric v1.3.0</b> — probability analysis ready · EV and ROI remain beta.</p>
     </section>
   </main>
 
@@ -3045,7 +3045,7 @@
 
 
 
-    function updateFlowProgress(){if(!flowProgress)return;let step=1,label="Choose a release";if(currentProduct?.status==="ready"){step=2;label="Choose a box type";}if(selectedFormatConfig()?.status==="ready"){step=3;label="Choose a team";}if(team?.value){step=4;label="Optional player, then enter spot price";}if(Number(price?.value)>0){step=5;label="Review analysis";}flowProgress.innerHTML="<strong>Step "+step+" of 5</strong> · "+label;}
+    function updateFlowProgress(){if(!flowProgress)return;let step=1,label="Choose a release";if(currentProduct?.status==="ready"){step=2;label="Choose a box type";}if(selectedFormatConfig()?.status==="ready"){step=3;label="Choose a team";}if(team?.value){step=4;label="Optional player, then enter spot price";}if(Number(price?.value)>0){step=5;label="Review analysis";}flowProgress.replaceChildren();const strong=document.createElement("strong");strong.textContent="Step "+step+" of 5";flowProgress.append(strong,document.createTextNode(" · "+label));}
     function updateSelectionSummary(){if(!selectionSummary)return;const product=currentProduct?.display_name||currentProduct?.name||"Release";const format=selectedFormatConfig()?.name||"Box type";const t=team?.value||"Team";const player=selectedPlayer||"Any player";selectionSummary.textContent=[product,format,t,player].join(" → ");}
     function updateAnalysisContext() {
       updateSelectionSummary();
