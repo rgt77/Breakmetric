@@ -61,12 +61,20 @@ const sequence=Number(previous.sequence||0)+1;
 const runId=`collector-${now().replace(/[-:.]/g,"").replace("Z","Z")}-${sequence}`;
 const configFingerprint=hash({...config,credential:undefined});
 const batchSize=Number(config.fast_lane?.batch_size||20);
-const tasks=queue.tasks.slice(0,batchSize);
-const uniqueTasks=tasks.filter((task,index,array)=>array.findIndex(row=>row.task_id===task.task_id)===index);
-if(uniqueTasks.length!==tasks.length) fail("task-selection","Selected batch contains duplicate task IDs.");
 const fairnessCaps={team:Number(config.fast_lane?.priority_queue_max_tasks_per_team||3),subject:Number(config.fast_lane?.priority_queue_max_tasks_per_subject||2)};
 const fairnessCounts={team:{},subject:{}};
-for(const task of tasks){fairnessCounts.team[task.team]=(fairnessCounts.team[task.team]||0)+1;const subject=task.subject||"";fairnessCounts.subject[subject]=(fairnessCounts.subject[subject]||0)+1;}
+const tasks=[];
+for(const task of queue.tasks){
+  if(tasks.length>=batchSize) break;
+  const team=task.team||"",subject=task.subject||"";
+  if((fairnessCounts.team[team]||0)>=fairnessCaps.team) continue;
+  if(subject&&(fairnessCounts.subject[subject]||0)>=fairnessCaps.subject) continue;
+  tasks.push(task);
+  fairnessCounts.team[team]=(fairnessCounts.team[team]||0)+1;
+  if(subject) fairnessCounts.subject[subject]=(fairnessCounts.subject[subject]||0)+1;
+}
+const uniqueTasks=tasks.filter((task,index,array)=>array.findIndex(row=>row.task_id===task.task_id)===index);
+if(uniqueTasks.length!==tasks.length) fail("task-selection","Selected batch contains duplicate task IDs.");
 const taskClaims=Object.fromEntries(tasks.map(task=>[task.task_id,{run_id:runId,claimed_at:now(),status:"claimed"}]));
 const providerPolicy={min_request_interval_ms:Number(config.fast_lane?.min_request_interval_ms||1100),max_attempts:Number(config.retry?.max_attempts||3),retry_http_statuses:[...(config.retry?.retry_http_statuses||[])]};
 const qualityPolicy={min_price_usd:Number(config.quality?.min_price_usd||0.01),max_price_usd:Number(config.quality?.max_price_usd||1000000),exact_identity_required:config.safety?.exact_identity_required===true};
