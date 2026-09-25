@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1306,
+  "title": "Touch target minimums",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      "button,.ghost-button,input,select,summary{min-height:44px} present"
+    ]
+  }
+}
