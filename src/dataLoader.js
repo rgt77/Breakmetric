@@ -5,7 +5,8 @@
 
   const api={};
   const cache=new Map();
-  const inFlight=new Map();\n  const activeControllers=new Set();
+  const inFlight=new Map();
+  const activeControllers=new Set();
   const DEFAULT_VERSION_PATH="data/validation/runtime-data-version-v1.json";
   let currentVersion="unversioned";
   const metrics={
@@ -57,6 +58,7 @@
     assertPath(path);
     metrics.requests++;
     const controller=typeof AbortController!=="undefined" ? new AbortController() : null;
+    if(controller) activeControllers.add(controller);
     const timer=controller ? setTimeout(()=>controller.abort(),timeoutMs) : null;
     try{
       const requestUrl=versionedUrl(path,version);
@@ -97,10 +99,12 @@
       }
     }finally{
       if(timer) clearTimeout(timer);
+      if(controller) activeControllers.delete(controller);
     }
   }
 
-  api.cacheSize=()=>cache.size;\n  api.cancelAll=function(){for(const controller of activeControllers)controller.abort();activeControllers.clear();inFlight.clear();};
+  api.cacheSize=()=>cache.size;
+  api.cancelAll=function(){for(const controller of activeControllers)controller.abort();activeControllers.clear();inFlight.clear();};
   api.clearCache=()=>{cache.clear();metrics.cache_invalidations++;};
   api.pruneCache=function(maxEntries=40){const max=Math.max(1,Number(maxEntries)||40);while(cache.size>max){cache.delete(cache.keys().next().value);metrics.cache_invalidations++;}return cache.size;};
   api.isValidPath=validStaticJsonPath;
@@ -134,7 +138,7 @@
             maxBytes,
             version
           });
-          if(useCache) cache.set(key,data);
+          if(useCache){cache.set(key,data);api.pruneCache(40);}
           return data;
         }catch(error){
           const aborted=error?.name==="AbortError";
