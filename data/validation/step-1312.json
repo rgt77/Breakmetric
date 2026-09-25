@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "step": 1312,
+  "title": "Narrow result stacking",
+  "qa": {
+    "status": "pass",
+    "scope": "static-mobile",
+    "checks": [
+      "#breakMetricResult .result-grid{grid-template-columns:1fr} present"
+    ]
+  }
+}
