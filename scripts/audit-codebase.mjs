@@ -20,5 +20,4 @@ const loader=read("src/dataLoader.js");if(!loader.includes("api.pruneCache(40)")
 const ev=read("scripts/validate-ev-engine.mjs");const asserts=(ev.match(/assert\./g)||[]).length,declared=Number(ev.match(/checks:(\d+)/)?.[1]);if(declared!==asserts)issues.push("ev-test-count-mismatch:"+declared+"!="+asserts);
 for(const file of fs.readdirSync(path.join(root,"data/releases")).filter(x=>x.endsWith("-hobby.json"))){const d=json("data/releases/"+file);if(d.model!=="release-data-package-v1")continue;if(d.status==="ready"&&!Object.values(d.readiness||{}).every(Boolean))issues.push("premature-ready:"+file);for(const [k,p] of Object.entries(d.required_components||{}))if(d.readiness?.[k]===true&&!exists(p))issues.push("ready-component-missing:"+file+":"+k);}
 const out={schema_version:1,model:"codebase-audit-v1",status:issues.length?"failed":"passed",issue_count:issues.length,warning_count:warnings.length,issues,warnings};
-process.stdout.write(JSON.stringify(out,null,2)+"
-");if(issues.length)process.exitCode=1;
+process.stdout.write(JSON.stringify(out,null,2)+"\\n");if(issues.length)process.exitCode=1;
