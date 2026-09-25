@@ -7,7 +7,7 @@ const html=read("index.html");
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
 for(const id of new Set(ids))if(ids.filter(x=>x===id).length>1)issues.push("duplicate-html-id:"+id);
 for(const tag of html.matchAll(/<[^>]+>/g)){const names=[...tag[0].matchAll(/\s([a-zA-Z_:][-\w:.]*)\s*=/g)].map(x=>x[1]);for(const n of new Set(names))if(names.filter(x=>x===n).length>1)issues.push("duplicate-html-attribute:"+n);}
-for(const src of html.matchAll(/<script[^>]+src="([^"]+)"/g)){if(!/^https?:/.test(src[1])&&!exists(src[1]))issues.push("missing-script:"+src[1]);}
+for(const src of html.matchAll(/<script[^>]+src="([^"]+)"/g)){if(!/^https?:/.test(src[1])){const local=src[1].split("?")[0].split("#")[0];if(!exists(local))issues.push("missing-script:"+src[1]);}}
 const registry=json("data/releases/index.json"),releaseIds=new Set();
 for(const r of registry.releases||[]){if(releaseIds.has(r.id))issues.push("duplicate-release:"+r.id);releaseIds.add(r.id);if(!exists(r.formats_file))issues.push("missing-formats:"+r.id);for(const p of Object.values(r.collector_configs||{}))if(!exists(p))issues.push("missing-collector-config:"+p);}
 if(!releaseIds.has(registry.default_release_id))issues.push("missing-default-release");
