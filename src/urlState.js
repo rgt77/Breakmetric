@@ -9,7 +9,7 @@
     if(typeof value!=="string") return null;
     const trimmed=value.trim();
     if(!trimmed || trimmed.length>160) return null;
-    if(/[\\u0000-\\u001f\\u007f]/.test(trimmed)) return null;
+    if(/[\u0000-\u001f\u007f]/.test(trimmed)) return null;
     return trimmed;
   }
 
