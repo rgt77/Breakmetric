@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-23",
+  "generated_at": "2026-09-25",
   "model": "source-module-inventory-v1",
   "summary": {
-    "source_module_count": 25,
-    "runtime_module_count": 24,
+    "source_module_count": 30,
+    "runtime_module_count": 29,
     "ci_generator_count": 1,
     "unclassified_count": 0
   },
@@ -28,6 +28,11 @@
         "marketRecordIssues.js",
         "marketRecordQuality.js",
         "marketVerificationTasks.js",
+        "mobile.js",
+        "performance.js",
+        "productionGuard.js",
+        "releaseCatalog.js",
+        "resultsView.js",
         "runtimeContracts.js",
         "runtimeGuard.js",
         "selectionCoordinator.js",
