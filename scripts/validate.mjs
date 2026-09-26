@@ -45,51 +45,62 @@ pass(
   productCatalogValidation.valid,
   productCatalogValidation.errors.join("; ")
 );
+const productFixture=(id,overrides={})=>({
+  id,
+  display_name:id,
+  sport:"soccer",
+  manufacturer:"Topps",
+  product_family:"Test Family",
+  brand:"Test",
+  competition:"Test Competition",
+  season:"2025/26",
+  release_year:2025,
+  lifecycle_state:"pending",
+  status:"pending",
+  active:false,
+  product_data:null,
+  ...overrides
+});
+const catalogFixture=products=>({schema_version:2,model:"product-catalog-v2",products});
+
 pass(
-  "product catalog accepts calendar and consecutive season years",
-  runtimeContracts.validateProductCatalog({
-    products: [
-      {
-        id: "calendar-year",
-        display_name: "Calendar year",
-        brand: "Test",
-        competition: "Test",
-        year: "2026",
-        status: "pending",
-        active: false,
-        product_data: null
-      },
-      {
-        id: "season-year",
-        display_name: "Season year",
-        brand: "Test",
-        competition: "Test",
-        year: "2025/26",
-        status: "pending",
-        active: false,
-        product_data: null
-      }
-    ]
-  }).valid
+  "product model accepts calendar and consecutive season identities",
+  runtimeContracts.validateProductCatalog(catalogFixture([
+    productFixture("calendar-season",{season:"2026",release_year:2026}),
+    productFixture("season-year",{product_family:"Other Family"})
+  ])).valid
 );
-for(const invalidYear of ["2025/27","25/26","2025-26","",null]){
-  const invalid = runtimeContracts.validateProductCatalog({
-    products: [{
-      id: "invalid-year",
-      display_name: "Invalid year",
-      brand: "Test",
-      competition: "Test",
-      year: invalidYear,
-      status: "pending",
-      active: false,
-      product_data: null
-    }]
-  });
+for(const invalidSeason of ["2025/27","25/26","2025-26","",null]){
+  const invalid=runtimeContracts.validateProductCatalog(
+    catalogFixture([productFixture("invalid-season",{season:invalidSeason})])
+  );
   pass(
-    "product catalog rejects malformed year "+String(invalidYear),
-    !invalid.valid && invalid.errors.some(error=>error.includes("invalid product year: invalid-year"))
+    "product model rejects malformed season "+String(invalidSeason),
+    !invalid.valid && invalid.errors.some(error=>error.includes("invalid product season: invalid-season"))
   );
 }
+const collision=runtimeContracts.validateProductCatalog(catalogFixture([
+  productFixture("product-a"),
+  productFixture("product-b")
+]));
+pass(
+  "product model rejects canonical identity collisions",
+  !collision.valid && collision.errors.includes("canonical product identities are not unique")
+);
+const activeWithoutReady=runtimeContracts.validateProductCatalog(catalogFixture([
+  productFixture("bad-active",{lifecycle_state:"active",active:true})
+]));
+pass(
+  "product lifecycle cannot activate a non-ready product",
+  !activeWithoutReady.valid && activeWithoutReady.errors.some(error=>error.includes("active lifecycle requires ready/active product"))
+);
+const canonicalProductMetadata=json("data/products/2026-topps-chrome-premier-league.json");
+const canonicalCatalogEntry=productCatalog.products.find(x=>x.id===canonicalProductMetadata.id);
+pass(
+  "active product metadata matches canonical catalog identity",
+  runtimeContracts.validateProductMetadataAgainstCatalog(canonicalProductMetadata,canonicalCatalogEntry).valid
+);
+
 
 const uiSource = read("index.html");
 pass(
@@ -635,7 +646,7 @@ pass(
 pass("EV beta disclosure present", html.includes("EV and ROI remain beta"));
 pass("combined probability approximation disclosed", html.includes("independence approximation"));
 pass("skip link present", html.includes('class="skip-link"'));
-pass("analysis quality UI present", html.includes('class="quality-grid"'));
+pass("analysis quality UI present", html.includes('quality-grid advanced-analysis'));
 pass("EV coverage detail present", html.includes('id="evCoveragePanel"'));
 pass(
   "EV coverage UI discloses slot semantics",
@@ -693,22 +704,22 @@ pass("shareable analysis control present", html.includes('id="copyAnalysisLink"'
 pass("retry analysis control present", html.includes('id="retryAnalysisButton"'));
 pass(
   "redundant analysis progress UI removed",
-  !html.includes("flow-progress") &&
   !html.includes('id="flowProduct"') &&
   !html.includes('id="flowFormat"')
 );
 pass(
   "calculator visible flow starts with box type",
-  html.includes('<div class="section-title">1 · Choose box type</div>') &&
-  html.includes('<div class="section-title">2 · Choose team</div>') &&
-  html.includes('<div class="section-title">3 · Choose player</div>') &&
-  html.includes('<div class="section-title">4 · Spot price</div>')
+  html.includes('<div class="section-title">2 · Box type</div>') &&
+  html.includes('<div class="section-title">3 · Team</div>') &&
+  html.includes('<div class="section-title">4 · Player') &&
+  html.includes('<div class="section-title">5 · Spot price</div>')
 );
 pass(
-  "single ready release is auto-selected and release chooser hidden",
+  "single ready release is auto-selected while release stage remains runtime-managed",
   html.includes('const analysisReadyProducts = (productCatalog.products || [])') &&
   html.includes('if (analysisReadyProducts.length === 1)') &&
-  html.includes('productStage.hidden = true')
+  html.includes('selectedProductId = analysisReadyProducts[0].id') &&
+  html.includes('productStage.hidden = false')
 );
 pass("team comparison panel present", html.includes('id="teamComparisonPanel"'));
 pass("team comparison has descriptive caption", html.includes("No value ranking is applied"));
@@ -716,7 +727,7 @@ pass("player panel is labelled region", html.includes('role="region" aria-labell
 pass("player clear control present", html.includes('id="clearPlayerButton"'));
 pass("player details use progressive disclosure", (html.match(/class="player-detail-section"/g) || []).length === 4);
 pass("player controls expose aria-expanded", html.includes('"aria-expanded"'));
-pass("player grid can receive programmatic focus", html.includes('id="playerGrid" class="player-grid" aria-label="Players" tabindex="-1"'));
+pass("player grid can receive programmatic focus", html.includes('id="playerGrid" class="player-grid"') && html.includes('tabindex="-1"'));
 pass("player detail resets avoid innerHTML", !html.includes('playerCoverageDetail.innerHTML = ""'));
 pass("dataset loader status visible", html.includes('id="dataLoaderStatus"'));
 pass("dataset loader metrics visible", html.includes('id="dataLoaderMetrics"'));

@@ -4,10 +4,10 @@ import fs from "node:fs";
 const html=fs.readFileSync("index.html","utf8");
 const headers=fs.readFileSync("_headers","utf8");
 
-const boxIndex=html.indexOf("1 · Choose box type");
-const teamIndex=html.indexOf("2 · Choose team");
-const playerIndex=html.indexOf("3 · Choose player");
-const priceIndex=html.indexOf("4 · Spot price");
+const boxIndex=html.indexOf("2 · Box type");
+const teamIndex=html.indexOf("3 · Team");
+const playerIndex=html.indexOf("4 · Player");
+const priceIndex=html.indexOf("5 · Spot price");
 
 assert.ok(boxIndex>=0,"box type step missing");
 assert.ok(teamIndex>boxIndex,"team step must follow box type");
@@ -16,8 +16,13 @@ assert.ok(priceIndex>playerIndex,"spot price must follow player");
 
 assert.match(
   html,
+  /<div id="productStage">/,
+  "release/product stage must exist"
+);
+assert.doesNotMatch(
+  html,
   /#productStage\{display:none!important\}/,
-  "release/product chooser must stay hidden"
+  "release/product stage must not be permanently hidden by CSS"
 );
 assert.doesNotMatch(
   html,

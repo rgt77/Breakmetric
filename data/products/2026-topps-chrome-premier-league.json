@@ -2,7 +2,7 @@
   "id": "2026-topps-chrome-premier-league",
   "name": "2026 Topps Chrome Premier League",
   "manufacturer": "Topps",
-  "sport": "Football",
+  "sport": "soccer",
   "release_date": "2026-02-05",
   "base_set": {
     "standard_cards": 200,
@@ -113,5 +113,9 @@
     "manufacturer": "Topps",
     "competition": "Premier League",
     "policy": "Exact product family must match before card/player/parallel/serial evidence can qualify. Plain Topps Premier League is a different product family from Topps Chrome Premier League."
-  }
+  },
+  "product_family": "Topps Chrome Soccer",
+  "season": "2025/26",
+  "release_year": 2026,
+  "lifecycle_state": "active"
 }
