@@ -535,6 +535,15 @@
       "coverage_quality": "exact-manifest"
     },
     {
+      "start": 891,
+      "end": 893,
+      "id": "historical-gap-891-893",
+      "title": "Historical step gap preserved explicitly",
+      "source_kind": "ledger-anomaly",
+      "coverage_quality": "unverified-history",
+      "note": "No source manifests are present for steps 891-893. The gap is recorded explicitly rather than silently reassigning or fabricating historical work."
+    },
+    {
       "start": 894,
       "end": 903,
       "id": "mobile-calculator-ux-refinement",
@@ -1115,150 +1124,214 @@
       "end": 1024,
       "id": "phase-20-collector-runner",
       "title": "Phase 20 · Production collector runner",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1000.json..data/validation/step-1024.json",
-      "coverage_quality": "per-step-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1000,
+        "end": 1024
+      }
     },
     {
       "start": 1025,
       "end": 1049,
       "id": "phase-21-market-evidence-pipeline",
       "title": "Phase 21 · Market evidence pipeline",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1025.json..data/validation/step-1049.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1025,
+        "end": 1049
+      }
     },
     {
       "start": 1050,
       "end": 1074,
       "id": "phase-22-ev-engine",
       "title": "Phase 22 · EV engine",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1050.json..data/validation/step-1074.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1050,
+        "end": 1074
+      }
     },
     {
       "start": 1075,
       "end": 1099,
       "id": "phase-23-reference-release",
       "title": "Phase 23 · First reference release integrity",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1075.json..data/validation/step-1099.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "Structural/data-contract completeness only; market valuation completeness remains evidence-gated."
+      "note": "Structural/data-contract completeness only; market valuation completeness remains evidence-gated.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1075,
+        "end": 1099
+      }
     },
     {
       "start": 1100,
       "end": 1124,
       "id": "phase-24-multi-series-architecture",
       "title": "Phase 24 · Multi-series architecture",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1100.json..data/validation/step-1124.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1100,
+        "end": 1124
+      }
     },
     {
       "start": 1125,
       "end": 1149,
       "id": "phase-25-release-2",
       "title": "Phase 25 · Release #2 onboarding",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1125.json..data/validation/step-1149.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "2025/26 Topps Premier League registered and scaffolded from official Topps metadata; checklist/odds ingestion remains fail-closed and release stays pending."
+      "note": "2025/26 Topps Premier League registered and scaffolded from official Topps metadata; checklist/odds ingestion remains fail-closed and release stays pending.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1125,
+        "end": 1149
+      }
     },
     {
       "start": 1150,
       "end": 1174,
       "id": "phase-26-release-3-scale",
       "title": "Phase 26 · Release #3 + multi-release scale test",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1150.json..data/validation/step-1174.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "Three releases coexist with isolated namespaces. Releases #2/#3 remain pending source ingestion and cannot be analyzed until their data packages become ready."
+      "note": "Three releases coexist with isolated namespaces. Releases #2/#3 remain pending source ingestion and cannot be analyzed until their data packages become ready.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1150,
+        "end": 1174
+      }
     },
     {
       "start": 1175,
       "end": 1199,
       "id": "phase-27-frontend-ux",
       "title": "Phase 27 · Multi-release frontend / UX",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1175.json..data/validation/step-1199.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1175,
+        "end": 1199
+      }
     },
     {
       "start": 1200,
       "end": 1224,
       "id": "phase-28-results-view",
       "title": "Phase 28 · Results view",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1200.json..data/validation/step-1224.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "BreakMetric Analysis result contract with fail-closed EV/ROI, probability, expected hits, break-even, risk and data coverage."
+      "note": "BreakMetric Analysis result contract with fail-closed EV/ROI, probability, expected hits, break-even, risk and data coverage.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1200,
+        "end": 1224
+      }
     },
     {
       "start": 1225,
       "end": 1249,
       "id": "phase-29-release-automation",
       "title": "Phase 29 · Release automation",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1225.json..data/validation/step-1249.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1225,
+        "end": 1249
+      }
     },
     {
       "start": 1250,
       "end": 1274,
       "id": "phase-30-data-quality",
       "title": "Phase 30 · Data quality",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1250.json..data/validation/step-1274.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1250,
+        "end": 1274
+      }
     },
     {
       "start": 1275,
       "end": 1299,
       "id": "phase-31-performance",
       "title": "Phase 31 · Performance",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1275.json..data/validation/step-1299.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1275,
+        "end": 1299
+      }
     },
     {
       "start": 1300,
       "end": 1324,
       "id": "phase-32-mobile-responsive",
       "title": "Phase 32 · Mobile + responsiveness",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1300.json..data/validation/step-1324.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1300,
+        "end": 1324
+      }
     },
     {
       "start": 1325,
       "end": 1349,
       "id": "phase-33-production-hardening",
       "title": "Phase 33 · Production hardening",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1325.json..data/validation/step-1349.json",
-      "coverage_quality": "per-step-static-qa"
+      "source_kind": "step-range",
+      "coverage_quality": "per-step-static-qa",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1325,
+        "end": 1349
+      }
     },
     {
       "start": 1350,
       "end": 1374,
       "id": "phase-34-full-system-qa",
       "title": "Phase 34 · Full system QA",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1350.json..data/validation/step-1374.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "End-to-end static integration contracts verified; live browser/provider execution remains separately gated."
+      "note": "End-to-end static integration contracts verified; live browser/provider execution remains separately gated.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1350,
+        "end": 1374
+      }
     },
     {
       "start": 1375,
       "end": 1399,
       "id": "phase-35-launch-readiness",
       "title": "Phase 35 · Launch readiness",
-      "source_kind": "step-manifests",
-      "source": "data/validation/step-1375.json..data/validation/step-1399.json",
+      "source_kind": "step-range",
       "coverage_quality": "per-step-static-qa",
-      "note": "Launch gate is intentionally blocked until live provider collection, browser/device E2E, and collector freshness are verified."
+      "note": "Launch gate is intentionally blocked until live provider collection, browser/device E2E, and collector freshness are verified.",
+      "source_range": {
+        "pattern": "data/validation/step-{step}.json",
+        "start": 1375,
+        "end": 1399
+      }
     }
   ],
   "historical_anomalies": [
