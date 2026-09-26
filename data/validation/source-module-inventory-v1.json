@@ -3,8 +3,8 @@
   "generated_at": "2026-09-25",
   "model": "source-module-inventory-v1",
   "summary": {
-    "source_module_count": 30,
-    "runtime_module_count": 29,
+    "source_module_count": 31,
+    "runtime_module_count": 30,
     "ci_generator_count": 1,
     "unclassified_count": 0
   },
@@ -14,6 +14,7 @@
       "files": [
         "analysisProvenance.js",
         "analysisQuality.js",
+        "checklistEngine.js",
         "dataFreshness.js",
         "dataLoader.js",
         "errorModel.js",
