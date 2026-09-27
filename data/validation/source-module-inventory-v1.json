@@ -3,8 +3,8 @@
   "generated_at": "2026-09-25",
   "model": "source-module-inventory-v1",
   "summary": {
-    "source_module_count": 31,
-    "runtime_module_count": 30,
+    "source_module_count": 32,
+    "runtime_module_count": 31,
     "ci_generator_count": 1,
     "unclassified_count": 0
   },
@@ -41,7 +41,8 @@
         "storage.js",
         "teamComparison.js",
         "teamReadiness.js",
-        "urlState.js"
+        "urlState.js",
+        "variantModel.js"
       ]
     },
     "ci_generator": {
