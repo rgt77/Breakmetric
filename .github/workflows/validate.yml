@@ -85,6 +85,8 @@ jobs:
           node --check scripts/lib/market-automation.mjs
           node --check scripts/lib/ev-slot-inventory.mjs
           node --check scripts/lib/collector-telemetry.mjs
+      - name: Test canonical variant model
+        run: node scripts/test-variant-model.mjs
       - name: Check runtime data fingerprint
         run: node scripts/generate-data-version.mjs --check
       - name: Validate market records
