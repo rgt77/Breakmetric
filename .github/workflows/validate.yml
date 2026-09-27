@@ -89,6 +89,10 @@ jobs:
         run: node scripts/test-variant-model.mjs
       - name: Test canonical odds engine
         run: node scripts/test-odds-engine.mjs
+      - name: Test odds-checklist referential integrity
+        run: node scripts/test-odds-checklist-link.mjs
+      - name: Test legacy-to-canonical identity migration
+        run: node scripts/test-legacy-identity-bridge.mjs
       - name: Check runtime data fingerprint
         run: node scripts/generate-data-version.mjs --check
       - name: Validate market records
