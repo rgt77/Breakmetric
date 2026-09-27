@@ -10,7 +10,8 @@ api.resolve=function(row={},context={}){
  const hobby=row.hobby||{};
  if(!clean(hobby.parallel_odds_per_pack)) errors.push("legacy odds missing");
  if(errors.length)return Object.freeze({valid:false,errors:Object.freeze(errors)});
- if(!root.BreakMetricVariants?.normalize||!root.BreakMetricOdds?.normalize||!root.BreakMetricOddsChecklist?.link)return Object.freeze({valid:false,errors:Object.freeze(["canonical identity dependencies unavailable"])});\n const card=matches[0];
+ if(!root.BreakMetricVariants?.normalize||!root.BreakMetricOdds?.normalize||!root.BreakMetricOddsChecklist?.link)return Object.freeze({valid:false,errors:Object.freeze(["canonical identity dependencies unavailable"])});
+ const card=matches[0];
  const variant=root.BreakMetricVariants.normalize({parallel:row.parallel,serial_numbering:printRun,autograph:clean(row.set).toLowerCase().includes("autograph")},{product_id:card.product_id,card_id:card.card_id});
  const odds=root.BreakMetricOdds.normalize({odds:hobby.parallel_odds_per_pack,opportunities_per_case:Number(hobby.packs_per_case),eligible_subjects:Number(hobby.eligible_base_cards),source_kind:"legacy-derived",assumption:clean(row.assumption)},{product_id:card.product_id,format_id:clean(context.format_id)||"hobby",variant_id:variant.variant_id});
  const link=root.BreakMetricOddsChecklist.link({odds,card,variant,format_id:clean(context.format_id)||"hobby"});
