@@ -1,0 +1,12 @@
+import fs from "node:fs";import vm from "node:vm";
+const sandbox={console};sandbox.globalThis=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync("src/variantModel.js","utf8"),sandbox);
+const V=sandbox.BreakMetricVariants,p="2026-topps-chrome-premier-league",c="2026-topps-chrome-premier-league::base::68";
+const gold=V.normalize({parallel:"Gold Refractor",serial_numbering:50},{product_id:p,card_id:c});
+const wave=V.normalize({parallel:"Gold Wave Refractor",serial_numbering:50},{product_id:p,card_id:c});
+const auto=V.normalize({parallel:"Gold Refractor",serial_numbering:50,autograph:true},{product_id:p,card_id:c});
+if(!gold.valid||!wave.valid||!auto.valid)throw new Error("valid variants rejected");
+if(new Set([gold.variant_id,wave.variant_id,auto.variant_id]).size!==3)throw new Error("parallel/autograph collision");
+if(V.normalize({parallel:"Gold Refractor",serial_numbering:0},{product_id:p,card_id:c}).valid)throw new Error("invalid print run accepted");
+if(V.normalize({product_id:"wrong",parallel:"Gold Refractor"},{product_id:p,card_id:c}).valid)throw new Error("wrong product accepted");
+if(V.validateSet([{parallel:"Gold Refractor",serial_numbering:50},{parallel:"Gold Refractor",serial_numbering:50}],{product_id:p,card_id:c}).valid)throw new Error("duplicate variant accepted");
+console.log(JSON.stringify({result:"pass",checks:["parallel collision protection","autograph separation","serial validation","product/card scope","duplicate rejection"],ids:[gold.variant_id,wave.variant_id,auto.variant_id]},null,2));
