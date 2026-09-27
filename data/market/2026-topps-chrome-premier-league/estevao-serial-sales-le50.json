@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "product_id": "2026-topps-chrome-premier-league",
+  "player": "Estêvão Willian",
+  "scope": {
+    "serial_number_max": 50,
+    "note": "Only documented realized sales for serial-numbered cards /50 or scarcer. Exact product only."
+  },
+  "sales": [
+    {
+      "card_number": "68",
+      "set": "Base Cards",
+      "parallel": "Gold Refractor",
+      "print_run": 50,
+      "serial_copy": "10/50",
+      "sale_date": "2026-04-01",
+      "sale_price": 834,
+      "currency": "USD",
+      "marketplace": "eBay",
+      "evidence_status": "secondary-source-realized-sale",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-gold-refractor-68"
+    },
+    {
+      "card_number": "68",
+      "set": "Base Cards",
+      "parallel": "Gold Refractor",
+      "print_run": 50,
+      "serial_copy": null,
+      "sale_date": "2026-02-10",
+      "sale_price": 685,
+      "currency": "USD",
+      "marketplace": "eBay",
+      "evidence_status": "secondary-source-realized-sale",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league/estevao-willian-gold-refractor-68"
+    },
+    {
+      "card_number": "CA-EV",
+      "set": "Chrome Autograph Cards",
+      "parallel": "Gold Refractor",
+      "print_run": 50,
+      "serial_copy": "34/50",
+      "sale_date": "2026-02-15",
+      "sale_price": 2800,
+      "currency": "USD",
+      "marketplace": "eBay",
+      "evidence_status": "secondary-source-realized-sale",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev"
+    },
+    {
+      "card_number": "CA-EV",
+      "set": "Chrome Autograph Cards",
+      "parallel": "Gold Refractor",
+      "print_run": 50,
+      "serial_copy": "14/50",
+      "sale_date": "2026-02-07",
+      "sale_price": 2000,
+      "currency": "USD",
+      "marketplace": "eBay",
+      "evidence_status": "secondary-source-realized-sale",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-autograph/estevao-willian-gold-refractor-ca-ev"
+    },
+    {
+      "card_number": "68",
+      "set": "Base Cards",
+      "parallel": "Gold Logofractor",
+      "print_run": 50,
+      "serial_copy": null,
+      "sale_date": "2026-07-04",
+      "sale_price": 215.67,
+      "currency": "GBP",
+      "marketplace": "eBay",
+      "evidence_status": "original-marketplace-verified",
+      "source_reference": "https://www.ebay.com/itm/389807198548"
+    },
+    {
+      "card_number": "LI-15",
+      "set": "Locked In",
+      "parallel": "Black",
+      "print_run": 10,
+      "serial_copy": null,
+      "sale_date": null,
+      "sale_price": 760,
+      "currency": "USD",
+      "marketplace": "eBay",
+      "evidence_status": "secondary-source-realized-sale",
+      "source_reference": "https://www.sportscardspro.com/game/soccer-cards-2026-topps-chrome-premier-league-locked-in/estevao-willian-black-li-15"
+    }
+  ]
+}
