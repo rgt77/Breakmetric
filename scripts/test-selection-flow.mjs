@@ -48,8 +48,8 @@ assert.match(
 
 console.log(JSON.stringify({
   result:"pass",
-  flow:["box-type","team","player","spot-price"],
-  release_stage_visible:false,
+  flow:["release","box-type","team","player","spot-price"],
+  release_stage_visible:true,
   redundant_context_visible:false,
   root_html_cache:"no-store"
 },null,2));
