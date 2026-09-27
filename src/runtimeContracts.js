@@ -46,73 +46,85 @@
     const errors=[],warnings=[];
     const products=catalog.products;
 
+    if(catalog.schema_version!==2 || catalog.model!=="product-catalog-v2"){
+      errors.push("product catalog schema/model mismatch");
+    }
     if(!Array.isArray(products) || !products.length){
       errors.push("product catalog has no products");
       return result(errors,warnings);
     }
 
     const allowedStatuses=new Set(["ready","pending"]);
-    const ids=[];
-    let readyCount=0;
-    let pendingCount=0;
+    const allowedLifecycle=new Set(["pending","validated","analysis-ready","active"]);
+    const ids=[],identities=[];
+    let readyCount=0,pendingCount=0;
 
     for(const product of products){
       if(typeof product?.id!=="string" || !product.id){
         errors.push("product id missing");
         continue;
       }
-
       ids.push(product.id);
 
-      if(!allowedStatuses.has(product.status)){
-        errors.push("invalid product status: "+product.id);
+      for(const key of ["display_name","sport","manufacturer","product_family","competition","season"]){
+        if(typeof product[key]!=="string" || !product[key].trim()){
+          errors.push("product "+key+" missing: "+product.id);
+        }
       }
 
-      if(typeof product.display_name!=="string" || !product.display_name){
-        errors.push("product display_name missing: "+product.id);
+      const releaseYear=Number(product.release_year);
+      if(!Number.isInteger(releaseYear) || releaseYear<1900 || releaseYear>2200){
+        errors.push("invalid product release_year: "+product.id);
       }
-      if(typeof product.brand!=="string" || !product.brand){
-        errors.push("product brand missing: "+product.id);
-      }
-      if(typeof product.competition!=="string" || !product.competition){
-        errors.push("product competition missing: "+product.id);
+      const season=String(product.season||"");
+      const seasonMatch=/^(\d{4})\/(\d{2})$/.exec(season);
+      if(seasonMatch){
+        const startYear=Number(seasonMatch[1]),endYear=Number(seasonMatch[2]);
+        if(endYear!==(startYear+1)%100) errors.push("invalid product season: "+product.id);
+      }else if(!/^\d{4}$/.test(season)){
+        errors.push("invalid product season: "+product.id);
       }
 
-      const year=Number(product.year);
-      if(!Number.isInteger(year) || year<1900 || year>2200){
-        errors.push("invalid product year: "+product.id);
+      if(!allowedStatuses.has(product.status)) errors.push("invalid product status: "+product.id);
+      if(!allowedLifecycle.has(product.lifecycle_state)) errors.push("invalid product lifecycle_state: "+product.id);
+
+      const identity=[
+        String(product.sport||"").toLowerCase(),
+        String(product.manufacturer||"").toLowerCase(),
+        String(product.product_family||"").toLowerCase(),
+        String(product.competition||"").toLowerCase(),
+        season.toLowerCase(),
+        String(product.release_year||"")
+      ].join("::");
+      identities.push(identity);
+
+      if(product.lifecycle_state==="active" && (product.status!=="ready" || product.active!==true)){
+        errors.push("active lifecycle requires ready/active product: "+product.id);
+      }
+      if(product.active===true && product.lifecycle_state!=="active"){
+        errors.push("active product requires active lifecycle_state: "+product.id);
       }
 
       if(product.status==="ready"){
         readyCount++;
-        if(product.active!==true){
-          warnings.push("ready product is not active: "+product.id);
-        }
         for(const key of ["product_data","format_data","integrity_data"]){
-          if(typeof product[key]!=="string" || !product[key]){
-            errors.push("ready product "+product.id+" lacks "+key);
-          }
+          if(typeof product[key]!=="string" || !product[key]) errors.push("ready product "+product.id+" lacks "+key);
         }
-      }
-
-      if(product.status==="pending"){
+      }else{
         pendingCount++;
-        if(product.active===true){
-          warnings.push("pending product is marked active: "+product.id);
-        }
-        if(product.integrity_data){
-          warnings.push("pending product has integrity_data: "+product.id);
-        }
+        if(product.active===true) errors.push("pending product is marked active: "+product.id);
       }
     }
 
     if(!uniqueStrings(ids)) errors.push("product ids are not unique");
+    if(!uniqueStrings(identities)) errors.push("canonical product identities are not unique");
     if(!readyCount) warnings.push("product catalog has no ready products");
 
     return result(errors,warnings,{
       product_count:products.length,
       ready_product_count:readyCount,
-      pending_product_count:pendingCount
+      pending_product_count:pendingCount,
+      canonical_identity_count:new Set(identities).size
     });
   };
 
@@ -136,7 +148,7 @@
       errors.push("product metadata id differs from catalog entry");
     }
 
-    for(const key of ["display_name","brand","competition","year"]){
+    for(const key of ["display_name","sport","manufacturer","product_family","competition","season","release_year","lifecycle_state"]){
       if(String(metadata?.[key] ?? "")!==String(catalogEntry?.[key] ?? "")){
         errors.push("product metadata "+key+" differs from catalog entry");
       }
