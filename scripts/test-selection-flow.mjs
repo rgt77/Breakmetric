@@ -4,10 +4,10 @@ import fs from "node:fs";
 const html=fs.readFileSync("index.html","utf8");
 const headers=fs.readFileSync("_headers","utf8");
 
-const boxIndex=html.indexOf("2 · Box type");
+const boxIndex=html.indexOf("2 · Choose box");
 const teamIndex=html.indexOf("3 · Team");
 const playerIndex=html.indexOf("4 · Player");
-const priceIndex=html.indexOf("5 · Spot price");
+const priceIndex=html.indexOf("5 · Enter your spot price");
 
 assert.ok(boxIndex>=0,"box type step missing");
 assert.ok(teamIndex>boxIndex,"team step must follow box type");
