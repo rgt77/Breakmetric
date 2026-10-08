@@ -605,6 +605,30 @@
       button,.product-card,.format-card,.team-card,.player-card,.ghost-button{touch-action:manipulation}
     }
 
+    /* Result-first UX: keep the decision path visually dominant. */
+    .flow-intro{font-size:.95rem}
+    .result-heading{font-size:.9rem;margin-top:22px}
+    #analysisContent > .advanced-analysis{order:90}
+    #analysisContent > .browse-search,
+    #analysisContent > .team-grid,
+    #analysisContent > .player-browser,
+    #analysisContent > .spot-toolbar,
+    #analysisContent > .result-heading,
+    #analysisContent > .primary-results,
+    #analysisContent > #evCoverage{order:10}
+    .primary-results .result{min-height:92px}
+    @media(max-width:760px){
+      .hero{padding-bottom:8px}
+      .hero h1{font-size:clamp(2.45rem,13vw,4rem)}
+      .flow-intro{margin-bottom:14px!important}
+      .product-search-wrap{display:none}
+      .product-grid,.format-grid{margin-top:6px}
+      .format-status{margin-bottom:10px}
+      .primary-results{grid-template-columns:1fr 1fr}
+      .primary-results .result{min-height:80px}
+    }
+    @media(max-width:420px){.primary-results{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -616,20 +640,17 @@
 
   <main>
     <section class="hero">
-      <h1>Know the odds.<br>Find the value.</h1>
-      <p class="lead">
-        BreakMetric compares sports card case-break spots using published odds,
-        checklists, market values and expected value.
-      </p>
+      <h1>Is the spot worth it?</h1>
+      <p class="lead">Pick the break, team and price. BreakMetric shows the useful result first — hit chance, available EV and ROI readiness — with the technical evidence one tap away.</p>
 
     </section>
 
     <section class="tool" id="analysisTool">
-      <h2>Spot value calculator</h2>
-      <p>Choose a release, box type, team and optional player, then enter the spot price.</p>
+      <h2>Analyze a break spot</h2>
+      <p class="flow-intro">Release → box → team → price. Player is optional.</p>
 
       <div id="productStage">
-        <div class="section-title">1 · Release</div>
+        <div class="section-title">1 · Choose release</div>
         <div class="browse-search product-search-wrap" style="margin-top:0">
           <label for="productSearch">Search product / release</label>
           <input
@@ -649,7 +670,7 @@
       </div>
 
       <div id="formatStage">
-        <div class="section-title">2 · Box type</div>
+        <div class="section-title">2 · Choose box</div>
         <div id="formatGrid" class="format-grid" aria-label="Box types" aria-describedby="formatStatus"></div>
         <div id="formatStatus" class="format-status" aria-live="polite">
           Select a product first.
@@ -921,11 +942,11 @@
             aria-label="Selected team data readiness"
           ></div>
         </div>
-        <div class="section-title">4 · Player <span style="font-weight:600;color:var(--muted)">· optional</span></div>
+        <div class="section-title">4 · Player <span style="font-weight:600;color:var(--muted)">· optional — skip for team result</span></div>
         <div id="playerGrid" class="player-grid" aria-label="Players" aria-describedby="searchStatus" tabindex="-1"></div>
       </div>
 
-      <div class="section-title">5 · Spot price</div>
+      <div class="section-title">5 · Enter your spot price</div>
 
       <div class="spot-toolbar">
         <div class="spot-control">
@@ -956,7 +977,7 @@
         </div>
       </div>
 
-      <div class="section-title">6 · Analysis <span style="font-weight:600;color:var(--muted)">· EV beta</span></div>
+      <div class="section-title result-heading">Your result <span style="font-weight:600;color:var(--muted)">· evidence-gated</span></div>
 
       <div class="results primary-results">
         <div class="result">
@@ -977,7 +998,7 @@
         </div>
       </div>
       <div id="evCoverage" style="margin-top:10px;font-size:.82rem;color:var(--muted)">Loading EV coverage…</div>
-      <details class="details-panel" id="evCoveragePanel">
+      <details class="details-panel advanced-analysis" id="evCoveragePanel">
         <summary>EV coverage detail</summary>
         <div class="player-card-list">
           <div class="player-data-row">
@@ -1003,7 +1024,7 @@
         </div>
       </details>
 
-      <details class="details-panel" id="evWorkPanel">
+      <details class="details-panel advanced-analysis" id="evWorkPanel">
         <summary>EV work queue</summary>
         <div class="player-card-list">
           <div class="player-data-row">
