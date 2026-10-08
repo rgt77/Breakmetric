@@ -709,10 +709,10 @@ pass(
 );
 pass(
   "calculator visible flow starts with box type",
-  html.includes('<div class="section-title">2 · Box type</div>') &&
+  html.includes('<div class="section-title">2 · Choose box</div>') &&
   html.includes('<div class="section-title">3 · Team</div>') &&
   html.includes('<div class="section-title">4 · Player') &&
-  html.includes('<div class="section-title">5 · Spot price</div>')
+  html.includes('<div class="section-title">5 · Enter your spot price</div>')
 );
 pass(
   "single ready release is auto-selected while release stage remains runtime-managed",
